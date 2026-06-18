@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
+import 'package:tafsir/common/ui/preview.dart';
 
 class AppCard extends StatelessWidget {
   const AppCard({
@@ -37,7 +38,7 @@ class AppCard extends StatelessWidget {
           .new(
             blurRadius: 4,
             offset: .new(0, 2),
-            color: Color(0x54A0A0A0),
+            color: Color(0x14A0A0A0),
             blurStyle: .outer,
           ),
         ],
@@ -47,33 +48,26 @@ class AppCard extends StatelessWidget {
   }
 }
 
-final class AppCardPreview extends Preview {
-  const AppCardPreview({super.name});
-
-  @override
-  Preview transform() {
-    final builder = super.transform().toBuilder();
-    builder.size = .new(400, 150);
-    return builder.build();
-  }
-}
-
-@AppCardPreview(name: 'light')
-Widget previewLight() => Card(
-  color: Colors.white,
-  child: Padding(
-    padding: const EdgeInsets.all(18.0),
-    child: const AppCard(theme: .light, child: Placeholder()),
-  ),
+@Preview(group: 'AppCard', name: 'Light')
+Widget previewLight() => sizedWrapper(
+  const AppCard(theme: .light, child: Placeholder()),
+  color: bgPrimaryLight,
 );
 
-@AppCardPreview(name: 'dark')
-Widget previewDark() => const AppCard(theme: .dark, child: Placeholder());
+@Preview(group: 'AppCard', name: 'Dark')
+Widget previewDark() => sizedWrapper(
+  const AppCard(theme: .dark, child: Placeholder()),
+  color: bgPrimaryDark,
+);
 
-@AppCardPreview(name: 'brown light')
-Widget previewBrownLight() =>
-    const AppCard(theme: .brownLight, child: Placeholder());
+@Preview(group: 'AppCard', name: 'Brown Light')
+Widget previewBrownLight() => sizedWrapper(
+  const AppCard(theme: .brownLight, child: Placeholder()),
+  color: bgPrimaryBrownLight,
+);
 
-@AppCardPreview(name: 'brown dark')
-Widget previewBrownDark() =>
-    const AppCard(theme: .brownDark, child: Placeholder());
+@Preview(group: 'AppCard', name: 'Brown Dark')
+Widget previewBrownDark() => sizedWrapper(
+  const AppCard(theme: .brownDark, child: Placeholder()),
+  color: bgPrimaryBrownDark,
+);
