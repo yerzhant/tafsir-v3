@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tafsir/common/ui/app_theme.dart';
 
 Widget wrapper(Widget child) => Card(
-  color: Colors.white,
+  color: bgPrimaryLight,
   child: Padding(padding: const .all(20), child: child),
 );
 

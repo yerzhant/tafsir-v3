@@ -4,10 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/preview.dart';
 
-enum EllipseSize { small, normal }
+enum CircleCardSize { small, normal }
 
-class Ellipse extends StatelessWidget {
-  const Ellipse({
+class CircleCard extends StatelessWidget {
+  const CircleCard({
     super.key,
     this.size = .normal,
     required this.theme,
@@ -15,7 +15,7 @@ class Ellipse extends StatelessWidget {
   });
 
   final AppTheme theme;
-  final EllipseSize size;
+  final CircleCardSize size;
   final Widget child;
 
   @override
@@ -52,9 +52,9 @@ class Ellipse extends StatelessWidget {
   }
 }
 
-@Preview(group: 'Ellipse', name: 'Light Normal', wrapper: wrapper)
-Widget previewLightNormal() => const Ellipse(theme: .light, child: Text('1'));
+@Preview(group: 'CircleCard', name: 'Light Normal', wrapper: wrapper)
+Widget previewLightNormal() => const CircleCard(theme: .light, child: Text('1'));
 
-@Preview(group: 'Ellipse', name: 'Light Small', wrapper: wrapper)
+@Preview(group: 'CircleCard', name: 'Light Small', wrapper: wrapper)
 Widget previewLightSmall() =>
-    const Ellipse(theme: .light, size: .small, child: Text('1'));
+    const CircleCard(theme: .light, size: .small, child: Text('1'));
