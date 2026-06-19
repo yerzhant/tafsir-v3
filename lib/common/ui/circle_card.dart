@@ -25,11 +25,20 @@ class CircleCard extends StatelessWidget {
       .normal => 38.0,
     };
 
-    final bgColor = switch (theme) {
-      .light => bgTertiraryLight,
-      .dark => bgTertiraryDark,
-      .brownLight => bgTertiraryBrownLight,
-      .brownDark => bgTertiraryBrownDark,
+    final bgColor = switch (size) {
+      .small => switch (theme) {
+        .light => bgContainerLight,
+        .dark => bgContainerDark,
+        .brownLight => bgContainerBrownLight,
+        .brownDark => bgContainerBrownDark,
+      },
+
+      .normal => switch (theme) {
+        .light => bgTertiraryLight,
+        .dark => bgTertiraryDark,
+        .brownLight => bgTertiraryBrownLight,
+        .brownDark => bgTertiraryBrownDark,
+      },
     };
 
     return Container(
@@ -53,7 +62,8 @@ class CircleCard extends StatelessWidget {
 }
 
 @Preview(group: 'CircleCard', name: 'Light Normal', wrapper: wrapper)
-Widget previewLightNormal() => const CircleCard(theme: .light, child: Text('1'));
+Widget previewLightNormal() =>
+    const CircleCard(theme: .light, child: Text('1'));
 
 @Preview(group: 'CircleCard', name: 'Light Small', wrapper: wrapper)
 Widget previewLightSmall() =>

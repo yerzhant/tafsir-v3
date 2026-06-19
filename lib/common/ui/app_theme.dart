@@ -16,3 +16,8 @@ const bgTertiraryLight = Color(0x33FFFFFF);
 const bgTertiraryDark = Color(0xFF1678A6);
 const bgTertiraryBrownLight = Color(0xFFFFF9F0);
 const bgTertiraryBrownDark = Color(0xFF5C4138);
+
+const bgContainerLight = Color(0xFFFFFFFF);
+const bgContainerDark = Color(0xFFFFFFFF);
+const bgContainerBrownLight = Color(0xFFFFFFFF);
+const bgContainerBrownDark = Color(0xFF5C4138);
