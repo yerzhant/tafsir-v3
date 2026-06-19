@@ -74,6 +74,11 @@ const grey300Dark = Color(0xFFC7C7CC);
 const grey300BrownLight = Color(0xFFE2E2E2);
 const grey300BrownDark = Color(0xFFC7C7CC);
 
+const grey400Light = Color(0xFFF9F9F9);
+const grey400Dark = Color(0xFF8E8E93);
+const grey400BrownLight = Color(0xFFF9F9F9);
+const grey400BrownDark = Color(0xFF8E8E93);
+
 const brown100Light = Color(0xFFE4D2B9);
 const brown100Dark = Color(0xFF2E2417);
 const brown100BrownLight = Color(0xFFE4D2B9);
@@ -98,3 +103,17 @@ const brown500Light = Color(0xFF2E2417);
 const brown500Dark = Color(0xFFE4D2B9);
 const brown500BrownLight = Color(0xFF2E2417);
 const brown500BrownDark = Color(0xFFE4D2B9);
+
+const gradiendPrimaryBlue = LinearGradient(
+  colors: [.new(0xFFA5D4F4), .new(0xFF4AA3E6)],
+);
+const gradiendPrimaryBrown = LinearGradient(
+  colors: [.new(0xFFE4D2B9), .new(0xFFAF9684)],
+);
+
+const typographyTextWhite = brandWhite;
+
+const typographySecondaryLight = grey100Light;
+const typographySecondaryDark = grey400Dark;
+const typographySecondaryBrownLight = brown400BrownLight;
+const typographySecondaryBrownDark = Color(0xFFA9897B);
