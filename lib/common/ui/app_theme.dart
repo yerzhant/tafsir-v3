@@ -113,7 +113,21 @@ const gradiendPrimaryBrown = LinearGradient(
 
 const typographyTextWhite = brandWhite;
 
+const typographyPrimaryLight = brandTertiraryLight;
+const typographyPrimaryDark = Colors.white;
+const typographyPrimaryBrownLight = brown500BrownLight;
+const typographyPrimaryBrownDark = brandSoftBrownDark;
+
 const typographySecondaryLight = grey100Light;
 const typographySecondaryDark = grey400Dark;
 const typographySecondaryBrownLight = brown400BrownLight;
 const typographySecondaryBrownDark = Color(0xFFA9897B);
+
+const typographyTertiraryLight = grey200Light;
+const typographyTertiraryDark = grey200Dark;
+const typographyTertiraryBrownLight = brown300BrownLight;
+const typographyTertiraryBrownDark = Color(0xFFF6E9D6);
+
+const textBodyReg = TextStyle(fontSize: 16);
+const textBodyMedium = TextStyle(fontSize: 14);
+const textCallout = TextStyle(fontSize: 16, fontWeight: .w600);

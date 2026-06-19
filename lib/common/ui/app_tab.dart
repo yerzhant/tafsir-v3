@@ -36,8 +36,7 @@ class AppTab extends StatelessWidget {
       child: Center(
         child: Text(
           title,
-          style: .new(
-            fontSize: 16,
+          style: textBodyReg.copyWith(
             color: isActive ? typographyTextWhite : titleInactiveColor,
           ),
         ),
