@@ -2,6 +2,28 @@ import 'package:flutter/material.dart';
 
 enum AppTheme { light, dark, brownLight, brownDark }
 
+const brandPrimaryLight = Color(0xFF4AA3E6);
+const brandPrimaryDark = Color(0xFF93D0FE);
+const brandPrimaryBrownLight = brown300BrownLight;
+const brandPrimaryBrownDark = brown300BrownDark;
+
+const brandSecondaryLight = Color(0xFF0088C7);
+const brandSecondaryDark = Color(0xFF0088C7);
+const brandSecondaryBrownLight = brown200BrownLight;
+const brandSecondaryBrownDark = brown400BrownDark;
+
+const brandTertiraryLight = Color(0xFF022B3E);
+const brandTertiraryDark = Color(0xFF022B3E);
+const brandTertiraryBrownLight = brown100BrownLight;
+const brandTertiraryBrownDark = brown500BrownDark;
+
+const brandSoftLight = Color(0xFFDDEFFB);
+const brandSoftDark = Color(0xFFDDEFFB);
+const brandSoftBrownLight = Color(0xFFFFFCF8);
+const brandSoftBrownDark = Color(0xFFFFF9F0);
+
+const brandWhite = Colors.white;
+
 const bgPrimaryLight = Color(0xFFF5F4F7);
 const bgPrimaryDark = Color(0xFF064766);
 const bgPrimaryBrownLight = Color(0xFFE4D3BC);
@@ -21,3 +43,58 @@ const bgContainerLight = Color(0xFFFFFFFF);
 const bgContainerDark = Color(0xFFFFFFFF);
 const bgContainerBrownLight = Color(0xFFFFFFFF);
 const bgContainerBrownDark = Color(0xFF5C4138);
+
+const borderPrimaryLight = grey300Light;
+const borderPrimaryDark = grey100Dark;
+const borderPrimaryBrownLight = brandPrimaryBrownLight;
+const borderPrimaryBrownDark = brandTertiraryBrownDark;
+
+const borderSecondaryLight = grey200Light;
+const borderSecondaryDark = grey200Dark;
+const borderSecondaryBrownLight = brandSecondaryBrownLight;
+const borderSecondaryBrownDark = brandSecondaryBrownDark;
+
+const borderTertiraryLight = grey100Light;
+const borderTertiraryDark = grey300Dark;
+const borderTertiraryBrownLight = brandTertiraryBrownLight;
+const borderTertiraryBrownDark = brandPrimaryBrownDark;
+
+const grey100Light = Color(0xFF8E8E93);
+const grey100Dark = Color(0xFFF9F9F9);
+const grey100BrownLight = Color(0xFF8E8E93);
+const grey100BrownDark = Color(0xFFF9F9F9);
+
+const grey200Light = Color(0xFFC7C7CC);
+const grey200Dark = Color(0xFFE2E2E2);
+const grey200BrownLight = Color(0xFFC7C7CC);
+const grey200BrownDark = Color(0xFFE2E2E2);
+
+const grey300Light = Color(0xFFE2E2E2);
+const grey300Dark = Color(0xFFC7C7CC);
+const grey300BrownLight = Color(0xFFE2E2E2);
+const grey300BrownDark = Color(0xFFC7C7CC);
+
+const brown100Light = Color(0xFFE4D2B9);
+const brown100Dark = Color(0xFF2E2417);
+const brown100BrownLight = Color(0xFFE4D2B9);
+const brown100BrownDark = Color(0xFF2E2417);
+
+const brown200Light = Color(0xFFB99768);
+const brown200Dark = Color(0xFF5E503E);
+const brown200BrownLight = Color(0xFFB99768);
+const brown200BrownDark = Color(0xFF5E503E);
+
+const brown300Light = Color(0xFF8B6E61);
+const brown300Dark = Color(0xFF8B6E61);
+const brown300BrownLight = Color(0xFF8B6E61);
+const brown300BrownDark = Color(0xFF8B6E61);
+
+const brown400Light = Color(0xFF5E503E);
+const brown400Dark = Color(0xFFB99768);
+const brown400BrownLight = Color(0xFF5E503E);
+const brown400BrownDark = Color(0xFFB99768);
+
+const brown500Light = Color(0xFF2E2417);
+const brown500Dark = Color(0xFFE4D2B9);
+const brown500BrownLight = Color(0xFF2E2417);
+const brown500BrownDark = Color(0xFFE4D2B9);

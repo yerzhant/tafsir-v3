@@ -10,7 +10,7 @@ Widget sizedWrapper(
   Widget child, {
   double width = 300,
   double hight = 150,
-  Color color = Colors.white,
+  Color color = bgPrimaryLight,
 }) => SizedBox(
   width: width,
   height: hight,
