@@ -128,6 +128,11 @@ const typographyTertiraryDark = grey200Dark;
 const typographyTertiraryBrownLight = brown300BrownLight;
 const typographyTertiraryBrownDark = Color(0xFFF6E9D6);
 
+const typographyLabelsAndIconsLight = typographySecondaryLight;
+const typographyLabelsAndIconsDark = typographyTertiraryDark;
+const typographyLabelsAndIconsBrownLight = typographySecondaryBrownLight;
+const typographyLabelsAndIconsBrownDark = brandSecondaryBrownDark;
+
 const textBodyReg = TextStyle(fontSize: 16);
 const textBodyMedium = TextStyle(fontSize: 14);
 const textCallout = TextStyle(fontSize: 16, fontWeight: .w600);

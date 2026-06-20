@@ -50,6 +50,13 @@ class SurahListItem extends StatelessWidget {
       .brownDark => typographyTertiraryBrownDark,
     };
 
+    final mapPinColor = switch (theme) {
+      .light => typographyLabelsAndIconsLight,
+      .dark => typographyLabelsAndIconsDark,
+      .brownLight => typographyLabelsAndIconsBrownLight,
+      .brownDark => typographyLabelsAndIconsBrownDark,
+    };
+
     return AppCard(
       theme: theme,
       child: Row(
@@ -75,7 +82,7 @@ class SurahListItem extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Expanded(
+                    Flexible(
                       child: Text(
                         translation,
                         overflow: .ellipsis,
@@ -86,10 +93,16 @@ class SurahListItem extends StatelessWidget {
                     Container(
                       width: 4,
                       height: 4,
-                      decoration: BoxDecoration(color: dotColor, shape: .circle),
+                      decoration: BoxDecoration(
+                        color: dotColor,
+                        shape: .circle,
+                      ),
                     ),
                     SizedBox(width: 4),
-                    SvgPicture.asset('assets/icons/map-pin.svg'),
+                    SvgPicture.asset(
+                      'assets/icons/map-pin.svg',
+                      colorFilter: .mode(mapPinColor, .srcIn),
+                    ),
                     SizedBox(width: 2),
                     Text(
                       place.name,
