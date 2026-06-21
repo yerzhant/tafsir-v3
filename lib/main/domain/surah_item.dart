@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'surah_item.freezed.dart';
 
-extension type const SurahNumber(String value) implements String {}
+extension type const SurahNumber(int value) implements int {}
 extension type const SurahName(String value) implements String {}
 extension type const SurahTranslation(String value) implements String {}
 extension type const SurahDjuz(String value) implements String {}

@@ -50,7 +50,7 @@ Widget previewLight() => sizedWrapper(
     ],
     surahItems: [
       .new(
-        .new('1'),
+        .new(1),
         .new('Al-Fatiha'),
         .new('Openning'),
         .mekkah,
@@ -58,7 +58,7 @@ Widget previewLight() => sizedWrapper(
         .new('1'),
       ),
       .new(
-        .new('1'),
+        .new(1),
         .new('Al-Fatiha'),
         .new('Openning'),
         .mekkah,
@@ -66,7 +66,7 @@ Widget previewLight() => sizedWrapper(
         .new('1'),
       ),
       .new(
-        .new('1'),
+        .new(1),
         .new('Al-Fatiha'),
         .new('Openning'),
         .mekkah,

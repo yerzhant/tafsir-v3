@@ -51,7 +51,7 @@ class SurahListItem extends StatelessWidget {
           CircleCard(
             theme: theme,
             child: Text(
-              item.number,
+              '${item.number}',
               style: textCallout.copyWith(color: primaryColor),
             ),
           ),
@@ -129,7 +129,7 @@ Widget previewLight() => sizedWrapper(
   const SurahListItem(
     theme: .light,
     item: .new(
-      .new('1'),
+      .new(1),
       .new('Аль-Фатиха'),
       .new('Открывающая'),
       .mekkah,
@@ -145,7 +145,7 @@ Widget previewLightLong() => sizedWrapper(
   const SurahListItem(
     theme: .light,
     item: .new(
-      .new('2'),
+      .new(2),
       .new('Аль-Бакара Аль-Бакара Аль-Бакара'),
       .new('Корова Корова Корова'),
       .madinah,
