@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/main/domain/djuz_item.dart';
@@ -24,7 +23,7 @@ class AdjzaaList extends StatelessWidget {
   }
 }
 
-@Preview(group: 'AdjzaaList', name: 'Light')
+// @Preview(group: 'AdjzaaList', name: 'Light')
 Widget previewLight() => sizedWrapper(
   const AdjzaaList(
     theme: .light,

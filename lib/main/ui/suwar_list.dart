@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/main/domain/info_item.dart';
@@ -39,7 +38,7 @@ class SuwarList extends StatelessWidget {
   }
 }
 
-@Preview(group: 'SuwarList', name: 'Light')
+// @Preview(group: 'SuwarList', name: 'Light')
 Widget previewLight() => sizedWrapper(
   const SuwarList(
     theme: .light,

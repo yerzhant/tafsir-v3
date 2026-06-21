@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/main/domain/bookmark.dart';
@@ -24,7 +23,7 @@ class BookmarksList extends StatelessWidget {
   }
 }
 
-@Preview(group: 'BookmarksList', name: 'Light')
+// @Preview(group: 'BookmarksList', name: 'Light')
 Widget previewLight() => sizedWrapper(
   const BookmarksList(
     theme: .light,
