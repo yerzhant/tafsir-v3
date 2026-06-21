@@ -31,7 +31,7 @@ class Masjid extends StatelessWidget {
             color: color,
             backgroundBlendMode: blendMode,
           ),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: .new(
               image: AssetImage('assets/images/masjid.png'),
               alignment: .topCenter,
@@ -45,12 +45,10 @@ class Masjid extends StatelessWidget {
 }
 
 @Preview(group: 'Masjid', name: 'Light', size: .new(200, 300))
-Widget previewLight() =>
-    const Masjid(theme: .light, child: Placeholder());
+Widget previewLight() => const Masjid(theme: .light, child: Placeholder());
 
 @Preview(group: 'Masjid', name: 'Dark', size: .new(200, 300))
-Widget previewDark() =>
-    const Masjid(theme: .dark, child: Placeholder());
+Widget previewDark() => const Masjid(theme: .dark, child: Placeholder());
 
 @Preview(group: 'Masjid', name: 'Brown Light', size: .new(200, 300))
 Widget previewBrownLight() =>

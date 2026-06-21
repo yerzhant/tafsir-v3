@@ -19,7 +19,7 @@ class BigFrame extends StatelessWidget {
     };
 
     return Container(
-      padding: .all(12),
+      padding: const .all(12),
       decoration: BoxDecoration(
         border: .all(color: borderColor),
         borderRadius: .circular(16),

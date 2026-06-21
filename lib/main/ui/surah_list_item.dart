@@ -75,7 +75,7 @@ class SurahListItem extends StatelessWidget {
                         style: textBodyMedium.copyWith(color: secondaryColor),
                       ),
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     Container(
                       width: 4,
                       height: 4,
@@ -84,12 +84,12 @@ class SurahListItem extends StatelessWidget {
                         shape: .circle,
                       ),
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     SvgPicture.asset(
                       'assets/icons/map-pin.svg',
                       colorFilter: .mode(mapPinColor, .srcIn),
                     ),
-                    SizedBox(width: 2),
+                    const SizedBox(width: 2),
                     Text(
                       item.place.name,
                       style: textBodyMedium.copyWith(color: secondaryColor),

@@ -22,7 +22,10 @@ class AppContainer extends StatelessWidget {
       clipBehavior: .hardEdge,
       decoration: BoxDecoration(
         color: bgColor,
-        borderRadius: .only(topRight: .circular(30), topLeft: .circular(30)),
+        borderRadius: const .only(
+          topRight: .circular(30),
+          topLeft: .circular(30),
+        ),
       ),
       child: child,
     );
