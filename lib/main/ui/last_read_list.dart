@@ -11,25 +11,48 @@ class LastReadList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 37,
-      child: ListView.separated(
-        itemCount: items.length + 2,
-        scrollDirection: .horizontal,
-        itemBuilder: (context, index) {
-          if (index == 0 || index == items.length + 1) {
-            return const SizedBox(width: 20);
-          }
+    final primaryColor = switch (theme) {
+      .light => typographyPrimaryLight,
+      .dark => typographyPrimaryDark,
+      .brownLight => typographyPrimaryBrownLight,
+      .brownDark => typographyPrimaryBrownDark,
+    };
 
-          return LastReadListItem(theme: theme, lastRead: items[index - 1]);
-        },
-        separatorBuilder: (context, index) => const SizedBox(width: 8),
-      ),
+    return Column(
+      children: [
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            const SizedBox(width: 20),
+            Text(
+              'Последнее прочитанное',
+              style: textBodyMedium.copyWith(color: primaryColor),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 37,
+          child: ListView.separated(
+            itemCount: items.length + 2,
+            scrollDirection: .horizontal,
+            itemBuilder: (context, index) {
+              if (index == 0 || index == items.length + 1) {
+                return const SizedBox(width: 12);
+              }
+
+              return LastReadListItem(theme: theme, lastRead: items[index - 1]);
+            },
+            separatorBuilder: (context, index) => const SizedBox(width: 8),
+          ),
+        ),
+        const SizedBox(height: 16),
+      ],
     );
   }
 }
 
-// @Preview(group: 'LastReadList', name: 'Light')
+// @Preview(group: 'LastReadList1', name: 'Light')
 Widget previewLight() => const SizedBox(
   width: 400,
   child: Card(
