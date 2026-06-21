@@ -5,27 +5,13 @@ import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
 import 'package:tafsir/common/ui/preview.dart';
-import 'package:tafsir/main/domain/types.dart';
+import 'package:tafsir/main/domain/surah_item.dart';
 
 class SurahListItem extends StatelessWidget {
-  const SurahListItem({
-    super.key,
-    required this.theme,
-    required this.number,
-    required this.name,
-    required this.translation,
-    required this.place,
-    required this.quantity,
-    required this.djuz,
-  });
+  const SurahListItem({super.key, required this.theme, required this.item});
 
   final AppTheme theme;
-  final SurahNumber number;
-  final SurahName name;
-  final SurahTranslation translation;
-  final SurahPlace place;
-  final AayahQuantity quantity;
-  final Djuz djuz;
+  final SurahItem item;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +51,7 @@ class SurahListItem extends StatelessWidget {
           CircleCard(
             theme: theme,
             child: Text(
-              number,
+              item.number,
               style: textCallout.copyWith(color: primaryColor),
             ),
           ),
@@ -76,7 +62,7 @@ class SurahListItem extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(
-                  name,
+                  item.name,
                   overflow: .ellipsis,
                   style: textCallout.copyWith(color: primaryColor),
                 ),
@@ -84,7 +70,7 @@ class SurahListItem extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        translation,
+                        item.translation,
                         overflow: .ellipsis,
                         style: textBodyMedium.copyWith(color: secondaryColor),
                       ),
@@ -105,7 +91,7 @@ class SurahListItem extends StatelessWidget {
                     ),
                     SizedBox(width: 2),
                     Text(
-                      place.name,
+                      item.place.name,
                       style: textBodyMedium.copyWith(color: secondaryColor),
                     ),
                   ],
@@ -120,13 +106,13 @@ class SurahListItem extends StatelessWidget {
             crossAxisAlignment: .end,
             children: [
               Text(
-                '$quantity аятов',
+                '${item.quantity} аятов',
                 style: textBodyMedium.copyWith(
                   color: secondaryColor.withValues(alpha: .8),
                 ),
               ),
               Text(
-                'Джуз: $djuz',
+                'Джуз: ${item.djuz}',
                 style: textBodyMedium.copyWith(
                   color: secondaryColor.withValues(alpha: .8),
                 ),
@@ -143,12 +129,14 @@ class SurahListItem extends StatelessWidget {
 Widget previewLight() => sizedWrapper(
   const SurahListItem(
     theme: .light,
-    number: .new('1'),
-    name: .new('Аль-Фатиха'),
-    translation: .new('Открывающая'),
-    place: .mekkah,
-    quantity: .new(7),
-    djuz: .new('1'),
+    item: .new(
+      .new('1'),
+      .new('Аль-Фатиха'),
+      .new('Открывающая'),
+      .mekkah,
+      .new(7),
+      .new('1'),
+    ),
   ),
   width: 400,
 );
@@ -157,12 +145,14 @@ Widget previewLight() => sizedWrapper(
 Widget previewLightLong() => sizedWrapper(
   const SurahListItem(
     theme: .light,
-    number: .new('2'),
-    name: .new('Аль-Бакара Аль-Бакара Аль-Бакара'),
-    translation: .new('Корова Корова Корова'),
-    place: .madinah,
-    quantity: .new(286),
-    djuz: .new('1-3'),
+    item: .new(
+      .new('2'),
+      .new('Аль-Бакара Аль-Бакара Аль-Бакара'),
+      .new('Корова Корова Корова'),
+      .madinah,
+      .new(286),
+      .new('1-3'),
+    ),
   ),
   width: 400,
 );
