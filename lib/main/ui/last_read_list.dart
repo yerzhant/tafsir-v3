@@ -12,7 +12,7 @@ class LastReadList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 42,
+      height: 37,
       child: ListView.separated(
         itemCount: items.length + 2,
         scrollDirection: .horizontal,
