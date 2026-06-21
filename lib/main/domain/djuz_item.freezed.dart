@@ -1,0 +1,280 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'djuz_item.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+// dart format off
+T _$identity<T>(T value) => value;
+/// @nodoc
+mixin _$DjuzItem {
+
+ DjuzNumber get number; SurahName get from; SurahName get to; DjuzPlace get place;
+/// Create a copy of DjuzItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DjuzItemCopyWith<DjuzItem> get copyWith => _$DjuzItemCopyWithImpl<DjuzItem>(this as DjuzItem, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DjuzItem&&(identical(other.number, number) || other.number == number)&&(identical(other.from, from) || other.from == from)&&(identical(other.to, to) || other.to == to)&&(identical(other.place, place) || other.place == place));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,number,from,to,place);
+
+@override
+String toString() {
+  return 'DjuzItem(number: $number, from: $from, to: $to, place: $place)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DjuzItemCopyWith<$Res>  {
+  factory $DjuzItemCopyWith(DjuzItem value, $Res Function(DjuzItem) _then) = _$DjuzItemCopyWithImpl;
+@useResult
+$Res call({
+ DjuzNumber number, SurahName from, SurahName to, DjuzPlace place
+});
+
+
+
+
+}
+/// @nodoc
+class _$DjuzItemCopyWithImpl<$Res>
+    implements $DjuzItemCopyWith<$Res> {
+  _$DjuzItemCopyWithImpl(this._self, this._then);
+
+  final DjuzItem _self;
+  final $Res Function(DjuzItem) _then;
+
+/// Create a copy of DjuzItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? number = null,Object? from = null,Object? to = null,Object? place = null,}) {
+  return _then(_self.copyWith(
+number: null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
+as DjuzNumber,from: null == from ? _self.from : from // ignore: cast_nullable_to_non_nullable
+as SurahName,to: null == to ? _self.to : to // ignore: cast_nullable_to_non_nullable
+as SurahName,place: null == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
+as DjuzPlace,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [DjuzItem].
+extension DjuzItemPatterns on DjuzItem {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DjuzItem value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _DjuzItem() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DjuzItem value)  $default,){
+final _that = this;
+switch (_that) {
+case _DjuzItem():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DjuzItem value)?  $default,){
+final _that = this;
+switch (_that) {
+case _DjuzItem() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DjuzNumber number,  SurahName from,  SurahName to,  DjuzPlace place)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _DjuzItem() when $default != null:
+return $default(_that.number,_that.from,_that.to,_that.place);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DjuzNumber number,  SurahName from,  SurahName to,  DjuzPlace place)  $default,) {final _that = this;
+switch (_that) {
+case _DjuzItem():
+return $default(_that.number,_that.from,_that.to,_that.place);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DjuzNumber number,  SurahName from,  SurahName to,  DjuzPlace place)?  $default,) {final _that = this;
+switch (_that) {
+case _DjuzItem() when $default != null:
+return $default(_that.number,_that.from,_that.to,_that.place);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _DjuzItem implements DjuzItem {
+  const _DjuzItem(this.number, this.from, this.to, this.place);
+  
+
+@override final  DjuzNumber number;
+@override final  SurahName from;
+@override final  SurahName to;
+@override final  DjuzPlace place;
+
+/// Create a copy of DjuzItem
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DjuzItemCopyWith<_DjuzItem> get copyWith => __$DjuzItemCopyWithImpl<_DjuzItem>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DjuzItem&&(identical(other.number, number) || other.number == number)&&(identical(other.from, from) || other.from == from)&&(identical(other.to, to) || other.to == to)&&(identical(other.place, place) || other.place == place));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,number,from,to,place);
+
+@override
+String toString() {
+  return 'DjuzItem(number: $number, from: $from, to: $to, place: $place)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DjuzItemCopyWith<$Res> implements $DjuzItemCopyWith<$Res> {
+  factory _$DjuzItemCopyWith(_DjuzItem value, $Res Function(_DjuzItem) _then) = __$DjuzItemCopyWithImpl;
+@override @useResult
+$Res call({
+ DjuzNumber number, SurahName from, SurahName to, DjuzPlace place
+});
+
+
+
+
+}
+/// @nodoc
+class __$DjuzItemCopyWithImpl<$Res>
+    implements _$DjuzItemCopyWith<$Res> {
+  __$DjuzItemCopyWithImpl(this._self, this._then);
+
+  final _DjuzItem _self;
+  final $Res Function(_DjuzItem) _then;
+
+/// Create a copy of DjuzItem
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? number = null,Object? from = null,Object? to = null,Object? place = null,}) {
+  return _then(_DjuzItem(
+null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
+as DjuzNumber,null == from ? _self.from : from // ignore: cast_nullable_to_non_nullable
+as SurahName,null == to ? _self.to : to // ignore: cast_nullable_to_non_nullable
+as SurahName,null == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
+as DjuzPlace,
+  ));
+}
+
+
+}
+
+// dart format on

@@ -99,7 +99,6 @@ class SurahListItem extends StatelessWidget {
               ],
             ),
           ),
-          // Spacer(),
           Column(
             spacing: 2,
             mainAxisAlignment: .center,

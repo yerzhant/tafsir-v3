@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SurahItem {
 
- SurahNumber get number; SurahName get name; SurahTranslation get translation; SurahPlace get place; AayahQuantity get quantity; Djuz get djuz;
+ SurahNumber get number; SurahName get name; SurahTranslation get translation; SurahPlace get place; AayahQuantity get quantity; SurahDjuz get djuz;
 /// Create a copy of SurahItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $SurahItemCopyWith<$Res>  {
   factory $SurahItemCopyWith(SurahItem value, $Res Function(SurahItem) _then) = _$SurahItemCopyWithImpl;
 @useResult
 $Res call({
- SurahNumber number, SurahName name, SurahTranslation translation, SurahPlace place, AayahQuantity quantity, Djuz djuz
+ SurahNumber number, SurahName name, SurahTranslation translation, SurahPlace place, AayahQuantity quantity, SurahDjuz djuz
 });
 
 
@@ -70,7 +70,7 @@ as SurahName,translation: null == translation ? _self.translation : translation 
 as SurahTranslation,place: null == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
 as SurahPlace,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as AayahQuantity,djuz: null == djuz ? _self.djuz : djuz // ignore: cast_nullable_to_non_nullable
-as Djuz,
+as SurahDjuz,
   ));
 }
 
@@ -155,7 +155,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahNumber number,  SurahName name,  SurahTranslation translation,  SurahPlace place,  AayahQuantity quantity,  Djuz djuz)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahNumber number,  SurahName name,  SurahTranslation translation,  SurahPlace place,  AayahQuantity quantity,  SurahDjuz djuz)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SurahItem() when $default != null:
 return $default(_that.number,_that.name,_that.translation,_that.place,_that.quantity,_that.djuz);case _:
@@ -176,7 +176,7 @@ return $default(_that.number,_that.name,_that.translation,_that.place,_that.quan
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahNumber number,  SurahName name,  SurahTranslation translation,  SurahPlace place,  AayahQuantity quantity,  Djuz djuz)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahNumber number,  SurahName name,  SurahTranslation translation,  SurahPlace place,  AayahQuantity quantity,  SurahDjuz djuz)  $default,) {final _that = this;
 switch (_that) {
 case _SurahItem():
 return $default(_that.number,_that.name,_that.translation,_that.place,_that.quantity,_that.djuz);case _:
@@ -196,7 +196,7 @@ return $default(_that.number,_that.name,_that.translation,_that.place,_that.quan
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahNumber number,  SurahName name,  SurahTranslation translation,  SurahPlace place,  AayahQuantity quantity,  Djuz djuz)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahNumber number,  SurahName name,  SurahTranslation translation,  SurahPlace place,  AayahQuantity quantity,  SurahDjuz djuz)?  $default,) {final _that = this;
 switch (_that) {
 case _SurahItem() when $default != null:
 return $default(_that.number,_that.name,_that.translation,_that.place,_that.quantity,_that.djuz);case _:
@@ -219,7 +219,7 @@ class _SurahItem implements SurahItem {
 @override final  SurahTranslation translation;
 @override final  SurahPlace place;
 @override final  AayahQuantity quantity;
-@override final  Djuz djuz;
+@override final  SurahDjuz djuz;
 
 /// Create a copy of SurahItem
 /// with the given fields replaced by the non-null parameter values.
@@ -251,7 +251,7 @@ abstract mixin class _$SurahItemCopyWith<$Res> implements $SurahItemCopyWith<$Re
   factory _$SurahItemCopyWith(_SurahItem value, $Res Function(_SurahItem) _then) = __$SurahItemCopyWithImpl;
 @override @useResult
 $Res call({
- SurahNumber number, SurahName name, SurahTranslation translation, SurahPlace place, AayahQuantity quantity, Djuz djuz
+ SurahNumber number, SurahName name, SurahTranslation translation, SurahPlace place, AayahQuantity quantity, SurahDjuz djuz
 });
 
 
@@ -276,7 +276,7 @@ as SurahName,null == translation ? _self.translation : translation // ignore: ca
 as SurahTranslation,null == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
 as SurahPlace,null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as AayahQuantity,null == djuz ? _self.djuz : djuz // ignore: cast_nullable_to_non_nullable
-as Djuz,
+as SurahDjuz,
   ));
 }
 
