@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/last_read.dart';
 import 'package:tafsir/main/ui/last_read_list_item.dart';
@@ -52,7 +53,7 @@ class LastReadList extends StatelessWidget {
   }
 }
 
-// @Preview(group: 'LastReadList1', name: 'Light')
+@Preview(group: 'LastReadList', name: 'Light')
 Widget previewLight() => const SizedBox(
   width: 400,
   child: Card(
