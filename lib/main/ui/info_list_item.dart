@@ -22,10 +22,10 @@ class InfoListItem extends StatelessWidget {
     };
 
     final iconColor = switch (theme) {
-      AppTheme.light => brandPrimaryLight,
-      AppTheme.dark => brandPrimaryDark,
-      AppTheme.brownLight => brandPrimaryBrownLight,
-      AppTheme.brownDark => brandPrimaryBrownDark,
+      .light => brandPrimaryLight,
+      .dark => brandPrimaryDark,
+      .brownLight => brandPrimaryBrownLight,
+      .brownDark => brandPrimaryBrownDark,
     };
 
     final primaryColor = switch (theme) {
