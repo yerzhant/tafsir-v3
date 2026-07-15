@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 
-class AppTab extends StatelessWidget {
-  const AppTab({
+class TabButton extends StatelessWidget {
+  const TabButton({
     super.key,
     required this.theme,
     required this.title,
@@ -45,13 +45,13 @@ class AppTab extends StatelessWidget {
   }
 }
 
-@Preview(group: 'AppTab', name: 'Light Active', size: .new(100, 30))
+@Preview(group: 'TabButton', name: 'Light Active', size: .new(100, 30))
 Widget previewLightActive() =>
-    const AppTab(theme: .light, title: 'Title', isActive: true);
+    const TabButton(theme: .light, title: 'Title', isActive: true);
 
-@Preview(group: 'AppTab', name: 'Brown Light Active', size: .new(100, 30))
+@Preview(group: 'TabButton', name: 'Brown Light Active', size: .new(100, 30))
 Widget previewBrownLightActive() =>
-    const AppTab(theme: .brownLight, title: 'Title', isActive: true);
+    const TabButton(theme: .brownLight, title: 'Title', isActive: true);
 
-@Preview(group: 'AppTab', name: 'Light', size: .new(100, 30))
-Widget previewLight() => const AppTab(theme: .light, title: 'Title');
+@Preview(group: 'TabButton', name: 'Light', size: .new(100, 30))
+Widget previewLight() => const TabButton(theme: .light, title: 'Title');
