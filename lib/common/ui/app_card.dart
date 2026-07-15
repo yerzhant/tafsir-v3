@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/preview.dart';
 
 class AppCard extends StatelessWidget {
   const AppCard({
@@ -48,26 +46,26 @@ class AppCard extends StatelessWidget {
   }
 }
 
-@Preview(group: 'AppCard', name: 'Light')
-Widget previewLight() => sizedWrapper(
-  const AppCard(theme: .light, child: Placeholder()),
-  color: bgPrimaryLight,
-);
+// @Preview(group: 'AppCard', name: 'Light')
+// Widget previewLight() => sizedWrapper(
+//   const AppCard(theme: .light, child: Placeholder()),
+//   color: bgPrimaryLight,
+// );
 
-@Preview(group: 'AppCard', name: 'Dark')
-Widget previewDark() => sizedWrapper(
-  const AppCard(theme: .dark, child: Placeholder()),
-  color: bgPrimaryDark,
-);
+// @Preview(group: 'AppCard', name: 'Dark')
+// Widget previewDark() => sizedWrapper(
+//   const AppCard(theme: .dark, child: Placeholder()),
+//   color: bgPrimaryDark,
+// );
 
-@Preview(group: 'AppCard', name: 'Brown Light')
-Widget previewBrownLight() => sizedWrapper(
-  const AppCard(theme: .brownLight, child: Placeholder()),
-  color: bgPrimaryBrownLight,
-);
+// @Preview(group: 'AppCard', name: 'Brown Light')
+// Widget previewBrownLight() => sizedWrapper(
+//   const AppCard(theme: .brownLight, child: Placeholder()),
+//   color: bgPrimaryBrownLight,
+// );
 
-@Preview(group: 'AppCard', name: 'Brown Dark')
-Widget previewBrownDark() => sizedWrapper(
-  const AppCard(theme: .brownDark, child: Placeholder()),
-  color: bgPrimaryBrownDark,
-);
+// @Preview(group: 'AppCard', name: 'Brown Dark')
+// Widget previewBrownDark() => sizedWrapper(
+//   const AppCard(theme: .brownDark, child: Placeholder()),
+//   color: bgPrimaryBrownDark,
+// );

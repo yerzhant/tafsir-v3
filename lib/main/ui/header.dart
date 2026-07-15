@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/preview.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key, required this.theme});
@@ -42,9 +40,9 @@ class Header extends StatelessWidget {
   }
 }
 
-@Preview(group: 'Header', name: 'Light')
-Widget previewLight() => sizedWrapper(const Header(theme: .light), width: 500);
+// @Preview(group: 'Header', name: 'Light')
+// Widget previewLight() => sizedWrapper(const Header(theme: .light), width: 500);
 
-@Preview(group: 'Header', name: 'Dark')
-Widget previewDark() =>
-    sizedWrapper(const Header(theme: .dark), width: 500, color: bgPrimaryDark);
+// @Preview(group: 'Header', name: 'Dark')
+// Widget previewDark() =>
+//     sizedWrapper(const Header(theme: .dark), width: 500, color: bgPrimaryDark);

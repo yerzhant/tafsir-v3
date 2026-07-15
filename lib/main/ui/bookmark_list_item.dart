@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
-import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/main/domain/bookmark.dart';
 
 class BookmarkListItem extends StatelessWidget {
@@ -76,20 +74,20 @@ class BookmarkListItem extends StatelessWidget {
   }
 }
 
-@Preview(group: 'BookmarkListItem', name: 'Light')
-Widget previewLight() => sizedWrapper(
-  const BookmarkListItem(
-    theme: .light,
-    bookmark: .new(.new(1), .new('Аль-Фатиха'), .new(1)),
-  ),
-  width: 400,
-);
+// @Preview(group: 'BookmarkListItem', name: 'Light')
+// Widget previewLight() => sizedWrapper(
+//   const BookmarkListItem(
+//     theme: .light,
+//     bookmark: .new(.new(1), .new('Аль-Фатиха'), .new(1)),
+//   ),
+//   width: 400,
+// );
 
-@Preview(group: 'BookmarkListItem', name: 'Light Long')
-Widget previewLightLong() => sizedWrapper(
-  const BookmarkListItem(
-    theme: .light,
-    bookmark: .new(.new(1), .new('Аль-Фатиха Аль-Фатиха Аль-Фатиха'), .new(1)),
-  ),
-  width: 400,
-);
+// @Preview(group: 'BookmarkListItem', name: 'Light Long')
+// Widget previewLightLong() => sizedWrapper(
+//   const BookmarkListItem(
+//     theme: .light,
+//     bookmark: .new(.new(1), .new('Аль-Фатиха Аль-Фатиха Аль-Фатиха'), .new(1)),
+//   ),
+//   width: 400,
+// );

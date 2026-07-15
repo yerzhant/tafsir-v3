@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/main/domain/last_read.dart';
 
 class LastReadListItem extends StatelessWidget {
@@ -56,12 +54,12 @@ class LastReadListItem extends StatelessWidget {
   }
 }
 
-@Preview(group: 'LastReadListItem', name: 'Light', wrapper: sizedWrapper)
-Widget previewLight() => const LastReadListItem(
-  theme: .light,
-  lastRead: .new(
-    .new('Al-Fatiha'),
-    .new(1),
-    .new(2),
-  ),
-);
+// @Preview(group: 'LastReadListItem', name: 'Light', wrapper: sizedWrapper)
+// Widget previewLight() => const LastReadListItem(
+//   theme: .light,
+//   lastRead: .new(
+//     .new('Al-Fatiha'),
+//     .new(1),
+//     .new(2),
+//   ),
+// );

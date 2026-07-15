@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/preview.dart';
 
 enum CircleCardSize { small, normal }
 
@@ -61,10 +59,10 @@ class CircleCard extends StatelessWidget {
   }
 }
 
-@Preview(group: 'CircleCard', name: 'Light Normal', wrapper: wrapper)
-Widget previewLightNormal() =>
-    const CircleCard(theme: .light, child: Text('1'));
+// @Preview(group: 'CircleCard', name: 'Light Normal', wrapper: wrapper)
+// Widget previewLightNormal() =>
+//     const CircleCard(theme: .light, child: Text('1'));
 
-@Preview(group: 'CircleCard', name: 'Light Small', wrapper: wrapper)
-Widget previewLightSmall() =>
-    const CircleCard(theme: .light, size: .small, child: Text('1'));
+// @Preview(group: 'CircleCard', name: 'Light Small', wrapper: wrapper)
+// Widget previewLightSmall() =>
+//     const CircleCard(theme: .light, size: .small, child: Text('1'));

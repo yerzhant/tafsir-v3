@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/last_read.dart';
 import 'package:tafsir/main/ui/last_read_list_item.dart';
@@ -53,19 +52,19 @@ class LastReadList extends StatelessWidget {
   }
 }
 
-@Preview(group: 'LastReadList', name: 'Light')
-Widget previewLight() => const SizedBox(
-  width: 400,
-  child: Card(
-    color: bgPrimaryLight,
-    child: LastReadList(
-      theme: .light,
-      items: [
-        .new(.new('Al-Fatiha'), .new(1), .new(3)),
-        .new(.new('Al-Fatiha'), .new(1), .new(3)),
-        .new(.new('Al-Fatiha'), .new(1), .new(3)),
-        .new(.new('Al-Fatiha'), .new(1), .new(3)),
-      ],
-    ),
-  ),
-);
+// @Preview(group: 'LastReadList', name: 'Light')
+// Widget previewLight() => const SizedBox(
+//   width: 400,
+//   child: Card(
+//     color: bgPrimaryLight,
+//     child: LastReadList(
+//       theme: .light,
+//       items: [
+//         .new(.new('Al-Fatiha'), .new(1), .new(3)),
+//         .new(.new('Al-Fatiha'), .new(1), .new(3)),
+//         .new(.new('Al-Fatiha'), .new(1), .new(3)),
+//         .new(.new('Al-Fatiha'), .new(1), .new(3)),
+//       ],
+//     ),
+//   ),
+// );

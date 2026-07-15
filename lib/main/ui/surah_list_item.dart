@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
-import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/main/domain/surah_item.dart';
 
 class SurahListItem extends StatelessWidget {
@@ -124,34 +122,34 @@ class SurahListItem extends StatelessWidget {
   }
 }
 
-@Preview(group: 'SurahListItem', name: 'Light')
-Widget previewLight() => sizedWrapper(
-  const SurahListItem(
-    theme: .light,
-    item: .new(
-      .new(1),
-      .new('Аль-Фатиха'),
-      .new('Открывающая'),
-      .mekkah,
-      .new(7),
-      .new('1'),
-    ),
-  ),
-  width: 400,
-);
+// @Preview(group: 'SurahListItem', name: 'Light')
+// Widget previewLight() => sizedWrapper(
+//   const SurahListItem(
+//     theme: .light,
+//     item: .new(
+//       .new(1),
+//       .new('Аль-Фатиха'),
+//       .new('Открывающая'),
+//       .mekkah,
+//       .new(7),
+//       .new('1'),
+//     ),
+//   ),
+//   width: 400,
+// );
 
-@Preview(group: 'SurahListItem', name: 'Light Long')
-Widget previewLightLong() => sizedWrapper(
-  const SurahListItem(
-    theme: .light,
-    item: .new(
-      .new(2),
-      .new('Аль-Бакара Аль-Бакара Аль-Бакара'),
-      .new('Корова Корова Корова'),
-      .madinah,
-      .new(286),
-      .new('1-3'),
-    ),
-  ),
-  width: 400,
-);
+// @Preview(group: 'SurahListItem', name: 'Light Long')
+// Widget previewLightLong() => sizedWrapper(
+//   const SurahListItem(
+//     theme: .light,
+//     item: .new(
+//       .new(2),
+//       .new('Аль-Бакара Аль-Бакара Аль-Бакара'),
+//       .new('Корова Корова Корова'),
+//       .madinah,
+//       .new(286),
+//       .new('1-3'),
+//     ),
+//   ),
+//   width: 400,
+// );

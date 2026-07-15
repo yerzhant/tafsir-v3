@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
-import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/main/domain/djuz_item.dart';
 
 class DjuzListItem extends StatelessWidget {
@@ -82,25 +80,30 @@ class DjuzListItem extends StatelessWidget {
   }
 }
 
-@Preview(group: 'DjuzListItem', name: 'Light')
-Widget previewLight() => sizedWrapper(
-  const DjuzListItem(
-    theme: .light,
-    item: .new(.new(1), .new('Аль-Фатиха'), .new('Аль-Бакара'), .mekkah),
-  ),
-  width: 400,
-);
+// @Preview(group: 'DjuzListItem', name: 'Light')
+// Widget previewLight() => sizedWrapper(
+//   const DjuzListItem(
+//     theme: .light,
+//     item: .new(
+//       .new(1),
+//       .new('Аль-Фатиха'),
+//       .new('Аль-Бакара'),
+//       .mekkah,
+//     ),
+//   ),
+//   width: 400,
+// );
 
-@Preview(group: 'DjuzListItem', name: 'Light Long')
-Widget previewLightLong() => sizedWrapper(
-  const DjuzListItem(
-    theme: .light,
-    item: .new(
-      .new(1),
-      .new('Аль-Фатиха 7'),
-      .new('Аль-Бакара Аль-Бакара'),
-      .madinah,
-    ),
-  ),
-  width: 400,
-);
+// @Preview(group: 'DjuzListItem', name: 'Light Long')
+// Widget previewLightLong() => sizedWrapper(
+//   const DjuzListItem(
+//     theme: .light,
+//     item: .new(
+//       .new(1),
+//       .new('Аль-Фатиха 7'),
+//       .new('Аль-Бакара Аль-Бакара'),
+//       .madinah,
+//     ),
+//   ),
+//   width: 400,
+// );

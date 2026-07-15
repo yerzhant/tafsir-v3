@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/main/domain/menu_item.dart';
 
 class MenuButton extends StatelessWidget {
@@ -57,28 +55,28 @@ class MenuButton extends StatelessWidget {
   }
 }
 
-@Preview(group: 'MenuButton', name: 'Light')
-Widget previewLight() => sizedWrapper(
-  const MenuButton(
-    theme: .light,
-    item: .howToUse,
-  ),
-);
+// @Preview(group: 'MenuButton', name: 'Light')
+// Widget previewLight() => sizedWrapper(
+//   const MenuButton(
+//     theme: .light,
+//     item: .howToUse,
+//   ),
+// );
 
-@Preview(group: 'MenuButton', name: 'Dark')
-Widget previewDark() => sizedWrapper(
-  color: bgPrimaryDark,
-  const MenuButton(
-    theme: .dark,
-    item: .howToUse,
-  ),
-);
+// @Preview(group: 'MenuButton', name: 'Dark')
+// Widget previewDark() => sizedWrapper(
+//   color: bgPrimaryDark,
+//   const MenuButton(
+//     theme: .dark,
+//     item: .howToUse,
+//   ),
+// );
 
-@Preview(group: 'MenuButton', name: 'Brown Dark')
-Widget previewBrownDark() => sizedWrapper(
-  color: bgPrimaryBrownDark,
-  const MenuButton(
-    theme: .brownDark,
-    item: .howToUse,
-  ),
-);
+// @Preview(group: 'MenuButton', name: 'Brown Dark')
+// Widget previewBrownDark() => sizedWrapper(
+//   color: bgPrimaryBrownDark,
+//   const MenuButton(
+//     theme: .brownDark,
+//     item: .howToUse,
+//   ),
+// );

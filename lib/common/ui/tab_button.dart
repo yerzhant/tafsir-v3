@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 
 class TabButton extends StatelessWidget {
@@ -28,16 +27,18 @@ class TabButton extends StatelessWidget {
       .brownLight || .brownDark => gradiendPrimaryBrown,
     };
 
-    return Container(
-      decoration: BoxDecoration(
-        gradient: isActive ? gradient : null,
-        borderRadius: .circular(199),
-      ),
-      child: Center(
-        child: Text(
-          title,
-          style: textBodyReg.copyWith(
-            color: isActive ? typographyTextWhite : titleInactiveColor,
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: isActive ? gradient : null,
+          borderRadius: .circular(199),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: textBodyReg.copyWith(
+              color: isActive ? typographyTextWhite : titleInactiveColor,
+            ),
           ),
         ),
       ),
@@ -45,13 +46,13 @@ class TabButton extends StatelessWidget {
   }
 }
 
-@Preview(group: 'TabButton', name: 'Light Active', size: .new(100, 30))
-Widget previewLightActive() =>
-    const TabButton(theme: .light, title: 'Title', isActive: true);
+// @Preview(group: 'TabButton', name: 'Light Active', size: .new(100, 30))
+// Widget previewLightActive() =>
+//     const TabButton(theme: .light, title: 'Title', isActive: true);
 
-@Preview(group: 'TabButton', name: 'Brown Light Active', size: .new(100, 30))
-Widget previewBrownLightActive() =>
-    const TabButton(theme: .brownLight, title: 'Title', isActive: true);
+// @Preview(group: 'TabButton', name: 'Brown Light Active', size: .new(100, 30))
+// Widget previewBrownLightActive() =>
+//     const TabButton(theme: .brownLight, title: 'Title', isActive: true);
 
-@Preview(group: 'TabButton', name: 'Light', size: .new(100, 30))
-Widget previewLight() => const TabButton(theme: .light, title: 'Title');
+// @Preview(group: 'TabButton', name: 'Light', size: .new(100, 30))
+// Widget previewLight() => const TabButton(theme: .light, title: 'Title');
