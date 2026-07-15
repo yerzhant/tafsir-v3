@@ -6,12 +6,14 @@ class TabButton extends StatelessWidget {
     super.key,
     required this.theme,
     required this.title,
+    required this.onTap,
     this.isActive = false,
   });
 
   final AppTheme theme;
   final bool isActive;
   final String title;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +30,19 @@ class TabButton extends StatelessWidget {
     };
 
     return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: isActive ? gradient : null,
-          borderRadius: .circular(199),
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: textBodyReg.copyWith(
-              color: isActive ? typographyTextWhite : titleInactiveColor,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: isActive ? gradient : null,
+            borderRadius: .circular(199),
+          ),
+          child: Center(
+            child: Text(
+              title,
+              style: textBodyReg.copyWith(
+                color: isActive ? typographyTextWhite : titleInactiveColor,
+              ),
             ),
           ),
         ),
