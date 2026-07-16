@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/about_us/ui/icon_panel.dart';
 import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/preview.dart';
 
 class AboutButton extends StatelessWidget {
   const AboutButton({
@@ -49,17 +47,17 @@ class AboutButton extends StatelessWidget {
   }
 }
 
-@Preview(group: 'AboutButton', name: 'Light')
-Widget previewLight() => sizedWrapper(
-  Column(
-    children: [
-      AboutButton(
-        theme: .light,
-        title: 'Title',
-        icon: 'share',
-        onTap: () {},
-      ),
-    ],
-  ),
-  width: 400,
-);
+// @Preview(group: 'AboutButton', name: 'Light')
+// Widget previewLight() => sizedWrapper(
+//   Column(
+//     children: [
+//       AboutButton(
+//         theme: .light,
+//         title: 'Title',
+//         icon: 'share',
+//         onTap: () {},
+//       ),
+//     ],
+//   ),
+//   width: 400,
+// );

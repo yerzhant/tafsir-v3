@@ -16,6 +16,9 @@ Widget sizedWrapper(
   height: hight,
   child: Card(
     color: color,
-    child: Padding(padding: const .all(20), child: child),
+    child: Padding(
+      padding: const .all(20),
+      child: Column(children: [child]),
+    ),
   ),
 );
