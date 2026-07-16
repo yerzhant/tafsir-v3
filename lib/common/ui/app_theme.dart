@@ -134,6 +134,7 @@ const typographyLabelsAndIconsBrownLight = typographySecondaryBrownLight;
 const typographyLabelsAndIconsBrownDark = brandSecondaryBrownDark;
 
 const textH1 = TextStyle(fontSize: 28, fontWeight: .bold);
+const textBodyLarge = TextStyle(fontSize: 18);
 const textBodyReg = TextStyle(fontSize: 16);
 const textBodyMedium = TextStyle(fontSize: 14);
 const textCallout = TextStyle(fontSize: 16, fontWeight: .w600);

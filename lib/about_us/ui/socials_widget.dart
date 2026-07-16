@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:tafsir/about_us/ui/icon_panel.dart';
 import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/preview.dart';
 
 class SocialsWidget extends StatelessWidget {
   const SocialsWidget({super.key, required this.theme});
@@ -70,9 +68,9 @@ class SocialsWidget extends StatelessWidget {
   }
 }
 
-@Preview(group: 'AboutButton', name: 'Light')
-Widget previewLight() => sizedWrapper(
-  const SocialsWidget(theme: .light),
-  width: 400,
-  hight: 200,
-);
+// @Preview(group: 'AboutButton', name: 'Light')
+// Widget previewLight() => sizedWrapper(
+//   const SocialsWidget(theme: .light),
+//   width: 400,
+//   hight: 200,
+// );
