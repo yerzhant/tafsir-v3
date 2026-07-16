@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/masjid.dart';
 import 'package:tafsir/common/ui/tab_button.dart';
 import 'package:tafsir/main/cubit/tab_cubit.dart';
 
@@ -68,23 +66,23 @@ class TabBar extends StatelessWidget {
   }
 }
 
-@Preview(group: 'TabBar', size: .new(400, 500), name: 'Light')
-Widget previewLight() => Masjid(
-  theme: .light,
-  child: BlocProvider(
-    create: (context) => TabCubit(),
-    child: BlocBuilder<TabCubit, TabState>(
-      builder: (context, state) {
-        return Column(
-          mainAxisAlignment: .center,
-          children: [
-            TabBar(
-              theme: .light,
-              state: state,
-            ),
-          ],
-        );
-      },
-    ),
-  ),
-);
+// @Preview(group: 'TabBar', size: .new(400, 500), name: 'Light')
+// Widget previewLight() => Masjid(
+//   theme: .light,
+//   child: BlocProvider(
+//     create: (context) => TabCubit(),
+//     child: BlocBuilder<TabCubit, TabState>(
+//       builder: (context, state) {
+//         return Column(
+//           mainAxisAlignment: .center,
+//           children: [
+//             TabBar(
+//               theme: .light,
+//               state: state,
+//             ),
+//           ],
+//         );
+//       },
+//     ),
+//   ),
+// );
