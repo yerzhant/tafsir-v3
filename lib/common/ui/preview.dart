@@ -18,7 +18,7 @@ Widget sizedWrapper(
     color: color,
     child: Padding(
       padding: const .all(20),
-      child: Column(children: [child]),
+      child: child,
     ),
   ),
 );

@@ -138,3 +138,24 @@ const textBodyLarge = TextStyle(fontSize: 18);
 const textBodyReg = TextStyle(fontSize: 16);
 const textBodyMedium = TextStyle(fontSize: 14);
 const textCallout = TextStyle(fontSize: 16, fontWeight: .w600);
+
+Color bgPrimary(AppTheme theme) => switch (theme) {
+  .light => bgPrimaryLight,
+  .dark => bgPrimaryDark,
+  .brownLight => bgPrimaryBrownLight,
+  .brownDark => bgPrimaryBrownDark,
+};
+
+Color bgSecondary(AppTheme theme) => switch (theme) {
+  .light => bgSecondaryLight,
+  .dark => bgSecondaryDark,
+  .brownLight => bgSecondaryBrownLight,
+  .brownDark => bgSecondaryBrownDark,
+};
+
+Color typographyPrimary(AppTheme theme) => switch (theme) {
+  .light => typographyPrimaryLight,
+  .dark => typographyPrimaryDark,
+  .brownLight => typographyPrimaryBrownLight,
+  .brownDark => typographyPrimaryBrownDark,
+};
