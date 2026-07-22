@@ -8,7 +8,7 @@ Map<String, Style> htmlStyles(AppTheme theme) => {
     textBodyReg.copyWith(color: typographyPrimary(theme)),
   ),
   'blockquote': .new(
-    margin: .all(0),
+    margin: .only(right: 0, left: 0, top: 0, bottom: 2 * _padding),
     padding: .only(left: 12, bottom: 0),
     border: .new(
       left: .new(
@@ -17,12 +17,12 @@ Map<String, Style> htmlStyles(AppTheme theme) => {
       ),
     ),
   ),
-  'div': .new(padding: .only(bottom: _padding, top: _padding)),
+  'div': .new(padding: .only(bottom: 2 * _padding)),
   'blockquote div': .new(padding: .all(0)),
   'ul': .new(padding: .only(left: 6)),
   'ol': .new(padding: .only(left: 14)),
   'h2': .new(
-    padding: .all(8),
+    padding: .all(_padding),
     backgroundColor: bgPrimary(theme),
   ),
 };

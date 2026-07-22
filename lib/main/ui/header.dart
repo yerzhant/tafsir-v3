@@ -9,12 +9,7 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textColor = switch (theme) {
-      .light => typographyPrimaryLight,
-      .dark => typographyPrimaryDark,
-      .brownLight => typographyPrimaryBrownLight,
-      .brownDark => typographyPrimaryBrownDark,
-    };
+    final textColor = typographyPrimary(theme);
 
     return Padding(
       padding: const .symmetric(horizontal: 20, vertical: 12),
