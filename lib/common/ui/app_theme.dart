@@ -153,6 +153,13 @@ Color bgSecondary(AppTheme theme) => switch (theme) {
   .brownDark => bgSecondaryBrownDark,
 };
 
+Color borderPrimary(AppTheme theme) => switch (theme) {
+  .light => borderPrimaryLight,
+  .dark => borderPrimaryDark,
+  .brownLight => borderPrimaryBrownLight,
+  .brownDark => borderPrimaryBrownDark,
+};
+
 Color typographyPrimary(AppTheme theme) => switch (theme) {
   .light => typographyPrimaryLight,
   .dark => typographyPrimaryDark,

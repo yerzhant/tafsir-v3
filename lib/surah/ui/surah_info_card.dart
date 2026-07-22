@@ -4,8 +4,8 @@ import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/surah/domain/surah.dart';
 import 'package:tafsir/surah/ui/html_styles.dart';
 
-class SurahInfoWidget extends StatelessWidget {
-  const SurahInfoWidget({super.key, required this.theme, required this.info});
+class SurahInfoCard extends StatelessWidget {
+  const SurahInfoCard({super.key, required this.theme, required this.info});
 
   final AppTheme theme;
   final SurahInfo info;
@@ -31,9 +31,9 @@ class SurahInfoWidget extends StatelessWidget {
   }
 }
 
-// @Preview(group: 'Surah Info', name: 'Light')
+// @Preview(group: 'Surah Info Card', name: 'Light')
 // Widget previewLight() => sizedWrapper(
-//   const SurahInfoWidget(theme: .light, info: .new(_text)),
+//   const SurahInfoCard(theme: .light, info: .new(_text)),
 //   width: 400,
 //   hight: 500,
 // );
