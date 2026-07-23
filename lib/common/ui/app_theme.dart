@@ -153,6 +153,13 @@ Color bgSecondary(AppTheme theme) => switch (theme) {
   .brownDark => bgSecondaryBrownDark,
 };
 
+Color bgContainer(AppTheme theme) => switch (theme) {
+  .light => bgContainerLight,
+  .dark => bgContainerDark,
+  .brownLight => bgContainerBrownLight,
+  .brownDark => bgContainerBrownDark,
+};
+
 Color borderPrimary(AppTheme theme) => switch (theme) {
   .light => borderPrimaryLight,
   .dark => borderPrimaryDark,
@@ -165,4 +172,11 @@ Color typographyPrimary(AppTheme theme) => switch (theme) {
   .dark => typographyPrimaryDark,
   .brownLight => typographyPrimaryBrownLight,
   .brownDark => typographyPrimaryBrownDark,
+};
+
+Color typographyLabelsAndIcons(AppTheme theme) => switch (theme) {
+  .light => typographyLabelsAndIconsLight,
+  .dark => typographyLabelsAndIconsDark,
+  .brownLight => typographyLabelsAndIconsBrownLight,
+  .brownDark => typographyLabelsAndIconsBrownDark,
 };
