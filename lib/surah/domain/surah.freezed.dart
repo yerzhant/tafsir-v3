@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Surah {
 
- SurahInfo get info;
+ SurahNumber get number; SurahName get name; SurahInfo get info; SurahTranslation get translation;
 /// Create a copy of Surah
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SurahCopyWith<Surah> get copyWith => _$SurahCopyWithImpl<Surah>(this as Surah, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Surah&&(identical(other.info, info) || other.info == info));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Surah&&(identical(other.number, number) || other.number == number)&&(identical(other.name, name) || other.name == name)&&(identical(other.info, info) || other.info == info)&&(identical(other.translation, translation) || other.translation == translation));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,info);
+int get hashCode => Object.hash(runtimeType,number,name,info,translation);
 
 @override
 String toString() {
-  return 'Surah(info: $info)';
+  return 'Surah(number: $number, name: $name, info: $info, translation: $translation)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SurahCopyWith<$Res>  {
   factory $SurahCopyWith(Surah value, $Res Function(Surah) _then) = _$SurahCopyWithImpl;
 @useResult
 $Res call({
- SurahInfo info
+ SurahNumber number, SurahName name, SurahInfo info, SurahTranslation translation
 });
 
 
@@ -62,10 +62,13 @@ class _$SurahCopyWithImpl<$Res>
 
 /// Create a copy of Surah
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? info = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? number = null,Object? name = null,Object? info = null,Object? translation = null,}) {
   return _then(_self.copyWith(
-info: null == info ? _self.info : info // ignore: cast_nullable_to_non_nullable
-as SurahInfo,
+number: null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
+as SurahNumber,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as SurahName,info: null == info ? _self.info : info // ignore: cast_nullable_to_non_nullable
+as SurahInfo,translation: null == translation ? _self.translation : translation // ignore: cast_nullable_to_non_nullable
+as SurahTranslation,
   ));
 }
 
@@ -150,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahInfo info)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahNumber number,  SurahName name,  SurahInfo info,  SurahTranslation translation)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Surah() when $default != null:
-return $default(_that.info);case _:
+return $default(_that.number,_that.name,_that.info,_that.translation);case _:
   return orElse();
 
 }
@@ -171,10 +174,10 @@ return $default(_that.info);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahInfo info)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahNumber number,  SurahName name,  SurahInfo info,  SurahTranslation translation)  $default,) {final _that = this;
 switch (_that) {
 case _Surah():
-return $default(_that.info);case _:
+return $default(_that.number,_that.name,_that.info,_that.translation);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -191,10 +194,10 @@ return $default(_that.info);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahInfo info)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahNumber number,  SurahName name,  SurahInfo info,  SurahTranslation translation)?  $default,) {final _that = this;
 switch (_that) {
 case _Surah() when $default != null:
-return $default(_that.info);case _:
+return $default(_that.number,_that.name,_that.info,_that.translation);case _:
   return null;
 
 }
@@ -206,10 +209,13 @@ return $default(_that.info);case _:
 
 
 class _Surah implements Surah {
-  const _Surah(this.info);
+  const _Surah(this.number, this.name, this.info, this.translation);
   
 
+@override final  SurahNumber number;
+@override final  SurahName name;
 @override final  SurahInfo info;
+@override final  SurahTranslation translation;
 
 /// Create a copy of Surah
 /// with the given fields replaced by the non-null parameter values.
@@ -221,16 +227,16 @@ _$SurahCopyWith<_Surah> get copyWith => __$SurahCopyWithImpl<_Surah>(this, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Surah&&(identical(other.info, info) || other.info == info));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Surah&&(identical(other.number, number) || other.number == number)&&(identical(other.name, name) || other.name == name)&&(identical(other.info, info) || other.info == info)&&(identical(other.translation, translation) || other.translation == translation));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,info);
+int get hashCode => Object.hash(runtimeType,number,name,info,translation);
 
 @override
 String toString() {
-  return 'Surah(info: $info)';
+  return 'Surah(number: $number, name: $name, info: $info, translation: $translation)';
 }
 
 
@@ -241,7 +247,7 @@ abstract mixin class _$SurahCopyWith<$Res> implements $SurahCopyWith<$Res> {
   factory _$SurahCopyWith(_Surah value, $Res Function(_Surah) _then) = __$SurahCopyWithImpl;
 @override @useResult
 $Res call({
- SurahInfo info
+ SurahNumber number, SurahName name, SurahInfo info, SurahTranslation translation
 });
 
 
@@ -258,10 +264,13 @@ class __$SurahCopyWithImpl<$Res>
 
 /// Create a copy of Surah
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? info = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? number = null,Object? name = null,Object? info = null,Object? translation = null,}) {
   return _then(_Surah(
-null == info ? _self.info : info // ignore: cast_nullable_to_non_nullable
-as SurahInfo,
+null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
+as SurahNumber,null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as SurahName,null == info ? _self.info : info // ignore: cast_nullable_to_non_nullable
+as SurahInfo,null == translation ? _self.translation : translation // ignore: cast_nullable_to_non_nullable
+as SurahTranslation,
   ));
 }
 

@@ -134,10 +134,12 @@ const typographyLabelsAndIconsBrownLight = typographySecondaryBrownLight;
 const typographyLabelsAndIconsBrownDark = brandSecondaryBrownDark;
 
 const textH1 = TextStyle(fontSize: 28, fontWeight: .bold);
+const textHeadline = TextStyle(fontSize: 20, fontWeight: .w500);
+const textCallout = TextStyle(fontSize: 16, fontWeight: .w600);
+
 const textBodyLarge = TextStyle(fontSize: 18);
 const textBodyReg = TextStyle(fontSize: 16);
 const textBodyMedium = TextStyle(fontSize: 14);
-const textCallout = TextStyle(fontSize: 16, fontWeight: .w600);
 
 Color bgPrimary(AppTheme theme) => switch (theme) {
   .light => bgPrimaryLight,
@@ -172,6 +174,13 @@ Color typographyPrimary(AppTheme theme) => switch (theme) {
   .dark => typographyPrimaryDark,
   .brownLight => typographyPrimaryBrownLight,
   .brownDark => typographyPrimaryBrownDark,
+};
+
+Color typographySecondary(AppTheme theme) => switch (theme) {
+  .light => typographySecondaryLight,
+  .dark => typographySecondaryDark,
+  .brownLight => typographySecondaryBrownLight,
+  .brownDark => typographySecondaryBrownDark,
 };
 
 Color typographyLabelsAndIcons(AppTheme theme) => switch (theme) {
