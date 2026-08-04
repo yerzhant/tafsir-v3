@@ -8,6 +8,7 @@ import 'package:tafsir/surah/ui/html_styles.dart';
 class AyahCard extends StatefulWidget {
   const AyahCard({
     super.key,
+
     required this.theme,
 
     required this.ayah,
