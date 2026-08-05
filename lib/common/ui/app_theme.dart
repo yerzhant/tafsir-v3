@@ -198,6 +198,13 @@ Color typographySecondary(AppTheme theme) => switch (theme) {
   .brownDark => typographySecondaryBrownDark,
 };
 
+Color typographyTertirary(AppTheme theme) => switch (theme) {
+  .light => typographyTertiraryLight,
+  .dark => typographyTertiraryDark,
+  .brownLight => typographyTertiraryBrownLight,
+  .brownDark => typographyTertiraryBrownDark,
+};
+
 Color typographyLabelsAndIcons(AppTheme theme) => switch (theme) {
   .light => typographyLabelsAndIconsLight,
   .dark => typographyLabelsAndIconsDark,

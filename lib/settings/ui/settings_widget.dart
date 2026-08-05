@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/common/ui/setting_panel.dart';
 import 'package:tafsir/settings/cubit/settings_cubit.dart';
 
 class SettingsWidget extends StatelessWidget {
-  const SettingsWidget({super.key, required this.theme});
+  const SettingsWidget({
+    super.key,
+    required this.theme,
+    required this.onFontTap,
+  });
 
   final AppTheme theme;
+  final VoidCallback onFontTap;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,7 @@ class SettingsWidget extends StatelessWidget {
             spacing: 12,
             children: [
               Column(
+                crossAxisAlignment: .start,
                 spacing: 8,
                 children: [
                   Text(
@@ -74,10 +79,130 @@ class SettingsWidget extends StatelessWidget {
                   ),
                 ],
               ),
+              Column(
+                crossAxisAlignment: .start,
+                spacing: 8,
+                children: [
+                  Text(
+                    'Размер шрифта',
+                    style: textCallout.copyWith(
+                      color: typographyPrimary(theme),
+                    ),
+                  ),
+                  SettingPanel(
+                    padding: 16,
+                    theme: theme,
+                    child: Column(
+                      spacing: 16,
+                      children: [
+                        _Slider(
+                          theme: theme,
+                          title: 'Арабский текст',
+                          value: state.ayahFontSize,
+                          onChanged: context
+                              .read<SettingsCubit>()
+                              .setAyahFontSize,
+                        ),
+                        _Slider(
+                          theme: theme,
+                          title: 'Текст перевода',
+                          value: state.tranlationFontSize,
+                          onChanged: context
+                              .read<SettingsCubit>()
+                              .setTranslationFontSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: onFontTap,
+                child: SettingPanel(
+                  theme: theme,
+                  child: Row(
+                    mainAxisAlignment: .spaceBetween,
+                    spacing: 4,
+                    children: [
+                      Text(
+                        'Арабский шрифт',
+                        style: textBodyReg.copyWith(
+                          color: typographyPrimary(theme),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          overflow: .ellipsis,
+                          state.ayayFonType.name,
+                          style: textBodyMedium.copyWith(
+                            color: typographyTertirary(theme),
+                          ),
+                        ),
+                      ),
+                      SvgPicture.asset(
+                        'assets/icons/caret-right.svg',
+                        colorFilter: .mode(
+                          typographyLabelsAndIcons(theme),
+                          .srcIn,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           );
         },
       ),
+    );
+  }
+}
+
+class _Slider extends StatelessWidget {
+  const _Slider({
+    required this.theme,
+    required this.title,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final AppTheme theme;
+  final String title;
+  final double value;
+  final Function(double value) onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: .start,
+      spacing: 8,
+      children: [
+        Text(
+          title,
+          style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Slider.adaptive(
+                min: 10,
+                max: 30,
+                value: value,
+                onChanged: onChanged,
+                thumbColor: typographyPrimary(theme),
+              ),
+            ),
+            SizedBox(
+              width: 35,
+              child: Text(
+                textAlign: .end,
+                value.toStringAsFixed(1),
+                style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -114,13 +239,16 @@ class _Checkbox extends StatelessWidget {
   }
 }
 
-@Preview(group: 'Settings Widget', name: 'Light')
-Widget previewLight() => sizedWrapper(
-  BlocProvider(
-    create: (context) => SettingsCubit(),
-    child: const SettingsWidget(theme: .light),
-  ),
-  width: 500,
-  hight: 300,
-  padding: 0,
-);
+// @Preview(group: 'Settings Widget', name: 'Light')
+// Widget previewLight() => sizedWrapper(
+//   BlocProvider(
+//     create: (context) => SettingsCubit(),
+//     child: SettingsWidget(
+//       theme: .light,
+//       onFontTap: () => print('on font tap'),
+//     ),
+//   ),
+//   width: 400,
+//   hight: 600,
+//   padding: 0,
+// );

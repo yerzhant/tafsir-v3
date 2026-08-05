@@ -15,7 +15,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           true,
           12,
           12,
-          .meQurah,
+          .uthmanTaha,
         ),
       );
 
