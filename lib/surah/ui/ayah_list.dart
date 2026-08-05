@@ -16,7 +16,7 @@ class AyahList extends StatefulWidget {
 
     required this.showAyah,
     required this.showTafsir,
-    required this.showTransaltion,
+    required this.showTranslation,
     required this.showFootnotes,
 
     required this.bookmarks,
@@ -34,7 +34,7 @@ class AyahList extends StatefulWidget {
 
   final bool showAyah;
   final bool showTafsir;
-  final bool showTransaltion;
+  final bool showTranslation;
   final bool showFootnotes;
 
   final Set<int> bookmarks;
@@ -86,7 +86,7 @@ class _AyahListState extends State<AyahList> {
           ayah: widget.aayaah[index],
           showAyah: widget.showAyah,
           showTafsir: widget.showTafsir,
-          showTransaltion: widget.showTransaltion,
+          showTranslation: widget.showTranslation,
           showFootnotes: widget.showFootnotes,
           isBookmarked: widget.bookmarks.contains(index + 1),
           onShare: widget.onShare,

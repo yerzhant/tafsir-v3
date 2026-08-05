@@ -44,6 +44,11 @@ const bgContainerDark = Color(0xFFFFFFFF);
 const bgContainerBrownLight = Color(0xFFFFFFFF);
 const bgContainerBrownDark = Color(0xFF5C4138);
 
+const alertSuccess200Light = Color(0xFF59A180);
+const alertSuccess200Dark = Color(0xFF59A180);
+const alertSuccess200BrownLight = Color(0xFF59A180);
+const alertSuccess200BrownDark = Color(0xFF59A180);
+
 const alertInfo200Light = Color(0xFF00B3F4);
 const alertInfo200Dark = Color(0xFF00B3F4);
 const alertInfo200BrownLight = Color(0xFF00B3F4);
@@ -205,4 +210,11 @@ Color typographyLink(AppTheme theme) => switch (theme) {
   .dark => typographyLinkDark,
   .brownLight => typographyLinkBrownLight,
   .brownDark => typographyLinkBrownDark,
+};
+
+Color alertSuccess200(AppTheme theme) => switch (theme) {
+  .light => alertSuccess200Light,
+  .dark => alertSuccess200Dark,
+  .brownLight => alertSuccess200BrownLight,
+  .brownDark => alertSuccess200BrownDark,
 };

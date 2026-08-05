@@ -15,7 +15,7 @@ class AyahCard extends StatefulWidget {
 
     required this.showAyah,
     required this.showTafsir,
-    required this.showTransaltion,
+    required this.showTranslation,
     required this.showFootnotes,
 
     required this.isBookmarked,
@@ -30,7 +30,7 @@ class AyahCard extends StatefulWidget {
 
   final bool showAyah;
   final bool showTafsir;
-  final bool showTransaltion;
+  final bool showTranslation;
   final bool showFootnotes;
 
   final bool isBookmarked;
@@ -109,7 +109,7 @@ class _AyahCardState extends State<AyahCard> {
                 ],
               ),
 
-              if (widget.showAyah || widget.showTransaltion)
+              if (widget.showAyah || widget.showTranslation)
                 Container(
                   padding: const .all(8),
                   decoration: BoxDecoration(
@@ -133,7 +133,7 @@ class _AyahCardState extends State<AyahCard> {
                           ],
                         ),
 
-                      if (widget.showTransaltion)
+                      if (widget.showTranslation)
                         Row(
                           children: [
                             Text(
@@ -169,7 +169,7 @@ class _AyahCardState extends State<AyahCard> {
             child: _Menu(
               theme: widget.theme,
               isBookmarked: widget.isBookmarked,
-              
+
               onShare: _onShare,
               onPlay: () => widget.onPlay(widget.ayah.number),
               onBookmark: () => widget.onBookmark(widget.ayah.number),

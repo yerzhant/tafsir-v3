@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/preview.dart';
 
 class SettingsHeader extends StatelessWidget {
   const SettingsHeader({super.key, required this.theme});
@@ -47,8 +45,8 @@ class SettingsHeader extends StatelessWidget {
   }
 }
 
-@Preview(group: 'Settings Header', name: 'Light')
-Widget previewLight() => sizedWrapper(
-  const SettingsHeader(theme: .light),
-  width: 500,
-);
+// @Preview(group: 'Settings Header', name: 'Light')
+// Widget previewLight() => sizedWrapper(
+//   const SettingsHeader(theme: .light),
+//   width: 500,
+// );
