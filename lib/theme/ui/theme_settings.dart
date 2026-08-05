@@ -30,45 +30,19 @@ class ThemeSettings extends StatelessWidget {
                       color: typographyPrimary(theme),
                     ),
                   ),
-                  SettingPanel(
+                  _Switch(
                     theme: theme,
-                    child: Row(
-                      children: [
-                        Text(
-                          'Как в системе',
-                          style: textBodyReg.copyWith(
-                            color: typographyPrimary(theme),
-                          ),
-                        ),
-                        const Spacer(),
-                        Switch.adaptive(
-                          value: state.sameAsInSystem,
-                          onChanged: context
-                              .read<ThemeCubit>()
-                              .setSameAsInSystem,
-                        ),
-                      ],
-                    ),
+                    title: 'Как в системе',
+                    value: state.sameAsInSystem,
+                    onChanged: context.read<ThemeCubit>().setSameAsInSystem,
                   ),
-                  SettingPanel(
+                  _Switch(
                     theme: theme,
-                    child: Row(
-                      children: [
-                        Text(
-                          'Не выключать экран',
-                          style: textBodyReg.copyWith(
-                            color: typographyPrimary(theme),
-                          ),
-                        ),
-                        const Spacer(),
-                        Switch.adaptive(
-                          value: state.doNotSwitchOffScreen,
-                          onChanged: context
-                              .read<ThemeCubit>()
-                              .setDoNotSwitchOffScreen,
-                        ),
-                      ],
-                    ),
+                    title: 'Не выключать экран',
+                    value: state.doNotSwitchOffScreen,
+                    onChanged: context
+                        .read<ThemeCubit>()
+                        .setDoNotSwitchOffScreen,
                   ),
                 ],
               ),
@@ -126,6 +100,41 @@ class ThemeSettings extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _Switch extends StatelessWidget {
+  const _Switch({
+    required this.theme,
+    required this.title,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final AppTheme theme;
+  final String title;
+  final bool value;
+  final Function(bool value) onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return SettingPanel(
+      theme: theme,
+      child: Row(
+        children: [
+          Text(
+            title,
+            style: textBodyReg.copyWith(color: typographyPrimary(theme)),
+          ),
+          const Spacer(),
+          Switch.adaptive(
+            value: value,
+            onChanged: onChanged,
+            activeTrackColor: alertSuccess200(theme),
+          ),
+        ],
       ),
     );
   }
