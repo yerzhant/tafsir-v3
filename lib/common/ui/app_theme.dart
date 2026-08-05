@@ -44,6 +44,11 @@ const bgContainerDark = Color(0xFFFFFFFF);
 const bgContainerBrownLight = Color(0xFFFFFFFF);
 const bgContainerBrownDark = Color(0xFF5C4138);
 
+const alertInfo200Light = Color(0xFF00B3F4);
+const alertInfo200Dark = Color(0xFF00B3F4);
+const alertInfo200BrownLight = Color(0xFF00B3F4);
+const alertInfo200BrownDark = Color(0xFF00B3F4);
+
 const borderPrimaryLight = grey300Light;
 const borderPrimaryDark = grey100Dark;
 const borderPrimaryBrownLight = brandPrimaryBrownLight;
@@ -133,6 +138,11 @@ const typographyLabelsAndIconsDark = typographyTertiraryDark;
 const typographyLabelsAndIconsBrownLight = typographySecondaryBrownLight;
 const typographyLabelsAndIconsBrownDark = brandSecondaryBrownDark;
 
+const typographyLinkLight = alertInfo200Light;
+const typographyLinkDark = alertInfo200Dark;
+const typographyLinkBrownLight = alertInfo200BrownLight;
+const typographyLinkBrownDark = alertInfo200BrownLight;
+
 const textH1 = TextStyle(fontSize: 28, fontWeight: .bold);
 const textHeadline = TextStyle(fontSize: 20, fontWeight: .w500);
 const textCallout = TextStyle(fontSize: 16, fontWeight: .w600);
@@ -188,4 +198,11 @@ Color typographyLabelsAndIcons(AppTheme theme) => switch (theme) {
   .dark => typographyLabelsAndIconsDark,
   .brownLight => typographyLabelsAndIconsBrownLight,
   .brownDark => typographyLabelsAndIconsBrownDark,
+};
+
+Color typographyLink(AppTheme theme) => switch (theme) {
+  .light => typographyLinkLight,
+  .dark => typographyLinkDark,
+  .brownLight => typographyLinkBrownLight,
+  .brownDark => typographyLinkBrownDark,
 };
