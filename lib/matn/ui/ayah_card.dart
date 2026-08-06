@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/surah/domain/ayah.dart';
-import 'package:tafsir/surah/ui/html_styles.dart';
+import 'package:tafsir/matn/domain/ayah.dart';
+import 'package:tafsir/matn/ui/html_styles.dart';
 
 class AyahCard extends StatefulWidget {
   const AyahCard({
