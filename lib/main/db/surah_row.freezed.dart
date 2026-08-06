@@ -214,8 +214,8 @@ return $default(_that.number,_that.name,_that.info,_that.djuz,_that.place,_that.
 /// @nodoc
 @JsonSerializable()
 
-class _SurahRow implements SurahRow {
-  const _SurahRow(this.number, this.name, this.info, this.djuz, this.place, this.translation, this.quantity);
+class _SurahRow extends SurahRow {
+  const _SurahRow(this.number, this.name, this.info, this.djuz, this.place, this.translation, this.quantity): super._();
   factory _SurahRow.fromJson(Map<String, dynamic> json) => _$SurahRowFromJson(json);
 
 @override final  SurahNumber number;

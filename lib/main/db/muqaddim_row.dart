@@ -13,4 +13,11 @@ abstract class MuqaddimRow with _$MuqaddimRow {
 
   factory MuqaddimRow.fromJson(Map<String, dynamic> json) =>
       _$MuqaddimRowFromJson(json);
+
+  factory MuqaddimRow.fromDomain(Muqaddim muqaddim) =>
+      .new(muqaddim.type, muqaddim.content);
+
+  const MuqaddimRow._();
+
+  Muqaddim toDomain() => .new(type, content);
 }

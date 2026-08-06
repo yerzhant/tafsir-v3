@@ -19,4 +19,26 @@ abstract class SurahRow with _$SurahRow {
 
   factory SurahRow.fromJson(Map<String, dynamic> json) =>
       _$SurahRowFromJson(json);
+
+  factory SurahRow.fromDomain(Surah surah) => .new(
+    surah.number,
+    surah.name,
+    surah.info,
+    surah.djuz,
+    surah.place,
+    surah.translation,
+    surah.quantity,
+  );
+
+  const SurahRow._();
+
+  Surah toDomain() => .new(
+    number,
+    name,
+    info,
+    djuz,
+    place,
+    translation,
+    quantity,
+  );
 }

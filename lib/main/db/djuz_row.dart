@@ -16,4 +16,11 @@ abstract class DjuzRow with _$DjuzRow {
 
   factory DjuzRow.fromJson(Map<String, dynamic> json) =>
       _$DjuzRowFromJson(json);
+
+  factory DjuzRow.fromDomain(Djuz djuz) =>
+      .new(djuz.number, djuz.place, djuz.from, djuz.to);
+
+  const DjuzRow._();
+
+  Djuz toDomain() => .new(number, place, from, to);
 }

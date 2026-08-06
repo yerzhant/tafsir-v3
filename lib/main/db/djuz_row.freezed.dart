@@ -211,8 +211,8 @@ return $default(_that.number,_that.place,_that.from,_that.to);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _DjuzRow implements DjuzRow {
-  const _DjuzRow(this.number, this.place, this.from, this.to);
+class _DjuzRow extends DjuzRow {
+  const _DjuzRow(this.number, this.place, this.from, this.to): super._();
   factory _DjuzRow.fromJson(Map<String, dynamic> json) => _$DjuzRowFromJson(json);
 
 @override final  DjuzNumber number;

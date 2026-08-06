@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tafsir/common/domain/aayah.dart';
+import 'package:tafsir/main/domain/bookmark.dart';
 import 'package:tafsir/main/domain/surah.dart';
 
 part 'bookmark_row.freezed.dart';
@@ -16,4 +17,11 @@ abstract class BookmarkRow with _$BookmarkRow {
 
   factory BookmarkRow.fromJson(Map<String, dynamic> json) =>
       _$BookmarkRowFromJson(json);
+
+  factory BookmarkRow.fromDomain(Bookmark bookmark) =>
+      .new(bookmark.surahNumber, bookmark.surahName, bookmark.aayahNumber);
+
+  const BookmarkRow._();
+
+  Bookmark toDomain() => .new(surahNumber, surahName, aayahNumber);
 }

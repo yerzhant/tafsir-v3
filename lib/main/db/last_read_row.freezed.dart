@@ -210,8 +210,8 @@ return $default(_that.surahName,_that.surahNumber,_that.aayahNumber);case _:
 /// @nodoc
 
 @JsonSerializable(fieldRename: .snake)
-class _LastReadRow implements LastReadRow {
-  const _LastReadRow(this.surahName, this.surahNumber, this.aayahNumber);
+class _LastReadRow extends LastReadRow {
+  const _LastReadRow(this.surahName, this.surahNumber, this.aayahNumber): super._();
   factory _LastReadRow.fromJson(Map<String, dynamic> json) => _$LastReadRowFromJson(json);
 
 @override final  SurahName surahName;

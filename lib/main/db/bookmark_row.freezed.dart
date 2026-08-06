@@ -210,8 +210,8 @@ return $default(_that.surahNumber,_that.surahName,_that.aayahNumber);case _:
 /// @nodoc
 
 @JsonSerializable(fieldRename: .snake)
-class _BookmarkRow implements BookmarkRow {
-  const _BookmarkRow(this.surahNumber, this.surahName, this.aayahNumber);
+class _BookmarkRow extends BookmarkRow {
+  const _BookmarkRow(this.surahNumber, this.surahName, this.aayahNumber): super._();
   factory _BookmarkRow.fromJson(Map<String, dynamic> json) => _$BookmarkRowFromJson(json);
 
 @override final  SurahNumber surahNumber;

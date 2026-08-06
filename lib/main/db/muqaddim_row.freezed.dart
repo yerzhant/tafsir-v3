@@ -209,8 +209,8 @@ return $default(_that.type,_that.content);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _MuqaddimRow implements MuqaddimRow {
-  const _MuqaddimRow(this.type, this.content);
+class _MuqaddimRow extends MuqaddimRow {
+  const _MuqaddimRow(this.type, this.content): super._();
   factory _MuqaddimRow.fromJson(Map<String, dynamic> json) => _$MuqaddimRowFromJson(json);
 
 @override final  MuqaddimType type;
