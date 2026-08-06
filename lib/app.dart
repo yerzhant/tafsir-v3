@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tafsir/common/db/db_service.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
 import 'package:tafsir/init/cubit/init_cubit.dart';
 import 'package:tafsir/init/ui/progress_widget.dart';
@@ -10,33 +11,37 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ThemeCubit(),
-      child: MaterialApp(
-        title: 'Тафсир',
-        home: BlocProvider(
-          create: (context) => InitCubit(),
-          child: BlocBuilder<ThemeCubit, ThemeState>(
-            builder: (context, theme) {
-              return BlocBuilder<InitCubit, InitState>(
-                builder: (context, state) {
-                  return switch (state) {
-                    InitStateInitializing(:final progress) => ProgressWidget(
-                      theme: theme.theme,
-                      value: progress,
-                    ),
+    return RepositoryProvider(
+      create: (context) => DbService(),
+      dispose: (db) async => await db.close(),
+      child: BlocProvider(
+        create: (context) => ThemeCubit(),
+        child: MaterialApp(
+          title: 'Тафсир',
+          home: BlocProvider(
+            create: (context) => InitCubit()..init(),
+            child: BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, themeState) {
+                return BlocBuilder<InitCubit, InitState>(
+                  builder: (context, state) {
+                    return switch (state) {
+                      InitStateInitializing(:final progress) => ProgressWidget(
+                        theme: themeState.theme,
+                        value: progress,
+                      ),
 
-                    InitStateInitialized() => throw UnimplementedError(),
+                      InitStateInitialized() => throw UnimplementedError(),
 
-                    InitStateFailure(:final error) => AppErrorWidget(
-                      error: error,
-                      theme: theme.theme,
-                      onPressed: context.read<InitCubit>().init,
-                    ),
-                  };
-                },
-              );
-            },
+                      InitStateFailure(:final error) => AppErrorWidget(
+                        error: error,
+                        theme: themeState.theme,
+                        onPressed: context.read<InitCubit>().init,
+                      ),
+                    };
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),

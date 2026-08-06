@@ -23,13 +23,21 @@ class AppErrorWidget extends StatelessWidget {
         mainAxisAlignment: .center,
         spacing: 12,
         children: [
-          switch (error) {
-            GeneralError(:final message) => _Message(
-              theme: theme,
-              header: 'Ошибка',
-              message: message,
-            ),
-          },
+          Column(
+            spacing: 4,
+            children: [
+              Text(
+                error.title,
+                textAlign: .center,
+                style: textBodyLarge.copyWith(color: typographyPrimary(theme)),
+              ),
+              Text(
+                error.message,
+                maxLines: 10,
+                style: textBodyReg.copyWith(color: typographyPrimary(theme)),
+              ),
+            ],
+          ),
           FilledButton(
             style: .new(
               backgroundColor: .all(bgSecondary(theme)),
@@ -40,40 +48,6 @@ class AppErrorWidget extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _Message extends StatelessWidget {
-  const _Message({
-    required this.theme,
-    required this.header,
-    required this.message,
-  });
-
-  final AppTheme theme;
-  final String header;
-  final String message;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      spacing: 4,
-      children: [
-        Text(
-          header,
-          textAlign: .center,
-          style: textBodyLarge.copyWith(
-            color: typographyPrimary(theme),
-          ),
-        ),
-        Text(
-          message,
-          style: textBodyReg.copyWith(
-            color: typographyPrimary(theme),
-          ),
-        ),
-      ],
     );
   }
 }
