@@ -3,7 +3,7 @@ import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/muqaddim.dart';
 import 'package:tafsir/main/ui/muqaddim_item.dart';
 import 'package:tafsir/main/ui/surah_item.dart';
-import 'package:tafsir/surah/domain/surah.dart';
+import 'package:tafsir/main/domain/surah.dart';
 
 class SuwarList extends StatelessWidget {
   const SuwarList({

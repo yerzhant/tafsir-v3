@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/surah/domain/surah.dart';
+import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/surah/ui/html_styles.dart';
 
 class SurahInfoCard extends StatelessWidget {

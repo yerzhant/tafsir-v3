@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
-import 'package:tafsir/surah/domain/surah.dart';
+import 'package:tafsir/main/domain/surah.dart';
 
 class SurahItem extends StatelessWidget {
   const SurahItem({

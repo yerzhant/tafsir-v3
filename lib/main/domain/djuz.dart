@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tafsir/surah/domain/surah.dart';
+import 'package:tafsir/main/domain/surah.dart';
 
 part 'djuz.freezed.dart';
 
