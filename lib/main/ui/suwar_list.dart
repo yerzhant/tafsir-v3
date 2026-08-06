@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/main/domain/info_item.dart';
-import 'package:tafsir/main/domain/surah_item.dart';
-import 'package:tafsir/main/ui/info_list_item.dart';
-import 'package:tafsir/main/ui/surah_list_item.dart';
+import 'package:tafsir/main/domain/muqaddim.dart';
+import 'package:tafsir/main/ui/muqaddim_item.dart';
+import 'package:tafsir/main/ui/surah_item.dart';
+import 'package:tafsir/surah/domain/surah.dart';
 
 class SuwarList extends StatelessWidget {
   const SuwarList({
     super.key,
     required this.theme,
-    required this.infoItems,
-    required this.surahItems,
+    required this.muqaddimat,
+    required this.suwar,
   });
 
   final AppTheme theme;
-  final List<InfoItem> infoItems;
-  final List<SurahItem> surahItems;
+  final List<Muqaddim> muqaddimat;
+  final List<Surah> suwar;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       itemBuilder: (context, index) {
-        if (index < infoItems.length) {
-          return InfoListItem(theme: theme, item: infoItems[index]);
+        if (index < muqaddimat.length) {
+          return MuqaddimItem(theme: theme, muqaddim: muqaddimat[index]);
         } else {
-          return SurahListItem(
+          return SurahItem(
             theme: theme,
-            item: surahItems[index - infoItems.length],
+            surah: suwar[index - muqaddimat.length],
           );
         }
       },
-      itemCount: infoItems.length + surahItems.length,
+      itemCount: muqaddimat.length + suwar.length,
       separatorBuilder: (context, index) =>
-          SizedBox(height: index == infoItems.length - 1 ? 12 : 8),
+          SizedBox(height: index == muqaddimat.length - 1 ? 12 : 8),
     );
   }
 }

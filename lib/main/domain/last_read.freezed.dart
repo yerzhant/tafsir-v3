@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LastRead {
 
- SurahName get surah; SurahNumber get surahNumber; AayahNumber get aayah;
+ SurahName get surahName; SurahNumber get surahNumber; AayahNumber get aayahNumber;
 /// Create a copy of LastRead
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $LastReadCopyWith<LastRead> get copyWith => _$LastReadCopyWithImpl<LastRead>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LastRead&&(identical(other.surah, surah) || other.surah == surah)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayah, aayah) || other.aayah == aayah));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LastRead&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,surah,surahNumber,aayah);
+int get hashCode => Object.hash(runtimeType,surahName,surahNumber,aayahNumber);
 
 @override
 String toString() {
-  return 'LastRead(surah: $surah, surahNumber: $surahNumber, aayah: $aayah)';
+  return 'LastRead(surahName: $surahName, surahNumber: $surahNumber, aayahNumber: $aayahNumber)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $LastReadCopyWith<$Res>  {
   factory $LastReadCopyWith(LastRead value, $Res Function(LastRead) _then) = _$LastReadCopyWithImpl;
 @useResult
 $Res call({
- SurahName surah, SurahNumber surahNumber, AayahNumber aayah
+ SurahName surahName, SurahNumber surahNumber, AayahNumber aayahNumber
 });
 
 
@@ -62,11 +62,11 @@ class _$LastReadCopyWithImpl<$Res>
 
 /// Create a copy of LastRead
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? surah = null,Object? surahNumber = null,Object? aayah = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? surahName = null,Object? surahNumber = null,Object? aayahNumber = null,}) {
   return _then(_self.copyWith(
-surah: null == surah ? _self.surah : surah // ignore: cast_nullable_to_non_nullable
+surahName: null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
 as SurahName,surahNumber: null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
-as SurahNumber,aayah: null == aayah ? _self.aayah : aayah // ignore: cast_nullable_to_non_nullable
+as SurahNumber,aayahNumber: null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
 as AayahNumber,
   ));
 }
@@ -152,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahName surah,  SurahNumber surahNumber,  AayahNumber aayah)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LastRead() when $default != null:
-return $default(_that.surah,_that.surahNumber,_that.aayah);case _:
+return $default(_that.surahName,_that.surahNumber,_that.aayahNumber);case _:
   return orElse();
 
 }
@@ -173,10 +173,10 @@ return $default(_that.surah,_that.surahNumber,_that.aayah);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahName surah,  SurahNumber surahNumber,  AayahNumber aayah)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber)  $default,) {final _that = this;
 switch (_that) {
 case _LastRead():
-return $default(_that.surah,_that.surahNumber,_that.aayah);case _:
+return $default(_that.surahName,_that.surahNumber,_that.aayahNumber);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +193,10 @@ return $default(_that.surah,_that.surahNumber,_that.aayah);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahName surah,  SurahNumber surahNumber,  AayahNumber aayah)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber)?  $default,) {final _that = this;
 switch (_that) {
 case _LastRead() when $default != null:
-return $default(_that.surah,_that.surahNumber,_that.aayah);case _:
+return $default(_that.surahName,_that.surahNumber,_that.aayahNumber);case _:
   return null;
 
 }
@@ -208,12 +208,12 @@ return $default(_that.surah,_that.surahNumber,_that.aayah);case _:
 
 
 class _LastRead implements LastRead {
-  const _LastRead(this.surah, this.surahNumber, this.aayah);
+  const _LastRead(this.surahName, this.surahNumber, this.aayahNumber);
   
 
-@override final  SurahName surah;
+@override final  SurahName surahName;
 @override final  SurahNumber surahNumber;
-@override final  AayahNumber aayah;
+@override final  AayahNumber aayahNumber;
 
 /// Create a copy of LastRead
 /// with the given fields replaced by the non-null parameter values.
@@ -225,16 +225,16 @@ _$LastReadCopyWith<_LastRead> get copyWith => __$LastReadCopyWithImpl<_LastRead>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LastRead&&(identical(other.surah, surah) || other.surah == surah)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayah, aayah) || other.aayah == aayah));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LastRead&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,surah,surahNumber,aayah);
+int get hashCode => Object.hash(runtimeType,surahName,surahNumber,aayahNumber);
 
 @override
 String toString() {
-  return 'LastRead(surah: $surah, surahNumber: $surahNumber, aayah: $aayah)';
+  return 'LastRead(surahName: $surahName, surahNumber: $surahNumber, aayahNumber: $aayahNumber)';
 }
 
 
@@ -245,7 +245,7 @@ abstract mixin class _$LastReadCopyWith<$Res> implements $LastReadCopyWith<$Res>
   factory _$LastReadCopyWith(_LastRead value, $Res Function(_LastRead) _then) = __$LastReadCopyWithImpl;
 @override @useResult
 $Res call({
- SurahName surah, SurahNumber surahNumber, AayahNumber aayah
+ SurahName surahName, SurahNumber surahNumber, AayahNumber aayahNumber
 });
 
 
@@ -262,11 +262,11 @@ class __$LastReadCopyWithImpl<$Res>
 
 /// Create a copy of LastRead
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? surah = null,Object? surahNumber = null,Object? aayah = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? surahName = null,Object? surahNumber = null,Object? aayahNumber = null,}) {
   return _then(_LastRead(
-null == surah ? _self.surah : surah // ignore: cast_nullable_to_non_nullable
+null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
 as SurahName,null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
-as SurahNumber,null == aayah ? _self.aayah : aayah // ignore: cast_nullable_to_non_nullable
+as SurahNumber,null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
 as AayahNumber,
   ));
 }

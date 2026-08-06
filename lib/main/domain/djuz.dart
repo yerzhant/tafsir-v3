@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tafsir/main/domain/surah_item.dart';
+import 'package:tafsir/surah/domain/surah.dart';
 
-part 'djuz_item.freezed.dart';
+part 'djuz.freezed.dart';
 
 extension type const DjuzNumber(int value) implements int {}
 
@@ -15,11 +15,11 @@ enum DjuzPlace {
 }
 
 @freezed
-abstract class DjuzItem with _$DjuzItem {
-  const factory DjuzItem(
+abstract class Djuz with _$Djuz {
+  const factory Djuz(
     DjuzNumber number,
+    DjuzPlace place,
     SurahName from,
     SurahName to,
-    DjuzPlace place,
-  ) = _DjuzItem;
+  ) = _Djuz;
 }

@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/main/domain/bookmark.dart';
-import 'package:tafsir/main/ui/bookmark_list_item.dart';
+import 'package:tafsir/main/ui/bookmark_item.dart';
 
 class BookmarksList extends StatelessWidget {
-  const BookmarksList({super.key, required this.theme, required this.items});
+  const BookmarksList({
+    super.key,
+    required this.theme,
+    required this.items,
+  });
 
   final AppTheme theme;
   final List<Bookmark> items;
@@ -14,7 +18,7 @@ class BookmarksList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemCount: items.length,
-      itemBuilder: (context, index) => BookmarkListItem(
+      itemBuilder: (context, index) => BookmarkItem(
         theme: theme,
         bookmark: items[index],
       ),

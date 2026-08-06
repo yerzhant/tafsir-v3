@@ -3,13 +3,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
-import 'package:tafsir/main/domain/surah_item.dart';
+import 'package:tafsir/surah/domain/surah.dart';
 
-class SurahListItem extends StatelessWidget {
-  const SurahListItem({super.key, required this.theme, required this.item});
+class SurahItem extends StatelessWidget {
+  const SurahItem({
+    super.key,
+    required this.theme,
+    required this.surah,
+  });
 
   final AppTheme theme;
-  final SurahItem item;
+  final Surah surah;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,7 @@ class SurahListItem extends StatelessWidget {
           CircleCard(
             theme: theme,
             child: Text(
-              '${item.number}',
+              '${surah.number}',
               style: textCallout.copyWith(color: primaryColor),
             ),
           ),
@@ -60,7 +64,7 @@ class SurahListItem extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(
-                  item.name,
+                  surah.name,
                   overflow: .ellipsis,
                   style: textCallout.copyWith(color: primaryColor),
                 ),
@@ -68,7 +72,7 @@ class SurahListItem extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        item.translation,
+                        surah.translation,
                         overflow: .ellipsis,
                         style: textBodyMedium.copyWith(color: secondaryColor),
                       ),
@@ -89,7 +93,7 @@ class SurahListItem extends StatelessWidget {
                     ),
                     const SizedBox(width: 2),
                     Text(
-                      item.place.name,
+                      surah.place.name,
                       style: textBodyMedium.copyWith(color: secondaryColor),
                     ),
                   ],
@@ -103,13 +107,13 @@ class SurahListItem extends StatelessWidget {
             crossAxisAlignment: .end,
             children: [
               Text(
-                '${item.quantity} аятов',
+                '${surah.quantity} аятов',
                 style: textBodyMedium.copyWith(
                   color: secondaryColor.withValues(alpha: .8),
                 ),
               ),
               Text(
-                'Джуз: ${item.djuz}',
+                'Джуз: ${surah.djuz}',
                 style: textBodyMedium.copyWith(
                   color: secondaryColor.withValues(alpha: .8),
                 ),
@@ -122,9 +126,9 @@ class SurahListItem extends StatelessWidget {
   }
 }
 
-// @Preview(group: 'SurahListItem', name: 'Light')
+// @Preview(group: 'SurahItem', name: 'Light')
 // Widget previewLight() => sizedWrapper(
-//   const SurahListItem(
+//   const SurahItem(
 //     theme: .light,
 //     item: .new(
 //       .new(1),
@@ -138,9 +142,9 @@ class SurahListItem extends StatelessWidget {
 //   width: 400,
 // );
 
-// @Preview(group: 'SurahListItem', name: 'Light Long')
+// @Preview(group: 'SurahItem', name: 'Light Long')
 // Widget previewLightLong() => sizedWrapper(
-//   const SurahListItem(
+//   const SurahItem(
 //     theme: .light,
 //     item: .new(
 //       .new(2),

@@ -3,13 +3,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
-import 'package:tafsir/main/domain/djuz_item.dart';
+import 'package:tafsir/main/domain/djuz.dart';
 
-class DjuzListItem extends StatelessWidget {
-  const DjuzListItem({super.key, required this.theme, required this.item});
+class DjuzItem extends StatelessWidget {
+  const DjuzItem({
+    super.key,
+    required this.theme,
+    required this.djuz,
+  });
 
   final AppTheme theme;
-  final DjuzItem item;
+  final Djuz djuz;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +46,7 @@ class DjuzListItem extends StatelessWidget {
           CircleCard(
             theme: theme,
             child: Text(
-              '${item.number}',
+              '${djuz.number}',
               style: textCallout.copyWith(color: primaryColor),
             ),
           ),
@@ -53,7 +57,7 @@ class DjuzListItem extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(
-                  '${item.from} → ${item.to}',
+                  '${djuz.from} → ${djuz.to}',
                   style: textCallout.copyWith(color: primaryColor),
                   overflow: .ellipsis,
                 ),
@@ -66,7 +70,7 @@ class DjuzListItem extends StatelessWidget {
                       colorFilter: .mode(mapPinColor, .srcIn),
                     ),
                     Text(
-                      item.place.name,
+                      djuz.place.name,
                       style: textBodyMedium.copyWith(color: secondaryColor),
                     ),
                   ],
@@ -80,9 +84,9 @@ class DjuzListItem extends StatelessWidget {
   }
 }
 
-// @Preview(group: 'DjuzListItem', name: 'Light')
+// @Preview(group: 'DjuzItem', name: 'Light')
 // Widget previewLight() => sizedWrapper(
-//   const DjuzListItem(
+//   const DjuzItem(
 //     theme: .light,
 //     item: .new(
 //       .new(1),
@@ -94,9 +98,9 @@ class DjuzListItem extends StatelessWidget {
 //   width: 400,
 // );
 
-// @Preview(group: 'DjuzListItem', name: 'Light Long')
+// @Preview(group: 'DjuzItem', name: 'Light Long')
 // Widget previewLightLong() => sizedWrapper(
-//   const DjuzListItem(
+//   const DjuzItem(
 //     theme: .light,
 //     item: .new(
 //       .new(1),

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/main/domain/menu_item.dart';
+import 'package:tafsir/main/domain/menu.dart';
 
 class MenuButton extends StatelessWidget {
-  const MenuButton({super.key, required this.theme, required this.item});
+  const MenuButton({
+    super.key,
+    required this.theme,
+    required this.menu,
+  });
 
   final AppTheme theme;
-  final MenuItem item;
+  final Menu menu;
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +46,11 @@ class MenuButton extends StatelessWidget {
         spacing: 8,
         children: [
           SvgPicture.asset(
-            'assets/icons/${item.icon}.svg',
+            'assets/icons/${menu.icon}.svg',
             colorFilter: .mode(iconColor, .srcIn),
           ),
           Text(
-            item.title,
+            menu.title,
             style: textBodyReg.copyWith(color: textColor),
           ),
         ],

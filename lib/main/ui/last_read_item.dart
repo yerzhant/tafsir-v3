@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/last_read.dart';
 
-class LastReadListItem extends StatelessWidget {
-  const LastReadListItem({
+class LastReadItem extends StatelessWidget {
+  const LastReadItem({
     super.key,
     required this.theme,
     required this.lastRead,
@@ -44,7 +44,7 @@ class LastReadListItem extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          '${lastRead.surah} ${lastRead.surahNumber}:${lastRead.aayah}',
+          '${lastRead.surahName} ${lastRead.surahNumber}:${lastRead.aayahNumber}',
           style: textBodyMedium.copyWith(
             color: textColor.withValues(alpha: .8),
           ),
@@ -54,8 +54,8 @@ class LastReadListItem extends StatelessWidget {
   }
 }
 
-// @Preview(group: 'LastReadListItem', name: 'Light', wrapper: sizedWrapper)
-// Widget previewLight() => const LastReadListItem(
+// @Preview(group: 'LastReadItem', name: 'Light', wrapper: sizedWrapper)
+// Widget previewLight() => const LastReadItem(
 //   theme: .light,
 //   lastRead: .new(
 //     .new('Al-Fatiha'),

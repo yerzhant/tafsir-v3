@@ -5,8 +5,8 @@ import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
 import 'package:tafsir/main/domain/bookmark.dart';
 
-class BookmarkListItem extends StatelessWidget {
-  const BookmarkListItem({
+class BookmarkItem extends StatelessWidget {
+  const BookmarkItem({
     super.key,
     required this.theme,
     required this.bookmark,
@@ -57,12 +57,12 @@ class BookmarkListItem extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(
-                  '${bookmark.surahNumber}. ${bookmark.surah}',
+                  '${bookmark.surahNumber}. ${bookmark.surahName}',
                   style: textCallout.copyWith(color: primaryColor),
                   overflow: .ellipsis,
                 ),
                 Text(
-                  '${bookmark.aayah} аят',
+                  '${bookmark.aayahNumber} аят',
                   style: textBodyMedium.copyWith(color: secondaryColor),
                 ),
               ],
@@ -74,18 +74,18 @@ class BookmarkListItem extends StatelessWidget {
   }
 }
 
-// @Preview(group: 'BookmarkListItem', name: 'Light')
+// @Preview(group: 'BookmarkItem', name: 'Light')
 // Widget previewLight() => sizedWrapper(
-//   const BookmarkListItem(
+//   const BookmarkItem(
 //     theme: .light,
 //     bookmark: .new(.new(1), .new('Аль-Фатиха'), .new(1)),
 //   ),
 //   width: 400,
 // );
 
-// @Preview(group: 'BookmarkListItem', name: 'Light Long')
+// @Preview(group: 'BookmarkItem', name: 'Light Long')
 // Widget previewLightLong() => sizedWrapper(
-//   const BookmarkListItem(
+//   const BookmarkItem(
 //     theme: .light,
 //     bookmark: .new(.new(1), .new('Аль-Фатиха Аль-Фатиха Аль-Фатиха'), .new(1)),
 //   ),
