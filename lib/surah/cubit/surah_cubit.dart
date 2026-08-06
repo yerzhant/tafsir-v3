@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tafsir/matn/domain/ayah_position.dart';
+import 'package:tafsir/surah/domain/ayah_position.dart';
 
 part 'surah_state.dart';
 part 'surah_cubit.freezed.dart';

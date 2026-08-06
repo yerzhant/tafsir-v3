@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/matn/cubit/surah_cubit.dart';
-import 'package:tafsir/matn/domain/ayah.dart';
-import 'package:tafsir/matn/domain/ayah_position.dart';
-import 'package:tafsir/matn/ui/ayah_card.dart';
+import 'package:tafsir/surah/cubit/surah_cubit.dart';
+import 'package:tafsir/surah/domain/ayah.dart';
+import 'package:tafsir/surah/domain/ayah_position.dart';
+import 'package:tafsir/surah/ui/ayah_card.dart';
 
 class AyahList extends StatefulWidget {
   const AyahList({
