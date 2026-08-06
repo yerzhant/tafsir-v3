@@ -11,7 +11,6 @@ abstract class BookmarkRow with _$BookmarkRow {
   @JsonSerializable(fieldRename: .snake)
   const factory BookmarkRow(
     SurahNumber surahNumber,
-    SurahName surahName,
     AayahNumber aayahNumber,
   ) = _BookmarkRow;
 
@@ -19,9 +18,5 @@ abstract class BookmarkRow with _$BookmarkRow {
       _$BookmarkRowFromJson(json);
 
   factory BookmarkRow.fromDomain(Bookmark bookmark) =>
-      .new(bookmark.surahNumber, bookmark.surahName, bookmark.aayahNumber);
-
-  const BookmarkRow._();
-
-  Bookmark toDomain() => .new(surahNumber, surahName, aayahNumber);
+      .new(bookmark.surahNumber, bookmark.aayahNumber);
 }

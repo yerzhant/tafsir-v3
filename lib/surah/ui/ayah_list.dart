@@ -56,7 +56,12 @@ class _AyahListState extends State<AyahList> {
   @override
   void dispose() {
     final position = _listener.itemPositions.value.first;
-    widget.onLastPosition(.new(position.index, position.itemLeadingEdge));
+    widget.onLastPosition(
+      .new(
+        .new(position.index),
+        position.itemLeadingEdge,
+      ),
+    );
 
     super.dispose();
   }

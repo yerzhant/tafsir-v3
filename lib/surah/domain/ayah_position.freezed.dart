@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AyahPosition {
 
- int get number; double get alignment;
+ AayahNumber get number; double get alignment;
 /// Create a copy of AyahPosition
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $AyahPositionCopyWith<$Res>  {
   factory $AyahPositionCopyWith(AyahPosition value, $Res Function(AyahPosition) _then) = _$AyahPositionCopyWithImpl;
 @useResult
 $Res call({
- int number, double alignment
+ AayahNumber number, double alignment
 });
 
 
@@ -65,7 +65,7 @@ class _$AyahPositionCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? number = null,Object? alignment = null,}) {
   return _then(_self.copyWith(
 number: null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
-as int,alignment: null == alignment ? _self.alignment : alignment // ignore: cast_nullable_to_non_nullable
+as AayahNumber,alignment: null == alignment ? _self.alignment : alignment // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }
@@ -151,7 +151,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int number,  double alignment)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AayahNumber number,  double alignment)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AyahPosition() when $default != null:
 return $default(_that.number,_that.alignment);case _:
@@ -172,7 +172,7 @@ return $default(_that.number,_that.alignment);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int number,  double alignment)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AayahNumber number,  double alignment)  $default,) {final _that = this;
 switch (_that) {
 case _AyahPosition():
 return $default(_that.number,_that.alignment);case _:
@@ -192,7 +192,7 @@ return $default(_that.number,_that.alignment);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int number,  double alignment)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AayahNumber number,  double alignment)?  $default,) {final _that = this;
 switch (_that) {
 case _AyahPosition() when $default != null:
 return $default(_that.number,_that.alignment);case _:
@@ -210,7 +210,7 @@ class _AyahPosition implements AyahPosition {
   const _AyahPosition(this.number, this.alignment);
   
 
-@override final  int number;
+@override final  AayahNumber number;
 @override final  double alignment;
 
 /// Create a copy of AyahPosition
@@ -243,7 +243,7 @@ abstract mixin class _$AyahPositionCopyWith<$Res> implements $AyahPositionCopyWi
   factory _$AyahPositionCopyWith(_AyahPosition value, $Res Function(_AyahPosition) _then) = __$AyahPositionCopyWithImpl;
 @override @useResult
 $Res call({
- int number, double alignment
+ AayahNumber number, double alignment
 });
 
 
@@ -263,7 +263,7 @@ class __$AyahPositionCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? number = null,Object? alignment = null,}) {
   return _then(_AyahPosition(
 null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
-as int,null == alignment ? _self.alignment : alignment // ignore: cast_nullable_to_non_nullable
+as AayahNumber,null == alignment ? _self.alignment : alignment // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }

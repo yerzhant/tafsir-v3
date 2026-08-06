@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BookmarkRow {
 
- SurahNumber get surahNumber; SurahName get surahName; AayahNumber get aayahNumber;
+ SurahNumber get surahNumber; AayahNumber get aayahNumber;
 /// Create a copy of BookmarkRow
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $BookmarkRowCopyWith<BookmarkRow> get copyWith => _$BookmarkRowCopyWithImpl<Book
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookmarkRow&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookmarkRow&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,surahNumber,surahName,aayahNumber);
+int get hashCode => Object.hash(runtimeType,surahNumber,aayahNumber);
 
 @override
 String toString() {
-  return 'BookmarkRow(surahNumber: $surahNumber, surahName: $surahName, aayahNumber: $aayahNumber)';
+  return 'BookmarkRow(surahNumber: $surahNumber, aayahNumber: $aayahNumber)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $BookmarkRowCopyWith<$Res>  {
   factory $BookmarkRowCopyWith(BookmarkRow value, $Res Function(BookmarkRow) _then) = _$BookmarkRowCopyWithImpl;
 @useResult
 $Res call({
- SurahNumber surahNumber, SurahName surahName, AayahNumber aayahNumber
+ SurahNumber surahNumber, AayahNumber aayahNumber
 });
 
 
@@ -65,11 +65,10 @@ class _$BookmarkRowCopyWithImpl<$Res>
 
 /// Create a copy of BookmarkRow
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? surahNumber = null,Object? surahName = null,Object? aayahNumber = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? surahNumber = null,Object? aayahNumber = null,}) {
   return _then(_self.copyWith(
 surahNumber: null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
-as SurahNumber,surahName: null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
-as SurahName,aayahNumber: null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
+as SurahNumber,aayahNumber: null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
 as AayahNumber,
   ));
 }
@@ -155,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahNumber surahNumber,  SurahName surahName,  AayahNumber aayahNumber)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahNumber surahNumber,  AayahNumber aayahNumber)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BookmarkRow() when $default != null:
-return $default(_that.surahNumber,_that.surahName,_that.aayahNumber);case _:
+return $default(_that.surahNumber,_that.aayahNumber);case _:
   return orElse();
 
 }
@@ -176,10 +175,10 @@ return $default(_that.surahNumber,_that.surahName,_that.aayahNumber);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahNumber surahNumber,  SurahName surahName,  AayahNumber aayahNumber)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahNumber surahNumber,  AayahNumber aayahNumber)  $default,) {final _that = this;
 switch (_that) {
 case _BookmarkRow():
-return $default(_that.surahNumber,_that.surahName,_that.aayahNumber);case _:
+return $default(_that.surahNumber,_that.aayahNumber);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +195,10 @@ return $default(_that.surahNumber,_that.surahName,_that.aayahNumber);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahNumber surahNumber,  SurahName surahName,  AayahNumber aayahNumber)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahNumber surahNumber,  AayahNumber aayahNumber)?  $default,) {final _that = this;
 switch (_that) {
 case _BookmarkRow() when $default != null:
-return $default(_that.surahNumber,_that.surahName,_that.aayahNumber);case _:
+return $default(_that.surahNumber,_that.aayahNumber);case _:
   return null;
 
 }
@@ -210,12 +209,11 @@ return $default(_that.surahNumber,_that.surahName,_that.aayahNumber);case _:
 /// @nodoc
 
 @JsonSerializable(fieldRename: .snake)
-class _BookmarkRow extends BookmarkRow {
-  const _BookmarkRow(this.surahNumber, this.surahName, this.aayahNumber): super._();
+class _BookmarkRow implements BookmarkRow {
+  const _BookmarkRow(this.surahNumber, this.aayahNumber);
   factory _BookmarkRow.fromJson(Map<String, dynamic> json) => _$BookmarkRowFromJson(json);
 
 @override final  SurahNumber surahNumber;
-@override final  SurahName surahName;
 @override final  AayahNumber aayahNumber;
 
 /// Create a copy of BookmarkRow
@@ -231,16 +229,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BookmarkRow&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BookmarkRow&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,surahNumber,surahName,aayahNumber);
+int get hashCode => Object.hash(runtimeType,surahNumber,aayahNumber);
 
 @override
 String toString() {
-  return 'BookmarkRow(surahNumber: $surahNumber, surahName: $surahName, aayahNumber: $aayahNumber)';
+  return 'BookmarkRow(surahNumber: $surahNumber, aayahNumber: $aayahNumber)';
 }
 
 
@@ -251,7 +249,7 @@ abstract mixin class _$BookmarkRowCopyWith<$Res> implements $BookmarkRowCopyWith
   factory _$BookmarkRowCopyWith(_BookmarkRow value, $Res Function(_BookmarkRow) _then) = __$BookmarkRowCopyWithImpl;
 @override @useResult
 $Res call({
- SurahNumber surahNumber, SurahName surahName, AayahNumber aayahNumber
+ SurahNumber surahNumber, AayahNumber aayahNumber
 });
 
 
@@ -268,11 +266,10 @@ class __$BookmarkRowCopyWithImpl<$Res>
 
 /// Create a copy of BookmarkRow
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? surahNumber = null,Object? surahName = null,Object? aayahNumber = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? surahNumber = null,Object? aayahNumber = null,}) {
   return _then(_BookmarkRow(
 null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
-as SurahNumber,null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
-as SurahName,null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
+as SurahNumber,null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
 as AayahNumber,
   ));
 }

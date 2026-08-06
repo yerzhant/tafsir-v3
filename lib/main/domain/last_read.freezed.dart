@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LastRead {
 
- SurahName get surahName; SurahNumber get surahNumber; AayahNumber get aayahNumber;
+ DateTime get timestamp; SurahName get surahName; SurahNumber get surahNumber; AyahPosition get ayahPosition;
 /// Create a copy of LastRead
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $LastReadCopyWith<LastRead> get copyWith => _$LastReadCopyWithImpl<LastRead>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LastRead&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LastRead&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.ayahPosition, ayahPosition) || other.ayahPosition == ayahPosition));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,surahName,surahNumber,aayahNumber);
+int get hashCode => Object.hash(runtimeType,timestamp,surahName,surahNumber,ayahPosition);
 
 @override
 String toString() {
-  return 'LastRead(surahName: $surahName, surahNumber: $surahNumber, aayahNumber: $aayahNumber)';
+  return 'LastRead(timestamp: $timestamp, surahName: $surahName, surahNumber: $surahNumber, ayahPosition: $ayahPosition)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $LastReadCopyWith<$Res>  {
   factory $LastReadCopyWith(LastRead value, $Res Function(LastRead) _then) = _$LastReadCopyWithImpl;
 @useResult
 $Res call({
- SurahName surahName, SurahNumber surahNumber, AayahNumber aayahNumber
+ DateTime timestamp, SurahName surahName, SurahNumber surahNumber, AyahPosition ayahPosition
 });
 
 
-
+$AyahPositionCopyWith<$Res> get ayahPosition;
 
 }
 /// @nodoc
@@ -62,15 +62,25 @@ class _$LastReadCopyWithImpl<$Res>
 
 /// Create a copy of LastRead
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? surahName = null,Object? surahNumber = null,Object? aayahNumber = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? timestamp = null,Object? surahName = null,Object? surahNumber = null,Object? ayahPosition = null,}) {
   return _then(_self.copyWith(
-surahName: null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
+timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
+as DateTime,surahName: null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
 as SurahName,surahNumber: null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
-as SurahNumber,aayahNumber: null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
-as AayahNumber,
+as SurahNumber,ayahPosition: null == ayahPosition ? _self.ayahPosition : ayahPosition // ignore: cast_nullable_to_non_nullable
+as AyahPosition,
   ));
 }
-
+/// Create a copy of LastRead
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AyahPositionCopyWith<$Res> get ayahPosition {
+  
+  return $AyahPositionCopyWith<$Res>(_self.ayahPosition, (value) {
+    return _then(_self.copyWith(ayahPosition: value));
+  });
+}
 }
 
 
@@ -152,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime timestamp,  SurahName surahName,  SurahNumber surahNumber,  AyahPosition ayahPosition)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LastRead() when $default != null:
-return $default(_that.surahName,_that.surahNumber,_that.aayahNumber);case _:
+return $default(_that.timestamp,_that.surahName,_that.surahNumber,_that.ayahPosition);case _:
   return orElse();
 
 }
@@ -173,10 +183,10 @@ return $default(_that.surahName,_that.surahNumber,_that.aayahNumber);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime timestamp,  SurahName surahName,  SurahNumber surahNumber,  AyahPosition ayahPosition)  $default,) {final _that = this;
 switch (_that) {
 case _LastRead():
-return $default(_that.surahName,_that.surahNumber,_that.aayahNumber);case _:
+return $default(_that.timestamp,_that.surahName,_that.surahNumber,_that.ayahPosition);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +203,10 @@ return $default(_that.surahName,_that.surahNumber,_that.aayahNumber);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime timestamp,  SurahName surahName,  SurahNumber surahNumber,  AyahPosition ayahPosition)?  $default,) {final _that = this;
 switch (_that) {
 case _LastRead() when $default != null:
-return $default(_that.surahName,_that.surahNumber,_that.aayahNumber);case _:
+return $default(_that.timestamp,_that.surahName,_that.surahNumber,_that.ayahPosition);case _:
   return null;
 
 }
@@ -208,12 +218,13 @@ return $default(_that.surahName,_that.surahNumber,_that.aayahNumber);case _:
 
 
 class _LastRead implements LastRead {
-  const _LastRead(this.surahName, this.surahNumber, this.aayahNumber);
+  const _LastRead(this.timestamp, this.surahName, this.surahNumber, this.ayahPosition);
   
 
+@override final  DateTime timestamp;
 @override final  SurahName surahName;
 @override final  SurahNumber surahNumber;
-@override final  AayahNumber aayahNumber;
+@override final  AyahPosition ayahPosition;
 
 /// Create a copy of LastRead
 /// with the given fields replaced by the non-null parameter values.
@@ -225,16 +236,16 @@ _$LastReadCopyWith<_LastRead> get copyWith => __$LastReadCopyWithImpl<_LastRead>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LastRead&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LastRead&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.ayahPosition, ayahPosition) || other.ayahPosition == ayahPosition));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,surahName,surahNumber,aayahNumber);
+int get hashCode => Object.hash(runtimeType,timestamp,surahName,surahNumber,ayahPosition);
 
 @override
 String toString() {
-  return 'LastRead(surahName: $surahName, surahNumber: $surahNumber, aayahNumber: $aayahNumber)';
+  return 'LastRead(timestamp: $timestamp, surahName: $surahName, surahNumber: $surahNumber, ayahPosition: $ayahPosition)';
 }
 
 
@@ -245,11 +256,11 @@ abstract mixin class _$LastReadCopyWith<$Res> implements $LastReadCopyWith<$Res>
   factory _$LastReadCopyWith(_LastRead value, $Res Function(_LastRead) _then) = __$LastReadCopyWithImpl;
 @override @useResult
 $Res call({
- SurahName surahName, SurahNumber surahNumber, AayahNumber aayahNumber
+ DateTime timestamp, SurahName surahName, SurahNumber surahNumber, AyahPosition ayahPosition
 });
 
 
-
+@override $AyahPositionCopyWith<$Res> get ayahPosition;
 
 }
 /// @nodoc
@@ -262,16 +273,26 @@ class __$LastReadCopyWithImpl<$Res>
 
 /// Create a copy of LastRead
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? surahName = null,Object? surahNumber = null,Object? aayahNumber = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? timestamp = null,Object? surahName = null,Object? surahNumber = null,Object? ayahPosition = null,}) {
   return _then(_LastRead(
-null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
+null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
+as DateTime,null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
 as SurahName,null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
-as SurahNumber,null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
-as AayahNumber,
+as SurahNumber,null == ayahPosition ? _self.ayahPosition : ayahPosition // ignore: cast_nullable_to_non_nullable
+as AyahPosition,
   ));
 }
 
-
+/// Create a copy of LastRead
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AyahPositionCopyWith<$Res> get ayahPosition {
+  
+  return $AyahPositionCopyWith<$Res>(_self.ayahPosition, (value) {
+    return _then(_self.copyWith(ayahPosition: value));
+  });
+}
 }
 
 // dart format on

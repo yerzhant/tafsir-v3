@@ -10,18 +10,28 @@ part 'last_read_row.g.dart';
 abstract class LastReadRow with _$LastReadRow {
   @JsonSerializable(fieldRename: .snake)
   const factory LastReadRow(
-    SurahName surahName,
+    int timestamp,
     SurahNumber surahNumber,
     AayahNumber aayahNumber,
+    double alignment,
   ) = _LastReadRow;
 
   factory LastReadRow.fromJson(Map<String, dynamic> json) =>
       _$LastReadRowFromJson(json);
 
-  factory LastReadRow.fromDomain(LastRead lastRead) =>
-      .new(lastRead.surahName, lastRead.surahNumber, lastRead.aayahNumber);
+  factory LastReadRow.fromDomain(LastRead lastRead) => .new(
+    lastRead.timestamp.microsecondsSinceEpoch,
+    lastRead.surahNumber,
+    lastRead.ayahPosition.number,
+    lastRead.ayahPosition.alignment,
+  );
 
   const LastReadRow._();
 
-  LastRead toDomain() => .new(surahName, surahNumber, aayahNumber);
+  LastRead toDomain(Surah surah) => .new(
+    .fromMicrosecondsSinceEpoch(timestamp),
+    surah.name,
+    surahNumber,
+    .new(aayahNumber, alignment),
+  );
 }

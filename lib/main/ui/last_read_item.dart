@@ -44,7 +44,7 @@ class LastReadItem extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          '${lastRead.surahName} ${lastRead.surahNumber}:${lastRead.aayahNumber}',
+          '${lastRead.surahName} ${lastRead.surahNumber}:${lastRead.ayahPosition.number}',
           style: textBodyMedium.copyWith(
             color: textColor.withValues(alpha: .8),
           ),
