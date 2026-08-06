@@ -17,4 +17,4 @@ Map<String, dynamic> _$InitDbParamToJson(_InitDbParam instance) =>
       'value': instance.value,
     };
 
-const _$InitDbParamKeyEnumMap = {InitDbParamKey.isInitialized: 'isInitialized'};
+const _$InitDbParamKeyEnumMap = {InitDbParamKey.initialized: 'initialized'};

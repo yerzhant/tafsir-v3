@@ -21,17 +21,17 @@ class InitDb {
 
     await db.insert(
       _initParams,
-      const InitDbParam(.isInitialized, 'false').toJson(),
+      const InitDbParam(.initialized, 'false').toJson(),
     );
   }
 
-  TaskEither<AppError, bool> isInitialized() =>
+  TaskEither<AppError, bool> getInitialized() =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(() async {
           final rows = await db.query(
             _initParams,
             where: 'key = ?',
-            whereArgs: [InitDbParamKey.isInitialized.name],
+            whereArgs: [InitDbParamKey.initialized.name],
           );
 
           final param = InitDbParam.fromJson(rows.first);
@@ -43,7 +43,7 @@ class InitDb {
   TaskEither<AppError, void> setInitialized(bool value) =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(() async {
-          final param = InitDbParam(.isInitialized, value.toString());
+          final param = InitDbParam(.initialized, value.toString());
 
           await db.update(
             _initParams,

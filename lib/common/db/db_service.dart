@@ -2,6 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/init/db/init_db.dart';
+import 'package:tafsir/theme/db/theme_db.dart';
 
 class DbService {
   late final Database? _database;
@@ -12,10 +13,12 @@ class DbService {
       version: 3,
       onCreate: (db, version) async {
         await InitDb.init(db);
+        await ThemeDb.init(db);
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 3) {
           await InitDb.init(db);
+          await ThemeDb.init(db);
 
           print('*********************************** DELETING');
           await db.execute('dtop table aayah');
