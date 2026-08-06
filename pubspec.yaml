@@ -2,7 +2,7 @@ name: tafsir
 description: "Azan.ru's Tafsir."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 3.0.0+1
 
 environment:
   sdk: ^3.12.2
@@ -19,13 +19,16 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
+  # cupertino_icons: ^1.0.8
   flutter_svg: ^2.3.0
   freezed_annotation: ^3.1.0
   bloc: ^9.2.1
   flutter_bloc: ^9.1.1
   flutter_html: ^3.0.0
   scrollable_positioned_list: ^0.3.8
+  csv: ^8.0.0
+  fpdart: ^1.2.0
+  sqflite: ^2.4.3
 
 dev_dependencies:
   flutter_test:
@@ -44,8 +47,9 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 flutter:
-  uses-material-design: true
+  # uses-material-design: true
 
   assets:
+    - assets/quran/
     - assets/icons/
-    - assets/images/masjid.png
+    - assets/images/
