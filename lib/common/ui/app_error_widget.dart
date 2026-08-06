@@ -34,6 +34,7 @@ class AppErrorWidget extends StatelessWidget {
               Text(
                 error.message,
                 maxLines: 10,
+                overflow: .ellipsis,
                 style: textBodyReg.copyWith(color: typographyPrimary(theme)),
               ),
             ],
@@ -52,21 +53,21 @@ class AppErrorWidget extends StatelessWidget {
   }
 }
 
-// @Preview(group: 'Error Widget', name: 'Light')
+// @Preview(group: 'App Error Widget', name: 'Light')
 // Widget previewLight() => sizedWrapper(
-//   ErrorWidget(
+//   AppErrorWidget(
 //     theme: .light,
-//     error: const .general('long text long text long text long text long text'),
+//     error: const .general('long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text long 111'),
 //     onPressed: () => print('on pressed'),
 //   ),
 //   width: 200,
-//   hight: 200,
+//   hight: 400,
 //   padding: 0,
 // );
 
-// @Preview(group: 'Error Widget', name: 'Dark')
+// @Preview(group: 'App Error Widget', name: 'Dark')
 // Widget previewDark() => sizedWrapper(
-//   ErrorWidget(
+//   AppErrorWidget(
 //     theme: .dark,
 //     error: const .general('abc'),
 //     onPressed: () => print('on pressed'),
@@ -76,9 +77,9 @@ class AppErrorWidget extends StatelessWidget {
 //   padding: 0,
 // );
 
-// @Preview(group: 'Error Widget', name: 'Brown Light')
+// @Preview(group: 'App Error Widget', name: 'Brown Light')
 // Widget previewBrownLight() => sizedWrapper(
-//   ErrorWidget(
+//   AppErrorWidget(
 //     theme: .brownLight,
 //     error: const .general('abc'),
 //     onPressed: () => print('on pressed'),
@@ -88,9 +89,9 @@ class AppErrorWidget extends StatelessWidget {
 //   padding: 0,
 // );
 
-// @Preview(group: 'Error Widget', name: 'Brown Dark')
+// @Preview(group: 'App Error Widget', name: 'Brown Dark')
 // Widget previewBrownDark() => sizedWrapper(
-//   ErrorWidget(
+//   AppErrorWidget(
 //     theme: .brownDark,
 //     error: const .general('abc'),
 //     onPressed: () => print('on pressed'),

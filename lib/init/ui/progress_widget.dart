@@ -19,6 +19,10 @@ class ProgressWidget extends StatelessWidget {
         mainAxisAlignment: .center,
         spacing: 8,
         children: [
+          Text(
+            'Инициализация',
+            style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
+          ),
           CircularProgressIndicator.adaptive(
             value: value,
             backgroundColor: typographyPrimary(theme),
@@ -35,7 +39,7 @@ class ProgressWidget extends StatelessWidget {
 
 // @Preview(group: 'Progress Widget', name: 'Light')
 // Widget previewLight() => sizedWrapper(
-//   const ProgressWidget(theme: .light, value: 10),
+//   const ProgressWidget(theme: .light, value: 12.3),
 //   width: 200,
 //   hight: 200,
 //   padding: 0,
@@ -43,7 +47,7 @@ class ProgressWidget extends StatelessWidget {
 
 // @Preview(group: 'Progress Widget', name: 'Dark')
 // Widget previewDark() => sizedWrapper(
-//   const ProgressWidget(theme: .dark, value: 10),
+//   const ProgressWidget(theme: .dark, value: 12.3),
 //   width: 200,
 //   hight: 200,
 //   padding: 0,
@@ -51,7 +55,7 @@ class ProgressWidget extends StatelessWidget {
 
 // @Preview(group: 'Progress Widget', name: 'Brown Light')
 // Widget previewBrownLight() => sizedWrapper(
-//   const ProgressWidget(theme: .brownLight, value: 10),
+//   const ProgressWidget(theme: .brownLight, value: 12.3),
 //   width: 200,
 //   hight: 200,
 //   padding: 0,
@@ -59,7 +63,7 @@ class ProgressWidget extends StatelessWidget {
 
 // @Preview(group: 'Progress Widget', name: 'Brown Dark')
 // Widget previewBrownDark() => sizedWrapper(
-//   const ProgressWidget(theme: .brownDark, value: 10),
+//   const ProgressWidget(theme: .brownDark, value: 12.3),
 //   width: 200,
 //   hight: 200,
 //   padding: 0,
