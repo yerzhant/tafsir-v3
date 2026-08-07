@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'ayah.dart';
+part of 'aayah.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,20 +12,20 @@ part of 'ayah.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$Ayah {
+mixin _$Aayah {
 
- int get number; Arabic get arabic; Tafsir get tafsir; Translation get translation;
-/// Create a copy of Ayah
+ AayahNumber get number; AayahArabic get arabic; AayahTafsir get tafsir; AayahTranslation get translation;
+/// Create a copy of Aayah
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$AyahCopyWith<Ayah> get copyWith => _$AyahCopyWithImpl<Ayah>(this as Ayah, _$identity);
+$AayahCopyWith<Aayah> get copyWith => _$AayahCopyWithImpl<Aayah>(this as Aayah, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Ayah&&(identical(other.number, number) || other.number == number)&&(identical(other.arabic, arabic) || other.arabic == arabic)&&(identical(other.tafsir, tafsir) || other.tafsir == tafsir)&&(identical(other.translation, translation) || other.translation == translation));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Aayah&&(identical(other.number, number) || other.number == number)&&(identical(other.arabic, arabic) || other.arabic == arabic)&&(identical(other.tafsir, tafsir) || other.tafsir == tafsir)&&(identical(other.translation, translation) || other.translation == translation));
 }
 
 
@@ -34,18 +34,18 @@ int get hashCode => Object.hash(runtimeType,number,arabic,tafsir,translation);
 
 @override
 String toString() {
-  return 'Ayah(number: $number, arabic: $arabic, tafsir: $tafsir, translation: $translation)';
+  return 'Aayah(number: $number, arabic: $arabic, tafsir: $tafsir, translation: $translation)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $AyahCopyWith<$Res>  {
-  factory $AyahCopyWith(Ayah value, $Res Function(Ayah) _then) = _$AyahCopyWithImpl;
+abstract mixin class $AayahCopyWith<$Res>  {
+  factory $AayahCopyWith(Aayah value, $Res Function(Aayah) _then) = _$AayahCopyWithImpl;
 @useResult
 $Res call({
- int number, Arabic arabic, Tafsir tafsir, Translation translation
+ AayahNumber number, AayahArabic arabic, AayahTafsir tafsir, AayahTranslation translation
 });
 
 
@@ -53,30 +53,30 @@ $Res call({
 
 }
 /// @nodoc
-class _$AyahCopyWithImpl<$Res>
-    implements $AyahCopyWith<$Res> {
-  _$AyahCopyWithImpl(this._self, this._then);
+class _$AayahCopyWithImpl<$Res>
+    implements $AayahCopyWith<$Res> {
+  _$AayahCopyWithImpl(this._self, this._then);
 
-  final Ayah _self;
-  final $Res Function(Ayah) _then;
+  final Aayah _self;
+  final $Res Function(Aayah) _then;
 
-/// Create a copy of Ayah
+/// Create a copy of Aayah
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? number = null,Object? arabic = null,Object? tafsir = null,Object? translation = null,}) {
   return _then(_self.copyWith(
 number: null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
-as int,arabic: null == arabic ? _self.arabic : arabic // ignore: cast_nullable_to_non_nullable
-as Arabic,tafsir: null == tafsir ? _self.tafsir : tafsir // ignore: cast_nullable_to_non_nullable
-as Tafsir,translation: null == translation ? _self.translation : translation // ignore: cast_nullable_to_non_nullable
-as Translation,
+as AayahNumber,arabic: null == arabic ? _self.arabic : arabic // ignore: cast_nullable_to_non_nullable
+as AayahArabic,tafsir: null == tafsir ? _self.tafsir : tafsir // ignore: cast_nullable_to_non_nullable
+as AayahTafsir,translation: null == translation ? _self.translation : translation // ignore: cast_nullable_to_non_nullable
+as AayahTranslation,
   ));
 }
 
 }
 
 
-/// Adds pattern-matching-related methods to [Ayah].
-extension AyahPatterns on Ayah {
+/// Adds pattern-matching-related methods to [Aayah].
+extension AayahPatterns on Aayah {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -89,10 +89,10 @@ extension AyahPatterns on Ayah {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Ayah value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Aayah value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Ayah() when $default != null:
+case _Aayah() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -111,10 +111,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Ayah value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Aayah value)  $default,){
 final _that = this;
 switch (_that) {
-case _Ayah():
+case _Aayah():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -132,10 +132,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Ayah value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Aayah value)?  $default,){
 final _that = this;
 switch (_that) {
-case _Ayah() when $default != null:
+case _Aayah() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -153,9 +153,9 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int number,  Arabic arabic,  Tafsir tafsir,  Translation translation)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AayahNumber number,  AayahArabic arabic,  AayahTafsir tafsir,  AayahTranslation translation)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Ayah() when $default != null:
+case _Aayah() when $default != null:
 return $default(_that.number,_that.arabic,_that.tafsir,_that.translation);case _:
   return orElse();
 
@@ -174,9 +174,9 @@ return $default(_that.number,_that.arabic,_that.tafsir,_that.translation);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int number,  Arabic arabic,  Tafsir tafsir,  Translation translation)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AayahNumber number,  AayahArabic arabic,  AayahTafsir tafsir,  AayahTranslation translation)  $default,) {final _that = this;
 switch (_that) {
-case _Ayah():
+case _Aayah():
 return $default(_that.number,_that.arabic,_that.tafsir,_that.translation);case _:
   throw StateError('Unexpected subclass');
 
@@ -194,9 +194,9 @@ return $default(_that.number,_that.arabic,_that.tafsir,_that.translation);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int number,  Arabic arabic,  Tafsir tafsir,  Translation translation)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AayahNumber number,  AayahArabic arabic,  AayahTafsir tafsir,  AayahTranslation translation)?  $default,) {final _that = this;
 switch (_that) {
-case _Ayah() when $default != null:
+case _Aayah() when $default != null:
 return $default(_that.number,_that.arabic,_that.tafsir,_that.translation);case _:
   return null;
 
@@ -208,26 +208,26 @@ return $default(_that.number,_that.arabic,_that.tafsir,_that.translation);case _
 /// @nodoc
 
 
-class _Ayah implements Ayah {
-  const _Ayah(this.number, this.arabic, this.tafsir, this.translation);
+class _Aayah implements Aayah {
+  const _Aayah(this.number, this.arabic, this.tafsir, this.translation);
   
 
-@override final  int number;
-@override final  Arabic arabic;
-@override final  Tafsir tafsir;
-@override final  Translation translation;
+@override final  AayahNumber number;
+@override final  AayahArabic arabic;
+@override final  AayahTafsir tafsir;
+@override final  AayahTranslation translation;
 
-/// Create a copy of Ayah
+/// Create a copy of Aayah
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$AyahCopyWith<_Ayah> get copyWith => __$AyahCopyWithImpl<_Ayah>(this, _$identity);
+_$AayahCopyWith<_Aayah> get copyWith => __$AayahCopyWithImpl<_Aayah>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Ayah&&(identical(other.number, number) || other.number == number)&&(identical(other.arabic, arabic) || other.arabic == arabic)&&(identical(other.tafsir, tafsir) || other.tafsir == tafsir)&&(identical(other.translation, translation) || other.translation == translation));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Aayah&&(identical(other.number, number) || other.number == number)&&(identical(other.arabic, arabic) || other.arabic == arabic)&&(identical(other.tafsir, tafsir) || other.tafsir == tafsir)&&(identical(other.translation, translation) || other.translation == translation));
 }
 
 
@@ -236,18 +236,18 @@ int get hashCode => Object.hash(runtimeType,number,arabic,tafsir,translation);
 
 @override
 String toString() {
-  return 'Ayah(number: $number, arabic: $arabic, tafsir: $tafsir, translation: $translation)';
+  return 'Aayah(number: $number, arabic: $arabic, tafsir: $tafsir, translation: $translation)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$AyahCopyWith<$Res> implements $AyahCopyWith<$Res> {
-  factory _$AyahCopyWith(_Ayah value, $Res Function(_Ayah) _then) = __$AyahCopyWithImpl;
+abstract mixin class _$AayahCopyWith<$Res> implements $AayahCopyWith<$Res> {
+  factory _$AayahCopyWith(_Aayah value, $Res Function(_Aayah) _then) = __$AayahCopyWithImpl;
 @override @useResult
 $Res call({
- int number, Arabic arabic, Tafsir tafsir, Translation translation
+ AayahNumber number, AayahArabic arabic, AayahTafsir tafsir, AayahTranslation translation
 });
 
 
@@ -255,22 +255,22 @@ $Res call({
 
 }
 /// @nodoc
-class __$AyahCopyWithImpl<$Res>
-    implements _$AyahCopyWith<$Res> {
-  __$AyahCopyWithImpl(this._self, this._then);
+class __$AayahCopyWithImpl<$Res>
+    implements _$AayahCopyWith<$Res> {
+  __$AayahCopyWithImpl(this._self, this._then);
 
-  final _Ayah _self;
-  final $Res Function(_Ayah) _then;
+  final _Aayah _self;
+  final $Res Function(_Aayah) _then;
 
-/// Create a copy of Ayah
+/// Create a copy of Aayah
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? number = null,Object? arabic = null,Object? tafsir = null,Object? translation = null,}) {
-  return _then(_Ayah(
+  return _then(_Aayah(
 null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
-as int,null == arabic ? _self.arabic : arabic // ignore: cast_nullable_to_non_nullable
-as Arabic,null == tafsir ? _self.tafsir : tafsir // ignore: cast_nullable_to_non_nullable
-as Tafsir,null == translation ? _self.translation : translation // ignore: cast_nullable_to_non_nullable
-as Translation,
+as AayahNumber,null == arabic ? _self.arabic : arabic // ignore: cast_nullable_to_non_nullable
+as AayahArabic,null == tafsir ? _self.tafsir : tafsir // ignore: cast_nullable_to_non_nullable
+as AayahTafsir,null == translation ? _self.translation : translation // ignore: cast_nullable_to_non_nullable
+as AayahTranslation,
   ));
 }
 

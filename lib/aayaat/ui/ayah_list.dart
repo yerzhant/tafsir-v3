@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/aayaat/cubit/surah_cubit.dart';
-import 'package:tafsir/aayaat/domain/ayah.dart';
+import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
+import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
+import 'package:tafsir/common/ui/app_theme.dart';
 
 class AyahList extends StatefulWidget {
   const AyahList({
@@ -30,7 +30,7 @@ class AyahList extends StatefulWidget {
 
   final AppTheme theme;
 
-  final List<Ayah> aayaah;
+  final List<Aayah> aayaah;
 
   final bool showAyah;
   final bool showTafsir;
@@ -76,7 +76,7 @@ class _AyahListState extends State<AyahList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SurahCubit, SurahState>(
+    return BlocConsumer<AayaatCubit, AayaatState>(
       listener: (context, state) {
         _scrollTo(state.position);
       },

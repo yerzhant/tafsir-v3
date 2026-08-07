@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tafsir/common/domain/aayah.dart';
+import 'package:tafsir/aayaat/domain/aayah.dart';
 
 part 'ayah_position.freezed.dart';
 

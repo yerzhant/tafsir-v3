@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/aayaat/domain/ayah.dart';
 import 'package:tafsir/aayaat/ui/html_styles.dart';
 
 class AyahCard extends StatefulWidget {
@@ -26,7 +26,7 @@ class AyahCard extends StatefulWidget {
   });
 
   final AppTheme theme;
-  final Ayah ayah;
+  final Aayah ayah;
 
   final bool showAyah;
   final bool showTafsir;

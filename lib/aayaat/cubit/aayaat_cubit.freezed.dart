@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'surah_cubit.dart';
+part of 'aayaat_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,20 +12,20 @@ part of 'surah_cubit.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$SurahState {
+mixin _$AayaatState {
 
  AyahPosition get position;
-/// Create a copy of SurahState
+/// Create a copy of AayaatState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$SurahStateCopyWith<SurahState> get copyWith => _$SurahStateCopyWithImpl<SurahState>(this as SurahState, _$identity);
+$AayaatStateCopyWith<AayaatState> get copyWith => _$AayaatStateCopyWithImpl<AayaatState>(this as AayaatState, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SurahState&&(identical(other.position, position) || other.position == position));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AayaatState&&(identical(other.position, position) || other.position == position));
 }
 
 
@@ -34,15 +34,15 @@ int get hashCode => Object.hash(runtimeType,position);
 
 @override
 String toString() {
-  return 'SurahState(position: $position)';
+  return 'AayaatState(position: $position)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SurahStateCopyWith<$Res>  {
-  factory $SurahStateCopyWith(SurahState value, $Res Function(SurahState) _then) = _$SurahStateCopyWithImpl;
+abstract mixin class $AayaatStateCopyWith<$Res>  {
+  factory $AayaatStateCopyWith(AayaatState value, $Res Function(AayaatState) _then) = _$AayaatStateCopyWithImpl;
 @useResult
 $Res call({
  AyahPosition position
@@ -53,14 +53,14 @@ $AyahPositionCopyWith<$Res> get position;
 
 }
 /// @nodoc
-class _$SurahStateCopyWithImpl<$Res>
-    implements $SurahStateCopyWith<$Res> {
-  _$SurahStateCopyWithImpl(this._self, this._then);
+class _$AayaatStateCopyWithImpl<$Res>
+    implements $AayaatStateCopyWith<$Res> {
+  _$AayaatStateCopyWithImpl(this._self, this._then);
 
-  final SurahState _self;
-  final $Res Function(SurahState) _then;
+  final AayaatState _self;
+  final $Res Function(AayaatState) _then;
 
-/// Create a copy of SurahState
+/// Create a copy of AayaatState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? position = null,}) {
   return _then(_self.copyWith(
@@ -68,7 +68,7 @@ position: null == position ? _self.position : position // ignore: cast_nullable_
 as AyahPosition,
   ));
 }
-/// Create a copy of SurahState
+/// Create a copy of AayaatState
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -81,8 +81,8 @@ $AyahPositionCopyWith<$Res> get position {
 }
 
 
-/// Adds pattern-matching-related methods to [SurahState].
-extension SurahStatePatterns on SurahState {
+/// Adds pattern-matching-related methods to [AayaatState].
+extension AayaatStatePatterns on AayaatState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -214,13 +214,13 @@ return read(_that.position);case _:
 /// @nodoc
 
 
-class _Read implements SurahState {
+class _Read implements AayaatState {
   const _Read(this.position);
   
 
 @override final  AyahPosition position;
 
-/// Create a copy of SurahState
+/// Create a copy of AayaatState
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -239,14 +239,14 @@ int get hashCode => Object.hash(runtimeType,position);
 
 @override
 String toString() {
-  return 'SurahState.read(position: $position)';
+  return 'AayaatState.read(position: $position)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ReadCopyWith<$Res> implements $SurahStateCopyWith<$Res> {
+abstract mixin class _$ReadCopyWith<$Res> implements $AayaatStateCopyWith<$Res> {
   factory _$ReadCopyWith(_Read value, $Res Function(_Read) _then) = __$ReadCopyWithImpl;
 @override @useResult
 $Res call({
@@ -265,7 +265,7 @@ class __$ReadCopyWithImpl<$Res>
   final _Read _self;
   final $Res Function(_Read) _then;
 
-/// Create a copy of SurahState
+/// Create a copy of AayaatState
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? position = null,}) {
   return _then(_Read(
@@ -274,7 +274,7 @@ as AyahPosition,
   ));
 }
 
-/// Create a copy of SurahState
+/// Create a copy of AayaatState
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
