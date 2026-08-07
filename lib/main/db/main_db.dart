@@ -5,12 +5,12 @@ import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/main/db/bookmark_row.dart';
 import 'package:tafsir/main/db/djuz_row.dart';
 import 'package:tafsir/main/db/last_read_row.dart';
-import 'package:tafsir/main/db/muqaddim_row.dart';
+import 'package:tafsir/main/db/muqaddimah_row.dart';
 import 'package:tafsir/main/db/surah_row.dart';
 import 'package:tafsir/main/domain/bookmark.dart';
 import 'package:tafsir/main/domain/djuz.dart';
 import 'package:tafsir/main/domain/last_read.dart';
-import 'package:tafsir/main/domain/muqaddim.dart';
+import 'package:tafsir/main/domain/muqaddimah.dart';
 import 'package:tafsir/main/domain/surah.dart';
 
 const _suwar = 'suwar';
@@ -104,18 +104,23 @@ class MainDb {
         ),
       );
 
-  TaskEither<AppError, List<Muqaddim>> getMuqaddimat() =>
+  TaskEither<AppError, List<Muqaddimah>> getMuqaddimat() =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(() async {
           final rows = await db.query(_muqaddimat);
-          return [for (final row in rows) MuqaddimRow.fromJson(row).toDomain()];
+          return [
+            for (final row in rows) MuqaddimahRow.fromJson(row).toDomain(),
+          ];
         }, ExceptionError.new),
       );
 
-  TaskEither<AppError, void> addMuqaddimah(Muqaddim muqaddimah) =>
+  TaskEither<AppError, void> addMuqaddimah(Muqaddimah muqaddimah) =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(
-          () => db.insert(_suwar, MuqaddimRow.fromDomain(muqaddimah).toJson()),
+          () => db.insert(
+            _suwar,
+            MuqaddimahRow.fromDomain(muqaddimah).toJson(),
+          ),
           ExceptionError.new,
         ),
       );

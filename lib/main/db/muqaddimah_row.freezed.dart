@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'muqaddim_row.dart';
+part of 'muqaddimah_row.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ part of 'muqaddim_row.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$MuqaddimRow {
+mixin _$MuqaddimahRow {
 
- MuqaddimType get type; MuqaddimContent get content;
-/// Create a copy of MuqaddimRow
+ MuqaddimahType get type; MuqaddimahContent get content;
+/// Create a copy of MuqaddimahRow
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$MuqaddimRowCopyWith<MuqaddimRow> get copyWith => _$MuqaddimRowCopyWithImpl<MuqaddimRow>(this as MuqaddimRow, _$identity);
+$MuqaddimahRowCopyWith<MuqaddimahRow> get copyWith => _$MuqaddimahRowCopyWithImpl<MuqaddimahRow>(this as MuqaddimahRow, _$identity);
 
-  /// Serializes this MuqaddimRow to a JSON map.
+  /// Serializes this MuqaddimahRow to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MuqaddimRow&&(identical(other.type, type) || other.type == type)&&(identical(other.content, content) || other.content == content));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MuqaddimahRow&&(identical(other.type, type) || other.type == type)&&(identical(other.content, content) || other.content == content));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,18 +37,18 @@ int get hashCode => Object.hash(runtimeType,type,content);
 
 @override
 String toString() {
-  return 'MuqaddimRow(type: $type, content: $content)';
+  return 'MuqaddimahRow(type: $type, content: $content)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $MuqaddimRowCopyWith<$Res>  {
-  factory $MuqaddimRowCopyWith(MuqaddimRow value, $Res Function(MuqaddimRow) _then) = _$MuqaddimRowCopyWithImpl;
+abstract mixin class $MuqaddimahRowCopyWith<$Res>  {
+  factory $MuqaddimahRowCopyWith(MuqaddimahRow value, $Res Function(MuqaddimahRow) _then) = _$MuqaddimahRowCopyWithImpl;
 @useResult
 $Res call({
- MuqaddimType type, MuqaddimContent content
+ MuqaddimahType type, MuqaddimahContent content
 });
 
 
@@ -56,28 +56,28 @@ $Res call({
 
 }
 /// @nodoc
-class _$MuqaddimRowCopyWithImpl<$Res>
-    implements $MuqaddimRowCopyWith<$Res> {
-  _$MuqaddimRowCopyWithImpl(this._self, this._then);
+class _$MuqaddimahRowCopyWithImpl<$Res>
+    implements $MuqaddimahRowCopyWith<$Res> {
+  _$MuqaddimahRowCopyWithImpl(this._self, this._then);
 
-  final MuqaddimRow _self;
-  final $Res Function(MuqaddimRow) _then;
+  final MuqaddimahRow _self;
+  final $Res Function(MuqaddimahRow) _then;
 
-/// Create a copy of MuqaddimRow
+/// Create a copy of MuqaddimahRow
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? content = null,}) {
   return _then(_self.copyWith(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as MuqaddimType,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as MuqaddimContent,
+as MuqaddimahType,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as MuqaddimahContent,
   ));
 }
 
 }
 
 
-/// Adds pattern-matching-related methods to [MuqaddimRow].
-extension MuqaddimRowPatterns on MuqaddimRow {
+/// Adds pattern-matching-related methods to [MuqaddimahRow].
+extension MuqaddimahRowPatterns on MuqaddimahRow {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -90,10 +90,10 @@ extension MuqaddimRowPatterns on MuqaddimRow {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MuqaddimRow value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MuqaddimahRow value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _MuqaddimRow() when $default != null:
+case _MuqaddimahRow() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -112,10 +112,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MuqaddimRow value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MuqaddimahRow value)  $default,){
 final _that = this;
 switch (_that) {
-case _MuqaddimRow():
+case _MuqaddimahRow():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -133,10 +133,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MuqaddimRow value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MuqaddimahRow value)?  $default,){
 final _that = this;
 switch (_that) {
-case _MuqaddimRow() when $default != null:
+case _MuqaddimahRow() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -154,9 +154,9 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MuqaddimType type,  MuqaddimContent content)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MuqaddimahType type,  MuqaddimahContent content)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _MuqaddimRow() when $default != null:
+case _MuqaddimahRow() when $default != null:
 return $default(_that.type,_that.content);case _:
   return orElse();
 
@@ -175,9 +175,9 @@ return $default(_that.type,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MuqaddimType type,  MuqaddimContent content)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MuqaddimahType type,  MuqaddimahContent content)  $default,) {final _that = this;
 switch (_that) {
-case _MuqaddimRow():
+case _MuqaddimahRow():
 return $default(_that.type,_that.content);case _:
   throw StateError('Unexpected subclass');
 
@@ -195,9 +195,9 @@ return $default(_that.type,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MuqaddimType type,  MuqaddimContent content)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MuqaddimahType type,  MuqaddimahContent content)?  $default,) {final _that = this;
 switch (_that) {
-case _MuqaddimRow() when $default != null:
+case _MuqaddimahRow() when $default != null:
 return $default(_that.type,_that.content);case _:
   return null;
 
@@ -209,27 +209,27 @@ return $default(_that.type,_that.content);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _MuqaddimRow extends MuqaddimRow {
-  const _MuqaddimRow(this.type, this.content): super._();
-  factory _MuqaddimRow.fromJson(Map<String, dynamic> json) => _$MuqaddimRowFromJson(json);
+class _MuqaddimahRow extends MuqaddimahRow {
+  const _MuqaddimahRow(this.type, this.content): super._();
+  factory _MuqaddimahRow.fromJson(Map<String, dynamic> json) => _$MuqaddimahRowFromJson(json);
 
-@override final  MuqaddimType type;
-@override final  MuqaddimContent content;
+@override final  MuqaddimahType type;
+@override final  MuqaddimahContent content;
 
-/// Create a copy of MuqaddimRow
+/// Create a copy of MuqaddimahRow
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$MuqaddimRowCopyWith<_MuqaddimRow> get copyWith => __$MuqaddimRowCopyWithImpl<_MuqaddimRow>(this, _$identity);
+_$MuqaddimahRowCopyWith<_MuqaddimahRow> get copyWith => __$MuqaddimahRowCopyWithImpl<_MuqaddimahRow>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$MuqaddimRowToJson(this, );
+  return _$MuqaddimahRowToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MuqaddimRow&&(identical(other.type, type) || other.type == type)&&(identical(other.content, content) || other.content == content));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MuqaddimahRow&&(identical(other.type, type) || other.type == type)&&(identical(other.content, content) || other.content == content));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -238,18 +238,18 @@ int get hashCode => Object.hash(runtimeType,type,content);
 
 @override
 String toString() {
-  return 'MuqaddimRow(type: $type, content: $content)';
+  return 'MuqaddimahRow(type: $type, content: $content)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$MuqaddimRowCopyWith<$Res> implements $MuqaddimRowCopyWith<$Res> {
-  factory _$MuqaddimRowCopyWith(_MuqaddimRow value, $Res Function(_MuqaddimRow) _then) = __$MuqaddimRowCopyWithImpl;
+abstract mixin class _$MuqaddimahRowCopyWith<$Res> implements $MuqaddimahRowCopyWith<$Res> {
+  factory _$MuqaddimahRowCopyWith(_MuqaddimahRow value, $Res Function(_MuqaddimahRow) _then) = __$MuqaddimahRowCopyWithImpl;
 @override @useResult
 $Res call({
- MuqaddimType type, MuqaddimContent content
+ MuqaddimahType type, MuqaddimahContent content
 });
 
 
@@ -257,20 +257,20 @@ $Res call({
 
 }
 /// @nodoc
-class __$MuqaddimRowCopyWithImpl<$Res>
-    implements _$MuqaddimRowCopyWith<$Res> {
-  __$MuqaddimRowCopyWithImpl(this._self, this._then);
+class __$MuqaddimahRowCopyWithImpl<$Res>
+    implements _$MuqaddimahRowCopyWith<$Res> {
+  __$MuqaddimahRowCopyWithImpl(this._self, this._then);
 
-  final _MuqaddimRow _self;
-  final $Res Function(_MuqaddimRow) _then;
+  final _MuqaddimahRow _self;
+  final $Res Function(_MuqaddimahRow) _then;
 
-/// Create a copy of MuqaddimRow
+/// Create a copy of MuqaddimahRow
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? content = null,}) {
-  return _then(_MuqaddimRow(
+  return _then(_MuqaddimahRow(
 null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as MuqaddimType,null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as MuqaddimContent,
+as MuqaddimahType,null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as MuqaddimahContent,
   ));
 }
 

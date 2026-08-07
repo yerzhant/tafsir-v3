@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'muqaddim.dart';
+part of 'muqaddimah.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,20 +12,20 @@ part of 'muqaddim.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$Muqaddim {
+mixin _$Muqaddimah {
 
- MuqaddimType get type; MuqaddimContent get content;
-/// Create a copy of Muqaddim
+ MuqaddimahType get type; MuqaddimahContent get content;
+/// Create a copy of Muqaddimah
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$MuqaddimCopyWith<Muqaddim> get copyWith => _$MuqaddimCopyWithImpl<Muqaddim>(this as Muqaddim, _$identity);
+$MuqaddimahCopyWith<Muqaddimah> get copyWith => _$MuqaddimahCopyWithImpl<Muqaddimah>(this as Muqaddimah, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Muqaddim&&(identical(other.type, type) || other.type == type)&&(identical(other.content, content) || other.content == content));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Muqaddimah&&(identical(other.type, type) || other.type == type)&&(identical(other.content, content) || other.content == content));
 }
 
 
@@ -34,18 +34,18 @@ int get hashCode => Object.hash(runtimeType,type,content);
 
 @override
 String toString() {
-  return 'Muqaddim(type: $type, content: $content)';
+  return 'Muqaddimah(type: $type, content: $content)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $MuqaddimCopyWith<$Res>  {
-  factory $MuqaddimCopyWith(Muqaddim value, $Res Function(Muqaddim) _then) = _$MuqaddimCopyWithImpl;
+abstract mixin class $MuqaddimahCopyWith<$Res>  {
+  factory $MuqaddimahCopyWith(Muqaddimah value, $Res Function(Muqaddimah) _then) = _$MuqaddimahCopyWithImpl;
 @useResult
 $Res call({
- MuqaddimType type, MuqaddimContent content
+ MuqaddimahType type, MuqaddimahContent content
 });
 
 
@@ -53,28 +53,28 @@ $Res call({
 
 }
 /// @nodoc
-class _$MuqaddimCopyWithImpl<$Res>
-    implements $MuqaddimCopyWith<$Res> {
-  _$MuqaddimCopyWithImpl(this._self, this._then);
+class _$MuqaddimahCopyWithImpl<$Res>
+    implements $MuqaddimahCopyWith<$Res> {
+  _$MuqaddimahCopyWithImpl(this._self, this._then);
 
-  final Muqaddim _self;
-  final $Res Function(Muqaddim) _then;
+  final Muqaddimah _self;
+  final $Res Function(Muqaddimah) _then;
 
-/// Create a copy of Muqaddim
+/// Create a copy of Muqaddimah
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? content = null,}) {
   return _then(_self.copyWith(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as MuqaddimType,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as MuqaddimContent,
+as MuqaddimahType,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as MuqaddimahContent,
   ));
 }
 
 }
 
 
-/// Adds pattern-matching-related methods to [Muqaddim].
-extension MuqaddimPatterns on Muqaddim {
+/// Adds pattern-matching-related methods to [Muqaddimah].
+extension MuqaddimahPatterns on Muqaddimah {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -87,10 +87,10 @@ extension MuqaddimPatterns on Muqaddim {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Muqaddim value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Muqaddimah value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Muqaddim() when $default != null:
+case _Muqaddimah() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -109,10 +109,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Muqaddim value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Muqaddimah value)  $default,){
 final _that = this;
 switch (_that) {
-case _Muqaddim():
+case _Muqaddimah():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -130,10 +130,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Muqaddim value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Muqaddimah value)?  $default,){
 final _that = this;
 switch (_that) {
-case _Muqaddim() when $default != null:
+case _Muqaddimah() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -151,9 +151,9 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MuqaddimType type,  MuqaddimContent content)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MuqaddimahType type,  MuqaddimahContent content)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Muqaddim() when $default != null:
+case _Muqaddimah() when $default != null:
 return $default(_that.type,_that.content);case _:
   return orElse();
 
@@ -172,9 +172,9 @@ return $default(_that.type,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MuqaddimType type,  MuqaddimContent content)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MuqaddimahType type,  MuqaddimahContent content)  $default,) {final _that = this;
 switch (_that) {
-case _Muqaddim():
+case _Muqaddimah():
 return $default(_that.type,_that.content);case _:
   throw StateError('Unexpected subclass');
 
@@ -192,9 +192,9 @@ return $default(_that.type,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MuqaddimType type,  MuqaddimContent content)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MuqaddimahType type,  MuqaddimahContent content)?  $default,) {final _that = this;
 switch (_that) {
-case _Muqaddim() when $default != null:
+case _Muqaddimah() when $default != null:
 return $default(_that.type,_that.content);case _:
   return null;
 
@@ -206,24 +206,24 @@ return $default(_that.type,_that.content);case _:
 /// @nodoc
 
 
-class _Muqaddim implements Muqaddim {
-  const _Muqaddim(this.type, this.content);
+class _Muqaddimah implements Muqaddimah {
+  const _Muqaddimah(this.type, this.content);
   
 
-@override final  MuqaddimType type;
-@override final  MuqaddimContent content;
+@override final  MuqaddimahType type;
+@override final  MuqaddimahContent content;
 
-/// Create a copy of Muqaddim
+/// Create a copy of Muqaddimah
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$MuqaddimCopyWith<_Muqaddim> get copyWith => __$MuqaddimCopyWithImpl<_Muqaddim>(this, _$identity);
+_$MuqaddimahCopyWith<_Muqaddimah> get copyWith => __$MuqaddimahCopyWithImpl<_Muqaddimah>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Muqaddim&&(identical(other.type, type) || other.type == type)&&(identical(other.content, content) || other.content == content));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Muqaddimah&&(identical(other.type, type) || other.type == type)&&(identical(other.content, content) || other.content == content));
 }
 
 
@@ -232,18 +232,18 @@ int get hashCode => Object.hash(runtimeType,type,content);
 
 @override
 String toString() {
-  return 'Muqaddim(type: $type, content: $content)';
+  return 'Muqaddimah(type: $type, content: $content)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$MuqaddimCopyWith<$Res> implements $MuqaddimCopyWith<$Res> {
-  factory _$MuqaddimCopyWith(_Muqaddim value, $Res Function(_Muqaddim) _then) = __$MuqaddimCopyWithImpl;
+abstract mixin class _$MuqaddimahCopyWith<$Res> implements $MuqaddimahCopyWith<$Res> {
+  factory _$MuqaddimahCopyWith(_Muqaddimah value, $Res Function(_Muqaddimah) _then) = __$MuqaddimahCopyWithImpl;
 @override @useResult
 $Res call({
- MuqaddimType type, MuqaddimContent content
+ MuqaddimahType type, MuqaddimahContent content
 });
 
 
@@ -251,20 +251,20 @@ $Res call({
 
 }
 /// @nodoc
-class __$MuqaddimCopyWithImpl<$Res>
-    implements _$MuqaddimCopyWith<$Res> {
-  __$MuqaddimCopyWithImpl(this._self, this._then);
+class __$MuqaddimahCopyWithImpl<$Res>
+    implements _$MuqaddimahCopyWith<$Res> {
+  __$MuqaddimahCopyWithImpl(this._self, this._then);
 
-  final _Muqaddim _self;
-  final $Res Function(_Muqaddim) _then;
+  final _Muqaddimah _self;
+  final $Res Function(_Muqaddimah) _then;
 
-/// Create a copy of Muqaddim
+/// Create a copy of Muqaddimah
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? content = null,}) {
-  return _then(_Muqaddim(
+  return _then(_Muqaddimah(
 null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as MuqaddimType,null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as MuqaddimContent,
+as MuqaddimahType,null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as MuqaddimahContent,
   ));
 }
 

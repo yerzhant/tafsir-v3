@@ -3,21 +3,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/big_frame.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
-import 'package:tafsir/main/domain/muqaddim.dart';
+import 'package:tafsir/main/domain/muqaddimah.dart';
 
-class MuqaddimItem extends StatelessWidget {
-  const MuqaddimItem({
+class MuqaddimahItem extends StatelessWidget {
+  const MuqaddimahItem({
     super.key,
     required this.theme,
-    required this.muqaddim,
+    required this.muqaddimah,
   });
 
   final AppTheme theme;
-  final Muqaddim muqaddim;
+  final Muqaddimah muqaddimah;
 
   @override
   Widget build(BuildContext context) {
-    final icon = switch (muqaddim.type) {
+    final icon = switch (muqaddimah.type) {
       .book => 'book',
       .azanRu => 'azan.ru',
       .basmalah => 'basmalah',
@@ -51,7 +51,7 @@ class MuqaddimItem extends StatelessWidget {
             ),
           ),
           Text(
-            muqaddim.content,
+            muqaddimah.content,
             style: textCallout.copyWith(color: primaryColor),
           ),
         ],
@@ -60,18 +60,18 @@ class MuqaddimItem extends StatelessWidget {
   }
 }
 
-// @Preview(group: 'MuqaddimItem', name: 'Light Book')
+// @Preview(group: 'MuqaddimahItem', name: 'Light Book')
 // Widget previewLightBook() => sizedWrapper(
-//   const MuqaddimItem(
+//   const MuqaddimahItem(
 //     theme: .light,
 //     item: .new(.book, .new('О священном Коране')),
 //   ),
 //   width: 400,
 // );
 
-// @Preview(group: 'MuqaddimItem', name: 'Dark Book')
+// @Preview(group: 'MuqaddimahItem', name: 'Dark Book')
 // Widget previewDarkBook() => sizedWrapper(
-//   const MuqaddimItem(
+//   const MuqaddimahItem(
 //     theme: .dark,
 //     item: .new(.book, .new('О священном Коране')),
 //   ),
@@ -79,9 +79,9 @@ class MuqaddimItem extends StatelessWidget {
 //   color: bgPrimaryDark,
 // );
 
-// @Preview(group: 'MuqaddimItem', name: 'Brown Light Book')
+// @Preview(group: 'MuqaddimahItem', name: 'Brown Light Book')
 // Widget previewBrownLightBook() => sizedWrapper(
-//   const MuqaddimItem(
+//   const MuqaddimahItem(
 //     theme: .brownLight,
 //     item: .new(.book, .new('О священном Коране')),
 //   ),
@@ -89,9 +89,9 @@ class MuqaddimItem extends StatelessWidget {
 //   color: bgPrimaryBrownLight,
 // );
 
-// @Preview(group: 'MuqaddimItem', name: 'Brown Dark Book')
+// @Preview(group: 'MuqaddimahItem', name: 'Brown Dark Book')
 // Widget previewBrownDarkBook() => sizedWrapper(
-//   const MuqaddimItem(
+//   const MuqaddimahItem(
 //     theme: .brownDark,
 //     item: .new(.book, .new('О священном Коране')),
 //   ),
@@ -99,15 +99,15 @@ class MuqaddimItem extends StatelessWidget {
 //   color: bgPrimaryBrownDark,
 // );
 
-// @Preview(group: 'MuqaddimItem', name: 'Light Azan.Ru')
+// @Preview(group: 'MuqaddimahItem', name: 'Light Azan.Ru')
 // Widget previewLightAzanRu() => sizedWrapper(
-//   const MuqaddimItem(theme: .light, item: .new(.azanRu, .new('Предисловие'))),
+//   const MuqaddimahItem(theme: .light, item: .new(.azanRu, .new('Предисловие'))),
 //   width: 400,
 // );
 
-// @Preview(group: 'MuqaddimItem', name: 'Light Basmalah')
+// @Preview(group: 'MuqaddimahItem', name: 'Light Basmalah')
 // Widget previewLightBasmalah() => sizedWrapper(
-//   const MuqaddimItem(
+//   const MuqaddimahItem(
 //     theme: .light,
 //     item: .new(.basmalah, .new('Истиаза и Басмала')),
 //   ),

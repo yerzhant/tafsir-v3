@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/main/domain/muqaddim.dart';
-import 'package:tafsir/main/ui/muqaddim_item.dart';
-import 'package:tafsir/main/ui/surah_item.dart';
+import 'package:tafsir/main/domain/muqaddimah.dart';
 import 'package:tafsir/main/domain/surah.dart';
+import 'package:tafsir/main/ui/muqaddimah_item.dart';
+import 'package:tafsir/main/ui/surah_item.dart';
 
 class SuwarList extends StatelessWidget {
   const SuwarList({
@@ -14,7 +14,7 @@ class SuwarList extends StatelessWidget {
   });
 
   final AppTheme theme;
-  final List<Muqaddim> muqaddimat;
+  final List<Muqaddimah> muqaddimat;
   final List<Surah> suwar;
 
   @override
@@ -22,7 +22,10 @@ class SuwarList extends StatelessWidget {
     return ListView.separated(
       itemBuilder: (context, index) {
         if (index < muqaddimat.length) {
-          return MuqaddimItem(theme: theme, muqaddim: muqaddimat[index]);
+          return MuqaddimahItem(
+            theme: theme,
+            muqaddimah: muqaddimat[index],
+          );
         } else {
           return SurahItem(
             theme: theme,
