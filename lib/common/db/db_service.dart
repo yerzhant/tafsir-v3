@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/init/db/init_db.dart';
 import 'package:tafsir/main/db/main_db.dart';
@@ -18,6 +19,7 @@ class DbService {
         await ThemeDb.init(db);
         await SettingsDb.init(db);
         await MainDb.init(db);
+        await AayaatDb.init(db);
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 3) {
@@ -25,6 +27,7 @@ class DbService {
           await ThemeDb.init(db);
           await SettingsDb.init(db);
           await MainDb.init(db);
+          await AayaatDb.init(db);
 
           print('*********************************** DELETING');
           await db.execute('dtop table aayah');
