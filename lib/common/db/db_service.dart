@@ -29,15 +29,15 @@ class DbService {
           await MainDb.init(db);
           await AayaatDb.init(db);
 
+          await db.execute(
+            'insert into bookmarks select surah_id, aayah from bookmark',
+          );
+
           print('*********************************** DELETING');
           await db.execute('dtop table aayah');
           await db.execute('dtop table surah');
-          await db.execute(
-            'dtop table bookmark',
-          ); // TODO: migrate before deletion
-          print(
-            '*********************************** DELETING OK ************************************',
-          );
+          await db.execute('dtop table bookmark');
+          print('******************** DELETING OK **********************');
         }
       },
     );
