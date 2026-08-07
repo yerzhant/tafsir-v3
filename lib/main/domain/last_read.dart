@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tafsir/main/domain/surah.dart';
-import 'package:tafsir/surah/domain/ayah_position.dart';
+import 'package:tafsir/aayaat/domain/ayah_position.dart';
 
 part 'last_read.freezed.dart';
 
