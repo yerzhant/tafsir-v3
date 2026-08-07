@@ -40,8 +40,8 @@ class MainDb {
     await db.execute('''
       create table $_adjzaa(
         number        integer     not null    primary key,
-        from          text        not null,
-        to            text        not null,
+        from          integer     not null,
+        to            integer     not null,
         place         text
       )
     ''');
@@ -88,12 +88,25 @@ class MainDb {
         ),
       );
 
-  TaskEither<AppError, List<Djuz>> getAdjzaa() =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(() async {
-          final rows = await db.query(_adjzaa, orderBy: 'number');
-          return [for (final row in rows) DjuzRow.fromJson(row).toDomain()];
-        }, ExceptionError.new),
+  TaskEither<AppError, List<Djuz>> getAdjzaa() => _dbService.db
+      .toTaskEither()
+      .flatMap(
+        (db) => .tryCatch(
+          () => db.query(_adjzaa, orderBy: 'number'),
+          ExceptionError.new,
+        ),
+      )
+      .flatMap(
+        (rows) => .Do(
+          ($) => rows.map(
+            (e) async {
+              final row = DjuzRow.fromJson(e);
+              final from = await $(_getSurah(row.from));
+              final to = await $(_getSurah(row.to));
+              return row.toDomain(from.name, to.name);
+            },
+          ).wait,
+        ),
       );
 
   TaskEither<AppError, void> addDjuz(Djuz djuz) =>
@@ -123,19 +136,6 @@ class MainDb {
           ),
           ExceptionError.new,
         ),
-      );
-
-  TaskEither<AppError, Surah> _getSurah(SurahNumber number) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(() async {
-          final rows = await db.query(
-            _suwar,
-            where: 'number = ?',
-            whereArgs: [number],
-          );
-
-          return SurahRow.fromJson(rows.first).toDomain();
-        }, ExceptionError.new),
       );
 
   TaskEither<AppError, List<LastRead>> getLastReads() => _dbService.db
@@ -222,5 +222,18 @@ class MainDb {
           ),
           ExceptionError.new,
         ),
+      );
+
+  TaskEither<AppError, Surah> _getSurah(SurahNumber number) =>
+      _dbService.db.toTaskEither().flatMap(
+        (db) => .tryCatch(() async {
+          final rows = await db.query(
+            _suwar,
+            where: 'number = ?',
+            whereArgs: [number],
+          );
+
+          return SurahRow.fromJson(rows.first).toDomain();
+        }, ExceptionError.new),
       );
 }

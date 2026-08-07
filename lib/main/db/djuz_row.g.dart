@@ -9,8 +9,8 @@ part of 'djuz_row.dart';
 _DjuzRow _$DjuzRowFromJson(Map<String, dynamic> json) => _DjuzRow(
   json['number'] as DjuzNumber,
   $enumDecode(_$DjuzPlaceEnumMap, json['place']),
-  json['from'] as SurahName,
-  json['to'] as SurahName,
+  json['from'] as SurahNumber,
+  json['to'] as SurahNumber,
 );
 
 Map<String, dynamic> _$DjuzRowToJson(_DjuzRow instance) => <String, dynamic>{

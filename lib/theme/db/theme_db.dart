@@ -36,34 +36,17 @@ class ThemeDb {
     );
   }
 
-  TaskEither<AppError, bool> getBool(ThemeDbParamKey key) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(() async {
-          final rows = await db.query(
-            _themeParams,
-            where: 'key = ?',
-            whereArgs: [key.name],
-          );
+  TaskEither<AppError, bool> sameAsInSystem() =>
+      .Do(($) => $(_getBool(.sameAsInSystem)));
 
-          final param = ThemeDbParam.fromJson(rows.first);
+  TaskEither<AppError, void> setSameAsInSystem(bool value) =>
+      .Do(($) => $(_setBool(.sameAsInSystem, value)));
 
-          return .parse(param.value);
-        }, ExceptionError.new),
-      );
+  TaskEither<AppError, bool> doNotSwitchOffScreen() =>
+      .Do(($) => $(_getBool(.doNotSwitchOffScreen)));
 
-  TaskEither<AppError, void> setBool(ThemeDbParamKey key, bool value) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(() async {
-          final param = ThemeDbParam(key, value.toString());
-
-          await db.update(
-            _themeParams,
-            param.toJson(),
-            where: 'key = ?',
-            whereArgs: [param.key.name],
-          );
-        }, ExceptionError.new),
-      );
+  TaskEither<AppError, void> setDoNotSwitchOffScreen(bool value) =>
+      .Do(($) => $(_setBool(.doNotSwitchOffScreen, value)));
 
   TaskEither<AppError, AppTheme> getTheme() =>
       _dbService.db.toTaskEither().flatMap(
@@ -84,6 +67,35 @@ class ThemeDb {
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(() async {
           final param = ThemeDbParam(.theme, theme.name);
+
+          await db.update(
+            _themeParams,
+            param.toJson(),
+            where: 'key = ?',
+            whereArgs: [param.key.name],
+          );
+        }, ExceptionError.new),
+      );
+
+  TaskEither<AppError, bool> _getBool(ThemeDbParamKey key) =>
+      _dbService.db.toTaskEither().flatMap(
+        (db) => .tryCatch(() async {
+          final rows = await db.query(
+            _themeParams,
+            where: 'key = ?',
+            whereArgs: [key.name],
+          );
+
+          final param = ThemeDbParam.fromJson(rows.first);
+
+          return .parse(param.value);
+        }, ExceptionError.new),
+      );
+
+  TaskEither<AppError, void> _setBool(ThemeDbParamKey key, bool value) =>
+      _dbService.db.toTaskEither().flatMap(
+        (db) => .tryCatch(() async {
+          final param = ThemeDbParam(key, value.toString());
 
           await db.update(
             _themeParams,

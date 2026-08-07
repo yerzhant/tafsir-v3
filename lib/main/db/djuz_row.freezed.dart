@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DjuzRow {
 
- DjuzNumber get number; DjuzPlace get place; SurahName get from; SurahName get to;
+ DjuzNumber get number; DjuzPlace get place; SurahNumber get from; SurahNumber get to;
 /// Create a copy of DjuzRow
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $DjuzRowCopyWith<$Res>  {
   factory $DjuzRowCopyWith(DjuzRow value, $Res Function(DjuzRow) _then) = _$DjuzRowCopyWithImpl;
 @useResult
 $Res call({
- DjuzNumber number, DjuzPlace place, SurahName from, SurahName to
+ DjuzNumber number, DjuzPlace place, SurahNumber from, SurahNumber to
 });
 
 
@@ -70,8 +70,8 @@ class _$DjuzRowCopyWithImpl<$Res>
 number: null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
 as DjuzNumber,place: null == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
 as DjuzPlace,from: null == from ? _self.from : from // ignore: cast_nullable_to_non_nullable
-as SurahName,to: null == to ? _self.to : to // ignore: cast_nullable_to_non_nullable
-as SurahName,
+as SurahNumber,to: null == to ? _self.to : to // ignore: cast_nullable_to_non_nullable
+as SurahNumber,
   ));
 }
 
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DjuzNumber number,  DjuzPlace place,  SurahName from,  SurahName to)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DjuzNumber number,  DjuzPlace place,  SurahNumber from,  SurahNumber to)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DjuzRow() when $default != null:
 return $default(_that.number,_that.place,_that.from,_that.to);case _:
@@ -177,7 +177,7 @@ return $default(_that.number,_that.place,_that.from,_that.to);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DjuzNumber number,  DjuzPlace place,  SurahName from,  SurahName to)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DjuzNumber number,  DjuzPlace place,  SurahNumber from,  SurahNumber to)  $default,) {final _that = this;
 switch (_that) {
 case _DjuzRow():
 return $default(_that.number,_that.place,_that.from,_that.to);case _:
@@ -197,7 +197,7 @@ return $default(_that.number,_that.place,_that.from,_that.to);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DjuzNumber number,  DjuzPlace place,  SurahName from,  SurahName to)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DjuzNumber number,  DjuzPlace place,  SurahNumber from,  SurahNumber to)?  $default,) {final _that = this;
 switch (_that) {
 case _DjuzRow() when $default != null:
 return $default(_that.number,_that.place,_that.from,_that.to);case _:
@@ -217,8 +217,8 @@ class _DjuzRow extends DjuzRow {
 
 @override final  DjuzNumber number;
 @override final  DjuzPlace place;
-@override final  SurahName from;
-@override final  SurahName to;
+@override final  SurahNumber from;
+@override final  SurahNumber to;
 
 /// Create a copy of DjuzRow
 /// with the given fields replaced by the non-null parameter values.
@@ -253,7 +253,7 @@ abstract mixin class _$DjuzRowCopyWith<$Res> implements $DjuzRowCopyWith<$Res> {
   factory _$DjuzRowCopyWith(_DjuzRow value, $Res Function(_DjuzRow) _then) = __$DjuzRowCopyWithImpl;
 @override @useResult
 $Res call({
- DjuzNumber number, DjuzPlace place, SurahName from, SurahName to
+ DjuzNumber number, DjuzPlace place, SurahNumber from, SurahNumber to
 });
 
 
@@ -275,8 +275,8 @@ class __$DjuzRowCopyWithImpl<$Res>
 null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
 as DjuzNumber,null == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
 as DjuzPlace,null == from ? _self.from : from // ignore: cast_nullable_to_non_nullable
-as SurahName,null == to ? _self.to : to // ignore: cast_nullable_to_non_nullable
-as SurahName,
+as SurahNumber,null == to ? _self.to : to // ignore: cast_nullable_to_non_nullable
+as SurahNumber,
   ));
 }
 

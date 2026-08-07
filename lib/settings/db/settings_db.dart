@@ -56,63 +56,40 @@ class SettingsDb {
     );
   }
 
-  TaskEither<AppError, bool> getBool(SettingDbParamKey key) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(() async {
-          final rows = await db.query(
-            _settings,
-            where: 'key = ?',
-            whereArgs: [key.name],
-          );
+  TaskEither<AppError, bool> showAyah() => .Do(($) => $(_getBool(.showAyah)));
 
-          final param = SettingDbParam.fromJson(rows.first);
+  TaskEither<AppError, void> setShowAyah(bool value) =>
+      .Do(($) => $(_setBool(.showAyah, value)));
 
-          return .parse(param.value);
-        }, ExceptionError.new),
-      );
+  TaskEither<AppError, bool> showTafsir() =>
+      .Do(($) => $(_getBool(.showTafsir)));
 
-  TaskEither<AppError, void> setBool(SettingDbParamKey key, bool value) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(() async {
-          final param = SettingDbParam(key, value.toString());
+  TaskEither<AppError, void> setShowTafsir(bool value) =>
+      .Do(($) => $(_setBool(.showTafsir, value)));
 
-          await db.update(
-            _settings,
-            param.toJson(),
-            where: 'key = ?',
-            whereArgs: [param.key.name],
-          );
-        }, ExceptionError.new),
-      );
+  TaskEither<AppError, bool> showTranslation() =>
+      .Do(($) => $(_getBool(.showTranslation)));
 
-  TaskEither<AppError, double> getDouble(SettingDbParamKey key) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(() async {
-          final rows = await db.query(
-            _settings,
-            where: 'key = ?',
-            whereArgs: [key.name],
-          );
+  TaskEither<AppError, void> setShowTranslation(bool value) =>
+      .Do(($) => $(_setBool(.showTranslation, value)));
 
-          final param = SettingDbParam.fromJson(rows.first);
+  TaskEither<AppError, bool> showFootnotes() =>
+      .Do(($) => $(_getBool(.showFootnotes)));
 
-          return .parse(param.value);
-        }, ExceptionError.new),
-      );
+  TaskEither<AppError, void> setShowFootnotes(bool value) =>
+      .Do(($) => $(_setBool(.showFootnotes, value)));
 
-  TaskEither<AppError, void> setDouble(SettingDbParamKey key, double value) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(() async {
-          final param = SettingDbParam(key, value.toString());
+  TaskEither<AppError, double> getAyahFontSize() =>
+      .Do(($) => $(_getDouble(.ayahFontSize)));
 
-          await db.update(
-            _settings,
-            param.toJson(),
-            where: 'key = ?',
-            whereArgs: [param.key.name],
-          );
-        }, ExceptionError.new),
-      );
+  TaskEither<AppError, void> setAyahFontSize(double value) =>
+      .Do(($) => $(_setDouble(.ayahFontSize, value)));
+
+  TaskEither<AppError, double> getTranlationFontSize() =>
+      .Do(($) => $(_getDouble(.tranlationFontSize)));
+
+  TaskEither<AppError, void> setTranlationFontSize(double value) =>
+      .Do(($) => $(_setDouble(.tranlationFontSize, value)));
 
   TaskEither<AppError, AyahFontType> getAyahFontType() =>
       _dbService.db.toTaskEither().flatMap(
@@ -133,6 +110,64 @@ class SettingsDb {
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(() async {
           final param = SettingDbParam(.ayayFonType, font.name);
+
+          await db.update(
+            _settings,
+            param.toJson(),
+            where: 'key = ?',
+            whereArgs: [param.key.name],
+          );
+        }, ExceptionError.new),
+      );
+
+  TaskEither<AppError, bool> _getBool(SettingDbParamKey key) =>
+      _dbService.db.toTaskEither().flatMap(
+        (db) => .tryCatch(() async {
+          final rows = await db.query(
+            _settings,
+            where: 'key = ?',
+            whereArgs: [key.name],
+          );
+
+          final param = SettingDbParam.fromJson(rows.first);
+
+          return .parse(param.value);
+        }, ExceptionError.new),
+      );
+
+  TaskEither<AppError, void> _setBool(SettingDbParamKey key, bool value) =>
+      _dbService.db.toTaskEither().flatMap(
+        (db) => .tryCatch(() async {
+          final param = SettingDbParam(key, value.toString());
+
+          await db.update(
+            _settings,
+            param.toJson(),
+            where: 'key = ?',
+            whereArgs: [param.key.name],
+          );
+        }, ExceptionError.new),
+      );
+
+  TaskEither<AppError, double> _getDouble(SettingDbParamKey key) =>
+      _dbService.db.toTaskEither().flatMap(
+        (db) => .tryCatch(() async {
+          final rows = await db.query(
+            _settings,
+            where: 'key = ?',
+            whereArgs: [key.name],
+          );
+
+          final param = SettingDbParam.fromJson(rows.first);
+
+          return .parse(param.value);
+        }, ExceptionError.new),
+      );
+
+  TaskEither<AppError, void> _setDouble(SettingDbParamKey key, double value) =>
+      _dbService.db.toTaskEither().flatMap(
+        (db) => .tryCatch(() async {
+          final param = SettingDbParam(key, value.toString());
 
           await db.update(
             _settings,

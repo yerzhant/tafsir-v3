@@ -19,7 +19,9 @@ abstract class Djuz with _$Djuz {
   const factory Djuz(
     DjuzNumber number,
     DjuzPlace place,
-    SurahName from,
-    SurahName to,
+    SurahNumber fromNumber,
+    SurahNumber toNumber,
+    SurahName fromName,
+    SurahName toName,
   ) = _Djuz;
 }

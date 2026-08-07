@@ -57,7 +57,7 @@ class DjuzItem extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(
-                  '${djuz.from} → ${djuz.to}',
+                  '${djuz.fromName} → ${djuz.toName}',
                   style: textCallout.copyWith(color: primaryColor),
                   overflow: .ellipsis,
                 ),

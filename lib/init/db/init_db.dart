@@ -25,13 +25,19 @@ class InitDb {
     );
   }
 
-  TaskEither<AppError, bool> getInitialized() =>
+  TaskEither<AppError, bool> initialized() =>
+      .Do(($) => $(_getBool(.initialized)));
+
+  TaskEither<AppError, void> setInitialized() =>
+      .Do(($) => $(_setBool(.initialized, true)));
+
+  TaskEither<AppError, bool> _getBool(InitDbParamKey key) =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(() async {
           final rows = await db.query(
             _initParams,
             where: 'key = ?',
-            whereArgs: [InitDbParamKey.initialized.name],
+            whereArgs: [key.name],
           );
 
           final param = InitDbParam.fromJson(rows.first);
@@ -40,10 +46,10 @@ class InitDb {
         }, ExceptionError.new),
       );
 
-  TaskEither<AppError, void> setInitialized(bool value) =>
+  TaskEither<AppError, void> _setBool(InitDbParamKey key, bool value) =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(() async {
-          final param = InitDbParam(.initialized, value.toString());
+          final param = InitDbParam(key, value.toString());
 
           await db.update(
             _initParams,

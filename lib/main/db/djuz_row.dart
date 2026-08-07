@@ -10,17 +10,28 @@ abstract class DjuzRow with _$DjuzRow {
   const factory DjuzRow(
     DjuzNumber number,
     DjuzPlace place,
-    SurahName from,
-    SurahName to,
+    SurahNumber from,
+    SurahNumber to,
   ) = _DjuzRow;
 
   factory DjuzRow.fromJson(Map<String, dynamic> json) =>
       _$DjuzRowFromJson(json);
 
-  factory DjuzRow.fromDomain(Djuz djuz) =>
-      .new(djuz.number, djuz.place, djuz.from, djuz.to);
+  factory DjuzRow.fromDomain(Djuz djuz) => .new(
+    djuz.number,
+    djuz.place,
+    djuz.fromNumber,
+    djuz.toNumber,
+  );
 
   const DjuzRow._();
 
-  Djuz toDomain() => .new(number, place, from, to);
+  Djuz toDomain(SurahName fromName, SurahName toName) => .new(
+    number,
+    place,
+    from,
+    to,
+    fromName,
+    toName,
+  );
 }
