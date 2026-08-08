@@ -19,8 +19,8 @@ abstract class AayahRow with _$AayahRow {
   factory AayahRow.fromJson(Map<String, dynamic> json) =>
       _$AayahRowFromJson(json);
 
-  factory AayahRow.fromDomain(Surah surah, Aayah aayah) => .new(
-    surah.number,
+  factory AayahRow.fromDomain(SurahNumber surahNumber, Aayah aayah) => .new(
+    surahNumber,
     aayah.number,
     aayah.arabic,
     aayah.tafsir,

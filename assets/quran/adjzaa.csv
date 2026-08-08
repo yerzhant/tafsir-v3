@@ -1,7 +1,7 @@
 number,from_surah,from_aayah,to_surah,to_aayah,place
 1,1,1,2,141,makkahAndMadinah
 2,2,142,2,252,madinah
-3,2,253,3.92,madinah
+3,2,253,3,92,madinah
 4,3,93,4,23,madinah
 5,4,24,4,147,madinah
 6,4,148,5,81,madinah

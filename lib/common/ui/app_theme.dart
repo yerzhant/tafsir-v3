@@ -156,6 +156,13 @@ const textBodyLarge = TextStyle(fontSize: 18);
 const textBodyReg = TextStyle(fontSize: 16);
 const textBodyMedium = TextStyle(fontSize: 14);
 
+Color brandPrimary(AppTheme theme) => switch (theme) {
+  .light => brandPrimaryLight,
+  .dark => brandPrimaryDark,
+  .brownLight => brandPrimaryBrownLight,
+  .brownDark => brandPrimaryBrownDark,
+};
+
 Color bgPrimary(AppTheme theme) => switch (theme) {
   .light => bgPrimaryLight,
   .dark => bgPrimaryDark,

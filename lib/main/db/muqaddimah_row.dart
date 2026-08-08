@@ -8,6 +8,7 @@ part 'muqaddimah_row.g.dart';
 abstract class MuqaddimahRow with _$MuqaddimahRow {
   const factory MuqaddimahRow(
     MuqaddimahType type,
+    MuqaddimahTitle title,
     MuqaddimahContent content,
   ) = _MuqaddimahRow;
 
@@ -15,9 +16,9 @@ abstract class MuqaddimahRow with _$MuqaddimahRow {
       _$MuqaddimahRowFromJson(json);
 
   factory MuqaddimahRow.fromDomain(Muqaddimah muqaddimah) =>
-      .new(muqaddimah.type, muqaddimah.content);
+      .new(muqaddimah.type, muqaddimah.title, muqaddimah.content);
 
   const MuqaddimahRow._();
 
-  Muqaddimah toDomain() => .new(type, content);
+  Muqaddimah toDomain() => .new(type, title, content);
 }

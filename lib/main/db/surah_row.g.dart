@@ -11,8 +11,8 @@ _SurahRow _$SurahRowFromJson(Map<String, dynamic> json) => _SurahRow(
   json['name'] as SurahName,
   json['info'] as SurahInfo,
   json['djuz'] as SurahDjuz,
-  $enumDecode(_$SurahPlaceEnumMap, json['place']),
-  json['translation'] as SurahTranslation,
+  $enumDecodeNullable(_$SurahPlaceEnumMap, json['place']),
+  json['translation'] as SurahTranslation?,
   json['quantity'] as AayahQuantity,
 );
 
@@ -21,12 +21,12 @@ Map<String, dynamic> _$SurahRowToJson(_SurahRow instance) => <String, dynamic>{
   'name': instance.name,
   'info': instance.info,
   'djuz': instance.djuz,
-  'place': _$SurahPlaceEnumMap[instance.place]!,
+  'place': _$SurahPlaceEnumMap[instance.place],
   'translation': instance.translation,
   'quantity': instance.quantity,
 };
 
 const _$SurahPlaceEnumMap = {
-  SurahPlace.mekkah: 'mekkah',
+  SurahPlace.makkah: 'makkah',
   SurahPlace.madinah: 'madinah',
 };

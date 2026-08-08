@@ -11,12 +11,19 @@ extension type const SurahTranslation(String value) implements String {}
 extension type const AayahQuantity(int value) implements int {}
 
 enum SurahPlace {
-  mekkah('Мекка'),
+  makkah('Мекка'),
   madinah('Медина');
 
   final String name;
 
   const SurahPlace(this.name);
+
+  static SurahPlace? parse(String name) => switch (name) {
+    'Makkah' => .makkah,
+    'Madina' => .madinah,
+    '' => null,
+    _ => throw 'Invalid surah place $name',
+  };
 }
 
 @freezed
@@ -26,8 +33,8 @@ abstract class Surah with _$Surah {
     SurahName name,
     SurahInfo info,
     SurahDjuz djuz,
-    SurahPlace place,
-    SurahTranslation translation,
+    SurahPlace? place,
+    SurahTranslation? translation,
 
     AayahQuantity quantity,
   ) = _Surah;

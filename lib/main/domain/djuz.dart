@@ -15,6 +15,8 @@ enum DjuzPlace {
   final String name;
 
   const DjuzPlace(this.name);
+
+  static DjuzPlace parse(String place) => DjuzPlace.values.byName(place);
 }
 
 @freezed

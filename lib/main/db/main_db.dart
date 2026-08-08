@@ -29,11 +29,11 @@ class MainDb {
       create table $_suwar(
         number        integer     not null    primary key,
         name          text        not null,
-        info          text,
-        djuz          text,
+        info          text        not null,
+        djuz          text        not null,
+        quantity      integer     not null,
         place         text,
-        translation   text,
-        quantity      integer
+        translation   text
       )
     ''');
 
@@ -51,6 +51,7 @@ class MainDb {
     await db.execute('''
       create table $_muqaddimat(
         type         text        not null    primary key,
+        title        text        not null,
         content      text        not null
       )
     ''');
@@ -82,10 +83,10 @@ class MainDb {
         }, ExceptionError.new),
       );
 
-  TaskEither<AppError, void> addSurah(Surah surah) =>
+  TaskEither<AppError, void> addSurah(SurahRow row) =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(
-          () => db.insert(_suwar, SurahRow.fromDomain(surah).toJson()),
+          () => db.insert(_suwar, row.toJson()),
           ExceptionError.new,
         ),
       );
@@ -103,7 +104,7 @@ class MainDb {
           ($) => rows.map(
             (e) async {
               final row = DjuzRow.fromJson(e);
-              final from = await $(_getSurah(row.fromSuran));
+              final from = await $(_getSurah(row.fromSurah));
               final to = await $(_getSurah(row.toSurah));
               return row.toDomain(from.name, to.name);
             },
@@ -111,10 +112,10 @@ class MainDb {
         ),
       );
 
-  TaskEither<AppError, void> addDjuz(Djuz djuz) =>
+  TaskEither<AppError, void> addDjuz(DjuzRow row) =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(
-          () => db.insert(_adjzaa, DjuzRow.fromDomain(djuz).toJson()),
+          () => db.insert(_adjzaa, row.toJson()),
           ExceptionError.new,
         ),
       );
@@ -129,13 +130,10 @@ class MainDb {
         }, ExceptionError.new),
       );
 
-  TaskEither<AppError, void> addMuqaddimah(Muqaddimah muqaddimah) =>
+  TaskEither<AppError, void> addMuqaddimah(MuqaddimahRow row) =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(
-          () => db.insert(
-            _suwar,
-            MuqaddimahRow.fromDomain(muqaddimah).toJson(),
-          ),
+          () => db.insert(_muqaddimat, row.toJson()),
           ExceptionError.new,
         ),
       );
@@ -225,6 +223,14 @@ class MainDb {
           ExceptionError.new,
         ),
       );
+
+  TaskEither<AppError, void> cleanUp() => _dbService.db.toTaskEither().flatMap(
+    (db) => .tryCatch(() async {
+      await db.delete(_adjzaa);
+      await db.delete(_suwar);
+      await db.delete(_muqaddimat);
+    }, ExceptionError.new),
+  );
 
   TaskEither<AppError, Surah> _getSurah(SurahNumber number) =>
       _dbService.db.toTaskEither().flatMap(

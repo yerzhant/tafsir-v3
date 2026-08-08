@@ -11,8 +11,8 @@ abstract class SurahRow with _$SurahRow {
     SurahName name,
     SurahInfo info,
     SurahDjuz djuz,
-    SurahPlace place,
-    SurahTranslation translation,
+    SurahPlace? place,
+    SurahTranslation? translation,
 
     AayahQuantity quantity,
   ) = _SurahRow;

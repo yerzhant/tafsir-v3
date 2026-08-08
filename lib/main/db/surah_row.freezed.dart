@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SurahRow {
 
- SurahNumber get number; SurahName get name; SurahInfo get info; SurahDjuz get djuz; SurahPlace get place; SurahTranslation get translation; AayahQuantity get quantity;
+ SurahNumber get number; SurahName get name; SurahInfo get info; SurahDjuz get djuz; SurahPlace? get place; SurahTranslation? get translation; AayahQuantity get quantity;
 /// Create a copy of SurahRow
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $SurahRowCopyWith<$Res>  {
   factory $SurahRowCopyWith(SurahRow value, $Res Function(SurahRow) _then) = _$SurahRowCopyWithImpl;
 @useResult
 $Res call({
- SurahNumber number, SurahName name, SurahInfo info, SurahDjuz djuz, SurahPlace place, SurahTranslation translation, AayahQuantity quantity
+ SurahNumber number, SurahName name, SurahInfo info, SurahDjuz djuz, SurahPlace? place, SurahTranslation? translation, AayahQuantity quantity
 });
 
 
@@ -65,15 +65,15 @@ class _$SurahRowCopyWithImpl<$Res>
 
 /// Create a copy of SurahRow
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? number = null,Object? name = null,Object? info = null,Object? djuz = null,Object? place = null,Object? translation = null,Object? quantity = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? number = null,Object? name = null,Object? info = null,Object? djuz = null,Object? place = freezed,Object? translation = freezed,Object? quantity = null,}) {
   return _then(_self.copyWith(
 number: null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
 as SurahNumber,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as SurahName,info: null == info ? _self.info : info // ignore: cast_nullable_to_non_nullable
 as SurahInfo,djuz: null == djuz ? _self.djuz : djuz // ignore: cast_nullable_to_non_nullable
-as SurahDjuz,place: null == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
-as SurahPlace,translation: null == translation ? _self.translation : translation // ignore: cast_nullable_to_non_nullable
-as SurahTranslation,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as SurahDjuz,place: freezed == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
+as SurahPlace?,translation: freezed == translation ? _self.translation : translation // ignore: cast_nullable_to_non_nullable
+as SurahTranslation?,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as AayahQuantity,
   ));
 }
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahNumber number,  SurahName name,  SurahInfo info,  SurahDjuz djuz,  SurahPlace place,  SurahTranslation translation,  AayahQuantity quantity)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahNumber number,  SurahName name,  SurahInfo info,  SurahDjuz djuz,  SurahPlace? place,  SurahTranslation? translation,  AayahQuantity quantity)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SurahRow() when $default != null:
 return $default(_that.number,_that.name,_that.info,_that.djuz,_that.place,_that.translation,_that.quantity);case _:
@@ -180,7 +180,7 @@ return $default(_that.number,_that.name,_that.info,_that.djuz,_that.place,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahNumber number,  SurahName name,  SurahInfo info,  SurahDjuz djuz,  SurahPlace place,  SurahTranslation translation,  AayahQuantity quantity)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahNumber number,  SurahName name,  SurahInfo info,  SurahDjuz djuz,  SurahPlace? place,  SurahTranslation? translation,  AayahQuantity quantity)  $default,) {final _that = this;
 switch (_that) {
 case _SurahRow():
 return $default(_that.number,_that.name,_that.info,_that.djuz,_that.place,_that.translation,_that.quantity);case _:
@@ -200,7 +200,7 @@ return $default(_that.number,_that.name,_that.info,_that.djuz,_that.place,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahNumber number,  SurahName name,  SurahInfo info,  SurahDjuz djuz,  SurahPlace place,  SurahTranslation translation,  AayahQuantity quantity)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahNumber number,  SurahName name,  SurahInfo info,  SurahDjuz djuz,  SurahPlace? place,  SurahTranslation? translation,  AayahQuantity quantity)?  $default,) {final _that = this;
 switch (_that) {
 case _SurahRow() when $default != null:
 return $default(_that.number,_that.name,_that.info,_that.djuz,_that.place,_that.translation,_that.quantity);case _:
@@ -222,8 +222,8 @@ class _SurahRow extends SurahRow {
 @override final  SurahName name;
 @override final  SurahInfo info;
 @override final  SurahDjuz djuz;
-@override final  SurahPlace place;
-@override final  SurahTranslation translation;
+@override final  SurahPlace? place;
+@override final  SurahTranslation? translation;
 @override final  AayahQuantity quantity;
 
 /// Create a copy of SurahRow
@@ -259,7 +259,7 @@ abstract mixin class _$SurahRowCopyWith<$Res> implements $SurahRowCopyWith<$Res>
   factory _$SurahRowCopyWith(_SurahRow value, $Res Function(_SurahRow) _then) = __$SurahRowCopyWithImpl;
 @override @useResult
 $Res call({
- SurahNumber number, SurahName name, SurahInfo info, SurahDjuz djuz, SurahPlace place, SurahTranslation translation, AayahQuantity quantity
+ SurahNumber number, SurahName name, SurahInfo info, SurahDjuz djuz, SurahPlace? place, SurahTranslation? translation, AayahQuantity quantity
 });
 
 
@@ -276,15 +276,15 @@ class __$SurahRowCopyWithImpl<$Res>
 
 /// Create a copy of SurahRow
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? number = null,Object? name = null,Object? info = null,Object? djuz = null,Object? place = null,Object? translation = null,Object? quantity = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? number = null,Object? name = null,Object? info = null,Object? djuz = null,Object? place = freezed,Object? translation = freezed,Object? quantity = null,}) {
   return _then(_SurahRow(
 null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
 as SurahNumber,null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as SurahName,null == info ? _self.info : info // ignore: cast_nullable_to_non_nullable
 as SurahInfo,null == djuz ? _self.djuz : djuz // ignore: cast_nullable_to_non_nullable
-as SurahDjuz,null == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
-as SurahPlace,null == translation ? _self.translation : translation // ignore: cast_nullable_to_non_nullable
-as SurahTranslation,null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as SurahDjuz,freezed == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
+as SurahPlace?,freezed == translation ? _self.translation : translation // ignore: cast_nullable_to_non_nullable
+as SurahTranslation?,null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as AayahQuantity,
   ));
 }

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Muqaddimah {
 
- MuqaddimahType get type; MuqaddimahContent get content;
+ MuqaddimahType get type; MuqaddimahTitle get title; MuqaddimahContent get content;
 /// Create a copy of Muqaddimah
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $MuqaddimahCopyWith<Muqaddimah> get copyWith => _$MuqaddimahCopyWithImpl<Muqaddi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Muqaddimah&&(identical(other.type, type) || other.type == type)&&(identical(other.content, content) || other.content == content));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Muqaddimah&&(identical(other.type, type) || other.type == type)&&(identical(other.title, title) || other.title == title)&&(identical(other.content, content) || other.content == content));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,content);
+int get hashCode => Object.hash(runtimeType,type,title,content);
 
 @override
 String toString() {
-  return 'Muqaddimah(type: $type, content: $content)';
+  return 'Muqaddimah(type: $type, title: $title, content: $content)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $MuqaddimahCopyWith<$Res>  {
   factory $MuqaddimahCopyWith(Muqaddimah value, $Res Function(Muqaddimah) _then) = _$MuqaddimahCopyWithImpl;
 @useResult
 $Res call({
- MuqaddimahType type, MuqaddimahContent content
+ MuqaddimahType type, MuqaddimahTitle title, MuqaddimahContent content
 });
 
 
@@ -62,10 +62,11 @@ class _$MuqaddimahCopyWithImpl<$Res>
 
 /// Create a copy of Muqaddimah
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? content = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? title = null,Object? content = null,}) {
   return _then(_self.copyWith(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as MuqaddimahType,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as MuqaddimahType,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as MuqaddimahTitle,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as MuqaddimahContent,
   ));
 }
@@ -151,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MuqaddimahType type,  MuqaddimahContent content)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MuqaddimahType type,  MuqaddimahTitle title,  MuqaddimahContent content)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Muqaddimah() when $default != null:
-return $default(_that.type,_that.content);case _:
+return $default(_that.type,_that.title,_that.content);case _:
   return orElse();
 
 }
@@ -172,10 +173,10 @@ return $default(_that.type,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MuqaddimahType type,  MuqaddimahContent content)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MuqaddimahType type,  MuqaddimahTitle title,  MuqaddimahContent content)  $default,) {final _that = this;
 switch (_that) {
 case _Muqaddimah():
-return $default(_that.type,_that.content);case _:
+return $default(_that.type,_that.title,_that.content);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +193,10 @@ return $default(_that.type,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MuqaddimahType type,  MuqaddimahContent content)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MuqaddimahType type,  MuqaddimahTitle title,  MuqaddimahContent content)?  $default,) {final _that = this;
 switch (_that) {
 case _Muqaddimah() when $default != null:
-return $default(_that.type,_that.content);case _:
+return $default(_that.type,_that.title,_that.content);case _:
   return null;
 
 }
@@ -207,10 +208,11 @@ return $default(_that.type,_that.content);case _:
 
 
 class _Muqaddimah implements Muqaddimah {
-  const _Muqaddimah(this.type, this.content);
+  const _Muqaddimah(this.type, this.title, this.content);
   
 
 @override final  MuqaddimahType type;
+@override final  MuqaddimahTitle title;
 @override final  MuqaddimahContent content;
 
 /// Create a copy of Muqaddimah
@@ -223,16 +225,16 @@ _$MuqaddimahCopyWith<_Muqaddimah> get copyWith => __$MuqaddimahCopyWithImpl<_Muq
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Muqaddimah&&(identical(other.type, type) || other.type == type)&&(identical(other.content, content) || other.content == content));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Muqaddimah&&(identical(other.type, type) || other.type == type)&&(identical(other.title, title) || other.title == title)&&(identical(other.content, content) || other.content == content));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,content);
+int get hashCode => Object.hash(runtimeType,type,title,content);
 
 @override
 String toString() {
-  return 'Muqaddimah(type: $type, content: $content)';
+  return 'Muqaddimah(type: $type, title: $title, content: $content)';
 }
 
 
@@ -243,7 +245,7 @@ abstract mixin class _$MuqaddimahCopyWith<$Res> implements $MuqaddimahCopyWith<$
   factory _$MuqaddimahCopyWith(_Muqaddimah value, $Res Function(_Muqaddimah) _then) = __$MuqaddimahCopyWithImpl;
 @override @useResult
 $Res call({
- MuqaddimahType type, MuqaddimahContent content
+ MuqaddimahType type, MuqaddimahTitle title, MuqaddimahContent content
 });
 
 
@@ -260,10 +262,11 @@ class __$MuqaddimahCopyWithImpl<$Res>
 
 /// Create a copy of Muqaddimah
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? content = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? title = null,Object? content = null,}) {
   return _then(_Muqaddimah(
 null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as MuqaddimahType,null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as MuqaddimahType,null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as MuqaddimahTitle,null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as MuqaddimahContent,
   ));
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
@@ -72,7 +73,7 @@ class SurahItem extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        surah.translation,
+                        surah.translation ?? surah.name,
                         overflow: .ellipsis,
                         style: textBodyMedium.copyWith(color: secondaryColor),
                       ),
@@ -91,10 +92,18 @@ class SurahItem extends StatelessWidget {
                       'assets/icons/map-pin.svg',
                       colorFilter: .mode(mapPinColor, .srcIn),
                     ),
-                    const SizedBox(width: 2),
-                    Text(
-                      surah.place.name,
-                      style: textBodyMedium.copyWith(color: secondaryColor),
+                    ?surah.place?.let(
+                      (it) => Column(
+                        children: [
+                          const SizedBox(width: 2),
+                          Text(
+                            it.name,
+                            style: textBodyMedium.copyWith(
+                              color: secondaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

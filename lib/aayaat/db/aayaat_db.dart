@@ -41,11 +41,15 @@ class AayaatDb {
         }, ExceptionError.new),
       );
 
-  TaskEither<AppError, void> addAayah(Surah surah, Aayah aayah) =>
+  TaskEither<AppError, void> addAayah(AayahRow row) =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(
-          () => db.insert(_aayaat, AayahRow.fromDomain(surah, aayah).toJson()),
+          () => db.insert(_aayaat, row.toJson()),
           ExceptionError.new,
         ),
       );
+
+  TaskEither<AppError, void> cleanUp() => _dbService.db.toTaskEither().flatMap(
+    (db) => .tryCatch(() => db.delete(_aayaat), ExceptionError.new),
+  );
 }

@@ -12,7 +12,7 @@ abstract class DjuzRow with _$DjuzRow {
   const factory DjuzRow(
     DjuzNumber number,
     DjuzPlace place,
-    SurahNumber fromSuran,
+    SurahNumber fromSurah,
     AayahNumber fromAayah,
     SurahNumber toSurah,
     AayahNumber toAayah,
@@ -35,7 +35,7 @@ abstract class DjuzRow with _$DjuzRow {
   Djuz toDomain(SurahName fromSuranName, SurahName toSuranName) => .new(
     number,
     place,
-    fromSuran,
+    fromSurah,
     toSurah,
     fromSuranName,
     toSuranName,

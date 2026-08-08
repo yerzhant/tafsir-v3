@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DjuzRow {
 
- DjuzNumber get number; DjuzPlace get place; SurahNumber get fromSuran; AayahNumber get fromAayah; SurahNumber get toSurah; AayahNumber get toAayah;
+ DjuzNumber get number; DjuzPlace get place; SurahNumber get fromSurah; AayahNumber get fromAayah; SurahNumber get toSurah; AayahNumber get toAayah;
 /// Create a copy of DjuzRow
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $DjuzRowCopyWith<DjuzRow> get copyWith => _$DjuzRowCopyWithImpl<DjuzRow>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DjuzRow&&(identical(other.number, number) || other.number == number)&&(identical(other.place, place) || other.place == place)&&(identical(other.fromSuran, fromSuran) || other.fromSuran == fromSuran)&&(identical(other.fromAayah, fromAayah) || other.fromAayah == fromAayah)&&(identical(other.toSurah, toSurah) || other.toSurah == toSurah)&&(identical(other.toAayah, toAayah) || other.toAayah == toAayah));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DjuzRow&&(identical(other.number, number) || other.number == number)&&(identical(other.place, place) || other.place == place)&&(identical(other.fromSurah, fromSurah) || other.fromSurah == fromSurah)&&(identical(other.fromAayah, fromAayah) || other.fromAayah == fromAayah)&&(identical(other.toSurah, toSurah) || other.toSurah == toSurah)&&(identical(other.toAayah, toAayah) || other.toAayah == toAayah));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,number,place,fromSuran,fromAayah,toSurah,toAayah);
+int get hashCode => Object.hash(runtimeType,number,place,fromSurah,fromAayah,toSurah,toAayah);
 
 @override
 String toString() {
-  return 'DjuzRow(number: $number, place: $place, fromSuran: $fromSuran, fromAayah: $fromAayah, toSurah: $toSurah, toAayah: $toAayah)';
+  return 'DjuzRow(number: $number, place: $place, fromSurah: $fromSurah, fromAayah: $fromAayah, toSurah: $toSurah, toAayah: $toAayah)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $DjuzRowCopyWith<$Res>  {
   factory $DjuzRowCopyWith(DjuzRow value, $Res Function(DjuzRow) _then) = _$DjuzRowCopyWithImpl;
 @useResult
 $Res call({
- DjuzNumber number, DjuzPlace place, SurahNumber fromSuran, AayahNumber fromAayah, SurahNumber toSurah, AayahNumber toAayah
+ DjuzNumber number, DjuzPlace place, SurahNumber fromSurah, AayahNumber fromAayah, SurahNumber toSurah, AayahNumber toAayah
 });
 
 
@@ -65,11 +65,11 @@ class _$DjuzRowCopyWithImpl<$Res>
 
 /// Create a copy of DjuzRow
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? number = null,Object? place = null,Object? fromSuran = null,Object? fromAayah = null,Object? toSurah = null,Object? toAayah = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? number = null,Object? place = null,Object? fromSurah = null,Object? fromAayah = null,Object? toSurah = null,Object? toAayah = null,}) {
   return _then(_self.copyWith(
 number: null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
 as DjuzNumber,place: null == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
-as DjuzPlace,fromSuran: null == fromSuran ? _self.fromSuran : fromSuran // ignore: cast_nullable_to_non_nullable
+as DjuzPlace,fromSurah: null == fromSurah ? _self.fromSurah : fromSurah // ignore: cast_nullable_to_non_nullable
 as SurahNumber,fromAayah: null == fromAayah ? _self.fromAayah : fromAayah // ignore: cast_nullable_to_non_nullable
 as AayahNumber,toSurah: null == toSurah ? _self.toSurah : toSurah // ignore: cast_nullable_to_non_nullable
 as SurahNumber,toAayah: null == toAayah ? _self.toAayah : toAayah // ignore: cast_nullable_to_non_nullable
@@ -158,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DjuzNumber number,  DjuzPlace place,  SurahNumber fromSuran,  AayahNumber fromAayah,  SurahNumber toSurah,  AayahNumber toAayah)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DjuzNumber number,  DjuzPlace place,  SurahNumber fromSurah,  AayahNumber fromAayah,  SurahNumber toSurah,  AayahNumber toAayah)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DjuzRow() when $default != null:
-return $default(_that.number,_that.place,_that.fromSuran,_that.fromAayah,_that.toSurah,_that.toAayah);case _:
+return $default(_that.number,_that.place,_that.fromSurah,_that.fromAayah,_that.toSurah,_that.toAayah);case _:
   return orElse();
 
 }
@@ -179,10 +179,10 @@ return $default(_that.number,_that.place,_that.fromSuran,_that.fromAayah,_that.t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DjuzNumber number,  DjuzPlace place,  SurahNumber fromSuran,  AayahNumber fromAayah,  SurahNumber toSurah,  AayahNumber toAayah)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DjuzNumber number,  DjuzPlace place,  SurahNumber fromSurah,  AayahNumber fromAayah,  SurahNumber toSurah,  AayahNumber toAayah)  $default,) {final _that = this;
 switch (_that) {
 case _DjuzRow():
-return $default(_that.number,_that.place,_that.fromSuran,_that.fromAayah,_that.toSurah,_that.toAayah);case _:
+return $default(_that.number,_that.place,_that.fromSurah,_that.fromAayah,_that.toSurah,_that.toAayah);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +199,10 @@ return $default(_that.number,_that.place,_that.fromSuran,_that.fromAayah,_that.t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DjuzNumber number,  DjuzPlace place,  SurahNumber fromSuran,  AayahNumber fromAayah,  SurahNumber toSurah,  AayahNumber toAayah)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DjuzNumber number,  DjuzPlace place,  SurahNumber fromSurah,  AayahNumber fromAayah,  SurahNumber toSurah,  AayahNumber toAayah)?  $default,) {final _that = this;
 switch (_that) {
 case _DjuzRow() when $default != null:
-return $default(_that.number,_that.place,_that.fromSuran,_that.fromAayah,_that.toSurah,_that.toAayah);case _:
+return $default(_that.number,_that.place,_that.fromSurah,_that.fromAayah,_that.toSurah,_that.toAayah);case _:
   return null;
 
 }
@@ -214,12 +214,12 @@ return $default(_that.number,_that.place,_that.fromSuran,_that.fromAayah,_that.t
 
 @JsonSerializable(fieldRename: .snake)
 class _DjuzRow extends DjuzRow {
-  const _DjuzRow(this.number, this.place, this.fromSuran, this.fromAayah, this.toSurah, this.toAayah): super._();
+  const _DjuzRow(this.number, this.place, this.fromSurah, this.fromAayah, this.toSurah, this.toAayah): super._();
   factory _DjuzRow.fromJson(Map<String, dynamic> json) => _$DjuzRowFromJson(json);
 
 @override final  DjuzNumber number;
 @override final  DjuzPlace place;
-@override final  SurahNumber fromSuran;
+@override final  SurahNumber fromSurah;
 @override final  AayahNumber fromAayah;
 @override final  SurahNumber toSurah;
 @override final  AayahNumber toAayah;
@@ -237,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DjuzRow&&(identical(other.number, number) || other.number == number)&&(identical(other.place, place) || other.place == place)&&(identical(other.fromSuran, fromSuran) || other.fromSuran == fromSuran)&&(identical(other.fromAayah, fromAayah) || other.fromAayah == fromAayah)&&(identical(other.toSurah, toSurah) || other.toSurah == toSurah)&&(identical(other.toAayah, toAayah) || other.toAayah == toAayah));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DjuzRow&&(identical(other.number, number) || other.number == number)&&(identical(other.place, place) || other.place == place)&&(identical(other.fromSurah, fromSurah) || other.fromSurah == fromSurah)&&(identical(other.fromAayah, fromAayah) || other.fromAayah == fromAayah)&&(identical(other.toSurah, toSurah) || other.toSurah == toSurah)&&(identical(other.toAayah, toAayah) || other.toAayah == toAayah));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,number,place,fromSuran,fromAayah,toSurah,toAayah);
+int get hashCode => Object.hash(runtimeType,number,place,fromSurah,fromAayah,toSurah,toAayah);
 
 @override
 String toString() {
-  return 'DjuzRow(number: $number, place: $place, fromSuran: $fromSuran, fromAayah: $fromAayah, toSurah: $toSurah, toAayah: $toAayah)';
+  return 'DjuzRow(number: $number, place: $place, fromSurah: $fromSurah, fromAayah: $fromAayah, toSurah: $toSurah, toAayah: $toAayah)';
 }
 
 
@@ -257,7 +257,7 @@ abstract mixin class _$DjuzRowCopyWith<$Res> implements $DjuzRowCopyWith<$Res> {
   factory _$DjuzRowCopyWith(_DjuzRow value, $Res Function(_DjuzRow) _then) = __$DjuzRowCopyWithImpl;
 @override @useResult
 $Res call({
- DjuzNumber number, DjuzPlace place, SurahNumber fromSuran, AayahNumber fromAayah, SurahNumber toSurah, AayahNumber toAayah
+ DjuzNumber number, DjuzPlace place, SurahNumber fromSurah, AayahNumber fromAayah, SurahNumber toSurah, AayahNumber toAayah
 });
 
 
@@ -274,11 +274,11 @@ class __$DjuzRowCopyWithImpl<$Res>
 
 /// Create a copy of DjuzRow
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? number = null,Object? place = null,Object? fromSuran = null,Object? fromAayah = null,Object? toSurah = null,Object? toAayah = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? number = null,Object? place = null,Object? fromSurah = null,Object? fromAayah = null,Object? toSurah = null,Object? toAayah = null,}) {
   return _then(_DjuzRow(
 null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
 as DjuzNumber,null == place ? _self.place : place // ignore: cast_nullable_to_non_nullable
-as DjuzPlace,null == fromSuran ? _self.fromSuran : fromSuran // ignore: cast_nullable_to_non_nullable
+as DjuzPlace,null == fromSurah ? _self.fromSurah : fromSurah // ignore: cast_nullable_to_non_nullable
 as SurahNumber,null == fromAayah ? _self.fromAayah : fromAayah // ignore: cast_nullable_to_non_nullable
 as AayahNumber,null == toSurah ? _self.toSurah : toSurah // ignore: cast_nullable_to_non_nullable
 as SurahNumber,null == toAayah ? _self.toAayah : toAayah // ignore: cast_nullable_to_non_nullable
