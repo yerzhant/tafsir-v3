@@ -19,12 +19,12 @@ class InitCubit extends Cubit<InitState> {
   Future<void> init() => TaskEither<AppError, void>.Do(
     ($) async {
       emit(const .initializing(0));
-      // emit(.failure(.general('message')));
 
       if (_dbClosed) {
         await $(_dbService.open());
         _dbClosed = false;
       }
+      
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 }

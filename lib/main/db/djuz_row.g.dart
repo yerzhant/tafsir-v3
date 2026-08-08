@@ -25,6 +25,7 @@ Map<String, dynamic> _$DjuzRowToJson(_DjuzRow instance) => <String, dynamic>{
 };
 
 const _$DjuzPlaceEnumMap = {
-  DjuzPlace.mekkah: 'mekkah',
+  DjuzPlace.makkah: 'makkah',
   DjuzPlace.madinah: 'madinah',
+  DjuzPlace.makkahAndMadinah: 'makkahAndMadinah',
 };

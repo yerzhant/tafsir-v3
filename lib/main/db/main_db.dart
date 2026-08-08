@@ -44,7 +44,7 @@ class MainDb {
         from_aayah    integer     not null,
         to_surah      integer     not null,
         to_aayah      integer     not null,
-        place         text
+        place         text        not null
       )
     ''');
 

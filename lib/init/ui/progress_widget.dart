@@ -25,8 +25,8 @@ class ProgressWidget extends StatelessWidget {
             style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
           ),
           CircularProgressIndicator.adaptive(
-            value: .2,
-            backgroundColor: bgContainer(theme),
+            value: value / 100,
+            backgroundColor: bgSecondary(theme),
           ),
           Text(
             '${value.toStringAsFixed(1)} %',

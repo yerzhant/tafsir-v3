@@ -7,8 +7,10 @@ part 'djuz.freezed.dart';
 extension type const DjuzNumber(int value) implements int {}
 
 enum DjuzPlace {
-  mekkah('Мекка'),
-  madinah('Медина');
+  makkah('Мекка'),
+  madinah('Медина'),
+  makkahAndMadinah('Мекка и Медина'),
+  ;
 
   final String name;
 
