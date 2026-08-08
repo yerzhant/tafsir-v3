@@ -15,17 +15,18 @@ class ProgressWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: bgPrimary(theme),
+      width: .infinity,
       child: Column(
         mainAxisAlignment: .center,
-        spacing: 8,
+        spacing: 20,
         children: [
           Text(
             'Инициализация',
             style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
           ),
           CircularProgressIndicator.adaptive(
-            value: value,
-            backgroundColor: typographyPrimary(theme),
+            value: .2,
+            backgroundColor: bgContainer(theme),
           ),
           Text(
             '${value.toStringAsFixed(1)} %',

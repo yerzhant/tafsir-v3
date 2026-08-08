@@ -57,7 +57,7 @@ class DjuzItem extends StatelessWidget {
               crossAxisAlignment: .start,
               children: [
                 Text(
-                  '${djuz.fromName} → ${djuz.toName}',
+                  '${djuz.fromSurahName}:${djuz.fromAayah} → ${djuz.toSurahName}:${djuz.toAayah}',
                   style: textCallout.copyWith(color: primaryColor),
                   overflow: .ellipsis,
                 ),

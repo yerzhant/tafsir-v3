@@ -33,11 +33,9 @@ class DbService {
             'insert into bookmarks select surah_id, aayah from bookmark',
           );
 
-          print('*********************************** DELETING');
-          await db.execute('dtop table aayah');
-          await db.execute('dtop table surah');
-          await db.execute('dtop table bookmark');
-          print('******************** DELETING OK **********************');
+          await db.execute('drop table aayah');
+          await db.execute('drop table surah');
+          await db.execute('drop table bookmark');
         }
       },
     );

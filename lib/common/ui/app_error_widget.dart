@@ -19,23 +19,29 @@ class AppErrorWidget extends StatelessWidget {
     return Container(
       color: bgPrimary(theme),
       padding: const .all(16),
+      width: .infinity,
       child: Column(
         mainAxisAlignment: .center,
-        spacing: 12,
+        spacing: 16,
         children: [
           Column(
-            spacing: 4,
+            spacing: 16,
             children: [
               Text(
                 error.title,
                 textAlign: .center,
-                style: textBodyLarge.copyWith(color: typographyPrimary(theme)),
+                style: textBodyLarge.copyWith(
+                  color: typographyPrimary(theme),
+                  fontWeight: .w500,
+                ),
               ),
               Text(
                 error.message,
                 maxLines: 10,
                 overflow: .ellipsis,
-                style: textBodyReg.copyWith(color: typographyPrimary(theme)),
+                style: textBodyReg.copyWith(
+                  color: typographyPrimary(theme),
+                ),
               ),
             ],
           ),

@@ -40,8 +40,10 @@ class MainDb {
     await db.execute('''
       create table $_adjzaa(
         number        integer     not null    primary key,
-        from          integer     not null,
-        to            integer     not null,
+        from_surah    integer     not null,
+        from_aayah    integer     not null,
+        to_surah      integer     not null,
+        to_aayah      integer     not null,
         place         text
       )
     ''');
@@ -101,8 +103,8 @@ class MainDb {
           ($) => rows.map(
             (e) async {
               final row = DjuzRow.fromJson(e);
-              final from = await $(_getSurah(row.from));
-              final to = await $(_getSurah(row.to));
+              final from = await $(_getSurah(row.fromSuran));
+              final to = await $(_getSurah(row.toSurah));
               return row.toDomain(from.name, to.name);
             },
           ).wait,
