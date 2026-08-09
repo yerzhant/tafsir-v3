@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/common/ui/app_container.dart';
 import 'package:tafsir/common/ui/info_page_header.dart';
 import 'package:tafsir/common/ui/masjid.dart';
+import 'package:tafsir/how_to_use/domain/how_to_list.dart';
 import 'package:tafsir/how_to_use/ui/accordion_item.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
@@ -32,9 +33,9 @@ class HowToUsePage extends StatelessWidget {
                       theme: state.theme,
                       child: ListView.separated(
                         padding: const .all(20),
-                        itemCount: _items.length,
+                        itemCount: howToList.length,
                         itemBuilder: (context, index) {
-                          final item = _items[index];
+                          final item = howToList[index];
 
                           return AccordionItem(
                             theme: state.theme,
@@ -57,16 +58,3 @@ class HowToUsePage extends StatelessWidget {
     );
   }
 }
-
-class _Item {
-  final String title;
-  final String content;
-
-  const _Item(this.title, this.content);
-}
-
-const _items = [
-  _Item('123', 'xxx'),
-  _Item('123', 'xxx'),
-  _Item('123', 'xxx'),
-];
