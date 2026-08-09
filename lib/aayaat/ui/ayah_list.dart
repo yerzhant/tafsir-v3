@@ -7,11 +7,10 @@ import 'package:tafsir/aayaat/ui/ayah_card.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/settings/cubit/settings_cubit.dart';
+import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class AyahList extends StatefulWidget {
-  const AyahList({super.key, required this.theme});
-
-  final AppTheme theme;
+  const AyahList({super.key});
 
   @override
   State<AyahList> createState() => _AyahListState();
@@ -44,22 +43,32 @@ class _AyahListState extends State<AyahList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AayaatCubit, AayaatState>(
-      listener: (context, state) {
-        // _scrollTo(state.position);
-      },
-      builder: (context, state) => switch (state) {
-        AayaatStateSuccess() => _success(state),
-        AayaatStateFailure(:final error) => AppErrorWidget(
-          error: error,
-          theme: widget.theme,
-          onPressed: context.read<AayaatCubit>().init,
-        ),
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        final theme = state.theme;
+
+        return BlocConsumer<AayaatCubit, AayaatState>(
+          listener: (context, state) {
+            // _scrollTo(state.position);
+          },
+          builder: (context, state) => switch (state) {
+            AayaatStateSuccess() => _success(state, theme),
+
+            AayaatStateFailure(:final error) => AppErrorWidget(
+              error: error,
+              theme: theme,
+              onPressed: context.read<AayaatCubit>().init,
+            ),
+          },
+        );
       },
     );
   }
 
-  BlocBuilder<SettingsCubit, SettingsState> _success(AayaatStateSuccess state) {
+  BlocBuilder<SettingsCubit, SettingsState> _success(
+    AayaatStateSuccess state,
+    AppTheme theme,
+  ) {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, settings) {
         return ScrollablePositionedList.separated(
@@ -68,9 +77,9 @@ class _AyahListState extends State<AyahList> {
           initialAlignment: state.position.alignment,
           itemCount: state.aayaat.length,
           itemBuilder: (context, index) => AyahCard(
-            key: .new(index.toString()),
-            theme: widget.theme,
+            theme: theme,
             ayah: state.aayaat[index],
+            key: .new(index.toString()),
             showAyah: settings.showAyah,
             showTafsir: settings.showTafsir,
             showTranslation: settings.showTranslation,
@@ -78,7 +87,6 @@ class _AyahListState extends State<AyahList> {
             isBookmarked: state.bookmarks.contains(index + 1),
             onShare: (text) {},
             onPlay: (number) {},
-            onBookmark: (number) {},
           ),
           separatorBuilder: (context, index) => const SizedBox(height: 8),
           itemScrollController: _controller,
@@ -87,6 +95,8 @@ class _AyahListState extends State<AyahList> {
       },
     );
   }
+
+  // void _share()
 }
 
 // @Preview(group: 'Ayah List', name: 'Light')

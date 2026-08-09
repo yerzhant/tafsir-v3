@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/aayaat/ui/html_styles.dart';
@@ -22,7 +24,6 @@ class AyahCard extends StatefulWidget {
 
     required this.onShare,
     required this.onPlay,
-    required this.onBookmark,
   });
 
   final AppTheme theme;
@@ -37,7 +38,6 @@ class AyahCard extends StatefulWidget {
 
   final void Function(String text) onShare;
   final void Function(int number) onPlay;
-  final void Function(int number) onBookmark;
 
   @override
   State<AyahCard> createState() => _AyahCardState();
@@ -54,108 +54,113 @@ class _AyahCardState extends State<AyahCard> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          padding: const .all(12),
-          decoration: BoxDecoration(
-            color: bgSecondary(widget.theme),
-            borderRadius: .circular(16),
-            boxShadow: const [
-              .new(
-                blurRadius: 4,
-                offset: .new(0, 2),
-                color: Color(0x14A0A0A0),
-                blurStyle: .outer,
-              ),
-            ],
-          ),
+        GestureDetector(
+          onTap: () {
+            if (_menuIsOpen) _toggleMenu();
+          },
+          child: Container(
+            padding: const .all(12),
+            decoration: BoxDecoration(
+              color: bgSecondary(widget.theme),
+              borderRadius: .circular(16),
+              boxShadow: const [
+                .new(
+                  blurRadius: 4,
+                  offset: .new(0, 2),
+                  color: Color(0x14A0A0A0),
+                  blurStyle: .outer,
+                ),
+              ],
+            ),
 
-          child: Column(
-            spacing: 12,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const .symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                      color: bgPrimary(widget.theme),
-                      borderRadius: .circular(4),
-                    ),
-                    child: Text(
-                      '${widget.ayah.number}',
-                      style: textCallout.copyWith(
-                        color: typographyPrimary(widget.theme),
-                      ),
-                    ),
-                  ),
-
-                  const Spacer(),
-
-                  GestureDetector(
-                    onTap: _toggleMenu,
-                    child: Container(
+            child: Column(
+              spacing: 12,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: const .symmetric(horizontal: 8),
                       decoration: BoxDecoration(
                         color: bgPrimary(widget.theme),
-                        borderRadius: .circular(8),
+                        borderRadius: .circular(4),
                       ),
-                      child: SvgPicture.asset(
-                        'assets/icons/vertical-dots-in-ayah-header.svg',
-                        colorFilter: .mode(
-                          typographyPrimary(widget.theme),
-                          .srcIn,
+                      child: Text(
+                        '${widget.ayah.number}',
+                        style: textCallout.copyWith(
+                          color: typographyPrimary(widget.theme),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
 
-              if (widget.showAyah || widget.showTranslation)
-                Container(
-                  padding: const .all(8),
-                  decoration: BoxDecoration(
-                    color: bgPrimary(widget.theme),
-                    borderRadius: .circular(8),
-                  ),
-                  child: Column(
-                    spacing: 8,
-                    crossAxisAlignment: .start,
-                    children: [
-                      if (widget.showAyah)
-                        Row(
-                          mainAxisAlignment: .end,
-                          children: [
-                            Text(
-                              widget.ayah.arabic,
-                              textAlign: .right,
-                              style: textBodyReg.copyWith(
-                                color: typographyPrimary(widget.theme),
-                              ),
-                            ),
-                          ],
+                    const Spacer(),
+
+                    GestureDetector(
+                      onTap: _toggleMenu,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: bgPrimary(widget.theme),
+                          borderRadius: .circular(8),
                         ),
-
-                      if (widget.showTranslation)
-                        Text(
-                          widget.ayah.translation,
-                          style: textCallout.copyWith(
-                            color: typographyPrimary(widget.theme),
+                        child: SvgPicture.asset(
+                          'assets/icons/vertical-dots-in-ayah-header.svg',
+                          colorFilter: .mode(
+                            typographyPrimary(widget.theme),
+                            .srcIn,
                           ),
                         ),
-                    ],
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
 
-              if (widget.showTafsir)
-                Html(
-                  data: widget.ayah.tafsir,
-                  style: {
-                    ...htmlStyles(widget.theme),
-                    'div.snoski': .new(
-                      display: widget.showFootnotes ? .block : .none,
+                if (widget.showAyah || widget.showTranslation)
+                  Container(
+                    padding: const .all(8),
+                    decoration: BoxDecoration(
+                      color: bgPrimary(widget.theme),
+                      borderRadius: .circular(8),
                     ),
-                  },
-                ),
-            ],
+                    child: Column(
+                      spacing: 8,
+                      crossAxisAlignment: .start,
+                      children: [
+                        if (widget.showAyah)
+                          Row(
+                            mainAxisAlignment: .end,
+                            children: [
+                              Text(
+                                widget.ayah.arabic,
+                                textAlign: .right,
+                                style: textBodyReg.copyWith(
+                                  color: typographyPrimary(widget.theme),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                        if (widget.showTranslation)
+                          Text(
+                            widget.ayah.translation,
+                            style: textCallout.copyWith(
+                              color: typographyPrimary(widget.theme),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+
+                if (widget.showTafsir)
+                  Html(
+                    data: widget.ayah.tafsir,
+                    style: {
+                      ...htmlStyles(widget.theme),
+                      'div.snoski': .new(
+                        display: widget.showFootnotes ? .block : .none,
+                      ),
+                    },
+                  ),
+              ],
+            ),
           ),
         ),
 
@@ -169,7 +174,9 @@ class _AyahCardState extends State<AyahCard> {
 
               onShare: _onShare,
               onPlay: () => widget.onPlay(widget.ayah.number),
-              onBookmark: () => widget.onBookmark(widget.ayah.number),
+              onBookmark: () => context.read<AayaatCubit>().toggleBookmark(
+                widget.ayah.number,
+              ),
             ),
           ),
       ],
@@ -230,14 +237,13 @@ class _Menu extends StatelessWidget {
             ),
           ),
 
-          GestureDetector(
-            onTap: onPlay,
-            child: SvgPicture.asset(
-              'assets/icons/play-ayah.svg',
-              colorFilter: .mode(color, .srcIn),
-            ),
-          ),
-
+          // GestureDetector(
+          //   onTap: onPlay,
+          //   child: SvgPicture.asset(
+          //     'assets/icons/play-ayah.svg',
+          //     colorFilter: .mode(color, .srcIn),
+          //   ),
+          // ),
           GestureDetector(
             onTap: onBookmark,
             child: SvgPicture.asset(

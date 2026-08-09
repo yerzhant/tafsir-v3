@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/aayaat/ui/surah_info_card.dart';
 import 'package:tafsir/aayaat/ui/surah_page.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
@@ -49,6 +50,7 @@ class SuwarList extends StatelessWidget {
               context,
               surah,
               const .new(.new(1), 0),
+              context.read(),
             ),
           );
         }

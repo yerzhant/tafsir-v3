@@ -5,6 +5,7 @@ import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/common/domain/error.dart';
+import 'package:tafsir/main/cubit/main_cubit.dart';
 import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/main/domain/surah.dart';
 
@@ -17,11 +18,13 @@ class AayaatCubit extends Cubit<AayaatState> {
     this._position,
     this._mainDb,
     this._aayaatDb,
+    this._mainCubit,
   ) : super(.success(_position, [], {}));
 
   final Surah _surah;
   final MainDb _mainDb;
   final AayaatDb _aayaatDb;
+  final MainCubit _mainCubit;
   final AyahPosition _position;
 
   Future<void> init() => TaskEither<AppError, void>.Do(
@@ -31,12 +34,35 @@ class AayaatCubit extends Cubit<AayaatState> {
       final aayaat = await $(_aayaatDb.getAayaat(_surah));
 
       final bookmarks = await $(
-        _mainDb.getBookmarkAayaatForSurah(_surah.number),
+        _mainDb.getBookmarkAayahNumbersForSurah(_surah),
       );
 
       emit(.success(_position, aayaat, bookmarks));
     },
   ).mapLeft((l) => emit(.failure(l))).run();
+
+  Future<void> toggleBookmark(AayahNumber aayahNumber) =>
+      TaskEither<AppError, void>.Do(
+        ($) async {
+          final s = state as AayaatStateSuccess;
+
+          if (s.bookmarks.elem(aayahNumber)) {
+            await $(_mainDb.removeBookmark(_surah.number, aayahNumber));
+            emit(
+              s.copyWith(
+                bookmarks: s.bookmarks
+                    .where((element) => element != aayahNumber)
+                    .toSet(),
+              ),
+            );
+          } else {
+            await $(_mainDb.addBookmark(_surah.number, aayahNumber));
+            emit(s.copyWith(bookmarks: {...s.bookmarks, aayahNumber}));
+          }
+
+          await _mainCubit.refresh();
+        },
+      ).mapLeft((l) => emit(.failure(l))).run();
 
   void scrollTo(AyahPosition position) => emit(
     (state as AayaatStateSuccess).copyWith(position: position),

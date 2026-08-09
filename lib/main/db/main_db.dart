@@ -203,42 +203,46 @@ class MainDb {
         ),
       );
 
-  TaskEither<AppError, Set<AayahNumber>> getBookmarkAayaatForSurah(
-    SurahNumber number,
+  TaskEither<AppError, Set<AayahNumber>> getBookmarkAayahNumbersForSurah(
+    Surah surah,
   ) => _dbService.db.toTaskEither().flatMap(
     (db) => .tryCatch(() async {
       final rows = await db.query(
         _bookmarks,
         where: 'surah_number = ?',
-        whereArgs: [number],
+        whereArgs: [surah.number],
       );
 
       return rows.map((e) => BookmarkRow.fromJson(e).aayahNumber).toSet();
     }, ExceptionError.new),
   );
 
-  TaskEither<AppError, void> addBookmark(Bookmark bookmark) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(
-          () => db.insert(
-            _bookmarks,
-            BookmarkRow.fromDomain(bookmark).toJson(),
-          ),
-          ExceptionError.new,
-        ),
-      );
+  TaskEither<AppError, void> addBookmark(
+    SurahNumber surahNumber,
+    AayahNumber aayahNumber,
+  ) => _dbService.db.toTaskEither().flatMap(
+    (db) => .tryCatch(
+      () => db.insert(
+        _bookmarks,
+        BookmarkRow(surahNumber, aayahNumber).toJson(),
+      ),
+      ExceptionError.new,
+    ),
+  );
 
-  TaskEither<AppError, void> removeBookmark(Bookmark bookmark) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(
-          () => db.delete(
-            _bookmarks,
-            where: 'surah_number = ? and aayah_number = ?',
-            whereArgs: [bookmark.surahNumber, bookmark.aayahNumber],
-          ),
-          ExceptionError.new,
-        ),
-      );
+  TaskEither<AppError, void> removeBookmark(
+    SurahNumber surahNumber,
+    AayahNumber aayahNumber,
+  ) => _dbService.db.toTaskEither().flatMap(
+    (db) => .tryCatch(
+      () => db.delete(
+        _bookmarks,
+        where: 'surah_number = ? and aayah_number = ?',
+        whereArgs: [surahNumber, aayahNumber],
+      ),
+      ExceptionError.new,
+    ),
+  );
 
   TaskEither<AppError, void> cleanUp() => _dbService.db.toTaskEither().flatMap(
     (db) => .tryCatch(() async {

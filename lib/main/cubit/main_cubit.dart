@@ -31,6 +31,20 @@ class MainCubit extends Cubit<MainState> {
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
+  Future<void> refresh() => TaskEither<AppError, void>.Do(
+    ($) async {
+      final bookmarks = await $(_db.getBookmarks());
+      final lastReads = await $(_db.getLastReads());
+
+      emit(
+        (state as MainStateSuccess).copyWith(
+          bookmarks: bookmarks,
+          lastReads: lastReads,
+        ),
+      );
+    },
+  ).mapLeft((l) => emit(.failure(l))).run();
+
   void suwar() => emit(
     (state as MainStateSuccess).copyWith(tab: .suwar),
   );
