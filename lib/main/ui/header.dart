@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tafsir/about_us/ui/about_page.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/how_to_use/ui/how_to_use_page.dart';
 import 'package:tafsir/main/ui/menu_button.dart';
@@ -59,7 +60,10 @@ class Header extends StatelessWidget {
             MenuButton(
               theme: theme,
               menu: .aboutUs,
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                AboutPage.open(context);
+              },
             ),
           ],
         ),

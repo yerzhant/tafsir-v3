@@ -8,18 +8,11 @@ class DoNotForgetUsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = switch (theme) {
-      .light => brandSecondaryLight,
-      .dark => brandSecondaryDark,
-      .brownLight => brandSecondaryBrownLight,
-      .brownDark => brandSecondaryBrownDark,
-    };
-
     return Container(
       padding: const .symmetric(vertical: 13),
       decoration: BoxDecoration(
         borderRadius: .circular(12),
-        color: bgColor,
+        color: brandSecondary(theme),
       ),
       child: Center(
         child: Text(

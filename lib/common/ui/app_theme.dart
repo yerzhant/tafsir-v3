@@ -164,6 +164,13 @@ Color brandPrimary(AppTheme theme) => switch (theme) {
   .brownDark => brandPrimaryBrownDark,
 };
 
+Color brandSecondary(AppTheme theme) => switch (theme) {
+  .light => brandSecondaryLight,
+  .dark => brandSecondaryDark,
+  .brownLight => brandSecondaryBrownLight,
+  .brownDark => brandSecondaryBrownDark,
+};
+
 Color bgPrimary(AppTheme theme) => switch (theme) {
   .light => bgPrimaryLight,
   .dark => bgPrimaryDark,

@@ -18,26 +18,12 @@ class IconPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = switch (theme) {
-      .light => bgTertiraryLight,
-      .dark => bgTertiraryDark,
-      .brownLight => bgTertiraryBrownLight,
-      .brownDark => bgTertiraryBrownDark,
-    };
-
-    final iconColor = switch (theme) {
-      AppTheme.light => brandPrimaryLight,
-      AppTheme.dark => brandPrimaryDark,
-      AppTheme.brownLight => brandPrimaryBrownLight,
-      AppTheme.brownDark => brandPrimaryBrownDark,
-    };
-
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: .all(padding),
         decoration: BoxDecoration(
-          color: bgColor,
+          color: bgTertirary(theme),
           borderRadius: .circular(padding),
           boxShadow: const [
             .new(
@@ -51,7 +37,7 @@ class IconPanel extends StatelessWidget {
         child: Center(
           child: SvgPicture.asset(
             'assets/icons/$icon.svg',
-            colorFilter: .mode(iconColor, .srcIn),
+            colorFilter: .mode(brandPrimary(theme), .srcIn),
           ),
         ),
       ),

@@ -19,13 +19,6 @@ class AboutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleColor = switch (theme) {
-      .light => typographyPrimaryLight,
-      .dark => typographyPrimaryDark,
-      .brownLight => typographyPrimaryBrownLight,
-      .brownDark => typographyPrimaryBrownDark,
-    };
-
     return GestureDetector(
       onTap: onTap,
       child: AppCard(
@@ -37,7 +30,7 @@ class AboutButton extends StatelessWidget {
             IconPanel(theme: theme, icon: icon),
             Text(
               title,
-              style: textBodyReg.copyWith(color: titleColor),
+              style: textBodyReg.copyWith(color: typographyPrimary(theme)),
               overflow: .ellipsis,
             ),
           ],
