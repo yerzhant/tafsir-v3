@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/tab_button.dart';
-import 'package:tafsir/main/cubit/tab_cubit.dart';
+import 'package:tafsir/main/cubit/main_cubit.dart';
 
 class TabBar extends StatelessWidget {
-  const TabBar({super.key, required this.theme, required this.state});
+  const TabBar({super.key, required this.theme, required this.tab});
 
   final AppTheme theme;
-  final TabState state;
+  final MainTab tab;
 
   @override
   Widget build(BuildContext context) {
-    final tabCubit = context.read<TabCubit>();
+    final mainCubit = context.read<MainCubit>();
 
     return Padding(
       padding: const .only(right: 20, left: 20, bottom: 10),
@@ -34,20 +34,20 @@ class TabBar extends StatelessWidget {
                   TabButton(
                     theme: theme,
                     title: 'Суры',
-                    onTap: tabCubit.suwar,
-                    isActive: state == const .suwar(),
+                    onTap: mainCubit.suwar,
+                    isActive: tab == .suwar,
                   ),
                   TabButton(
                     theme: theme,
                     title: 'Джуз',
-                    onTap: tabCubit.adjzaa,
-                    isActive: state == const .adjzaa(),
+                    onTap: mainCubit.adjzaa,
+                    isActive: tab == .adjzaa,
                   ),
                   TabButton(
                     theme: theme,
                     title: 'Закладки',
-                    onTap: tabCubit.bookmarks,
-                    isActive: state == const .bookmarks(),
+                    onTap: mainCubit.bookmarks,
+                    isActive: tab == .bookmarks,
                   ),
                 ],
               ),
@@ -63,15 +63,15 @@ class TabBar extends StatelessWidget {
 // Widget previewLight() => Masjid(
 //   theme: .light,
 //   child: BlocProvider(
-//     create: (context) => TabCubit(),
-//     child: BlocBuilder<TabCubit, TabState>(
+//     create: (context) => MainCubit(),
+//     child: BlocBuilder<MainCubit, MainState>(
 //       builder: (context, state) {
 //         return Column(
 //           mainAxisAlignment: .center,
 //           children: [
 //             TabBar(
 //               theme: .light,
-//               state: state,
+//               tab: (state as MainStateSuccess).tab,
 //             ),
 //           ],
 //         );
