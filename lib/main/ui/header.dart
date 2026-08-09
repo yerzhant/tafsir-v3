@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
+import 'package:tafsir/main/ui/menu_button.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key, required this.theme});
@@ -25,11 +26,31 @@ class Header extends StatelessWidget {
           //   'assets/icons/magnifying-glass.svg',
           //   colorFilter: .mode(textColor, .srcIn),
           // ),
-          SvgPicture.asset(
-            'assets/icons/vertical-dots.svg',
-            colorFilter: .mode(textColor, .srcIn),
+          GestureDetector(
+            onTap: () => _showMenu(context),
+            child: SvgPicture.asset(
+              'assets/icons/vertical-dots.svg',
+              colorFilter: .mode(textColor, .srcIn),
+            ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      builder: (context) => Padding(
+        padding: const .symmetric(horizontal: 20, vertical: 18),
+        child: Column(
+          spacing: 8,
+          children: [
+            MenuButton(theme: theme, menu: .howToUse),
+            MenuButton(theme: theme, menu: .aboutUs),
+          ],
+        ),
       ),
     );
   }

@@ -15,43 +15,22 @@ class MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconColor = switch (theme) {
-      .light => brandPrimaryLight,
-      .dark => brandPrimaryDark,
-      .brownLight => brandPrimaryBrownLight,
-      .brownDark => brandPrimaryBrownDark,
-    };
-
-    final textColor = switch (theme) {
-      .light => typographyPrimaryLight,
-      .dark => typographyPrimaryDark,
-      .brownLight => typographyPrimaryBrownLight,
-      .brownDark => typographyPrimaryBrownDark,
-    };
-
-    final bgColor = switch (theme) {
-      .light => bgSecondaryLight,
-      .dark => bgSecondaryDark,
-      .brownLight => bgSecondaryBrownLight,
-      .brownDark => bgSecondaryBrownDark,
-    };
-
     return Container(
       padding: const .all(12),
       decoration: BoxDecoration(
         borderRadius: .circular(12),
-        color: bgColor,
+        color: bgSecondary(theme),
       ),
       child: Row(
         spacing: 8,
         children: [
           SvgPicture.asset(
             'assets/icons/${menu.icon}.svg',
-            colorFilter: .mode(iconColor, .srcIn),
+            colorFilter: .mode(brandPrimary(theme), .srcIn),
           ),
           Text(
             menu.title,
-            style: textBodyReg.copyWith(color: textColor),
+            style: textBodyReg.copyWith(color: typographyPrimary(theme)),
           ),
         ],
       ),
