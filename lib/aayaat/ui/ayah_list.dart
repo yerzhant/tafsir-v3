@@ -4,14 +4,12 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
-import 'package:tafsir/common/ui/app_error_widget.dart';
-import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/init/ui/progress_widget.dart';
-import 'package:tafsir/settings/cubit/settings_cubit.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class AyahList extends StatefulWidget {
-  const AyahList({super.key});
+  const AyahList({super.key, required this.state});
+
+  final AayaatStateSuccess state;
 
   @override
   State<AyahList> createState() => _AyahListState();
@@ -48,57 +46,31 @@ class _AyahListState extends State<AyahList> {
       builder: (context, state) {
         final theme = state.theme;
 
-        return BlocConsumer<AayaatCubit, AayaatState>(
+        return BlocListener<AayaatCubit, AayaatState>(
           listener: (context, state) {
             // _scrollTo(state.position);
           },
-          builder: (context, state) => switch (state) {
-            AayaatStateInProgress() => const ProgressWidget(),
-
-            AayaatStateSuccess() => _success(state, theme),
-
-            AayaatStateFailure(:final error) => AppErrorWidget(
-              error: error,
-              onPressed: context.read<AayaatCubit>().init,
+          child: ScrollablePositionedList.separated(
+            padding: const .symmetric(horizontal: 20, vertical: 12),
+            initialScrollIndex: widget.state.position.number - 1,
+            initialAlignment: widget.state.position.alignment,
+            itemCount: widget.state.aayaat.length,
+            itemBuilder: (context, index) => AyahCard(
+              theme: theme,
+              ayah: widget.state.aayaat[index],
+              key: .new(index.toString()),
+              isBookmarked: widget.state.bookmarks.contains(index + 1),
+              onShare: (text) {},
+              onPlay: (number) {},
             ),
-          },
-        );
-      },
-    );
-  }
-
-  BlocBuilder<SettingsCubit, SettingsState> _success(
-    AayaatStateSuccess state,
-    AppTheme theme,
-  ) {
-    return BlocBuilder<SettingsCubit, SettingsState>(
-      builder: (context, settings) {
-        return ScrollablePositionedList.separated(
-          padding: const .symmetric(horizontal: 20, vertical: 12),
-          initialScrollIndex: state.position.number - 1,
-          initialAlignment: state.position.alignment,
-          itemCount: state.aayaat.length,
-          itemBuilder: (context, index) => AyahCard(
-            theme: theme,
-            ayah: state.aayaat[index],
-            key: .new(index.toString()),
-            showAyah: settings.showAyah,
-            showTafsir: settings.showTafsir,
-            showTranslation: settings.showTranslation,
-            showFootnotes: settings.showFootnotes,
-            isBookmarked: state.bookmarks.contains(index + 1),
-            onShare: (text) {},
-            onPlay: (number) {},
+            separatorBuilder: (context, index) => const SizedBox(height: 8),
+            itemScrollController: _controller,
+            itemPositionsListener: _listener,
           ),
-          separatorBuilder: (context, index) => const SizedBox(height: 8),
-          itemScrollController: _controller,
-          itemPositionsListener: _listener,
         );
       },
     );
   }
-
-  // void _share()
 }
 
 // @Preview(group: 'Ayah List', name: 'Light')

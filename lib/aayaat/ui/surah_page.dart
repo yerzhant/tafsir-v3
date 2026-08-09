@@ -98,7 +98,7 @@ class SurahPage extends StatelessWidget {
           onSettings: () {},
           onGoToAyah: () {},
         ),
-        const Expanded(child: AyahList()),
+        Expanded(child: AyahList(state: state)),
       ],
     );
   }
