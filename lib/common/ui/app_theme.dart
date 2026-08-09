@@ -177,6 +177,13 @@ Color bgSecondary(AppTheme theme) => switch (theme) {
   .brownDark => bgSecondaryBrownDark,
 };
 
+Color bgTertirary(AppTheme theme) => switch (theme) {
+  .light => bgTertiraryLight,
+  .dark => bgTertiraryDark,
+  .brownLight => bgTertiraryBrownLight,
+  .brownDark => bgTertiraryBrownDark,
+};
+
 Color bgContainer(AppTheme theme) => switch (theme) {
   .light => bgContainerLight,
   .dark => bgContainerDark,

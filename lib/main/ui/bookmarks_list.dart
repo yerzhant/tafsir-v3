@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/main/domain/bookmark.dart';
 import 'package:tafsir/main/ui/bookmark_item.dart';
 
@@ -28,15 +27,15 @@ class BookmarksList extends StatelessWidget {
 }
 
 // @Preview(group: 'BookmarksList', name: 'Light')
-Widget previewLight() => sizedWrapper(
-  const BookmarksList(
-    theme: .light,
-    items: [
-      .new(.new(1), .new('Al-Fatiha'), .new(1)),
-      .new(.new(1), .new('Al-Fatiha'), .new(1)),
-      .new(.new(1), .new('Al-Fatiha'), .new(1)),
-    ],
-  ),
-  width: 400,
-  hight: 250,
-);
+// Widget previewLight() => sizedWrapper(
+//   const BookmarksList(
+//     theme: .light,
+//     items: [
+//       .new(.new(1), .new('Al-Fatiha'), .new(1)),
+//       .new(.new(1), .new('Al-Fatiha'), .new(1)),
+//       .new(.new(1), .new('Al-Fatiha'), .new(1)),
+//     ],
+//   ),
+//   width: 400,
+//   hight: 250,
+// );

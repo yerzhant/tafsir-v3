@@ -12,13 +12,6 @@ class TabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = switch (theme) {
-      .light => bgTertiraryLight,
-      .dark => bgTertiraryDark,
-      .brownLight => bgTertiraryBrownLight,
-      .brownDark => bgTertiraryBrownDark,
-    };
-
     final tabCubit = context.read<TabCubit>();
 
     return Padding(
@@ -30,7 +23,7 @@ class TabBar extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: .circular(100),
-              color: bgColor,
+              color: bgTertirary(theme),
             ),
             child: Padding(
               padding: const .all(4),
