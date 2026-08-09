@@ -25,8 +25,8 @@ class SuwarList extends StatelessWidget {
       padding: .only(
         right: 20,
         left: 20,
-        bottom: 16,
-        top: hasTopPadding ? 16 : 0,
+        bottom: 20,
+        top: hasTopPadding ? 20 : 0,
       ),
       itemBuilder: (context, index) {
         if (index < muqaddimat.length) {

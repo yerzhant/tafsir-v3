@@ -17,27 +17,6 @@ class DjuzItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = switch (theme) {
-      .light => typographyPrimaryLight,
-      .dark => typographyPrimaryDark,
-      .brownLight => typographyPrimaryBrownLight,
-      .brownDark => typographyPrimaryBrownDark,
-    };
-
-    final secondaryColor = switch (theme) {
-      .light => typographySecondaryLight,
-      .dark => typographySecondaryDark,
-      .brownLight => typographySecondaryBrownLight,
-      .brownDark => typographySecondaryBrownDark,
-    };
-
-    final mapPinColor = switch (theme) {
-      .light => typographyLabelsAndIconsLight,
-      .dark => typographyLabelsAndIconsDark,
-      .brownLight => typographyLabelsAndIconsBrownLight,
-      .brownDark => typographyLabelsAndIconsBrownDark,
-    };
-
     return AppCard(
       theme: theme,
       child: Row(
@@ -47,7 +26,8 @@ class DjuzItem extends StatelessWidget {
             theme: theme,
             child: Text(
               '${djuz.number}',
-              style: textCallout.copyWith(color: primaryColor),
+              style: textCallout.copyWith(color: typographyPrimary(theme)),
+              textHeightBehavior: const .new(applyHeightToLastDescent: false),
             ),
           ),
           Expanded(
@@ -58,7 +38,7 @@ class DjuzItem extends StatelessWidget {
               children: [
                 Text(
                   '${djuz.fromSurahName}:${djuz.fromAayah} → ${djuz.toSurahName}:${djuz.toAayah}',
-                  style: textCallout.copyWith(color: primaryColor),
+                  style: textCallout.copyWith(color: typographyPrimary(theme)),
                   overflow: .ellipsis,
                 ),
                 Row(
@@ -67,11 +47,16 @@ class DjuzItem extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                       'assets/icons/map-pin.svg',
-                      colorFilter: .mode(mapPinColor, .srcIn),
+                      colorFilter: .mode(
+                        typographyLabelsAndIcons(theme),
+                        .srcIn,
+                      ),
                     ),
                     Text(
                       djuz.place.name,
-                      style: textBodyMedium.copyWith(color: secondaryColor),
+                      style: textBodyMedium.copyWith(
+                        color: typographySecondary(theme),
+                      ),
                     ),
                   ],
                 ),

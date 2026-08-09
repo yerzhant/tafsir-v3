@@ -80,6 +80,7 @@ class _Success extends StatelessWidget {
                         .adjzaa => AdjzaaList(
                           theme: theme,
                           items: state.adjzaa,
+                          hasTopPadding: state.lastReads.isEmpty,
                         ),
 
                         .bookmarks => BookmarksList(
