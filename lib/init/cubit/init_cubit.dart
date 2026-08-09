@@ -120,19 +120,6 @@ class InitCubit extends Cubit<InitState> {
       ),
     );
 
-    _aayaah = await $(
-      _parseFile(
-        'aayaat',
-        (e) => AayahRow(
-          .new(int.parse(e[1])),
-          .new(int.parse(e[0])),
-          .new(e[2]),
-          .new(e[4]),
-          .new(e[3]),
-        ),
-      ),
-    );
-
     _adjzaa = await $(
       _parseFile(
         'adjzaa',
@@ -143,6 +130,24 @@ class InitCubit extends Cubit<InitState> {
           .new(int.parse(e[2])),
           .new(int.parse(e[3])),
           .new(int.parse(e[4])),
+        ),
+      ),
+    );
+
+    _aayaah = await $(
+      _parseFile(
+        'aayaat',
+        (e) => AayahRow(
+          .new(int.parse(e[1])),
+          .new(int.parse(e[0])),
+          .new(e[2]),
+          .new(e[4]),
+          .new(
+            e[3]
+                .replaceAll(RegExp(r'<[^>]*>'), '')
+                .replaceAll(RegExp(r'\d{1,3}\.'), '')
+                .trim(),
+          ),
         ),
       ),
     );

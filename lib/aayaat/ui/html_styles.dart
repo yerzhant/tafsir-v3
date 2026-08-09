@@ -7,22 +7,34 @@ Map<String, Style> htmlStyles(AppTheme theme) => {
   'body': .fromTextStyle(
     textBodyReg.copyWith(color: typographyPrimary(theme)),
   ),
+  '*': .new(padding: .all(0), margin: .all(0)),
+  'div, p': .new(margin: .only(bottom: _padding)),
+  'ul': .new(
+    margin: .only(
+      left: 12,
+      top: _padding,
+      bottom: _padding,
+    ),
+  ),
+  'ol': .new(
+    margin: .only(
+      left: 18,
+      top: _padding,
+      bottom: _padding,
+    ),
+  ),
+  'h2, h3': .new(
+    margin: .symmetric(vertical: _padding),
+    padding: .all(_padding),
+    backgroundColor: bgPrimary(theme),
+  ),
   'blockquote': .new(
-    margin: .only(right: 0, left: 0, top: 0, bottom: 2 * _padding),
-    padding: .only(left: 12, bottom: 0),
+    padding: .only(left: 12),
     border: .new(
       left: .new(
         color: borderPrimary(theme),
         width: 2,
       ),
     ),
-  ),
-  'div': .new(padding: .only(bottom: 2 * _padding)),
-  'blockquote div': .new(padding: .all(0)),
-  'ul': .new(padding: .only(left: 6)),
-  'ol': .new(padding: .only(left: 14)),
-  'h2': .new(
-    padding: .all(_padding),
-    backgroundColor: bgPrimary(theme),
   ),
 };

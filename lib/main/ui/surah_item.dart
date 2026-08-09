@@ -11,110 +11,117 @@ class SurahItem extends StatelessWidget {
     super.key,
     required this.theme,
     required this.surah,
+    required this.onTap,
   });
 
-  final AppTheme theme;
   final Surah surah;
+  final AppTheme theme;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return AppCard(
-      theme: theme,
-      child: Row(
-        spacing: 8,
-        children: [
-          CircleCard(
-            theme: theme,
-            child: Text(
-              '${surah.number}',
-              style: textCallout.copyWith(color: typographyPrimary(theme)),
-              textHeightBehavior: const .new(applyHeightToLastDescent: false),
+    return GestureDetector(
+      onTap: onTap,
+      child: AppCard(
+        theme: theme,
+        child: Row(
+          spacing: 8,
+          children: [
+            CircleCard(
+              theme: theme,
+              child: Text(
+                '${surah.number}',
+                style: textCallout.copyWith(color: typographyPrimary(theme)),
+                textHeightBehavior: const .new(applyHeightToLastDescent: false),
+              ),
             ),
-          ),
-          Expanded(
-            child: Column(
-              spacing: 2,
-              mainAxisAlignment: .center,
-              crossAxisAlignment: .start,
-              children: [
-                Text(
-                  surah.name,
-                  overflow: .ellipsis,
-                  style: textCallout.copyWith(color: typographyPrimary(theme)),
-                ),
-                Row(
-                  children: [
-                    ?surah.translation?.let(
-                      (it) => Flexible(
-                        child: Text(
-                          it,
-                          overflow: .ellipsis,
-                          style: textBodyMedium.copyWith(
-                            color: typographySecondary(theme),
-                          ),
-                        ),
-                      ),
+            Expanded(
+              child: Column(
+                spacing: 2,
+                mainAxisAlignment: .center,
+                crossAxisAlignment: .start,
+                children: [
+                  Text(
+                    surah.name,
+                    overflow: .ellipsis,
+                    style: textCallout.copyWith(
+                      color: typographyPrimary(theme),
                     ),
-                    ?surah.place?.let(
-                      (it) => Row(
-                        children: [
-                          if (surah.translation != null)
-                            Row(
-                              children: [
-                                const SizedBox(width: 4),
-                                Container(
-                                  width: 4,
-                                  height: 4,
-                                  decoration: BoxDecoration(
-                                    color: typographyTertirary(theme),
-                                    shape: .circle,
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                              ],
-                            ),
-                          SvgPicture.asset(
-                            'assets/icons/map-pin.svg',
-                            colorFilter: .mode(
-                              typographyLabelsAndIcons(theme),
-                              .srcIn,
-                            ),
-                          ),
-                          const SizedBox(width: 2),
-                          Text(
-                            it.name,
+                  ),
+                  Row(
+                    children: [
+                      ?surah.translation?.let(
+                        (it) => Flexible(
+                          child: Text(
+                            it,
+                            overflow: .ellipsis,
                             style: textBodyMedium.copyWith(
                               color: typographySecondary(theme),
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                      ?surah.place?.let(
+                        (it) => Row(
+                          children: [
+                            if (surah.translation != null)
+                              Row(
+                                children: [
+                                  const SizedBox(width: 4),
+                                  Container(
+                                    width: 4,
+                                    height: 4,
+                                    decoration: BoxDecoration(
+                                      color: typographyTertirary(theme),
+                                      shape: .circle,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                ],
+                              ),
+                            SvgPicture.asset(
+                              'assets/icons/map-pin.svg',
+                              colorFilter: .mode(
+                                typographyLabelsAndIcons(theme),
+                                .srcIn,
+                              ),
+                            ),
+                            const SizedBox(width: 2),
+                            Text(
+                              it.name,
+                              style: textBodyMedium.copyWith(
+                                color: typographySecondary(theme),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              spacing: 2,
+              mainAxisAlignment: .center,
+              crossAxisAlignment: .end,
+              children: [
+                Text(
+                  '${surah.quantity} аятов',
+                  style: textBodyMedium.copyWith(
+                    color: typographySecondary(theme).withValues(alpha: .8),
+                  ),
+                ),
+                Text(
+                  'Джуз: ${surah.djuz}',
+                  style: textBodyMedium.copyWith(
+                    color: typographySecondary(theme).withValues(alpha: .8),
+                  ),
                 ),
               ],
             ),
-          ),
-          Column(
-            spacing: 2,
-            mainAxisAlignment: .center,
-            crossAxisAlignment: .end,
-            children: [
-              Text(
-                '${surah.quantity} аятов',
-                style: textBodyMedium.copyWith(
-                  color: typographySecondary(theme).withValues(alpha: .8),
-                ),
-              ),
-              Text(
-                'Джуз: ${surah.djuz}',
-                style: textBodyMedium.copyWith(
-                  color: typographySecondary(theme).withValues(alpha: .8),
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

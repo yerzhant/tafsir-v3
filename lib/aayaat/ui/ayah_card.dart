@@ -118,6 +118,7 @@ class _AyahCardState extends State<AyahCard> {
                   ),
                   child: Column(
                     spacing: 8,
+                    crossAxisAlignment: .start,
                     children: [
                       if (widget.showAyah)
                         Row(
@@ -134,15 +135,11 @@ class _AyahCardState extends State<AyahCard> {
                         ),
 
                       if (widget.showTranslation)
-                        Row(
-                          children: [
-                            Text(
-                              widget.ayah.translation,
-                              style: textCallout.copyWith(
-                                color: typographyPrimary(widget.theme),
-                              ),
-                            ),
-                          ],
+                        Text(
+                          widget.ayah.translation,
+                          style: textCallout.copyWith(
+                            color: typographyPrimary(widget.theme),
+                          ),
                         ),
                     ],
                   ),

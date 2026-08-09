@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/surah.dart';
 
@@ -22,7 +23,7 @@ class SurahHeader extends StatelessWidget {
 
   final SurahNumber number;
   final SurahName name;
-  final SurahTranslation translation;
+  final SurahTranslation? translation;
 
   final VoidCallback onInfo;
   final VoidCallback onSuwar;
@@ -56,8 +57,11 @@ class SurahHeader extends StatelessWidget {
             ),
           ),
 
-          Expanded(
+          Flexible(
             child: Column(
+              mainAxisSize: .min,
+              mainAxisAlignment: .center,
+              crossAxisAlignment: .start,
               children: [
                 Row(
                   spacing: 2,
@@ -65,32 +69,37 @@ class SurahHeader extends StatelessWidget {
                     Text(
                       '$number.',
                       style: textHeadline.copyWith(
+                        height: 0,
                         color: typographyPrimary(theme),
                       ),
                     ),
-                    Expanded(
+                    Flexible(
                       child: Text(
                         name,
                         overflow: .ellipsis,
                         style: textHeadline.copyWith(
+                          height: 0,
                           color: typographyPrimary(theme),
                         ),
                       ),
                     ),
-                    _Icon(
-                      icon: 'arrow-up-right-surah',
-                      theme: theme,
-                      onTap: onSuwar,
-                    ),
+                    // _Icon(
+                    //   icon: 'arrow-up-right-surah',
+                    //   theme: theme,
+                    //   onTap: onSuwar,
+                    // ),
                   ],
                 ),
 
-                Expanded(
-                  child: Text(
-                    translation,
-                    overflow: .ellipsis,
-                    style: textBodyMedium.copyWith(
-                      color: typographySecondary(theme),
+                ?translation?.let(
+                  (it) => Flexible(
+                    child: Text(
+                      it,
+                      overflow: .ellipsis,
+                      style: textBodyMedium.copyWith(
+                        height: 0,
+                        color: typographySecondary(theme),
+                      ),
                     ),
                   ),
                 ),

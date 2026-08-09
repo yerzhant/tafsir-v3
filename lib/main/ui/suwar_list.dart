@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tafsir/aayaat/ui/surah_info_card.dart';
+import 'package:tafsir/aayaat/ui/surah_page.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/muqaddimah.dart';
 import 'package:tafsir/main/domain/surah.dart';
@@ -39,9 +40,16 @@ class SuwarList extends StatelessWidget {
             onTap: () => _showMuqaddimah(muqaddimah, context),
           );
         } else {
+          final surah = suwar[index - muqaddimat.length];
+
           return SurahItem(
             theme: theme,
-            surah: suwar[index - muqaddimat.length],
+            surah: surah,
+            onTap: () => SurahPage.open(
+              context,
+              surah,
+              const .new(.new(1), 0),
+            ),
           );
         }
       },

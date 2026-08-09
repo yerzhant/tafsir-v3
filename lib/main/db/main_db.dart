@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/common/db/db_service.dart';
 import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/main/db/bookmark_row.dart';
@@ -201,6 +202,20 @@ class MainDb {
           ).wait,
         ),
       );
+
+  TaskEither<AppError, Set<AayahNumber>> getBookmarkAayaatForSurah(
+    SurahNumber number,
+  ) => _dbService.db.toTaskEither().flatMap(
+    (db) => .tryCatch(() async {
+      final rows = await db.query(
+        _bookmarks,
+        where: 'surah_number = ?',
+        whereArgs: [number],
+      );
+
+      return rows.map((e) => BookmarkRow.fromJson(e).aayahNumber).toSet();
+    }, ExceptionError.new),
+  );
 
   TaskEither<AppError, void> addBookmark(Bookmark bookmark) =>
       _dbService.db.toTaskEither().flatMap(
