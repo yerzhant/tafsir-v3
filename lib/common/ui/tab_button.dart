@@ -17,13 +17,6 @@ class TabButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleInactiveColor = switch (theme) {
-      .light => typographySecondaryLight,
-      .dark => typographySecondaryDark,
-      .brownLight => typographySecondaryBrownLight,
-      .brownDark => typographySecondaryBrownDark,
-    };
-
     final gradient = switch (theme) {
       .light || .dark => gradiendPrimaryBlue,
       .brownLight || .brownDark => gradiendPrimaryBrown,
@@ -41,7 +34,9 @@ class TabButton extends StatelessWidget {
             child: Text(
               title,
               style: textBodyReg.copyWith(
-                color: isActive ? typographyTextWhite : titleInactiveColor,
+                color: isActive
+                    ? typographyTextWhite
+                    : typographySecondary(theme),
               ),
             ),
           ),
