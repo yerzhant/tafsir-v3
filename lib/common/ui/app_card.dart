@@ -17,20 +17,13 @@ class AppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = switch (theme) {
-      .light => bgSecondaryLight,
-      .dark => bgSecondaryDark,
-      .brownLight => bgSecondaryBrownLight,
-      .brownDark => bgSecondaryBrownDark,
-    };
-
     return Container(
       padding: .symmetric(
         horizontal: horizontalPadding,
         vertical: verticalPadding,
       ),
       decoration: BoxDecoration(
-        color: bgColor,
+        color: bgSecondary(theme),
         borderRadius: .circular(16),
         boxShadow: const [
           .new(

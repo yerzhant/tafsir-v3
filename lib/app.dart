@@ -55,7 +55,6 @@ class App extends StatelessWidget {
                         return switch (state) {
                           InitStateInitializing(:final progress) =>
                             ProgressWidget(
-                              theme: themeState.theme,
                               value: progress,
                             ),
 
@@ -65,7 +64,6 @@ class App extends StatelessWidget {
 
                           InitStateFailure(:final error) => AppErrorWidget(
                             error: error,
-                            theme: themeState.theme,
                             onPressed: context.read<InitCubit>().init,
                           ),
                         };

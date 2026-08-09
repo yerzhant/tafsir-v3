@@ -14,30 +14,28 @@ part 'aayaat_state.dart';
 
 class AayaatCubit extends Cubit<AayaatState> {
   AayaatCubit(
-    this._surah,
-    this._position,
     this._mainDb,
     this._aayaatDb,
     this._mainCubit,
-  ) : super(.success(_position, [], {}));
+    this._surahNumber,
+    this._position,
+  ) : super(const .inProgress());
 
-  final Surah _surah;
   final MainDb _mainDb;
   final AayaatDb _aayaatDb;
   final MainCubit _mainCubit;
+  final SurahNumber _surahNumber;
   final AyahPosition _position;
 
   Future<void> init() => TaskEither<AppError, void>.Do(
     ($) async {
-      emit(.success(_position, [], {}));
+      emit(const .inProgress());
 
-      final aayaat = await $(_aayaatDb.getAayaat(_surah));
+      final surah = await $(_mainDb.getSurah(_surahNumber));
+      final aayaat = await $(_aayaatDb.getAayaat(surah));
+      final bookmarks = await $(_mainDb.getBookmarkAayahNumbersForSurah(surah));
 
-      final bookmarks = await $(
-        _mainDb.getBookmarkAayahNumbersForSurah(_surah),
-      );
-
-      emit(.success(_position, aayaat, bookmarks));
+      emit(.success(surah, _position, aayaat, bookmarks));
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
@@ -47,7 +45,7 @@ class AayaatCubit extends Cubit<AayaatState> {
           final s = state as AayaatStateSuccess;
 
           if (s.bookmarks.elem(aayahNumber)) {
-            await $(_mainDb.removeBookmark(_surah.number, aayahNumber));
+            await $(_mainDb.removeBookmark(_surahNumber, aayahNumber));
             emit(
               s.copyWith(
                 bookmarks: s.bookmarks
@@ -56,7 +54,7 @@ class AayaatCubit extends Cubit<AayaatState> {
               ),
             );
           } else {
-            await $(_mainDb.addBookmark(_surah.number, aayahNumber));
+            await $(_mainDb.addBookmark(_surahNumber, aayahNumber));
             emit(s.copyWith(bookmarks: {...s.bookmarks, aayahNumber}));
           }
 

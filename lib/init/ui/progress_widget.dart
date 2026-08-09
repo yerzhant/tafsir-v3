@@ -1,39 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
+import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class ProgressWidget extends StatelessWidget {
-  const ProgressWidget({
-    super.key,
-    required this.theme,
-    required this.value,
-  });
+  const ProgressWidget({super.key, this.value});
 
-  final AppTheme theme;
-  final double value;
+  final double? value;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: bgPrimary(theme),
-      width: .infinity,
-      child: Column(
-        mainAxisAlignment: .center,
-        spacing: 20,
-        children: [
-          Text(
-            'Инициализация',
-            style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        final theme = state.theme;
+
+        return Container(
+          color: bgPrimary(theme),
+          width: .infinity,
+          child: Column(
+            mainAxisAlignment: .center,
+            spacing: 20,
+            children: [
+              if (value != null)
+                Text(
+                  'Инициализация',
+                  style: textBodyMedium.copyWith(
+                    color: typographyPrimary(theme),
+                  ),
+                ),
+              CircularProgressIndicator.adaptive(
+                value: value?.let((it) => it / 100),
+                backgroundColor: bgSecondary(theme),
+              ),
+              ?value?.let(
+                (it) => Text(
+                  '${it.toStringAsFixed(1)} %',
+                  style: textBodyMedium.copyWith(
+                    color: typographyPrimary(theme),
+                  ),
+                ),
+              ),
+            ],
           ),
-          CircularProgressIndicator.adaptive(
-            value: value / 100,
-            backgroundColor: bgSecondary(theme),
-          ),
-          Text(
-            '${value.toStringAsFixed(1)} %',
-            style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

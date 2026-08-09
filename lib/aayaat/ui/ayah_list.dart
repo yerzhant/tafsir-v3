@@ -6,6 +6,7 @@ import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
+import 'package:tafsir/init/ui/progress_widget.dart';
 import 'package:tafsir/settings/cubit/settings_cubit.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
@@ -52,11 +53,12 @@ class _AyahListState extends State<AyahList> {
             // _scrollTo(state.position);
           },
           builder: (context, state) => switch (state) {
+            AayaatStateInProgress() => const ProgressWidget(),
+
             AayaatStateSuccess() => _success(state, theme),
 
             AayaatStateFailure(:final error) => AppErrorWidget(
               error: error,
-              theme: theme,
               onPressed: context.read<AayaatCubit>().init,
             ),
           },

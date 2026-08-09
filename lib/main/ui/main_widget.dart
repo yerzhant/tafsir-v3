@@ -30,7 +30,6 @@ class MainWidget extends StatelessWidget {
               MainStateSuccess() => _Success(theme: theme, state: state),
 
               MainStateFailure(:final error) => AppErrorWidget(
-                theme: theme,
                 error: error,
                 onPressed: context.read<MainCubit>().init,
               ),

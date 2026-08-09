@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tafsir/aayaat/ui/surah_page.dart';
 import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
@@ -17,45 +19,55 @@ class BookmarkItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppCard(
-      theme: theme,
-      child: Row(
-        spacing: 8,
-        children: [
-          CircleCard(
-            theme: theme,
-            child: Column(
-              mainAxisAlignment: .center,
-              children: [
-                const SizedBox(height: 3),
-                SvgPicture.asset(
-                  'assets/icons/bookmark.svg',
-                  colorFilter: .mode(brandPrimary(theme), .srcIn),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-              spacing: 2,
-              mainAxisAlignment: .center,
-              crossAxisAlignment: .start,
-              children: [
-                Text(
-                  '${bookmark.surahNumber}. ${bookmark.surahName}',
-                  style: textCallout.copyWith(color: typographyPrimary(theme)),
-                  overflow: .ellipsis,
-                ),
-                Text(
-                  '${bookmark.aayahNumber} аят',
-                  style: textBodyMedium.copyWith(
-                    color: typographySecondary(theme),
+    return GestureDetector(
+      onTap: () => SurahPage.open(
+        context,
+        context.read(),
+        bookmark.surahNumber,
+        .new(bookmark.aayahNumber, 0),
+      ),
+      child: AppCard(
+        theme: theme,
+        child: Row(
+          spacing: 8,
+          children: [
+            CircleCard(
+              theme: theme,
+              child: Column(
+                mainAxisAlignment: .center,
+                children: [
+                  const SizedBox(height: 3),
+                  SvgPicture.asset(
+                    'assets/icons/bookmark.svg',
+                    colorFilter: .mode(brandPrimary(theme), .srcIn),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: Column(
+                spacing: 2,
+                mainAxisAlignment: .center,
+                crossAxisAlignment: .start,
+                children: [
+                  Text(
+                    '${bookmark.surahNumber}. ${bookmark.surahName}',
+                    style: textCallout.copyWith(
+                      color: typographyPrimary(theme),
+                    ),
+                    overflow: .ellipsis,
+                  ),
+                  Text(
+                    '${bookmark.aayahNumber} аят',
+                    style: textBodyMedium.copyWith(
+                      color: typographySecondary(theme),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

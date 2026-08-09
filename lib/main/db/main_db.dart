@@ -106,8 +106,8 @@ class MainDb {
           ($) => rows.map(
             (e) async {
               final row = DjuzRow.fromJson(e);
-              final from = await $(_getSurah(row.fromSurah));
-              final to = await $(_getSurah(row.toSurah));
+              final from = await $(getSurah(row.fromSurah));
+              final to = await $(getSurah(row.toSurah));
               return row.toDomain(from.name, to.name);
             },
           ).wait,
@@ -153,7 +153,7 @@ class MainDb {
           ($) => rows.map(
             (e) async {
               final row = LastReadRow.fromJson(e);
-              final surah = await $(_getSurah(row.surahNumber));
+              final surah = await $(getSurah(row.surahNumber));
               return row.toDomain(surah);
             },
           ).wait,
@@ -196,7 +196,7 @@ class MainDb {
           ($) => rows.map(
             (e) async {
               final row = BookmarkRow.fromJson(e);
-              final surah = await $(_getSurah(row.surahNumber));
+              final surah = await $(getSurah(row.surahNumber));
               return Bookmark(surah.number, surah.name, row.aayahNumber);
             },
           ).wait,
@@ -252,7 +252,7 @@ class MainDb {
     }, ExceptionError.new),
   );
 
-  TaskEither<AppError, Surah> _getSurah(SurahNumber number) =>
+  TaskEither<AppError, Surah> getSurah(SurahNumber number) =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(() async {
           final rows = await db.query(
