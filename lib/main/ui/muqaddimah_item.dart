@@ -9,10 +9,12 @@ class MuqaddimahItem extends StatelessWidget {
   const MuqaddimahItem({
     super.key,
     required this.theme,
+    required this.onTap,
     required this.muqaddimah,
   });
 
   final AppTheme theme;
+  final VoidCallback onTap;
   final Muqaddimah muqaddimah;
 
   @override
@@ -23,24 +25,27 @@ class MuqaddimahItem extends StatelessWidget {
       .basmalah => 'basmalah',
     };
 
-    return BigFrame(
-      theme: theme,
-      child: Row(
-        spacing: 12,
-        children: [
-          CircleCard(
-            theme: theme,
-            size: .small,
-            child: SvgPicture.asset(
-              'assets/icons/$icon.svg',
-              colorFilter: .mode(brandPrimary(theme), .srcIn),
+    return GestureDetector(
+      onTap: onTap,
+      child: BigFrame(
+        theme: theme,
+        child: Row(
+          spacing: 12,
+          children: [
+            CircleCard(
+              theme: theme,
+              size: .small,
+              child: SvgPicture.asset(
+                'assets/icons/$icon.svg',
+                colorFilter: .mode(brandPrimary(theme), .srcIn),
+              ),
             ),
-          ),
-          Text(
-            muqaddimah.title,
-            style: textCallout.copyWith(color: typographyPrimary(theme)),
-          ),
-        ],
+            Text(
+              muqaddimah.title,
+              style: textCallout.copyWith(color: typographyPrimary(theme)),
+            ),
+          ],
+        ),
       ),
     );
   }

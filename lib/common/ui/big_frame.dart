@@ -9,17 +9,10 @@ class BigFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderColor = switch (theme) {
-      .light => borderPrimaryLight,
-      .dark => borderPrimaryDark,
-      .brownLight => borderPrimaryBrownLight,
-      .brownDark => borderPrimaryBrownDark,
-    };
-
     return Container(
       padding: const .all(12),
       decoration: BoxDecoration(
-        border: .all(color: borderColor),
+        border: .all(color: borderPrimary(theme)),
         borderRadius: .circular(16),
       ),
       child: child,

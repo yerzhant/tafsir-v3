@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tafsir/aayaat/ui/surah_info_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/muqaddimah.dart';
 import 'package:tafsir/main/domain/surah.dart';
@@ -30,9 +31,12 @@ class SuwarList extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         if (index < muqaddimat.length) {
+          final muqaddimah = muqaddimat[index];
+
           return MuqaddimahItem(
             theme: theme,
-            muqaddimah: muqaddimat[index],
+            muqaddimah: muqaddimah,
+            onTap: () => _showMuqaddimah(muqaddimah, context),
           );
         } else {
           return SurahItem(
@@ -44,6 +48,16 @@ class SuwarList extends StatelessWidget {
       itemCount: muqaddimat.length + suwar.length,
       separatorBuilder: (context, index) => SizedBox(
         height: index == muqaddimat.length - 1 ? 12 : 8,
+      ),
+    );
+  }
+
+  void _showMuqaddimah(Muqaddimah muqaddimah, BuildContext context) {
+    showBottomSheet(
+      context: context,
+      builder: (context) => SurahInfoCard(
+        theme: theme,
+        info: .new(muqaddimah.content),
       ),
     );
   }
