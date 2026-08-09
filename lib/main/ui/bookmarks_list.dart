@@ -8,14 +8,22 @@ class BookmarksList extends StatelessWidget {
     super.key,
     required this.theme,
     required this.items,
+    required this.hasTopPadding,
   });
 
   final AppTheme theme;
   final List<Bookmark> items;
+  final bool hasTopPadding;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      padding: .only(
+        right: 20,
+        left: 20,
+        bottom: 20,
+        top: hasTopPadding ? 20 : 0,
+      ),
       itemCount: items.length,
       itemBuilder: (context, index) => BookmarkItem(
         theme: theme,

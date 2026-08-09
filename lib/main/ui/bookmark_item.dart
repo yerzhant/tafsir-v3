@@ -17,27 +17,6 @@ class BookmarkItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = switch (theme) {
-      .light => typographyPrimaryLight,
-      .dark => typographyPrimaryDark,
-      .brownLight => typographyPrimaryBrownLight,
-      .brownDark => typographyPrimaryBrownDark,
-    };
-
-    final secondaryColor = switch (theme) {
-      .light => typographySecondaryLight,
-      .dark => typographySecondaryDark,
-      .brownLight => typographySecondaryBrownLight,
-      .brownDark => typographySecondaryBrownDark,
-    };
-
-    final iconColor = switch (theme) {
-      AppTheme.light => brandPrimaryLight,
-      AppTheme.dark => brandPrimaryDark,
-      AppTheme.brownLight => brandPrimaryBrownLight,
-      AppTheme.brownDark => brandPrimaryBrownDark,
-    };
-
     return AppCard(
       theme: theme,
       child: Row(
@@ -45,9 +24,15 @@ class BookmarkItem extends StatelessWidget {
         children: [
           CircleCard(
             theme: theme,
-            child: SvgPicture.asset(
-              'assets/icons/bookmark.svg',
-              colorFilter: .mode(iconColor, .srcIn),
+            child: Column(
+              mainAxisAlignment: .center,
+              children: [
+                const SizedBox(height: 3),
+                SvgPicture.asset(
+                  'assets/icons/bookmark.svg',
+                  colorFilter: .mode(brandPrimary(theme), .srcIn),
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -58,12 +43,14 @@ class BookmarkItem extends StatelessWidget {
               children: [
                 Text(
                   '${bookmark.surahNumber}. ${bookmark.surahName}',
-                  style: textCallout.copyWith(color: primaryColor),
+                  style: textCallout.copyWith(color: typographyPrimary(theme)),
                   overflow: .ellipsis,
                 ),
                 Text(
                   '${bookmark.aayahNumber} аят',
-                  style: textBodyMedium.copyWith(color: secondaryColor),
+                  style: textBodyMedium.copyWith(
+                    color: typographySecondary(theme),
+                  ),
                 ),
               ],
             ),

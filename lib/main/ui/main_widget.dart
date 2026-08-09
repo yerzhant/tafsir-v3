@@ -86,6 +86,7 @@ class _Success extends StatelessWidget {
                         .bookmarks => BookmarksList(
                           theme: theme,
                           items: state.bookmarks,
+                          hasTopPadding: state.lastReads.isEmpty,
                         ),
                       },
                     ),
