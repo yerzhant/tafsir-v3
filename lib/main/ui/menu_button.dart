@@ -7,32 +7,37 @@ class MenuButton extends StatelessWidget {
   const MenuButton({
     super.key,
     required this.theme,
+    required this.onTap,
     required this.menu,
   });
 
+  final VoidCallback onTap;
   final AppTheme theme;
   final Menu menu;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const .all(12),
-      decoration: BoxDecoration(
-        borderRadius: .circular(12),
-        color: bgSecondary(theme),
-      ),
-      child: Row(
-        spacing: 8,
-        children: [
-          SvgPicture.asset(
-            'assets/icons/${menu.icon}.svg',
-            colorFilter: .mode(brandPrimary(theme), .srcIn),
-          ),
-          Text(
-            menu.title,
-            style: textBodyReg.copyWith(color: typographyPrimary(theme)),
-          ),
-        ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const .all(12),
+        decoration: BoxDecoration(
+          borderRadius: .circular(12),
+          color: bgSecondary(theme),
+        ),
+        child: Row(
+          spacing: 8,
+          children: [
+            SvgPicture.asset(
+              'assets/icons/${menu.icon}.svg',
+              colorFilter: .mode(brandPrimary(theme), .srcIn),
+            ),
+            Text(
+              menu.title,
+              style: textBodyReg.copyWith(color: typographyPrimary(theme)),
+            ),
+          ],
+        ),
       ),
     );
   }

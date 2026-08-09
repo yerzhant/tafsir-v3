@@ -149,6 +149,7 @@ const typographyLinkBrownLight = alertInfo200BrownLight;
 const typographyLinkBrownDark = alertInfo200BrownLight;
 
 const textH1 = TextStyle(fontSize: 28, fontWeight: .bold);
+const textH2 = TextStyle(fontSize: 24, fontWeight: .w600);
 const textHeadline = TextStyle(fontSize: 20, fontWeight: .w500);
 const textCallout = TextStyle(fontSize: 16, fontWeight: .w600);
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
+import 'package:tafsir/how_to_use/ui/how_to_use_page.dart';
 import 'package:tafsir/main/ui/menu_button.dart';
 
 class Header extends StatelessWidget {
@@ -47,8 +48,19 @@ class Header extends StatelessWidget {
         child: Column(
           spacing: 8,
           children: [
-            MenuButton(theme: theme, menu: .howToUse),
-            MenuButton(theme: theme, menu: .aboutUs),
+            MenuButton(
+              theme: theme,
+              menu: .howToUse,
+              onTap: () {
+                Navigator.pop(context);
+                HowToUsePage.open(context);
+              },
+            ),
+            MenuButton(
+              theme: theme,
+              menu: .aboutUs,
+              onTap: () {},
+            ),
           ],
         ),
       ),
