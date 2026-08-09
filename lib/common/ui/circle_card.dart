@@ -24,19 +24,8 @@ class CircleCard extends StatelessWidget {
     };
 
     final bgColor = switch (size) {
-      .small => switch (theme) {
-        .light => bgContainerLight,
-        .dark => bgContainerDark,
-        .brownLight => bgContainerBrownLight,
-        .brownDark => bgContainerBrownDark,
-      },
-
-      .normal => switch (theme) {
-        .light => bgTertiraryLight,
-        .dark => bgTertiraryDark,
-        .brownLight => bgTertiraryBrownLight,
-        .brownDark => bgTertiraryBrownDark,
-      },
+      .small => bgContainer(theme),
+      .normal => bgTertirary(theme),
     };
 
     return Container(

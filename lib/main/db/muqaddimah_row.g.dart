@@ -8,6 +8,7 @@ part of 'muqaddimah_row.dart';
 
 _MuqaddimahRow _$MuqaddimahRowFromJson(Map<String, dynamic> json) =>
     _MuqaddimahRow(
+      json['weight'] as MuqaddimahWeight,
       $enumDecode(_$MuqaddimahTypeEnumMap, json['type']),
       json['title'] as MuqaddimahTitle,
       json['content'] as MuqaddimahContent,
@@ -15,6 +16,7 @@ _MuqaddimahRow _$MuqaddimahRowFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MuqaddimahRowToJson(_MuqaddimahRow instance) =>
     <String, dynamic>{
+      'weight': instance.weight,
       'type': _$MuqaddimahTypeEnumMap[instance.type]!,
       'title': instance.title,
       'content': instance.content,

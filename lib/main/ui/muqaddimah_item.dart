@@ -23,20 +23,6 @@ class MuqaddimahItem extends StatelessWidget {
       .basmalah => 'basmalah',
     };
 
-    final iconColor = switch (theme) {
-      .light => brandPrimaryLight,
-      .dark => brandPrimaryDark,
-      .brownLight => brandPrimaryBrownLight,
-      .brownDark => brandPrimaryBrownDark,
-    };
-
-    final primaryColor = switch (theme) {
-      .light => typographyPrimaryLight,
-      .dark => typographyPrimaryDark,
-      .brownLight => typographyPrimaryBrownLight,
-      .brownDark => typographyPrimaryBrownDark,
-    };
-
     return BigFrame(
       theme: theme,
       child: Row(
@@ -47,12 +33,12 @@ class MuqaddimahItem extends StatelessWidget {
             size: .small,
             child: SvgPicture.asset(
               'assets/icons/$icon.svg',
-              colorFilter: .mode(iconColor, .srcIn),
+              colorFilter: .mode(brandPrimary(theme), .srcIn),
             ),
           ),
           Text(
-            muqaddimah.content,
-            style: textCallout.copyWith(color: primaryColor),
+            muqaddimah.title,
+            style: textCallout.copyWith(color: typographyPrimary(theme)),
           ),
         ],
       ),

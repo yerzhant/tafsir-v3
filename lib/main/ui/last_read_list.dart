@@ -11,13 +11,6 @@ class LastReadList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = switch (theme) {
-      .light => typographyPrimaryLight,
-      .dark => typographyPrimaryDark,
-      .brownLight => typographyPrimaryBrownLight,
-      .brownDark => typographyPrimaryBrownDark,
-    };
-
     return Column(
       children: [
         const SizedBox(height: 16),
@@ -26,7 +19,7 @@ class LastReadList extends StatelessWidget {
             const SizedBox(width: 20),
             Text(
               'Последнее прочитанное',
-              style: textBodyMedium.copyWith(color: primaryColor),
+              style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
             ),
           ],
         ),

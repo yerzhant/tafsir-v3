@@ -8,6 +8,7 @@ import 'package:tafsir/init/cubit/init_cubit.dart';
 import 'package:tafsir/init/db/init_db.dart';
 import 'package:tafsir/init/ui/progress_widget.dart';
 import 'package:tafsir/main/db/main_db.dart';
+import 'package:tafsir/main/ui/main_widget.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class App extends StatelessWidget {
@@ -58,8 +59,8 @@ class App extends StatelessWidget {
                               value: progress,
                             ),
 
-                          InitStateInitialized() => const Center(
-                            child: Text('OK!'),
+                          InitStateInitialized() => MainWidget(
+                            theme: themeState.theme,
                           ),
 
                           InitStateFailure(:final error) => AppErrorWidget(

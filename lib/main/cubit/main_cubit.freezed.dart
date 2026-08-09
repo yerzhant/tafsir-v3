@@ -119,10 +119,10 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( MainTab tab,  List<Surah> suwar,  List<Djuz> adjzaa,  List<Bookmark> bookmarks)?  success,TResult Function( AppError error)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( MainTab tab,  List<Surah> suwar,  List<Djuz> adjzaa,  List<Bookmark> bookmarks,  List<LastRead> lastReads,  List<Muqaddimah> muqaddimat)?  success,TResult Function( AppError error)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case MainStateSuccess() when success != null:
-return success(_that.tab,_that.suwar,_that.adjzaa,_that.bookmarks);case MainStateFailure() when failure != null:
+return success(_that.tab,_that.suwar,_that.adjzaa,_that.bookmarks,_that.lastReads,_that.muqaddimat);case MainStateFailure() when failure != null:
 return failure(_that.error);case _:
   return orElse();
 
@@ -141,10 +141,10 @@ return failure(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( MainTab tab,  List<Surah> suwar,  List<Djuz> adjzaa,  List<Bookmark> bookmarks)  success,required TResult Function( AppError error)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( MainTab tab,  List<Surah> suwar,  List<Djuz> adjzaa,  List<Bookmark> bookmarks,  List<LastRead> lastReads,  List<Muqaddimah> muqaddimat)  success,required TResult Function( AppError error)  failure,}) {final _that = this;
 switch (_that) {
 case MainStateSuccess():
-return success(_that.tab,_that.suwar,_that.adjzaa,_that.bookmarks);case MainStateFailure():
+return success(_that.tab,_that.suwar,_that.adjzaa,_that.bookmarks,_that.lastReads,_that.muqaddimat);case MainStateFailure():
 return failure(_that.error);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -159,10 +159,10 @@ return failure(_that.error);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( MainTab tab,  List<Surah> suwar,  List<Djuz> adjzaa,  List<Bookmark> bookmarks)?  success,TResult? Function( AppError error)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( MainTab tab,  List<Surah> suwar,  List<Djuz> adjzaa,  List<Bookmark> bookmarks,  List<LastRead> lastReads,  List<Muqaddimah> muqaddimat)?  success,TResult? Function( AppError error)?  failure,}) {final _that = this;
 switch (_that) {
 case MainStateSuccess() when success != null:
-return success(_that.tab,_that.suwar,_that.adjzaa,_that.bookmarks);case MainStateFailure() when failure != null:
+return success(_that.tab,_that.suwar,_that.adjzaa,_that.bookmarks,_that.lastReads,_that.muqaddimat);case MainStateFailure() when failure != null:
 return failure(_that.error);case _:
   return null;
 
@@ -175,7 +175,7 @@ return failure(_that.error);case _:
 
 
 class MainStateSuccess implements MainState {
-  const MainStateSuccess(this.tab, final  List<Surah> suwar, final  List<Djuz> adjzaa, final  List<Bookmark> bookmarks): _suwar = suwar,_adjzaa = adjzaa,_bookmarks = bookmarks;
+  const MainStateSuccess(this.tab, final  List<Surah> suwar, final  List<Djuz> adjzaa, final  List<Bookmark> bookmarks, final  List<LastRead> lastReads, final  List<Muqaddimah> muqaddimat): _suwar = suwar,_adjzaa = adjzaa,_bookmarks = bookmarks,_lastReads = lastReads,_muqaddimat = muqaddimat;
   
 
  final  MainTab tab;
@@ -200,6 +200,20 @@ class MainStateSuccess implements MainState {
   return EqualUnmodifiableListView(_bookmarks);
 }
 
+ final  List<LastRead> _lastReads;
+ List<LastRead> get lastReads {
+  if (_lastReads is EqualUnmodifiableListView) return _lastReads;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_lastReads);
+}
+
+ final  List<Muqaddimah> _muqaddimat;
+ List<Muqaddimah> get muqaddimat {
+  if (_muqaddimat is EqualUnmodifiableListView) return _muqaddimat;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_muqaddimat);
+}
+
 
 /// Create a copy of MainState
 /// with the given fields replaced by the non-null parameter values.
@@ -211,16 +225,16 @@ $MainStateSuccessCopyWith<MainStateSuccess> get copyWith => _$MainStateSuccessCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MainStateSuccess&&(identical(other.tab, tab) || other.tab == tab)&&const DeepCollectionEquality().equals(other._suwar, _suwar)&&const DeepCollectionEquality().equals(other._adjzaa, _adjzaa)&&const DeepCollectionEquality().equals(other._bookmarks, _bookmarks));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MainStateSuccess&&(identical(other.tab, tab) || other.tab == tab)&&const DeepCollectionEquality().equals(other._suwar, _suwar)&&const DeepCollectionEquality().equals(other._adjzaa, _adjzaa)&&const DeepCollectionEquality().equals(other._bookmarks, _bookmarks)&&const DeepCollectionEquality().equals(other._lastReads, _lastReads)&&const DeepCollectionEquality().equals(other._muqaddimat, _muqaddimat));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,tab,const DeepCollectionEquality().hash(_suwar),const DeepCollectionEquality().hash(_adjzaa),const DeepCollectionEquality().hash(_bookmarks));
+int get hashCode => Object.hash(runtimeType,tab,const DeepCollectionEquality().hash(_suwar),const DeepCollectionEquality().hash(_adjzaa),const DeepCollectionEquality().hash(_bookmarks),const DeepCollectionEquality().hash(_lastReads),const DeepCollectionEquality().hash(_muqaddimat));
 
 @override
 String toString() {
-  return 'MainState.success(tab: $tab, suwar: $suwar, adjzaa: $adjzaa, bookmarks: $bookmarks)';
+  return 'MainState.success(tab: $tab, suwar: $suwar, adjzaa: $adjzaa, bookmarks: $bookmarks, lastReads: $lastReads, muqaddimat: $muqaddimat)';
 }
 
 
@@ -231,7 +245,7 @@ abstract mixin class $MainStateSuccessCopyWith<$Res> implements $MainStateCopyWi
   factory $MainStateSuccessCopyWith(MainStateSuccess value, $Res Function(MainStateSuccess) _then) = _$MainStateSuccessCopyWithImpl;
 @useResult
 $Res call({
- MainTab tab, List<Surah> suwar, List<Djuz> adjzaa, List<Bookmark> bookmarks
+ MainTab tab, List<Surah> suwar, List<Djuz> adjzaa, List<Bookmark> bookmarks, List<LastRead> lastReads, List<Muqaddimah> muqaddimat
 });
 
 
@@ -248,13 +262,15 @@ class _$MainStateSuccessCopyWithImpl<$Res>
 
 /// Create a copy of MainState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? tab = null,Object? suwar = null,Object? adjzaa = null,Object? bookmarks = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? tab = null,Object? suwar = null,Object? adjzaa = null,Object? bookmarks = null,Object? lastReads = null,Object? muqaddimat = null,}) {
   return _then(MainStateSuccess(
 null == tab ? _self.tab : tab // ignore: cast_nullable_to_non_nullable
 as MainTab,null == suwar ? _self._suwar : suwar // ignore: cast_nullable_to_non_nullable
 as List<Surah>,null == adjzaa ? _self._adjzaa : adjzaa // ignore: cast_nullable_to_non_nullable
 as List<Djuz>,null == bookmarks ? _self._bookmarks : bookmarks // ignore: cast_nullable_to_non_nullable
-as List<Bookmark>,
+as List<Bookmark>,null == lastReads ? _self._lastReads : lastReads // ignore: cast_nullable_to_non_nullable
+as List<LastRead>,null == muqaddimat ? _self._muqaddimat : muqaddimat // ignore: cast_nullable_to_non_nullable
+as List<Muqaddimah>,
   ));
 }
 

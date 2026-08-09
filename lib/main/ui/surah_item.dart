@@ -18,34 +18,6 @@ class SurahItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = switch (theme) {
-      .light => typographyPrimaryLight,
-      .dark => typographyPrimaryDark,
-      .brownLight => typographyPrimaryBrownLight,
-      .brownDark => typographyPrimaryBrownDark,
-    };
-
-    final secondaryColor = switch (theme) {
-      .light => typographySecondaryLight,
-      .dark => typographySecondaryDark,
-      .brownLight => typographySecondaryBrownLight,
-      .brownDark => typographySecondaryBrownDark,
-    };
-
-    final dotColor = switch (theme) {
-      .light => typographyTertiraryLight,
-      .dark => typographyTertiraryDark,
-      .brownLight => typographyTertiraryBrownLight,
-      .brownDark => typographyTertiraryBrownDark,
-    };
-
-    final mapPinColor = switch (theme) {
-      .light => typographyLabelsAndIconsLight,
-      .dark => typographyLabelsAndIconsDark,
-      .brownLight => typographyLabelsAndIconsBrownLight,
-      .brownDark => typographyLabelsAndIconsBrownDark,
-    };
-
     return AppCard(
       theme: theme,
       child: Row(
@@ -55,7 +27,8 @@ class SurahItem extends StatelessWidget {
             theme: theme,
             child: Text(
               '${surah.number}',
-              style: textCallout.copyWith(color: primaryColor),
+              style: textCallout.copyWith(color: typographyPrimary(theme)),
+              textHeightBehavior: const .new(applyHeightToLastDescent: false),
             ),
           ),
           Expanded(
@@ -67,39 +40,51 @@ class SurahItem extends StatelessWidget {
                 Text(
                   surah.name,
                   overflow: .ellipsis,
-                  style: textCallout.copyWith(color: primaryColor),
+                  style: textCallout.copyWith(color: typographyPrimary(theme)),
                 ),
                 Row(
                   children: [
-                    Flexible(
-                      child: Text(
-                        surah.translation ?? surah.name,
-                        overflow: .ellipsis,
-                        style: textBodyMedium.copyWith(color: secondaryColor),
+                    ?surah.translation?.let(
+                      (it) => Flexible(
+                        child: Text(
+                          it,
+                          overflow: .ellipsis,
+                          style: textBodyMedium.copyWith(
+                            color: typographySecondary(theme),
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 4),
-                    Container(
-                      width: 4,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: dotColor,
-                        shape: .circle,
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    SvgPicture.asset(
-                      'assets/icons/map-pin.svg',
-                      colorFilter: .mode(mapPinColor, .srcIn),
                     ),
                     ?surah.place?.let(
-                      (it) => Column(
+                      (it) => Row(
                         children: [
+                          if (surah.translation != null)
+                            Row(
+                              children: [
+                                const SizedBox(width: 4),
+                                Container(
+                                  width: 4,
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                    color: typographyTertirary(theme),
+                                    shape: .circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 4),
+                              ],
+                            ),
+                          SvgPicture.asset(
+                            'assets/icons/map-pin.svg',
+                            colorFilter: .mode(
+                              typographyLabelsAndIcons(theme),
+                              .srcIn,
+                            ),
+                          ),
                           const SizedBox(width: 2),
                           Text(
                             it.name,
                             style: textBodyMedium.copyWith(
-                              color: secondaryColor,
+                              color: typographySecondary(theme),
                             ),
                           ),
                         ],
@@ -118,13 +103,13 @@ class SurahItem extends StatelessWidget {
               Text(
                 '${surah.quantity} аятов',
                 style: textBodyMedium.copyWith(
-                  color: secondaryColor.withValues(alpha: .8),
+                  color: typographySecondary(theme).withValues(alpha: .8),
                 ),
               ),
               Text(
                 'Джуз: ${surah.djuz}',
                 style: textBodyMedium.copyWith(
-                  color: secondaryColor.withValues(alpha: .8),
+                  color: typographySecondary(theme).withValues(alpha: .8),
                 ),
               ),
             ],

@@ -14,17 +14,17 @@ class Header extends StatelessWidget {
     return Padding(
       padding: const .symmetric(horizontal: 20, vertical: 12),
       child: Row(
+        spacing: 16,
         children: [
           Text(
             'Тафсир Azan.ru',
             style: textH1.copyWith(color: textColor),
           ),
           const Spacer(),
-          SvgPicture.asset(
-            'assets/icons/magnifying-glass.svg',
-            colorFilter: .mode(textColor, .srcIn),
-          ),
-          const SizedBox(width: 16),
+          // SvgPicture.asset(
+          //   'assets/icons/magnifying-glass.svg',
+          //   colorFilter: .mode(textColor, .srcIn),
+          // ),
           SvgPicture.asset(
             'assets/icons/vertical-dots.svg',
             colorFilter: .mode(textColor, .srcIn),

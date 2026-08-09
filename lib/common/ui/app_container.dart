@@ -9,17 +9,10 @@ class AppContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = switch (theme) {
-      .light => bgPrimaryLight,
-      .dark => bgPrimaryDark,
-      .brownLight => bgPrimaryBrownLight,
-      .brownDark => bgPrimaryBrownDark,
-    };
-
     return Container(
       clipBehavior: .hardEdge,
       decoration: BoxDecoration(
-        color: bgColor,
+        color: bgPrimary(theme),
         borderRadius: const .only(
           topRight: .circular(30),
           topLeft: .circular(30),

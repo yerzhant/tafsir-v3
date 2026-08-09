@@ -9,17 +9,25 @@ class SuwarList extends StatelessWidget {
   const SuwarList({
     super.key,
     required this.theme,
-    required this.muqaddimat,
     required this.suwar,
+    required this.muqaddimat,
+    required this.hasTopPadding,
   });
 
   final AppTheme theme;
-  final List<Muqaddimah> muqaddimat;
   final List<Surah> suwar;
+  final List<Muqaddimah> muqaddimat;
+  final bool hasTopPadding;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      padding: .only(
+        right: 20,
+        left: 20,
+        bottom: 16,
+        top: hasTopPadding ? 16 : 0,
+      ),
       itemBuilder: (context, index) {
         if (index < muqaddimat.length) {
           return MuqaddimahItem(
@@ -34,8 +42,9 @@ class SuwarList extends StatelessWidget {
         }
       },
       itemCount: muqaddimat.length + suwar.length,
-      separatorBuilder: (context, index) =>
-          SizedBox(height: index == muqaddimat.length - 1 ? 12 : 8),
+      separatorBuilder: (context, index) => SizedBox(
+        height: index == muqaddimat.length - 1 ? 12 : 8,
+      ),
     );
   }
 }

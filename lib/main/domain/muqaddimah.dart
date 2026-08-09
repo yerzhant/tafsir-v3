@@ -16,12 +16,14 @@ enum MuqaddimahType {
       values.firstWhere((t) => t.code == code);
 }
 
+extension type const MuqaddimahWeight(int value) implements int {}
 extension type const MuqaddimahTitle(String value) implements String {}
 extension type const MuqaddimahContent(String value) implements String {}
 
 @freezed
 abstract class Muqaddimah with _$Muqaddimah {
   const factory Muqaddimah(
+    MuqaddimahWeight weight,
     MuqaddimahType type,
     MuqaddimahTitle title,
     MuqaddimahContent content,

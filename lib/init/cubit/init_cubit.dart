@@ -97,6 +97,7 @@ class InitCubit extends Cubit<InitState> {
       _parseFile(
         'muqaddimat',
         (e) => MuqaddimahRow(
+          .new(int.parse(e[0])),
           .parse(int.parse(e[0])),
           .new(e[1]),
           .new(e[2]),
@@ -113,7 +114,7 @@ class InitCubit extends Cubit<InitState> {
           .new(e[2]),
           .new(e[5]),
           .parse(e[4]),
-          e[3] != null ? .new(e[3]) : null,
+          e[3] != '' ? .new(e[3]) : null,
           .new(int.parse(e[6])),
         ),
       ),

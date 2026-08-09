@@ -4,8 +4,8 @@ import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/tab_button.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
 
-class TabBar extends StatelessWidget {
-  const TabBar({super.key, required this.theme, required this.tab});
+class AppTabBar extends StatelessWidget {
+  const AppTabBar({super.key, required this.theme, required this.tab});
 
   final AppTheme theme;
   final MainTab tab;
@@ -59,7 +59,7 @@ class TabBar extends StatelessWidget {
   }
 }
 
-// @Preview(group: 'TabBar', size: .new(400, 500), name: 'Light')
+// @Preview(group: 'AppTabBar', size: .new(400, 500), name: 'Light')
 // Widget previewLight() => Masjid(
 //   theme: .light,
 //   child: BlocProvider(
@@ -69,7 +69,7 @@ class TabBar extends StatelessWidget {
 //         return Column(
 //           mainAxisAlignment: .center,
 //           children: [
-//             TabBar(
+//             AppTabBar(
 //               theme: .light,
 //               tab: (state as MainStateSuccess).tab,
 //             ),

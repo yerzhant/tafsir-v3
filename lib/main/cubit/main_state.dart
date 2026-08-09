@@ -9,6 +9,8 @@ sealed class MainState with _$MainState {
     List<Surah> suwar,
     List<Djuz> adjzaa,
     List<Bookmark> bookmarks,
+    List<LastRead> lastReads,
+    List<Muqaddimah> muqaddimat,
   ) = MainStateSuccess;
 
   const factory MainState.failure(AppError error) = MainStateFailure;

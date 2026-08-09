@@ -50,9 +50,10 @@ class MainDb {
 
     await db.execute('''
       create table $_muqaddimat(
-        type         text        not null    primary key,
-        title        text        not null,
-        content      text        not null
+        weight        number      not null    primary key,
+        type          text        not null,
+        title         text        not null,
+        content       text        not null
       )
     ''');
 
@@ -123,7 +124,7 @@ class MainDb {
   TaskEither<AppError, List<Muqaddimah>> getMuqaddimat() =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(() async {
-          final rows = await db.query(_muqaddimat);
+          final rows = await db.query(_muqaddimat, orderBy: 'weight');
           return [
             for (final row in rows) MuqaddimahRow.fromJson(row).toDomain(),
           ];
