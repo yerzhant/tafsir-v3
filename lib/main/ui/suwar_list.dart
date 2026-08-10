@@ -63,8 +63,11 @@ class SuwarList extends StatelessWidget {
   }
 
   void _showMuqaddimah(Muqaddimah muqaddimah, BuildContext context) {
-    showBottomSheet(
+    showModalBottomSheet(
       context: context,
+      useSafeArea: true,
+      showDragHandle: true,
+      isScrollControlled: true,
       builder: (context) => SurahInfoCard(
         theme: theme,
         info: .new(muqaddimah.content),

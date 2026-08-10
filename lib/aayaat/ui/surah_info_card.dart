@@ -12,17 +12,24 @@ class SurahInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const .symmetric(horizontal: 20, vertical: 16 + 54),
-      child: Container(
-        padding: const .all(12),
-        decoration: BoxDecoration(
-          color: bgSecondary(theme),
-          borderRadius: .circular(16),
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: const .only(
+          bottom: 20,
+          right: 20,
+          left: 20,
+          top: 0,
         ),
-        child: Html(
-          data: info.value,
-          style: htmlStyles(theme),
+        child: Container(
+          padding: const .all(12),
+          decoration: BoxDecoration(
+            color: bgSecondary(theme),
+            borderRadius: .circular(16),
+          ),
+          child: Html(
+            data: info.value,
+            style: htmlStyles(theme),
+          ),
         ),
       ),
     );

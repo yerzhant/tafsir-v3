@@ -9,8 +9,8 @@ import 'package:tafsir/theme/cubit/theme_cubit.dart';
 class SurahHeader extends StatelessWidget {
   const SurahHeader({
     super.key,
-    required this.number,
     required this.name,
+    required this.number,
     required this.translation,
 
     required this.onInfo,
@@ -20,8 +20,8 @@ class SurahHeader extends StatelessWidget {
     required this.onGoToAyah,
   });
 
-  final SurahNumber number;
   final SurahName name;
+  final SurahNumber number;
   final SurahTranslation? translation;
 
   final VoidCallback onInfo;
