@@ -117,13 +117,14 @@ class _AyahCardState extends State<AyahCard> {
                           children: [
                             if (state.showAyah)
                               Row(
-                                mainAxisAlignment: .end,
                                 children: [
-                                  Text(
-                                    widget.ayah.arabic,
-                                    textAlign: .right,
-                                    style: textBodyReg.copyWith(
-                                      color: typographyPrimary(widget.theme),
+                                  Expanded(
+                                    child: Text(
+                                      widget.ayah.arabic,
+                                      textAlign: .right,
+                                      style: textBodyReg.copyWith(
+                                        color: typographyPrimary(widget.theme),
+                                      ),
                                     ),
                                   ),
                                 ],
