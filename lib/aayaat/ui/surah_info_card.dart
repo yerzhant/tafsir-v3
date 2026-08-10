@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/aayaat/ui/html_styles.dart';
+import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class SurahInfoCard extends StatelessWidget {
-  const SurahInfoCard({super.key, required this.theme, required this.info});
+  const SurahInfoCard({super.key, required this.info});
 
-  final AppTheme theme;
   final SurahInfo info;
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.read<ThemeCubit>().state.theme;
+
     return SafeArea(
       child: SingleChildScrollView(
         padding: const .only(

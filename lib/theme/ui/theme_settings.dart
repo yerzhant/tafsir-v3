@@ -6,100 +6,101 @@ import 'package:tafsir/common/ui/setting_panel.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class ThemeSettings extends StatelessWidget {
-  const ThemeSettings({super.key, required this.theme});
-
-  final AppTheme theme;
+  const ThemeSettings({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const .symmetric(horizontal: 20, vertical: 18),
-      child: BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) {
-          return Column(
-            crossAxisAlignment: .start,
-            spacing: 12,
-            children: [
-              Column(
-                crossAxisAlignment: .start,
-                spacing: 8,
-                children: [
-                  Text(
-                    'Настройки темы',
-                    style: textHeadline.copyWith(
-                      color: typographyPrimary(theme),
+    return SafeArea(
+      child: Padding(
+        padding: const .only(right: 20, left: 20, bottom: 18),
+        child: BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, state) {
+            return Column(
+              crossAxisAlignment: .start,
+              mainAxisSize: .min,
+              spacing: 12,
+              children: [
+                Column(
+                  crossAxisAlignment: .start,
+                  spacing: 8,
+                  children: [
+                    Text(
+                      'Настройки темы',
+                      style: textHeadline.copyWith(
+                        color: typographyPrimary(state.theme),
+                      ),
                     ),
-                  ),
-                  _Switch(
-                    theme: theme,
-                    title: 'Как в системе',
-                    value: state.sameAsInSystem,
-                    onChanged: context.read<ThemeCubit>().setSameAsInSystem,
-                  ),
-                  _Switch(
-                    theme: theme,
-                    title: 'Не выключать экран',
-                    value: state.doNotSwitchOffScreen,
-                    onChanged: context
-                        .read<ThemeCubit>()
-                        .setDoNotSwitchOffScreen,
-                  ),
-                ],
-              ),
-              Column(
-                spacing: 8,
-                children: [
-                  Row(
-                    spacing: 8,
-                    children: [
-                      _Theme(
-                        theme: theme,
-                        title: 'Светлая синяя',
-                        icon: 'light',
-                        onTap: () => context.read<ThemeCubit>().setTheme(
-                          .light,
+                    // _Switch(
+                    //   theme: state.theme,
+                    //   title: 'Как в системе',
+                    //   value: state.sameAsInSystem,
+                    //   onChanged: context.read<ThemeCubit>().setSameAsInSystem,
+                    // ),
+                    _Switch(
+                      theme: state.theme,
+                      title: 'Не выключать экран',
+                      value: state.doNotSwitchOffScreen,
+                      onChanged: context
+                          .read<ThemeCubit>()
+                          .setDoNotSwitchOffScreen,
+                    ),
+                  ],
+                ),
+                Column(
+                  spacing: 8,
+                  children: [
+                    Row(
+                      spacing: 8,
+                      children: [
+                        _Theme(
+                          theme: state.theme,
+                          title: 'Светлая синяя',
+                          icon: 'light',
+                          onTap: () => context.read<ThemeCubit>().setTheme(
+                            .light,
+                          ),
+                          active: state.theme == .light,
                         ),
-                        active: state.theme == .light,
-                      ),
-                      _Theme(
-                        theme: theme,
-                        title: 'Темная синяя',
-                        icon: 'dark',
-                        onTap: () => context.read<ThemeCubit>().setTheme(
-                          .dark,
+                        _Theme(
+                          theme: state.theme,
+                          title: 'Темная синяя',
+                          icon: 'dark',
+                          onTap: () => context.read<ThemeCubit>().setTheme(
+                            .dark,
+                          ),
+                          active: state.theme == .dark,
                         ),
-                        active: state.theme == .dark,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    spacing: 8,
-                    children: [
-                      _Theme(
-                        theme: theme,
-                        title: 'Светлая коричневая',
-                        icon: 'brown-light',
-                        onTap: () => context.read<ThemeCubit>().setTheme(
-                          .brownLight,
+                      ],
+                    ),
+                    Row(
+                      spacing: 8,
+                      children: [
+                        _Theme(
+                          theme: state.theme,
+                          title: 'Светлая коричневая',
+                          icon: 'brown-light',
+                          onTap: () => context.read<ThemeCubit>().setTheme(
+                            .brownLight,
+                          ),
+                          active: state.theme == .brownLight,
                         ),
-                        active: state.theme == .brownLight,
-                      ),
-                      _Theme(
-                        theme: theme,
-                        title: 'Темная коричневая',
-                        icon: 'brown-dark',
-                        onTap: () => context.read<ThemeCubit>().setTheme(
-                          .brownDark,
+                        _Theme(
+                          theme: state.theme,
+                          title: 'Темная коричневая',
+                          icon: 'brown-dark',
+                          onTap: () => context.read<ThemeCubit>().setTheme(
+                            .brownDark,
+                          ),
+                          active: state.theme == .brownDark,
                         ),
-                        active: state.theme == .brownDark,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          );
-        },
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -132,6 +133,7 @@ class _Switch extends StatelessWidget {
           Switch.adaptive(
             value: value,
             onChanged: onChanged,
+            padding: const .all(0),
             activeTrackColor: alertSuccess200(theme),
           ),
         ],
@@ -160,25 +162,30 @@ class _Theme extends StatelessWidget {
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
-        child: SizedBox(
-          height: 135,
-          child: SettingPanel(
-            radius: 8,
-            theme: theme,
-            active: active,
-            child: Column(
-              spacing: 8,
-              mainAxisAlignment: .center,
-              children: [
-                Text(
-                  title,
-                  style: textBodyMedium.copyWith(
-                    color: typographyPrimary(theme),
-                  ),
+        child: SettingPanel(
+          radius: 8,
+          theme: theme,
+          active: active,
+          child: Column(
+            spacing: 8,
+            mainAxisAlignment: .center,
+            children: [
+              Text(
+                title,
+                textAlign: .center,
+                style: textBodyMedium.copyWith(
+                  color: !active
+                      ? typographyPrimary(theme)
+                      : switch (theme) {
+                          .brownLight => typographyPrimary(theme),
+                          .light => typographyPrimary(theme),
+                          .brownDark => bgContainer(theme),
+                          .dark => bgPrimary(theme),
+                        },
                 ),
-                SvgPicture.asset('assets/icons/theme-$icon.svg'),
-              ],
-            ),
+              ),
+              SvgPicture.asset('assets/icons/theme-$icon.svg'),
+            ],
           ),
         ),
       ),

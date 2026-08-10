@@ -26,6 +26,7 @@ class TabButton extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
+          padding: const .symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(
             gradient: isActive ? gradient : null,
             borderRadius: .circular(199),

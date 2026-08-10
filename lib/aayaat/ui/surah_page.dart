@@ -14,6 +14,7 @@ import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/settings/cubit/settings_cubit.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
+import 'package:tafsir/theme/ui/theme_settings.dart';
 
 class SurahPage extends StatefulWidget {
   const SurahPage._(
@@ -110,12 +111,22 @@ class _SurahPageState extends State<SurahPage> {
           translation: state.surah.translation,
           onInfo: () => _showInfo(context, state.surah.info),
           onSuwar: () {},
-          onTheme: () {},
+          onTheme: () => _showTheme(context),
           onSettings: () {},
           onGoToAyah: () => _goToAayah(context),
         ),
         Expanded(child: AyahList(state: state)),
       ],
+    );
+  }
+
+  void _showTheme(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (context) => const ThemeSettings(),
     );
   }
 
@@ -125,10 +136,7 @@ class _SurahPageState extends State<SurahPage> {
       useSafeArea: true,
       showDragHandle: true,
       isScrollControlled: true,
-      builder: (context) => SurahInfoCard(
-        info: info,
-        theme: context.read<ThemeCubit>().state.theme,
-      ),
+      builder: (context) => SurahInfoCard(info: info),
     );
   }
 

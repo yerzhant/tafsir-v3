@@ -31,6 +31,9 @@ class App extends StatelessWidget {
                 progressIndicatorTheme: .new(
                   color: brandPrimary(themeState.theme),
                 ),
+                bottomSheetTheme: .new(
+                  backgroundColor: bgPrimary(themeState.theme),
+                ),
                 scaffoldBackgroundColor: bgPrimary(themeState.theme),
               ),
               home: MultiRepositoryProvider(

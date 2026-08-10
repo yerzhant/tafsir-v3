@@ -68,10 +68,7 @@ class SuwarList extends StatelessWidget {
       useSafeArea: true,
       showDragHandle: true,
       isScrollControlled: true,
-      builder: (context) => SurahInfoCard(
-        theme: theme,
-        info: .new(muqaddimah.content),
-      ),
+      builder: (context) => SurahInfoCard(info: .new(muqaddimah.content)),
     );
   }
 }

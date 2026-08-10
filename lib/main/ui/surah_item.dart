@@ -32,7 +32,6 @@ class SurahItem extends StatelessWidget {
               child: Text(
                 '${surah.number}',
                 style: textCallout.copyWith(color: typographyPrimary(theme)),
-                textHeightBehavior: const .new(applyHeightToLastDescent: false),
               ),
             ),
             Expanded(

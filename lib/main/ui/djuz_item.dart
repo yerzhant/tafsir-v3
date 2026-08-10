@@ -36,7 +36,6 @@ class DjuzItem extends StatelessWidget {
               child: Text(
                 '${djuz.number}',
                 style: textCallout.copyWith(color: typographyPrimary(theme)),
-                textHeightBehavior: const .new(applyHeightToLastDescent: false),
               ),
             ),
             Expanded(
