@@ -7,6 +7,7 @@ import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/db/aayah_row.dart';
 import 'package:tafsir/common/db/db_service.dart';
 import 'package:tafsir/common/domain/error.dart';
+import 'package:tafsir/common/domain/html_to_text.dart';
 import 'package:tafsir/init/db/init_db.dart';
 import 'package:tafsir/main/db/djuz_row.dart';
 import 'package:tafsir/main/db/main_db.dart';
@@ -142,12 +143,7 @@ class InitCubit extends Cubit<InitState> {
           .new(int.parse(e[0])),
           .new(e[2]),
           .new(e[4]),
-          .new(
-            e[3]
-                .replaceAll(RegExp(r'<[^>]*>'), '')
-                .replaceAll(RegExp(r'\d{1,3}\.'), '')
-                .trim(),
-          ),
+          .new(htmlToPlainText(e[3])),
         ),
       ),
     );
