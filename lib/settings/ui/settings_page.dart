@@ -16,6 +16,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: SafeArea(
+        top: false,
         child: Column(
           children: [
             SettingsHeader(),

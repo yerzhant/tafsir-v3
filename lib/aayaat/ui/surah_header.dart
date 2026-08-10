@@ -42,81 +42,90 @@ class SurahHeader extends StatelessWidget {
             borderRadius: const .vertical(bottom: .circular(20)),
             color: bgSecondary(theme),
           ),
-          child: Row(
-            spacing: 12,
+          child: Column(
             children: [
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Container(
-                  padding: const .all(6),
-                  decoration: BoxDecoration(
-                    borderRadius: .circular(8),
-                    color: bgPrimary(theme),
+              SizedBox(height: MediaQuery.paddingOf(context).top),
+              Row(
+                spacing: 12,
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      padding: const .all(6),
+                      decoration: BoxDecoration(
+                        borderRadius: .circular(8),
+                        color: bgPrimary(theme),
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/icons/arrow-left-surah.svg',
+                        colorFilter: .mode(typographyPrimary(theme), .srcIn),
+                      ),
+                    ),
                   ),
-                  child: SvgPicture.asset(
-                    'assets/icons/arrow-left-surah.svg',
-                    colorFilter: .mode(typographyPrimary(theme), .srcIn),
-                  ),
-                ),
-              ),
 
-              Flexible(
-                child: Column(
-                  mainAxisSize: .min,
-                  mainAxisAlignment: .center,
-                  crossAxisAlignment: .start,
-                  children: [
-                    Row(
-                      spacing: 2,
+                  Flexible(
+                    child: Column(
+                      mainAxisSize: .min,
+                      mainAxisAlignment: .center,
+                      crossAxisAlignment: .start,
                       children: [
-                        Text(
-                          '$number.',
-                          style: textHeadline.copyWith(
-                            height: 0,
-                            color: typographyPrimary(theme),
-                          ),
+                        Row(
+                          spacing: 2,
+                          children: [
+                            Text(
+                              '$number.',
+                              style: textHeadline.copyWith(
+                                height: 0,
+                                color: typographyPrimary(theme),
+                              ),
+                            ),
+                            Flexible(
+                              child: Text(
+                                name,
+                                overflow: .ellipsis,
+                                style: textHeadline.copyWith(
+                                  height: 0,
+                                  color: typographyPrimary(theme),
+                                ),
+                              ),
+                            ),
+                            // _Icon(
+                            //   icon: 'arrow-up-right-surah',
+                            //   theme: theme,
+                            //   onTap: onSuwar,
+                            // ),
+                          ],
                         ),
-                        Flexible(
-                          child: Text(
-                            name,
-                            overflow: .ellipsis,
-                            style: textHeadline.copyWith(
-                              height: 0,
-                              color: typographyPrimary(theme),
+
+                        ?translation?.let(
+                          (it) => Flexible(
+                            child: Text(
+                              it,
+                              overflow: .ellipsis,
+                              style: textBodyMedium.copyWith(
+                                height: 0,
+                                color: typographySecondary(theme),
+                              ),
                             ),
                           ),
                         ),
-                        // _Icon(
-                        //   icon: 'arrow-up-right-surah',
-                        //   theme: theme,
-                        //   onTap: onSuwar,
-                        // ),
                       ],
                     ),
+                  ),
 
-                    ?translation?.let(
-                      (it) => Flexible(
-                        child: Text(
-                          it,
-                          overflow: .ellipsis,
-                          style: textBodyMedium.copyWith(
-                            height: 0,
-                            color: typographySecondary(theme),
-                          ),
-                        ),
+                  Row(
+                    spacing: 8,
+                    children: [
+                      _Icon(
+                        icon: 'go-to-ayah',
+                        theme: theme,
+                        onTap: onGoToAyah,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-
-              Row(
-                spacing: 8,
-                children: [
-                  _Icon(icon: 'go-to-ayah', theme: theme, onTap: onGoToAyah),
-                  _Icon(icon: 'surah-info', theme: theme, onTap: onInfo),
-                  _Icon(icon: 'theme', theme: theme, onTap: onTheme),
-                  _Icon(icon: 'settings', theme: theme, onTap: onSettings),
+                      _Icon(icon: 'surah-info', theme: theme, onTap: onInfo),
+                      _Icon(icon: 'theme', theme: theme, onTap: onTheme),
+                      _Icon(icon: 'settings', theme: theme, onTap: onSettings),
+                    ],
+                  ),
                 ],
               ),
             ],

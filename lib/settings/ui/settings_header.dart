@@ -17,29 +17,34 @@ class SettingsHeader extends StatelessWidget {
         borderRadius: const .vertical(bottom: .circular(20)),
         color: bgSecondary(theme),
       ),
-      child: Row(
-        spacing: 12,
+      child: Column(
         children: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
-              padding: const .symmetric(horizontal: 6, vertical: 4),
-              decoration: BoxDecoration(
-                borderRadius: .circular(8),
-                color: bgPrimary(theme),
+          SizedBox(height: MediaQuery.paddingOf(context).top),
+          Row(
+            spacing: 12,
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  padding: const .symmetric(horizontal: 6, vertical: 4),
+                  decoration: BoxDecoration(
+                    borderRadius: .circular(8),
+                    color: bgPrimary(theme),
+                  ),
+                  child: SvgPicture.asset(
+                    'assets/icons/arrow-left-surah.svg',
+                    colorFilter: .mode(typographyPrimary(theme), .srcIn),
+                  ),
+                ),
               ),
-              child: SvgPicture.asset(
-                'assets/icons/arrow-left-surah.svg',
-                colorFilter: .mode(typographyPrimary(theme), .srcIn),
-              ),
-            ),
-          ),
 
-          Text(
-            'Настройки',
-            style: textHeadline.copyWith(
-              color: typographyPrimary(theme),
-            ),
+              Text(
+                'Настройки',
+                style: textHeadline.copyWith(
+                  color: typographyPrimary(theme),
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -60,6 +60,7 @@ class _SurahPageState extends State<SurahPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        top: false,
         child: MultiRepositoryProvider(
           providers: [
             RepositoryProvider(
