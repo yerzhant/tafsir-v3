@@ -27,15 +27,19 @@ class AayaatCubit extends Cubit<AayaatState> {
   final SurahNumber _surahNumber;
   final AyahPosition _position;
 
+  late final Surah _surah;
+
   Future<void> init() => TaskEither<AppError, void>.Do(
     ($) async {
       emit(const .inProgress());
 
-      final surah = await $(_mainDb.getSurah(_surahNumber));
-      final aayaat = await $(_aayaatDb.getAayaat(surah));
-      final bookmarks = await $(_mainDb.getBookmarkAayahNumbersForSurah(surah));
+      _surah = await $(_mainDb.getSurah(_surahNumber));
+      final aayaat = await $(_aayaatDb.getAayaat(_surah));
+      final bookmarks = await $(
+        _mainDb.getBookmarkAayahNumbersForSurah(_surah),
+      );
 
-      emit(.success(surah, _position, aayaat, bookmarks));
+      emit(.success(_surah, _position, aayaat, bookmarks));
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
@@ -62,7 +66,17 @@ class AayaatCubit extends Cubit<AayaatState> {
         },
       ).mapLeft((l) => emit(.failure(l))).run();
 
-  void scrollTo(AyahPosition position) => emit(
-    (state as AayaatStateSuccess).copyWith(position: position),
-  );
+  void scrollTo(AyahPosition position) {
+    final aayah = switch (position.number) {
+      < 1 => 1,
+      _ when position.number > _surah.quantity => _surah.quantity,
+      _ => position.number,
+    };
+
+    emit(
+      (state as AayaatStateSuccess).copyWith(
+        position: position.copyWith(number: .new(aayah)),
+      ),
+    );
+  }
 }

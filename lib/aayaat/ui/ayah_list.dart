@@ -34,7 +34,7 @@ class _AyahListState extends State<AyahList> {
 
   void _scrollTo(AyahPosition position) {
     _controller.scrollTo(
-      index: position.number,
+      index: position.number - 1,
       alignment: position.alignment,
       duration: const .new(milliseconds: 300),
     );
@@ -48,7 +48,7 @@ class _AyahListState extends State<AyahList> {
 
         return BlocListener<AayaatCubit, AayaatState>(
           listener: (context, state) {
-            // _scrollTo(state.position);
+            _scrollTo((state as AayaatStateSuccess).position);
           },
           child: ScrollablePositionedList.separated(
             padding: const .symmetric(horizontal: 20, vertical: 12),

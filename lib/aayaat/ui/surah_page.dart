@@ -7,6 +7,7 @@ import 'package:tafsir/aayaat/ui/ayah_list.dart';
 import 'package:tafsir/aayaat/ui/surah_header.dart';
 import 'package:tafsir/aayaat/ui/surah_info_card.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
+import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/init/ui/progress_widget.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
 import 'package:tafsir/main/db/main_db.dart';
@@ -14,7 +15,7 @@ import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/settings/cubit/settings_cubit.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
-class SurahPage extends StatelessWidget {
+class SurahPage extends StatefulWidget {
   const SurahPage._(
     this._mainCubit,
     this._surahNumber,
@@ -42,6 +43,19 @@ class SurahPage extends StatelessWidget {
   );
 
   @override
+  State<SurahPage> createState() => _SurahPageState();
+}
+
+class _SurahPageState extends State<SurahPage> {
+  final _aayahController = TextEditingController();
+
+  @override
+  void dispose() {
+    _aayahController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -61,9 +75,9 @@ class SurahPage extends StatelessWidget {
                 create: (context) => AayaatCubit(
                   context.read(),
                   context.read(),
-                  _mainCubit,
-                  _surahNumber,
-                  _ayahPosition,
+                  widget._mainCubit,
+                  widget._surahNumber,
+                  widget._ayahPosition,
                 )..init(),
               ),
             ],
@@ -91,14 +105,14 @@ class SurahPage extends StatelessWidget {
     return Column(
       children: [
         SurahHeader(
-          number: _surahNumber,
+          number: widget._surahNumber,
           name: state.surah.name,
           translation: state.surah.translation,
           onInfo: () => _showInfo(context, state.surah.info),
           onSuwar: () {},
           onTheme: () {},
           onSettings: () {},
-          onGoToAyah: () {},
+          onGoToAyah: () => _goToAayah(context),
         ),
         Expanded(child: AyahList(state: state)),
       ],
@@ -114,6 +128,75 @@ class SurahPage extends StatelessWidget {
       builder: (context) => SurahInfoCard(
         info: info,
         theme: context.read<ThemeCubit>().state.theme,
+      ),
+    );
+  }
+
+  void _goToAayah(BuildContext context) {
+    final theme = context.read<ThemeCubit>().state.theme;
+
+    showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: .only(
+            right: 20,
+            left: 20,
+            bottom: MediaQuery.of(ctx).viewInsets.bottom + 20,
+          ),
+          child: Column(
+            mainAxisSize: .min,
+            spacing: 12,
+            children: [
+              TextField(
+                autofocus: true,
+                controller: _aayahController,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: .circular(9999),
+                    borderSide: .new(color: borderPrimary(theme)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: .circular(9999),
+                    borderSide: .new(color: borderPrimary(theme)),
+                  ),
+                  contentPadding: const .symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  filled: true,
+                  fillColor: bgSecondary(theme),
+                  hintText: '№ аята',
+                  hintStyle: textBodyReg.copyWith(
+                    color: typographyTertirary(theme),
+                  ),
+                  alignLabelWithHint: true,
+                ),
+                keyboardType: .number,
+                textAlign: .center,
+              ),
+              FilledButton(
+                style: .new(
+                  backgroundColor: .all(bgSecondary(theme)),
+                  foregroundColor: .all(typographyPrimary(theme)),
+                ),
+                onPressed: () {
+                  final aayah = int.tryParse(_aayahController.text);
+
+                  if (aayah == null) return;
+
+                  context.read<AayaatCubit>().scrollTo(.new(.new(aayah), 0));
+
+                  Navigator.pop(context);
+                },
+                child: const Text('ПЕРЕЙТИ'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
