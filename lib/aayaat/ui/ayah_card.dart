@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/domain/aayah.dart';
-import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/aayaat/ui/html_styles.dart';
+import 'package:tafsir/app.dart';
+import 'package:tafsir/common/domain/html_to_text.dart';
+import 'package:tafsir/common/ui/app_theme.dart';
+import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/settings/cubit/settings_cubit.dart';
 
 class AyahCard extends StatefulWidget {
@@ -14,19 +18,16 @@ class AyahCard extends StatefulWidget {
 
     required this.theme,
     required this.ayah,
-    required this.isBookmarked,
+    required this.surah,
 
-    required this.onShare,
-    required this.onPlay,
+    required this.isBookmarked,
   });
 
   final AppTheme theme;
+  final Surah surah;
   final Aayah ayah;
 
   final bool isBookmarked;
-
-  final void Function(String text) onShare;
-  final void Function(int number) onPlay;
 
   @override
   State<AyahCard> createState() => _AyahCardState();
@@ -167,7 +168,7 @@ class _AyahCardState extends State<AyahCard> {
               isBookmarked: widget.isBookmarked,
 
               onShare: _onShare,
-              onPlay: () => widget.onPlay(widget.ayah.number),
+              onPlay: () {},
               onBookmark: () => context.read<AayaatCubit>().toggleBookmark(
                 widget.ayah.number,
               ),
@@ -178,7 +179,25 @@ class _AyahCardState extends State<AyahCard> {
   }
 
   void _onShare() {
-    widget.onShare('123');
+    _toggleMenu();
+
+    final settings = context.read<SettingsCubit>().state;
+
+    final text = StringBuffer('${widget.surah.name}:${widget.ayah.number}');
+
+    if (settings.showAyah) {
+      text.write('\n\n${widget.ayah.arabic}');
+    }
+
+    if (settings.showTranslation) {
+      text.write('\n\n${widget.ayah.translation}');
+    }
+
+    if (settings.showTafsir) {
+      text.write('\n\n${htmlToPlainText(widget.ayah.tafsir)}');
+    }
+
+    SharePlus.instance.share(.new(title: appTitle, text: text.toString()));
   }
 }
 

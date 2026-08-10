@@ -11,6 +11,8 @@ import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/main/ui/main_widget.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
+const appTitle = 'Тафсир Azan.ru';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -24,11 +26,12 @@ class App extends StatelessWidget {
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, themeState) {
             return MaterialApp(
-              title: 'Тафсир',
+              title: appTitle,
               theme: .new(
                 progressIndicatorTheme: .new(
                   color: brandPrimary(themeState.theme),
                 ),
+                scaffoldBackgroundColor: bgPrimary(themeState.theme),
               ),
               home: MultiRepositoryProvider(
                 providers: [

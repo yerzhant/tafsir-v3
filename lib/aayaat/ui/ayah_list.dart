@@ -57,11 +57,10 @@ class _AyahListState extends State<AyahList> {
             itemCount: widget.state.aayaat.length,
             itemBuilder: (context, index) => AyahCard(
               theme: theme,
+              surah: widget.state.surah,
               ayah: widget.state.aayaat[index],
               key: .new(index.toString()),
               isBookmarked: widget.state.bookmarks.contains(index + 1),
-              onShare: (text) {},
-              onPlay: (number) {},
             ),
             separatorBuilder: (context, index) => const SizedBox(height: 8),
             itemScrollController: _controller,

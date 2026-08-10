@@ -6,6 +6,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:tafsir/about_us/ui/about_button.dart';
 import 'package:tafsir/about_us/ui/do_not_forget_us_widget.dart';
 import 'package:tafsir/about_us/ui/socials_widget.dart';
+import 'package:tafsir/app.dart';
 import 'package:tafsir/common/ui/app_container.dart';
 import 'package:tafsir/common/ui/info_page_header.dart';
 import 'package:tafsir/common/ui/masjid.dart';
@@ -60,7 +61,7 @@ class AboutPage extends StatelessWidget {
                                   icon: 'share',
                                   onTap: () => SharePlus.instance.share(
                                     .new(
-                                      title: 'Тафсир Корана',
+                                      title: appTitle,
                                       uri: .parse(appLink),
                                     ),
                                   ),
