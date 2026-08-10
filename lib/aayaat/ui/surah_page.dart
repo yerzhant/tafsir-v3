@@ -12,7 +12,7 @@ import 'package:tafsir/init/ui/progress_widget.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
 import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/main/domain/surah.dart';
-import 'package:tafsir/settings/cubit/settings_cubit.dart';
+import 'package:tafsir/settings/ui/settings_page.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 import 'package:tafsir/theme/ui/theme_settings.dart';
 
@@ -69,30 +69,25 @@ class _SurahPageState extends State<SurahPage> {
               create: (context) => AayaatDb(context.read()),
             ),
           ],
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (context) => SettingsCubit()),
-              BlocProvider(
-                create: (context) => AayaatCubit(
-                  context.read(),
-                  context.read(),
-                  widget._mainCubit,
-                  widget._surahNumber,
-                  widget._ayahPosition,
-                )..init(),
-              ),
-            ],
+          child: BlocProvider(
+            create: (context) => AayaatCubit(
+              context.read(),
+              context.read(),
+              widget._mainCubit,
+              widget._surahNumber,
+              widget._ayahPosition,
+            )..init(),
             child: BlocBuilder<AayaatCubit, AayaatState>(
               builder: (context, state) {
                 return switch (state) {
                   AayaatStateInProgress() => const ProgressWidget(),
 
+                  AayaatStateSuccess() => _success(context, state),
+
                   AayaatStateFailure(:final error) => AppErrorWidget(
                     error: error,
                     onPressed: context.read<AayaatCubit>().init,
                   ),
-
-                  AayaatStateSuccess() => _success(context, state),
                 };
               },
             ),
@@ -106,14 +101,15 @@ class _SurahPageState extends State<SurahPage> {
     return Column(
       children: [
         SurahHeader(
-          number: widget._surahNumber,
           name: state.surah.name,
+          number: widget._surahNumber,
           translation: state.surah.translation,
-          onInfo: () => _showInfo(context, state.surah.info),
+
           onSuwar: () {},
           onTheme: () => _showTheme(context),
-          onSettings: () {},
           onGoToAyah: () => _goToAayah(context),
+          onSettings: () => SettingsPage.open(context),
+          onInfo: () => _showInfo(context, state.surah.info),
         ),
         Expanded(child: AyahList(state: state)),
       ],

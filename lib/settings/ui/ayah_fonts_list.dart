@@ -4,38 +4,42 @@ import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/setting_panel.dart';
 import 'package:tafsir/settings/cubit/settings_cubit.dart';
 import 'package:tafsir/settings/domain/ayah_font_type.dart';
+import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class AyahFontsList extends StatelessWidget {
-  const AyahFontsList({
-    super.key,
-    required this.theme,
-    required this.onSelected,
-  });
-
-  final AppTheme theme;
-  final Function(AyahFontType type) onSelected;
+  const AyahFontsList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, SettingsState>(
-      builder: (context, state) {
-        return RadioGroup<AyahFontType>(
-          groupValue: state.ayayFonType,
-          onChanged: (value) => onSelected(value!),
+    final theme = context.read<ThemeCubit>().state.theme;
 
-          child: ListView.separated(
-            itemBuilder: (context, index) => _Font(
-              theme: theme,
-              onSelected: onSelected,
-              type: AyahFontType.values[index],
+    return SafeArea(
+      child: BlocBuilder<SettingsCubit, SettingsState>(
+        builder: (context, state) {
+          return RadioGroup<AyahFontType>(
+            groupValue: state.ayayFonType,
+            onChanged: (value) => _onSelected(value!, context),
+
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemCount: AyahFontType.values.length,
+              itemBuilder: (context, index) => _Font(
+                theme: theme,
+                type: AyahFontType.values[index],
+                onSelected: (type) => _onSelected(type, context),
+              ),
+              padding: const .only(right: 20, left: 20, bottom: 18),
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
             ),
-            itemCount: AyahFontType.values.length,
-            padding: const .symmetric(horizontal: 20, vertical: 18),
-            separatorBuilder: (context, index) => const SizedBox(height: 8),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
+  }
+
+  void _onSelected(AyahFontType type, BuildContext context) {
+    context.read<SettingsCubit>().setAyahFontType(type);
+    Navigator.pop(context);
   }
 }
 

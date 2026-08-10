@@ -4,20 +4,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/setting_panel.dart';
 import 'package:tafsir/settings/cubit/settings_cubit.dart';
+import 'package:tafsir/settings/ui/ayah_fonts_list.dart';
+import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class SettingsWidget extends StatelessWidget {
-  const SettingsWidget({
-    super.key,
-    required this.theme,
-    required this.onFontTap,
-  });
-
-  final AppTheme theme;
-  final VoidCallback onFontTap;
+  const SettingsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    final theme = context.read<ThemeCubit>().state.theme;
+
+    return SingleChildScrollView(
       padding: const .symmetric(horizontal: 20, vertical: 12),
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
@@ -37,9 +34,9 @@ class SettingsWidget extends StatelessWidget {
                   SettingPanel(
                     theme: theme,
                     child: Padding(
-                      padding: const .all(16),
+                      padding: const .all(4),
                       child: Column(
-                        spacing: 16,
+                        spacing: 8,
                         children: [
                           _Checkbox(
                             theme: theme,
@@ -93,7 +90,7 @@ class SettingsWidget extends StatelessWidget {
                     padding: 16,
                     theme: theme,
                     child: Column(
-                      spacing: 16,
+                      spacing: 12,
                       children: [
                         _Slider(
                           theme: theme,
@@ -117,7 +114,7 @@ class SettingsWidget extends StatelessWidget {
                 ],
               ),
               GestureDetector(
-                onTap: onFontTap,
+                onTap: () => _showFonts(context),
                 child: SettingPanel(
                   theme: theme,
                   child: Row(
@@ -156,6 +153,16 @@ class SettingsWidget extends StatelessWidget {
       ),
     );
   }
+
+  void _showFonts(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (context) => const AyahFontsList(),
+    );
+  }
 }
 
 class _Slider extends StatelessWidget {
@@ -189,6 +196,8 @@ class _Slider extends StatelessWidget {
                 max: 30,
                 value: value,
                 onChanged: onChanged,
+                activeColor: borderPrimary(theme),
+                inactiveColor: borderPrimary(theme),
                 thumbColor: typographyPrimary(theme),
               ),
             ),
@@ -227,8 +236,10 @@ class _Checkbox extends StatelessWidget {
       children: [
         Checkbox.adaptive(
           value: value,
+          materialTapTargetSize: .shrinkWrap,
           activeColor: alertSuccess200(theme),
           onChanged: (value) => onChanged(value!),
+          visualDensity: const .new(horizontal: -4, vertical: -4),
         ),
         Text(
           title,

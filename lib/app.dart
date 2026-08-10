@@ -9,6 +9,7 @@ import 'package:tafsir/init/db/init_db.dart';
 import 'package:tafsir/init/ui/progress_widget.dart';
 import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/main/ui/main_widget.dart';
+import 'package:tafsir/settings/cubit/settings_cubit.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 const appTitle = 'Тафсир Azan.ru';
@@ -21,8 +22,11 @@ class App extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => DbService(),
       dispose: (db) async => await db.close(),
-      child: BlocProvider(
-        create: (context) => ThemeCubit(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => ThemeCubit()),
+          BlocProvider(create: (context) => SettingsCubit()),
+        ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, themeState) {
             return MaterialApp(
@@ -33,6 +37,10 @@ class App extends StatelessWidget {
                 ),
                 bottomSheetTheme: .new(
                   backgroundColor: bgPrimary(themeState.theme),
+                ),
+                sliderTheme: .new(
+                  overlayShape: .noOverlay,
+                  trackShape: const RectangularSliderTrackShape(),
                 ),
                 scaffoldBackgroundColor: bgPrimary(themeState.theme),
               ),
