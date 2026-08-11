@@ -107,7 +107,7 @@ class SettingsWidget extends StatelessWidget {
                           max: 24,
                           theme: theme,
                           title: 'Текст перевода',
-                          value: state.tranlationFontSize,
+                          value: state.translationFontSize,
                           onChanged: context
                               .read<SettingsCubit>()
                               .setTranslationFontSize,
@@ -144,7 +144,7 @@ class SettingsWidget extends StatelessWidget {
                       Expanded(
                         child: Text(
                           overflow: .ellipsis,
-                          state.ayayFonType.name,
+                          state.ayahFontType.fontFamily,
                           style: textBodyMedium.copyWith(
                             color: typographyTertirary(theme),
                           ),

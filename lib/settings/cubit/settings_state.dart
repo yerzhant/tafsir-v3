@@ -10,8 +10,10 @@ abstract class SettingsState with _$SettingsState {
 
     double ayahFontSize,
     double tafsirFontSize,
-    double tranlationFontSize,
+    double translationFontSize,
 
-    AyahFontType ayayFonType,
+    AyahFontType ayahFontType,
+
+    AppError? error,
   ) = _Current;
 }

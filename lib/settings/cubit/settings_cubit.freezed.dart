@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SettingsState {
 
- bool get showAyah; bool get showTafsir; bool get showTranslation; bool get showFootnotes; double get ayahFontSize; double get tafsirFontSize; double get tranlationFontSize; AyahFontType get ayayFonType;
+ bool get showAyah; bool get showTafsir; bool get showTranslation; bool get showFootnotes; double get ayahFontSize; double get tafsirFontSize; double get translationFontSize; AyahFontType get ayahFontType; AppError? get error;
 /// Create a copy of SettingsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SettingsStateCopyWith<SettingsState> get copyWith => _$SettingsStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsState&&(identical(other.showAyah, showAyah) || other.showAyah == showAyah)&&(identical(other.showTafsir, showTafsir) || other.showTafsir == showTafsir)&&(identical(other.showTranslation, showTranslation) || other.showTranslation == showTranslation)&&(identical(other.showFootnotes, showFootnotes) || other.showFootnotes == showFootnotes)&&(identical(other.ayahFontSize, ayahFontSize) || other.ayahFontSize == ayahFontSize)&&(identical(other.tafsirFontSize, tafsirFontSize) || other.tafsirFontSize == tafsirFontSize)&&(identical(other.tranlationFontSize, tranlationFontSize) || other.tranlationFontSize == tranlationFontSize)&&(identical(other.ayayFonType, ayayFonType) || other.ayayFonType == ayayFonType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsState&&(identical(other.showAyah, showAyah) || other.showAyah == showAyah)&&(identical(other.showTafsir, showTafsir) || other.showTafsir == showTafsir)&&(identical(other.showTranslation, showTranslation) || other.showTranslation == showTranslation)&&(identical(other.showFootnotes, showFootnotes) || other.showFootnotes == showFootnotes)&&(identical(other.ayahFontSize, ayahFontSize) || other.ayahFontSize == ayahFontSize)&&(identical(other.tafsirFontSize, tafsirFontSize) || other.tafsirFontSize == tafsirFontSize)&&(identical(other.translationFontSize, translationFontSize) || other.translationFontSize == translationFontSize)&&(identical(other.ayahFontType, ayahFontType) || other.ayahFontType == ayahFontType)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,showAyah,showTafsir,showTranslation,showFootnotes,ayahFontSize,tafsirFontSize,tranlationFontSize,ayayFonType);
+int get hashCode => Object.hash(runtimeType,showAyah,showTafsir,showTranslation,showFootnotes,ayahFontSize,tafsirFontSize,translationFontSize,ayahFontType,error);
 
 @override
 String toString() {
-  return 'SettingsState(showAyah: $showAyah, showTafsir: $showTafsir, showTranslation: $showTranslation, showFootnotes: $showFootnotes, ayahFontSize: $ayahFontSize, tafsirFontSize: $tafsirFontSize, tranlationFontSize: $tranlationFontSize, ayayFonType: $ayayFonType)';
+  return 'SettingsState(showAyah: $showAyah, showTafsir: $showTafsir, showTranslation: $showTranslation, showFootnotes: $showFootnotes, ayahFontSize: $ayahFontSize, tafsirFontSize: $tafsirFontSize, translationFontSize: $translationFontSize, ayahFontType: $ayahFontType, error: $error)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $SettingsStateCopyWith<$Res>  {
   factory $SettingsStateCopyWith(SettingsState value, $Res Function(SettingsState) _then) = _$SettingsStateCopyWithImpl;
 @useResult
 $Res call({
- bool showAyah, bool showTafsir, bool showTranslation, bool showFootnotes, double ayahFontSize, double tafsirFontSize, double tranlationFontSize, AyahFontType ayayFonType
+ bool showAyah, bool showTafsir, bool showTranslation, bool showFootnotes, double ayahFontSize, double tafsirFontSize, double translationFontSize, AyahFontType ayahFontType, AppError? error
 });
 
 
-
+$AppErrorCopyWith<$Res>? get error;
 
 }
 /// @nodoc
@@ -62,7 +62,7 @@ class _$SettingsStateCopyWithImpl<$Res>
 
 /// Create a copy of SettingsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? showAyah = null,Object? showTafsir = null,Object? showTranslation = null,Object? showFootnotes = null,Object? ayahFontSize = null,Object? tafsirFontSize = null,Object? tranlationFontSize = null,Object? ayayFonType = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? showAyah = null,Object? showTafsir = null,Object? showTranslation = null,Object? showFootnotes = null,Object? ayahFontSize = null,Object? tafsirFontSize = null,Object? translationFontSize = null,Object? ayahFontType = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 showAyah: null == showAyah ? _self.showAyah : showAyah // ignore: cast_nullable_to_non_nullable
 as bool,showTafsir: null == showTafsir ? _self.showTafsir : showTafsir // ignore: cast_nullable_to_non_nullable
@@ -70,12 +70,25 @@ as bool,showTranslation: null == showTranslation ? _self.showTranslation : showT
 as bool,showFootnotes: null == showFootnotes ? _self.showFootnotes : showFootnotes // ignore: cast_nullable_to_non_nullable
 as bool,ayahFontSize: null == ayahFontSize ? _self.ayahFontSize : ayahFontSize // ignore: cast_nullable_to_non_nullable
 as double,tafsirFontSize: null == tafsirFontSize ? _self.tafsirFontSize : tafsirFontSize // ignore: cast_nullable_to_non_nullable
-as double,tranlationFontSize: null == tranlationFontSize ? _self.tranlationFontSize : tranlationFontSize // ignore: cast_nullable_to_non_nullable
-as double,ayayFonType: null == ayayFonType ? _self.ayayFonType : ayayFonType // ignore: cast_nullable_to_non_nullable
-as AyahFontType,
+as double,translationFontSize: null == translationFontSize ? _self.translationFontSize : translationFontSize // ignore: cast_nullable_to_non_nullable
+as double,ayahFontType: null == ayahFontType ? _self.ayahFontType : ayahFontType // ignore: cast_nullable_to_non_nullable
+as AyahFontType,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as AppError?,
   ));
 }
+/// Create a copy of SettingsState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AppErrorCopyWith<$Res>? get error {
+    if (_self.error == null) {
+    return null;
+  }
 
+  return $AppErrorCopyWith<$Res>(_self.error!, (value) {
+    return _then(_self.copyWith(error: value));
+  });
+}
 }
 
 
@@ -157,10 +170,10 @@ return current(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( bool showAyah,  bool showTafsir,  bool showTranslation,  bool showFootnotes,  double ayahFontSize,  double tafsirFontSize,  double tranlationFontSize,  AyahFontType ayayFonType)?  current,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( bool showAyah,  bool showTafsir,  bool showTranslation,  bool showFootnotes,  double ayahFontSize,  double tafsirFontSize,  double translationFontSize,  AyahFontType ayahFontType,  AppError? error)?  current,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Current() when current != null:
-return current(_that.showAyah,_that.showTafsir,_that.showTranslation,_that.showFootnotes,_that.ayahFontSize,_that.tafsirFontSize,_that.tranlationFontSize,_that.ayayFonType);case _:
+return current(_that.showAyah,_that.showTafsir,_that.showTranslation,_that.showFootnotes,_that.ayahFontSize,_that.tafsirFontSize,_that.translationFontSize,_that.ayahFontType,_that.error);case _:
   return orElse();
 
 }
@@ -178,10 +191,10 @@ return current(_that.showAyah,_that.showTafsir,_that.showTranslation,_that.showF
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( bool showAyah,  bool showTafsir,  bool showTranslation,  bool showFootnotes,  double ayahFontSize,  double tafsirFontSize,  double tranlationFontSize,  AyahFontType ayayFonType)  current,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( bool showAyah,  bool showTafsir,  bool showTranslation,  bool showFootnotes,  double ayahFontSize,  double tafsirFontSize,  double translationFontSize,  AyahFontType ayahFontType,  AppError? error)  current,}) {final _that = this;
 switch (_that) {
 case _Current():
-return current(_that.showAyah,_that.showTafsir,_that.showTranslation,_that.showFootnotes,_that.ayahFontSize,_that.tafsirFontSize,_that.tranlationFontSize,_that.ayayFonType);case _:
+return current(_that.showAyah,_that.showTafsir,_that.showTranslation,_that.showFootnotes,_that.ayahFontSize,_that.tafsirFontSize,_that.translationFontSize,_that.ayahFontType,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +211,10 @@ return current(_that.showAyah,_that.showTafsir,_that.showTranslation,_that.showF
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( bool showAyah,  bool showTafsir,  bool showTranslation,  bool showFootnotes,  double ayahFontSize,  double tafsirFontSize,  double tranlationFontSize,  AyahFontType ayayFonType)?  current,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( bool showAyah,  bool showTafsir,  bool showTranslation,  bool showFootnotes,  double ayahFontSize,  double tafsirFontSize,  double translationFontSize,  AyahFontType ayahFontType,  AppError? error)?  current,}) {final _that = this;
 switch (_that) {
 case _Current() when current != null:
-return current(_that.showAyah,_that.showTafsir,_that.showTranslation,_that.showFootnotes,_that.ayahFontSize,_that.tafsirFontSize,_that.tranlationFontSize,_that.ayayFonType);case _:
+return current(_that.showAyah,_that.showTafsir,_that.showTranslation,_that.showFootnotes,_that.ayahFontSize,_that.tafsirFontSize,_that.translationFontSize,_that.ayahFontType,_that.error);case _:
   return null;
 
 }
@@ -213,7 +226,7 @@ return current(_that.showAyah,_that.showTafsir,_that.showTranslation,_that.showF
 
 
 class _Current implements SettingsState {
-  const _Current(this.showAyah, this.showTafsir, this.showTranslation, this.showFootnotes, this.ayahFontSize, this.tafsirFontSize, this.tranlationFontSize, this.ayayFonType);
+  const _Current(this.showAyah, this.showTafsir, this.showTranslation, this.showFootnotes, this.ayahFontSize, this.tafsirFontSize, this.translationFontSize, this.ayahFontType, this.error);
   
 
 @override final  bool showAyah;
@@ -222,8 +235,9 @@ class _Current implements SettingsState {
 @override final  bool showFootnotes;
 @override final  double ayahFontSize;
 @override final  double tafsirFontSize;
-@override final  double tranlationFontSize;
-@override final  AyahFontType ayayFonType;
+@override final  double translationFontSize;
+@override final  AyahFontType ayahFontType;
+@override final  AppError? error;
 
 /// Create a copy of SettingsState
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +249,16 @@ _$CurrentCopyWith<_Current> get copyWith => __$CurrentCopyWithImpl<_Current>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Current&&(identical(other.showAyah, showAyah) || other.showAyah == showAyah)&&(identical(other.showTafsir, showTafsir) || other.showTafsir == showTafsir)&&(identical(other.showTranslation, showTranslation) || other.showTranslation == showTranslation)&&(identical(other.showFootnotes, showFootnotes) || other.showFootnotes == showFootnotes)&&(identical(other.ayahFontSize, ayahFontSize) || other.ayahFontSize == ayahFontSize)&&(identical(other.tafsirFontSize, tafsirFontSize) || other.tafsirFontSize == tafsirFontSize)&&(identical(other.tranlationFontSize, tranlationFontSize) || other.tranlationFontSize == tranlationFontSize)&&(identical(other.ayayFonType, ayayFonType) || other.ayayFonType == ayayFonType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Current&&(identical(other.showAyah, showAyah) || other.showAyah == showAyah)&&(identical(other.showTafsir, showTafsir) || other.showTafsir == showTafsir)&&(identical(other.showTranslation, showTranslation) || other.showTranslation == showTranslation)&&(identical(other.showFootnotes, showFootnotes) || other.showFootnotes == showFootnotes)&&(identical(other.ayahFontSize, ayahFontSize) || other.ayahFontSize == ayahFontSize)&&(identical(other.tafsirFontSize, tafsirFontSize) || other.tafsirFontSize == tafsirFontSize)&&(identical(other.translationFontSize, translationFontSize) || other.translationFontSize == translationFontSize)&&(identical(other.ayahFontType, ayahFontType) || other.ayahFontType == ayahFontType)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,showAyah,showTafsir,showTranslation,showFootnotes,ayahFontSize,tafsirFontSize,tranlationFontSize,ayayFonType);
+int get hashCode => Object.hash(runtimeType,showAyah,showTafsir,showTranslation,showFootnotes,ayahFontSize,tafsirFontSize,translationFontSize,ayahFontType,error);
 
 @override
 String toString() {
-  return 'SettingsState.current(showAyah: $showAyah, showTafsir: $showTafsir, showTranslation: $showTranslation, showFootnotes: $showFootnotes, ayahFontSize: $ayahFontSize, tafsirFontSize: $tafsirFontSize, tranlationFontSize: $tranlationFontSize, ayayFonType: $ayayFonType)';
+  return 'SettingsState.current(showAyah: $showAyah, showTafsir: $showTafsir, showTranslation: $showTranslation, showFootnotes: $showFootnotes, ayahFontSize: $ayahFontSize, tafsirFontSize: $tafsirFontSize, translationFontSize: $translationFontSize, ayahFontType: $ayahFontType, error: $error)';
 }
 
 
@@ -255,11 +269,11 @@ abstract mixin class _$CurrentCopyWith<$Res> implements $SettingsStateCopyWith<$
   factory _$CurrentCopyWith(_Current value, $Res Function(_Current) _then) = __$CurrentCopyWithImpl;
 @override @useResult
 $Res call({
- bool showAyah, bool showTafsir, bool showTranslation, bool showFootnotes, double ayahFontSize, double tafsirFontSize, double tranlationFontSize, AyahFontType ayayFonType
+ bool showAyah, bool showTafsir, bool showTranslation, bool showFootnotes, double ayahFontSize, double tafsirFontSize, double translationFontSize, AyahFontType ayahFontType, AppError? error
 });
 
 
-
+@override $AppErrorCopyWith<$Res>? get error;
 
 }
 /// @nodoc
@@ -272,7 +286,7 @@ class __$CurrentCopyWithImpl<$Res>
 
 /// Create a copy of SettingsState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? showAyah = null,Object? showTafsir = null,Object? showTranslation = null,Object? showFootnotes = null,Object? ayahFontSize = null,Object? tafsirFontSize = null,Object? tranlationFontSize = null,Object? ayayFonType = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? showAyah = null,Object? showTafsir = null,Object? showTranslation = null,Object? showFootnotes = null,Object? ayahFontSize = null,Object? tafsirFontSize = null,Object? translationFontSize = null,Object? ayahFontType = null,Object? error = freezed,}) {
   return _then(_Current(
 null == showAyah ? _self.showAyah : showAyah // ignore: cast_nullable_to_non_nullable
 as bool,null == showTafsir ? _self.showTafsir : showTafsir // ignore: cast_nullable_to_non_nullable
@@ -280,13 +294,26 @@ as bool,null == showTranslation ? _self.showTranslation : showTranslation // ign
 as bool,null == showFootnotes ? _self.showFootnotes : showFootnotes // ignore: cast_nullable_to_non_nullable
 as bool,null == ayahFontSize ? _self.ayahFontSize : ayahFontSize // ignore: cast_nullable_to_non_nullable
 as double,null == tafsirFontSize ? _self.tafsirFontSize : tafsirFontSize // ignore: cast_nullable_to_non_nullable
-as double,null == tranlationFontSize ? _self.tranlationFontSize : tranlationFontSize // ignore: cast_nullable_to_non_nullable
-as double,null == ayayFonType ? _self.ayayFonType : ayayFonType // ignore: cast_nullable_to_non_nullable
-as AyahFontType,
+as double,null == translationFontSize ? _self.translationFontSize : translationFontSize // ignore: cast_nullable_to_non_nullable
+as double,null == ayahFontType ? _self.ayahFontType : ayahFontType // ignore: cast_nullable_to_non_nullable
+as AyahFontType,freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as AppError?,
   ));
 }
 
+/// Create a copy of SettingsState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AppErrorCopyWith<$Res>? get error {
+    if (_self.error == null) {
+    return null;
+  }
 
+  return $AppErrorCopyWith<$Res>(_self.error!, (value) {
+    return _then(_self.copyWith(error: value));
+  });
+}
 }
 
 // dart format on

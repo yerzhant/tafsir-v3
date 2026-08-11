@@ -1,32 +1,13 @@
 enum AyahFontType {
-  uthmanTaha(
-    'KFGQPC Uthman Taha Naskh',
-    'KFGQPC-Uthman-Taha-Naskh-Regular',
-  ),
-  meQurah(
-    'Me Quran',
-    'me-Quran',
-  ),
-  noorehira(
-    'Noorehira',
-    'noorehira-Regular',
-  ),
-  saleem(
-    'PDMS Saleem',
-    'PDMS-Saleem-QuranFont-Regular',
-  ),
-  scheherazade(
-    'Scheherazade',
-    'Scheherazade-Regular',
-  ),
-  hamdullah(
-    'Shaikh Hamdullah',
-    'Shaikh-Hamdullah-Mushaf',
-  ),
+  uthmanTaha('KFGQPC Uthman Taha Naskh'),
+  meQurah('Me Quran'),
+  noorehira('Noorehira'),
+  saleem('PDMS Saleem'),
+  scheherazade('Scheherazade'),
+  hamdullah('Shaikh Hamdullah'),
   ;
 
-  final String name;
-  final String file;
+  final String fontFamily;
 
-  const AyahFontType(this.name, this.file);
+  const AyahFontType(this.fontFamily);
 }

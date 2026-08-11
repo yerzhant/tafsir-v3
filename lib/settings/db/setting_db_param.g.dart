@@ -25,6 +25,6 @@ const _$SettingDbParamKeyEnumMap = {
   SettingDbParamKey.showFootnotes: 'showFootnotes',
   SettingDbParamKey.ayahFontSize: 'ayahFontSize',
   SettingDbParamKey.tafsirFontSize: 'tafsirFontSize',
-  SettingDbParamKey.tranlationFontSize: 'tranlationFontSize',
-  SettingDbParamKey.ayayFonType: 'ayayFonType',
+  SettingDbParamKey.translationFontSize: 'translationFontSize',
+  SettingDbParamKey.ayahFontType: 'ayahFontType',
 };

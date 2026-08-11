@@ -17,7 +17,7 @@ class AyahFontsList extends StatelessWidget {
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
           return RadioGroup<AyahFontType>(
-            groupValue: state.ayayFonType,
+            groupValue: state.ayahFontType,
             onChanged: (value) => _onSelected(value!, context),
 
             child: ListView.separated(
@@ -79,12 +79,12 @@ class _Font extends StatelessWidget {
                   'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
                   style: textBodyLarge.copyWith(
                     fontSize: fontSize,
-                    fontFamily: type.name,
+                    fontFamily: type.fontFamily,
                     color: typographyPrimary(theme),
                   ),
                 ),
                 Text(
-                  type.name,
+                  type.fontFamily,
                   style: textBodyReg.copyWith(
                     color: typographySecondary(theme),
                   ),

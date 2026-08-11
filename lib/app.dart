@@ -33,7 +33,7 @@ class App extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => ThemeCubit(context.read())),
-          BlocProvider(create: (context) => SettingsCubit()),
+          BlocProvider(create: (context) => SettingsCubit(context.read())),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, themeState) {
@@ -72,6 +72,7 @@ class App extends StatelessWidget {
                     context.read(),
                     context.read(),
                     context.read(),
+                    context.read(),
                   )..init(),
                   child: Scaffold(
                     body: BlocBuilder<ThemeCubit, ThemeState>(
@@ -82,23 +83,36 @@ class App extends StatelessWidget {
                             onPressed: context.read<InitCubit>().init,
                           );
                         }
-                        return BlocBuilder<InitCubit, InitState>(
+
+                        return BlocBuilder<SettingsCubit, SettingsState>(
                           builder: (context, state) {
-                            return switch (state) {
-                              InitStateInitializing(:final progress) =>
-                                ProgressWidget(
-                                  value: progress,
-                                ),
-
-                              InitStateInitialized() => MainWidget(
-                                theme: themeState.theme,
-                              ),
-
-                              InitStateFailure(:final error) => AppErrorWidget(
-                                error: error,
+                            if (state.error != null) {
+                              return AppErrorWidget(
+                                error: state.error!,
                                 onPressed: context.read<InitCubit>().init,
-                              ),
-                            };
+                              );
+                            }
+
+                            return BlocBuilder<InitCubit, InitState>(
+                              builder: (context, state) {
+                                return switch (state) {
+                                  InitStateInitializing(:final progress) =>
+                                    ProgressWidget(
+                                      value: progress,
+                                    ),
+
+                                  InitStateInitialized() => MainWidget(
+                                    theme: themeState.theme,
+                                  ),
+
+                                  InitStateFailure(:final error) =>
+                                    AppErrorWidget(
+                                      error: error,
+                                      onPressed: context.read<InitCubit>().init,
+                                    ),
+                                };
+                              },
+                            );
                           },
                         );
                       },

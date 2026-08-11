@@ -52,12 +52,12 @@ class SettingsDb {
 
     await db.insert(
       _settings,
-      const SettingDbParam(.tranlationFontSize, '16').toJson(),
+      const SettingDbParam(.translationFontSize, '16').toJson(),
     );
 
     await db.insert(
       _settings,
-      SettingDbParam(.ayayFonType, AyahFontType.uthmanTaha.name).toJson(),
+      SettingDbParam(.ayahFontType, AyahFontType.uthmanTaha.name).toJson(),
     );
   }
 
@@ -97,10 +97,10 @@ class SettingsDb {
       .Do(($) => $(_setDouble(.tafsirFontSize, value)));
 
   TaskEither<AppError, double> getTranlationFontSize() =>
-      .Do(($) => $(_getDouble(.tranlationFontSize)));
+      .Do(($) => $(_getDouble(.translationFontSize)));
 
   TaskEither<AppError, void> setTranlationFontSize(double value) =>
-      .Do(($) => $(_setDouble(.tranlationFontSize, value)));
+      .Do(($) => $(_setDouble(.translationFontSize, value)));
 
   TaskEither<AppError, AyahFontType> getAyahFontType() =>
       _dbService.db.toTaskEither().flatMap(
@@ -108,7 +108,7 @@ class SettingsDb {
           final rows = await db.query(
             _settings,
             where: 'key = ?',
-            whereArgs: [SettingDbParamKey.ayayFonType.name],
+            whereArgs: [SettingDbParamKey.ayahFontType.name],
           );
 
           final param = SettingDbParam.fromJson(rows.first);
@@ -120,7 +120,7 @@ class SettingsDb {
   TaskEither<AppError, void> setAyahFontType(AyahFontType font) =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(() async {
-          final param = SettingDbParam(.ayayFonType, font.name);
+          final param = SettingDbParam(.ayahFontType, font.name);
 
           await db.update(
             _settings,

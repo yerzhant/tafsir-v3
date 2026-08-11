@@ -126,8 +126,9 @@ class _AyahCardState extends State<AyahCard> {
                                       textAlign: .right,
                                       style: textBodyReg.copyWith(
                                         fontSize: state.ayahFontSize,
-                                        fontFamily: state.ayayFonType.name,
                                         color: typographyPrimary(widget.theme),
+                                        fontFamily:
+                                            state.ayahFontType.fontFamily,
                                       ),
                                     ),
                                   ),
@@ -138,7 +139,7 @@ class _AyahCardState extends State<AyahCard> {
                               Text(
                                 widget.ayah.translation,
                                 style: textCallout.copyWith(
-                                  fontSize: state.tranlationFontSize,
+                                  fontSize: state.translationFontSize,
                                   color: typographyPrimary(widget.theme),
                                 ),
                               ),

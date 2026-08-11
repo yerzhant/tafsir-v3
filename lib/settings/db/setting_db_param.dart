@@ -22,7 +22,7 @@ enum SettingDbParamKey {
 
   ayahFontSize,
   tafsirFontSize,
-  tranlationFontSize,
+  translationFontSize,
 
-  ayayFonType,
+  ayahFontType,
 }
