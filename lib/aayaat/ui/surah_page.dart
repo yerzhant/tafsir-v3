@@ -197,7 +197,7 @@ class _SurahPageState extends State<SurahPage> {
 
                   Navigator.pop(context);
                 },
-                child: const Text('ПЕРЕЙТИ'),
+                child: const Text('Перейти'),
               ),
             ],
           ),

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
+import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 const _duration = Duration(milliseconds: 200);
 
 class AccordionItem extends StatefulWidget {
   const AccordionItem({
     super.key,
-    required this.theme,
+
     required this.title,
     required this.content,
   });
 
-  final AppTheme theme;
   final String title;
   final String content;
 
@@ -30,40 +31,14 @@ class _AccordionItemState extends State<AccordionItem>
 
   @override
   Widget build(BuildContext context) {
-    final titleColor = switch (widget.theme) {
-      .light => typographyPrimaryLight,
-      .dark => typographyPrimaryDark,
-      .brownLight => typographyPrimaryBrownLight,
-      .brownDark => typographyPrimaryBrownDark,
-    };
-
-    final contentColor = switch (widget.theme) {
-      .light => typographySecondaryLight,
-      .dark => typographySecondaryDark,
-      .brownLight => typographySecondaryBrownLight,
-      .brownDark => typographySecondaryBrownDark,
-    };
-
-    final bgColor = switch (widget.theme) {
-      .light => bgSecondaryLight,
-      .dark => bgSecondaryDark,
-      .brownLight => bgSecondaryBrownLight,
-      .brownDark => bgSecondaryBrownDark,
-    };
-
-    final borderColor = switch (widget.theme) {
-      .light => borderPrimaryLight,
-      .dark => borderPrimaryDark,
-      .brownLight => borderPrimaryBrownLight,
-      .brownDark => borderPrimaryBrownDark,
-    };
+    final theme = context.read<ThemeCubit>().state.theme;
 
     return Container(
       padding: const .all(16),
       decoration: BoxDecoration(
-        color: bgColor,
-        border: .all(color: borderColor),
         borderRadius: .circular(16),
+        border: .all(color: borderPrimary(theme)),
+        color: _expanded ? bgSecondary(theme) : null,
       ),
       child: Column(
         spacing: 4,
@@ -72,7 +47,7 @@ class _AccordionItemState extends State<AccordionItem>
             children: [
               Text(
                 widget.title,
-                style: textCallout.copyWith(color: titleColor),
+                style: textCallout.copyWith(color: typographyPrimary(theme)),
               ),
               const Spacer(),
               GestureDetector(
@@ -90,7 +65,7 @@ class _AccordionItemState extends State<AccordionItem>
             firstChild: Container(),
             secondChild: Text(
               widget.content,
-              style: textBodyReg.copyWith(color: contentColor),
+              style: textBodyReg.copyWith(color: typographySecondary(theme)),
             ),
             crossFadeState: _expanded ? .showSecond : .showFirst,
           ),

@@ -19,41 +19,38 @@ class HowToUsePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) {
-          return Masjid(
-            theme: state.theme,
-            child: SafeArea(
-              child: Column(
-                children: [
-                  InfoPageHeader(theme: state.theme, title: 'Как пользоваться'),
-                  Expanded(
-                    child: AppContainer(
-                      theme: state.theme,
-                      child: ListView.separated(
-                        padding: const .all(20),
-                        itemCount: howToList.length,
-                        itemBuilder: (context, index) {
-                          final item = howToList[index];
+    final theme = context.read<ThemeCubit>().state.theme;
 
-                          return AccordionItem(
-                            theme: state.theme,
-                            title: item.title,
-                            content: item.content,
-                          );
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(
-                          height: 8,
-                        ),
-                      ),
+    return Scaffold(
+      body: Masjid(
+        theme: theme,
+        child: SafeArea(
+          child: Column(
+            children: [
+              InfoPageHeader(theme: theme, title: 'Как пользоваться'),
+              Expanded(
+                child: AppContainer(
+                  theme: theme,
+                  child: ListView.separated(
+                    padding: const .all(20),
+                    itemCount: howToList.length,
+                    itemBuilder: (context, index) {
+                      final item = howToList[index];
+
+                      return AccordionItem(
+                        title: item.title,
+                        content: item.content,
+                      );
+                    },
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: 8,
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-          );
-        },
+            ],
+          ),
+        ),
       ),
     );
   }
