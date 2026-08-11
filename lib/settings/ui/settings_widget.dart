@@ -66,9 +66,9 @@ class SettingsWidget extends StatelessWidget {
                             theme: theme,
                             title: 'Сноски',
                             value: state.showFootnotes,
-                            onChanged: context
-                                .read<SettingsCubit>()
-                                .setShowFootnotes,
+                            onChanged: state.showTafsir
+                                ? context.read<SettingsCubit>().setShowFootnotes
+                                : null,
                           ),
                         ],
                       ),
@@ -176,7 +176,7 @@ class _Slider extends StatelessWidget {
   final AppTheme theme;
   final String title;
   final double value;
-  final Function(double value) onChanged;
+  final ValueChanged<double> onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -227,23 +227,33 @@ class _Checkbox extends StatelessWidget {
   final AppTheme theme;
   final String title;
   final bool value;
-  final Function(bool value) onChanged;
+  final ValueChanged<bool>? onChanged;
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.brightnessOf(context);
+
+    final inactiveColor = brightness == .dark
+        ? typographySecondary(theme)
+        : typographyTertirary(theme);
+
     return Row(
       spacing: 8,
       children: [
         Checkbox.adaptive(
           value: value,
           materialTapTargetSize: .shrinkWrap,
-          activeColor: alertSuccess200(theme),
-          onChanged: (value) => onChanged(value!),
+          activeColor: onChanged != null
+              ? alertSuccess200(theme)
+              : inactiveColor,
+          onChanged: (value) => onChanged?.call(value!),
           visualDensity: const .new(horizontal: -4, vertical: -4),
         ),
         Text(
           title,
-          style: textBodyReg.copyWith(color: typographyPrimary(theme)),
+          style: textBodyReg.copyWith(
+            color: onChanged != null ? typographyPrimary(theme) : inactiveColor,
+          ),
         ),
       ],
     );

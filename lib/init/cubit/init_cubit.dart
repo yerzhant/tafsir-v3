@@ -141,7 +141,7 @@ class InitCubit extends Cubit<InitState> {
         (e) => AayahRow(
           .new(int.parse(e[1])),
           .new(int.parse(e[0])),
-          .new(e[2]),
+          .new(e[2].trim()),
           .new(e[4]),
           .new(htmlToPlainText(e[3])),
         ),

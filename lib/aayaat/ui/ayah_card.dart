@@ -107,6 +107,7 @@ class _AyahCardState extends State<AyahCard> {
 
                     if (state.showAyah || state.showTranslation)
                       Container(
+                        width: .infinity,
                         padding: const .all(8),
                         decoration: BoxDecoration(
                           color: bgPrimary(widget.theme),
