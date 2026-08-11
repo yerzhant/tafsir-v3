@@ -27,7 +27,7 @@ class InitCubit extends Cubit<InitState> {
     this._aayaatDb,
     this._themeCubit,
     this._settingsCubit,
-  ) : super(const .initializing(0));
+  ) : super(const .initializing(-1));
 
   final DbService _dbService;
 
@@ -50,6 +50,8 @@ class InitCubit extends Cubit<InitState> {
 
   Future<void> init() => TaskEither<AppError, void>.Do(
     ($) async {
+      emit(const .initializing(-1));
+
       if (_dbClosed) {
         await $(_dbService.open());
         _dbClosed = false;
@@ -63,8 +65,6 @@ class InitCubit extends Cubit<InitState> {
         return;
       }
 
-      emit(const .initializing(0));
-
       await $(_aayaatDb.cleanUp());
       await $(_mainDb.cleanUp());
 
@@ -72,6 +72,8 @@ class InitCubit extends Cubit<InitState> {
 
       _total =
           _muqaddimat.length + _suwar.length + _aayaah.length + _adjzaa.length;
+
+      emit(const .initializing(0));
 
       for (var row in _muqaddimat) {
         await $(_mainDb.addMuqaddimah(row));

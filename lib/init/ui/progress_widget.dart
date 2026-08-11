@@ -30,15 +30,15 @@ class ProgressWidget extends StatelessWidget {
                   ),
                 ),
               CircularProgressIndicator.adaptive(
-                value: value?.let((it) => it / 100),
                 backgroundColor: bgSecondary(theme),
+                value: value?.let((it) => it < 0 ? null : it / 100),
               ),
               ?value?.let(
                 (it) => Text(
-                  '${it.toStringAsFixed(1)} %',
                   style: textBodyMedium.copyWith(
                     color: typographyPrimary(theme),
                   ),
+                  it < 0 ? '' : '${it.toStringAsFixed(1)} %',
                 ),
               ),
             ],
