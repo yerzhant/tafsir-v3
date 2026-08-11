@@ -28,19 +28,6 @@ class _AyahListState extends State<AyahList> {
     _lastScrolledPosition = widget.state.position;
   }
 
-  @override
-  void dispose() {
-    // final position = _listener.itemPositions.value.first;
-    // widget.onLastPosition(
-    //   .new(
-    //     .new(position.index),
-    //     position.itemLeadingEdge,
-    //   ),
-    // );
-
-    super.dispose();
-  }
-
   void _scrollTo(AyahPosition position) async {
     await _controller.scrollTo(
       index: position.number - 1,
@@ -54,36 +41,48 @@ class _AyahListState extends State<AyahList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, ThemeState>(
-      builder: (context, state) {
-        final theme = state.theme;
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        final position = _listener.itemPositions.value.first;
 
-        return BlocListener<AayaatCubit, AayaatState>(
-          listener: (context, state) {
-            if (state case AayaatStateSuccess(
-              :final position,
-            ) when position != _lastScrolledPosition) {
-              _scrollTo(position);
-            }
-          },
-          child: ScrollablePositionedList.separated(
-            padding: const .symmetric(horizontal: 20, vertical: 12),
-            initialScrollIndex: widget.state.position.number - 1,
-            initialAlignment: widget.state.position.alignment,
-            itemCount: widget.state.aayaat.length,
-            itemBuilder: (context, index) => AyahCard(
-              theme: theme,
-              surah: widget.state.surah,
-              ayah: widget.state.aayaat[index],
-              key: .new(index.toString()),
-              isBookmarked: widget.state.bookmarks.contains(index + 1),
-            ),
-            separatorBuilder: (context, index) => const SizedBox(height: 8),
-            itemScrollController: _controller,
-            itemPositionsListener: _listener,
+        context.read<AayaatCubit>().savePosition(
+          .new(
+            .new(position.index + 1),
+            position.itemLeadingEdge,
           ),
         );
       },
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          final theme = state.theme;
+
+          return BlocListener<AayaatCubit, AayaatState>(
+            listener: (context, state) {
+              if (state case AayaatStateSuccess(
+                :final position,
+              ) when position != _lastScrolledPosition) {
+                _scrollTo(position);
+              }
+            },
+            child: ScrollablePositionedList.separated(
+              padding: const .symmetric(horizontal: 20, vertical: 12),
+              initialScrollIndex: widget.state.position.number - 1,
+              initialAlignment: widget.state.position.alignment,
+              itemCount: widget.state.aayaat.length,
+              itemBuilder: (context, index) => AyahCard(
+                theme: theme,
+                surah: widget.state.surah,
+                ayah: widget.state.aayaat[index],
+                key: .new(index.toString()),
+                isBookmarked: widget.state.bookmarks.contains(index + 1),
+              ),
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+              itemScrollController: _controller,
+              itemPositionsListener: _listener,
+            ),
+          );
+        },
+      ),
     );
   }
 }

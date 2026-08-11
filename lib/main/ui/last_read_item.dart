@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tafsir/aayaat/ui/surah_page.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/last_read.dart';
 
@@ -14,39 +16,29 @@ class LastReadItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textColor = switch (theme) {
-      .light => typographySecondaryLight,
-      .dark => typographySecondaryDark,
-      .brownLight => typographySecondaryBrownLight,
-      .brownDark => typographySecondaryBrownDark,
-    };
-
-    final bgColor = switch (theme) {
-      .light => bgSecondaryLight,
-      .dark => bgSecondaryDark,
-      .brownLight => bgSecondaryBrownLight,
-      .brownDark => bgSecondaryBrownDark,
-    };
-
-    final borderColor = switch (theme) {
-      .light => borderPrimaryLight,
-      .dark => borderPrimaryDark,
-      .brownLight => borderPrimaryBrownLight,
-      .brownDark => borderPrimaryBrownDark,
-    };
-
-    return Container(
-      padding: const .all(10),
-      decoration: BoxDecoration(
-        color: bgColor,
-        border: .all(color: borderColor),
-        borderRadius: .circular(12),
+    return GestureDetector(
+      onTap: () => SurahPage.open(
+        context,
+        context.read(),
+        lastRead.surahNumber,
+        .new(
+          lastRead.ayahPosition.number,
+          lastRead.ayahPosition.alignment,
+        ),
       ),
-      child: Center(
-        child: Text(
-          '${lastRead.surahName} ${lastRead.surahNumber}:${lastRead.ayahPosition.number}',
-          style: textBodyMedium.copyWith(
-            color: textColor.withValues(alpha: .8),
+      child: Container(
+        padding: const .symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          color: bgSecondary(theme),
+          border: .all(color: borderPrimary(theme)),
+          borderRadius: .circular(12),
+        ),
+        child: Center(
+          child: Text(
+            '${lastRead.surahName} ${lastRead.surahNumber}:${lastRead.ayahPosition.number}',
+            style: textBodyMedium.copyWith(
+              color: typographySecondary(theme).withValues(alpha: .8),
+            ),
           ),
         ),
       ),

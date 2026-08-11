@@ -7,10 +7,13 @@ import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
 import 'package:tafsir/main/db/main_db.dart';
+import 'package:tafsir/main/domain/last_read.dart';
 import 'package:tafsir/main/domain/surah.dart';
 
 part 'aayaat_cubit.freezed.dart';
 part 'aayaat_state.dart';
+
+const _maxLastReads = 30;
 
 class AayaatCubit extends Cubit<AayaatState> {
   AayaatCubit(
@@ -42,6 +45,34 @@ class AayaatCubit extends Cubit<AayaatState> {
       emit(.success(_surah, _position, aayaat, bookmarks));
     },
   ).mapLeft((l) => emit(.failure(l))).run();
+
+  Future<void> savePosition(AyahPosition position) =>
+      TaskEither<AppError, void>.Do(
+        ($) async {
+          final lastRead = LastRead(
+            .now(),
+            _surah.name,
+            _surahNumber,
+            position,
+          );
+
+          final lastReads = await $(_mainDb.getLastReads());
+
+          if (lastReads.isNotEmpty &&
+              lastReads.first.surahNumber == lastRead.surahNumber &&
+              lastReads.first.ayahPosition == lastRead.ayahPosition) {
+            return;
+          }
+
+          await $(_mainDb.addLastRead(lastRead));
+
+          for (final lastRead in lastReads.skip(_maxLastReads - 1)) {
+            await $(_mainDb.removeLastRead(lastRead));
+          }
+
+          await _mainCubit.refresh();
+        },
+      ).mapLeft((l) => emit(.failure(l))).run();
 
   Future<void> toggleBookmark(AayahNumber aayahNumber) =>
       TaskEither<AppError, void>.Do(
