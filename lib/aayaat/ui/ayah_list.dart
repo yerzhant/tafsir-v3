@@ -19,6 +19,15 @@ class _AyahListState extends State<AyahList> {
   final _controller = ItemScrollController();
   final _listener = ItemPositionsListener.create();
 
+  late AyahPosition _lastScrolledPosition;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _lastScrolledPosition = widget.state.position;
+  }
+
   @override
   void dispose() {
     // final position = _listener.itemPositions.value.first;
@@ -32,13 +41,15 @@ class _AyahListState extends State<AyahList> {
     super.dispose();
   }
 
-  void _scrollTo(AyahPosition position) {
-    _controller.scrollTo(
+  void _scrollTo(AyahPosition position) async {
+    await _controller.scrollTo(
       index: position.number - 1,
       curve: Curves.easeInOutCubic,
       alignment: position.alignment,
       duration: const .new(milliseconds: 300),
     );
+
+    _lastScrolledPosition = position;
   }
 
   @override
@@ -49,7 +60,11 @@ class _AyahListState extends State<AyahList> {
 
         return BlocListener<AayaatCubit, AayaatState>(
           listener: (context, state) {
-            _scrollTo((state as AayaatStateSuccess).position);
+            if (state case AayaatStateSuccess(
+              :final position,
+            ) when position != _lastScrolledPosition) {
+              _scrollTo(position);
+            }
           },
           child: ScrollablePositionedList.separated(
             padding: const .symmetric(horizontal: 20, vertical: 12),
