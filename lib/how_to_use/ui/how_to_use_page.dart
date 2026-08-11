@@ -40,6 +40,7 @@ class HowToUsePage extends StatelessWidget {
                       return AccordionItem(
                         title: item.title,
                         content: item.content,
+                        key: .new(index.toString()),
                       );
                     },
                     separatorBuilder: (context, index) => const SizedBox(

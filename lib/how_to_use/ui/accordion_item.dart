@@ -45,11 +45,12 @@ class _AccordionItemState extends State<AccordionItem>
         children: [
           Row(
             children: [
-              Text(
-                widget.title,
-                style: textCallout.copyWith(color: typographyPrimary(theme)),
+              Expanded(
+                child: Text(
+                  widget.title,
+                  style: textCallout.copyWith(color: typographyPrimary(theme)),
+                ),
               ),
-              const Spacer(),
               GestureDetector(
                 onTap: _toggle,
                 child: AnimatedRotation(
