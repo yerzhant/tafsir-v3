@@ -9,6 +9,7 @@ abstract class SettingsState with _$SettingsState {
     bool showFootnotes,
 
     double ayahFontSize,
+    double tafsirFontSize,
     double tranlationFontSize,
 
     AyahFontType ayayFonType,

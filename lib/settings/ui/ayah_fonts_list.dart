@@ -25,6 +25,7 @@ class AyahFontsList extends StatelessWidget {
               itemCount: AyahFontType.values.length,
               itemBuilder: (context, index) => _Font(
                 theme: theme,
+                fontSize: state.ayahFontSize,
                 type: AyahFontType.values[index],
                 onSelected: (type) => _onSelected(type, context),
               ),
@@ -45,12 +46,14 @@ class AyahFontsList extends StatelessWidget {
 
 class _Font extends StatelessWidget {
   const _Font({
-    required this.theme,
     required this.type,
+    required this.theme,
+    required this.fontSize,
     required this.onSelected,
   });
 
   final AppTheme theme;
+  final double fontSize;
   final AyahFontType type;
   final Function(AyahFontType type) onSelected;
 
@@ -73,8 +76,10 @@ class _Font extends StatelessWidget {
               spacing: 4,
               children: [
                 Text(
-                  'الْحَمْدُ للّهِ رَبِّ الْعَالَمِينَ',
+                  'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
                   style: textBodyLarge.copyWith(
+                    fontSize: fontSize,
+                    fontFamily: type.name,
                     color: typographyPrimary(theme),
                   ),
                 ),

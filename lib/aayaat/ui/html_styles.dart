@@ -3,9 +3,12 @@ import 'package:tafsir/common/ui/app_theme.dart';
 
 const _padding = 8.0;
 
-Map<String, Style> htmlStyles(AppTheme theme) => {
+Map<String, Style> htmlStyles(AppTheme theme, double fontSize) => {
   'body': .fromTextStyle(
-    textBodyReg.copyWith(color: typographyPrimary(theme)),
+    textBodyReg.copyWith(
+      fontSize: fontSize,
+      color: typographyPrimary(theme),
+    ),
   ),
   '*': .new(padding: .all(0), margin: .all(0)),
   'div, p': .new(margin: .only(bottom: _padding)),

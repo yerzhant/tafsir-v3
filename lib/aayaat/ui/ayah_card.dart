@@ -125,6 +125,8 @@ class _AyahCardState extends State<AyahCard> {
                                       widget.ayah.arabic,
                                       textAlign: .right,
                                       style: textBodyReg.copyWith(
+                                        fontSize: state.ayahFontSize,
+                                        fontFamily: state.ayayFonType.name,
                                         color: typographyPrimary(widget.theme),
                                       ),
                                     ),
@@ -136,6 +138,7 @@ class _AyahCardState extends State<AyahCard> {
                               Text(
                                 widget.ayah.translation,
                                 style: textCallout.copyWith(
+                                  fontSize: state.tranlationFontSize,
                                   color: typographyPrimary(widget.theme),
                                 ),
                               ),
@@ -147,7 +150,10 @@ class _AyahCardState extends State<AyahCard> {
                       Html(
                         data: widget.ayah.tafsir,
                         style: {
-                          ...htmlStyles(widget.theme),
+                          ...htmlStyles(
+                            widget.theme,
+                            state.tafsirFontSize,
+                          ),
                           'div.snoski': .new(
                             display: state.showFootnotes ? .block : .none,
                           ),

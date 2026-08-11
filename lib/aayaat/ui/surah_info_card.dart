@@ -4,6 +4,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/aayaat/ui/html_styles.dart';
+import 'package:tafsir/settings/cubit/settings_cubit.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class SurahInfoCard extends StatelessWidget {
@@ -14,6 +15,7 @@ class SurahInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.read<ThemeCubit>().state.theme;
+    final settings = context.read<SettingsCubit>().state;
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -31,7 +33,7 @@ class SurahInfoCard extends StatelessWidget {
           ),
           child: Html(
             data: info.value,
-            style: htmlStyles(theme),
+            style: htmlStyles(theme, settings.tafsirFontSize),
           ),
         ),
       ),

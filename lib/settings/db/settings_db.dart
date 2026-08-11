@@ -42,12 +42,17 @@ class SettingsDb {
 
     await db.insert(
       _settings,
-      const SettingDbParam(.ayahFontSize, '12').toJson(),
+      const SettingDbParam(.ayahFontSize, '22').toJson(),
     );
 
     await db.insert(
       _settings,
-      const SettingDbParam(.tranlationFontSize, '12').toJson(),
+      const SettingDbParam(.tafsirFontSize, '16').toJson(),
+    );
+
+    await db.insert(
+      _settings,
+      const SettingDbParam(.tranlationFontSize, '16').toJson(),
     );
 
     await db.insert(
@@ -84,6 +89,12 @@ class SettingsDb {
 
   TaskEither<AppError, void> setAyahFontSize(double value) =>
       .Do(($) => $(_setDouble(.ayahFontSize, value)));
+
+  TaskEither<AppError, double> getTafsirFontSize() =>
+      .Do(($) => $(_getDouble(.tafsirFontSize)));
+
+  TaskEither<AppError, void> setTafsirFontSize(double value) =>
+      .Do(($) => $(_setDouble(.tafsirFontSize, value)));
 
   TaskEither<AppError, double> getTranlationFontSize() =>
       .Do(($) => $(_getDouble(.tranlationFontSize)));

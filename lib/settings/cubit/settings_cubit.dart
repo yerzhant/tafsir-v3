@@ -15,6 +15,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           true,
           12,
           12,
+          12,
           .uthmanTaha,
         ),
       );
@@ -37,6 +38,10 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   void setAyahFontSize(double value) => emit(
     state.copyWith(ayahFontSize: value),
+  );
+
+  void setTafsirFontSize(double value) => emit(
+    state.copyWith(tafsirFontSize: value),
   );
 
   void setTranslationFontSize(double value) => emit(

@@ -56,9 +56,6 @@ flutter:
     - family: KFGQPC Uthman Taha Naskh
       fonts:
         - asset: assets/fonts/KFGQPC-Uthman-Taha-Naskh-Regular.ttf
-    - family: Scheherazade
-      fonts:
-        - asset: assets/fonts/Scheherazade-Regular.ttf
     - family: Me Quran
       fonts:
         - asset: assets/fonts/Me-Quran.ttf
@@ -68,6 +65,9 @@ flutter:
     - family: PDMS Saleem
       fonts:
         - asset: assets/fonts/PDMS-Saleem-QuranFont-Regular.ttf
+    - family: Scheherazade
+      fonts:
+        - asset: assets/fonts/Scheherazade-Regular.ttf
     - family: Sheikh Hamdullah
       fonts:
         - asset: assets/fonts/Shaikh-Hamdullah-Mushaf.ttf

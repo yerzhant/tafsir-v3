@@ -93,6 +93,8 @@ class SettingsWidget extends StatelessWidget {
                       spacing: 12,
                       children: [
                         _Slider(
+                          min: 14,
+                          max: 30,
                           theme: theme,
                           title: 'Арабский текст',
                           value: state.ayahFontSize,
@@ -101,12 +103,24 @@ class SettingsWidget extends StatelessWidget {
                               .setAyahFontSize,
                         ),
                         _Slider(
+                          min: 12,
+                          max: 24,
                           theme: theme,
                           title: 'Текст перевода',
                           value: state.tranlationFontSize,
                           onChanged: context
                               .read<SettingsCubit>()
                               .setTranslationFontSize,
+                        ),
+                        _Slider(
+                          min: 12,
+                          max: 24,
+                          theme: theme,
+                          title: 'Текст тафсира',
+                          value: state.tafsirFontSize,
+                          onChanged: context
+                              .read<SettingsCubit>()
+                              .setTafsirFontSize,
                         ),
                       ],
                     ),
@@ -169,13 +183,15 @@ class _Slider extends StatelessWidget {
   const _Slider({
     required this.theme,
     required this.title,
+    required this.min,
+    required this.max,
     required this.value,
     required this.onChanged,
   });
 
   final AppTheme theme;
   final String title;
-  final double value;
+  final double value, min, max;
   final ValueChanged<double> onChanged;
 
   @override
@@ -192,8 +208,8 @@ class _Slider extends StatelessWidget {
           children: [
             Expanded(
               child: Slider.adaptive(
-                min: 10,
-                max: 30,
+                min: min,
+                max: max,
                 value: value,
                 onChanged: onChanged,
                 activeColor: borderPrimary(theme),

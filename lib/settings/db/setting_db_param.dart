@@ -21,6 +21,7 @@ enum SettingDbParamKey {
   showFootnotes,
 
   ayahFontSize,
+  tafsirFontSize,
   tranlationFontSize,
 
   ayayFonType,
