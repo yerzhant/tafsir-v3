@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 part 'theme_state.dart';
 part 'theme_cubit.freezed.dart';
@@ -14,13 +15,12 @@ class ThemeCubit extends Cubit<ThemeState> {
     state.copyWith(sameAsInSystem: value),
   );
 
-  void setDoNotSwitchOffScreen(bool value) => emit(
-    state.copyWith(doNotSwitchOffScreen: value),
-  );
+  void setDoNotSwitchOffScreen(bool value) async {
+    await WakelockPlus.toggle(enable: value);
+    emit(state.copyWith(doNotSwitchOffScreen: value));
+  }
 
   void setTheme(AppTheme theme) {
-    emit(state.copyWith(theme: theme));
-
     SystemChrome.setSystemUIOverlayStyle(
       .new(
         systemNavigationBarContrastEnforced: false,
@@ -31,5 +31,7 @@ class ThemeCubit extends Cubit<ThemeState> {
         },
       ),
     );
+
+    emit(state.copyWith(theme: theme));
   }
 }

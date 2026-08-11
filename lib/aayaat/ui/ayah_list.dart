@@ -35,6 +35,7 @@ class _AyahListState extends State<AyahList> {
   void _scrollTo(AyahPosition position) {
     _controller.scrollTo(
       index: position.number - 1,
+      curve: Curves.easeInOutCubic,
       alignment: position.alignment,
       duration: const .new(milliseconds: 300),
     );
