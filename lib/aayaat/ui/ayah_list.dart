@@ -4,7 +4,6 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
-import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class AyahList extends StatefulWidget {
   const AyahList({super.key, required this.state});
@@ -41,8 +40,6 @@ class _AyahListState extends State<AyahList> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<ThemeCubit>().state.theme;
-
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
         final position = _listener.itemPositions.value.first;
@@ -54,6 +51,7 @@ class _AyahListState extends State<AyahList> {
           ),
         );
       },
+
       child: BlocListener<AayaatCubit, AayaatState>(
         listener: (context, state) {
           if (state case AayaatStateSuccess(
@@ -62,21 +60,23 @@ class _AyahListState extends State<AyahList> {
             _scrollTo(position);
           }
         },
+
         child: ScrollablePositionedList.separated(
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
+
           padding: const .symmetric(horizontal: 20, vertical: 12),
           initialScrollIndex: widget.state.position.number - 1,
           initialAlignment: widget.state.position.alignment,
           itemCount: widget.state.aayaat.length,
+          itemScrollController: _controller,
+          itemPositionsListener: _listener,
+
           itemBuilder: (context, index) => AyahCard(
-            theme: theme,
             surah: widget.state.surah,
             key: .new(index.toString()),
             ayah: widget.state.aayaat[index],
             isBookmarked: widget.state.bookmarks.contains(index + 1),
           ),
-          separatorBuilder: (context, index) => const SizedBox(height: 8),
-          itemScrollController: _controller,
-          itemPositionsListener: _listener,
         ),
       ),
     );

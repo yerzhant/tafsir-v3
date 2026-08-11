@@ -12,8 +12,8 @@ class CircleCard extends StatelessWidget {
     required this.child,
   });
 
-  final AppTheme theme;
   final CircleCardSize size;
+  final AppTheme theme;
   final Widget child;
 
   @override

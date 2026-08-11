@@ -32,98 +32,119 @@ class SurahHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<ThemeCubit>().state.theme;
-
-    return Container(
-      padding: const .symmetric(horizontal: 20, vertical: 8),
-      decoration: BoxDecoration(
-        color: bgSecondary(theme),
-        borderRadius: const .vertical(bottom: .circular(20)),
-      ),
-      child: Column(
-        children: [
-          SizedBox(height: MediaQuery.paddingOf(context).top),
-          Row(
-            spacing: 12,
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, themeState) {
+        return Container(
+          padding: const .symmetric(horizontal: 20, vertical: 8),
+          decoration: BoxDecoration(
+            color: bgSecondary(themeState.theme),
+            borderRadius: const .vertical(bottom: .circular(20)),
+          ),
+          child: Column(
             children: [
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Container(
-                  padding: const .all(6),
-                  decoration: BoxDecoration(
-                    borderRadius: .circular(8),
-                    color: bgPrimary(theme),
-                  ),
-                  child: SvgPicture.asset(
-                    'assets/icons/arrow-left-surah.svg',
-                    colorFilter: .mode(typographyPrimary(theme), .srcIn),
-                  ),
-                ),
-              ),
-
-              Flexible(
-                child: Column(
-                  mainAxisSize: .min,
-                  mainAxisAlignment: .center,
-                  crossAxisAlignment: .start,
-                  children: [
-                    Row(
-                      spacing: 2,
-                      children: [
-                        Text(
-                          '$number.',
-                          style: textHeadline.copyWith(
-                            height: 0,
-                            color: typographyPrimary(theme),
-                          ),
-                        ),
-                        Flexible(
-                          child: Text(
-                            name,
-                            overflow: .ellipsis,
-                            style: textHeadline.copyWith(
-                              height: 0,
-                              color: typographyPrimary(theme),
-                            ),
-                          ),
-                        ),
-                        // _Icon(
-                        //   icon: 'arrow-up-right-surah',
-                        //   theme: theme,
-                        //   onTap: onSuwar,
-                        // ),
-                      ],
-                    ),
-
-                    ?translation?.let(
-                      (it) => Flexible(
-                        child: Text(
-                          it,
-                          overflow: .ellipsis,
-                          style: textBodyMedium.copyWith(
-                            height: 0,
-                            color: typographySecondary(theme),
-                          ),
+              SizedBox(height: MediaQuery.paddingOf(context).top),
+              Row(
+                spacing: 12,
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      padding: const .all(6),
+                      decoration: BoxDecoration(
+                        borderRadius: .circular(8),
+                        color: bgPrimary(themeState.theme),
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/icons/arrow-left-surah.svg',
+                        colorFilter: .mode(
+                          typographyPrimary(themeState.theme),
+                          .srcIn,
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
+                  ),
 
-              Row(
-                spacing: 8,
-                children: [
-                  _Icon(theme: theme, onTap: onGoToAyah, icon: 'go-to-ayah'),
-                  _Icon(theme: theme, onTap: onInfo, icon: 'surah-info'),
-                  _Icon(theme: theme, onTap: onTheme, icon: 'theme'),
-                  _Icon(theme: theme, onTap: onSettings, icon: 'settings'),
+                  Flexible(
+                    child: Column(
+                      mainAxisSize: .min,
+                      mainAxisAlignment: .center,
+                      crossAxisAlignment: .start,
+                      children: [
+                        Row(
+                          spacing: 2,
+                          children: [
+                            Text(
+                              '$number.',
+                              style: textHeadline.copyWith(
+                                height: 0,
+                                color: typographyPrimary(themeState.theme),
+                              ),
+                            ),
+                            Flexible(
+                              child: Text(
+                                name,
+                                overflow: .ellipsis,
+                                style: textHeadline.copyWith(
+                                  height: 0,
+                                  color: typographyPrimary(themeState.theme),
+                                ),
+                              ),
+                            ),
+                            // _Icon(
+                            //   icon: 'arrow-up-right-surah',
+                            //   theme: theme,
+                            //   onTap: onSuwar,
+                            // ),
+                          ],
+                        ),
+
+                        ?translation?.let(
+                          (it) => Flexible(
+                            child: Text(
+                              it,
+                              overflow: .ellipsis,
+                              style: textBodyMedium.copyWith(
+                                height: 0,
+                                color: typographySecondary(themeState.theme),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Row(
+                    spacing: 8,
+                    children: [
+                      _Icon(
+                        onTap: onGoToAyah,
+                        icon: 'go-to-ayah',
+                        theme: themeState.theme,
+                      ),
+                      _Icon(
+                        onTap: onInfo,
+                        icon: 'surah-info',
+                        theme: themeState.theme,
+                      ),
+                      _Icon(
+                        onTap: onTheme,
+                        icon: 'theme',
+                        theme: themeState.theme,
+                      ),
+                      _Icon(
+                        onTap: onSettings,
+                        icon: 'settings',
+                        theme: themeState.theme,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
