@@ -13,6 +13,7 @@ import 'package:tafsir/main/db/djuz_row.dart';
 import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/main/db/muqaddimah_row.dart';
 import 'package:tafsir/main/db/surah_row.dart';
+import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 part 'init_cubit.freezed.dart';
 part 'init_state.dart';
@@ -23,12 +24,16 @@ class InitCubit extends Cubit<InitState> {
     this._initDb,
     this._mainDb,
     this._aayaatDb,
+    this._themeCubit,
   ) : super(const .initializing(0));
 
   final DbService _dbService;
+
   final InitDb _initDb;
   final MainDb _mainDb;
   final AayaatDb _aayaatDb;
+
+  final ThemeCubit _themeCubit;
 
   late final List<MuqaddimahRow> _muqaddimat;
   late final List<AayahRow> _aayaah;
@@ -46,6 +51,8 @@ class InitCubit extends Cubit<InitState> {
         await $(_dbService.open());
         _dbClosed = false;
       }
+
+      await _themeCubit.init();
 
       if (await $(_initDb.initialized())) {
         emit(const .initialized());

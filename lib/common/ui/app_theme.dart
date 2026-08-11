@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
-enum AppTheme { light, dark, brownLight, brownDark }
+enum AppTheme {
+  light(.light),
+  dark(.dark),
+  brownLight(.light),
+  brownDark(.dark);
+
+  final Brightness brightness;
+
+  const AppTheme(this.brightness);
+}
 
 const brandPrimaryLight = Color(0xFF4AA3E6);
 const brandPrimaryDark = Color(0xFF93D0FE);

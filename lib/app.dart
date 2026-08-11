@@ -10,7 +10,9 @@ import 'package:tafsir/init/ui/progress_widget.dart';
 import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/main/ui/main_widget.dart';
 import 'package:tafsir/settings/cubit/settings_cubit.dart';
+import 'package:tafsir/settings/db/settings_db.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
+import 'package:tafsir/theme/db/theme_db.dart';
 
 const appTitle = 'Тафсир Azan.ru';
 
@@ -19,12 +21,18 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => DbService(),
-      dispose: (db) async => await db.close(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => DbService(),
+          dispose: (db) async => await db.close(),
+        ),
+        RepositoryProvider(create: (context) => ThemeDb(context.read())),
+        RepositoryProvider(create: (context) => SettingsDb(context.read())),
+      ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => ThemeCubit()),
+          BlocProvider(create: (context) => ThemeCubit(context.read())),
           BlocProvider(create: (context) => SettingsCubit()),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
@@ -32,10 +40,6 @@ class App extends StatelessWidget {
             return MaterialApp(
               title: appTitle,
               theme: .new(
-                brightness: switch (themeState.theme) {
-                  .light || .brownLight => .light,
-                  .dark || .brownDark => .dark,
-                },
                 progressIndicatorTheme: .new(
                   color: brandPrimary(themeState.theme),
                 ),
@@ -47,6 +51,7 @@ class App extends StatelessWidget {
                   trackShape: const RectangularSliderTrackShape(),
                 ),
                 scaffoldBackgroundColor: bgPrimary(themeState.theme),
+                brightness: themeState.theme.brightness,
               ),
               home: MultiRepositoryProvider(
                 providers: [
@@ -66,25 +71,36 @@ class App extends StatelessWidget {
                     context.read(),
                     context.read(),
                     context.read(),
+                    context.read(),
                   )..init(),
                   child: Scaffold(
-                    body: BlocBuilder<InitCubit, InitState>(
+                    body: BlocBuilder<ThemeCubit, ThemeState>(
                       builder: (context, state) {
-                        return switch (state) {
-                          InitStateInitializing(:final progress) =>
-                            ProgressWidget(
-                              value: progress,
-                            ),
-
-                          InitStateInitialized() => MainWidget(
-                            theme: themeState.theme,
-                          ),
-
-                          InitStateFailure(:final error) => AppErrorWidget(
-                            error: error,
+                        if (state.error != null) {
+                          return AppErrorWidget(
+                            error: state.error!,
                             onPressed: context.read<InitCubit>().init,
-                          ),
-                        };
+                          );
+                        }
+                        return BlocBuilder<InitCubit, InitState>(
+                          builder: (context, state) {
+                            return switch (state) {
+                              InitStateInitializing(:final progress) =>
+                                ProgressWidget(
+                                  value: progress,
+                                ),
+
+                              InitStateInitialized() => MainWidget(
+                                theme: themeState.theme,
+                              ),
+
+                              InitStateFailure(:final error) => AppErrorWidget(
+                                error: error,
+                                onPressed: context.read<InitCubit>().init,
+                              ),
+                            };
+                          },
+                        );
                       },
                     ),
                   ),

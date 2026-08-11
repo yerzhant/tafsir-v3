@@ -6,5 +6,6 @@ abstract class ThemeState with _$ThemeState {
     bool sameAsInSystem,
     bool doNotSwitchOffScreen,
     AppTheme theme,
+    AppError? error,
   ) = _Current;
 }
