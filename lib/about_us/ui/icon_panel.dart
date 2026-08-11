@@ -11,9 +11,9 @@ class IconPanel extends StatelessWidget {
     this.onTap,
   });
 
-  final AppTheme theme;
-  final double padding;
   final String icon;
+  final double padding;
+  final AppTheme theme;
   final VoidCallback? onTap;
 
   @override
@@ -28,9 +28,9 @@ class IconPanel extends StatelessWidget {
           boxShadow: const [
             .new(
               blurRadius: 12,
+              blurStyle: .outer,
               offset: .new(0, 2),
               color: Color(0x14000000),
-              blurStyle: .outer,
             ),
           ],
         ),

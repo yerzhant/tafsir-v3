@@ -5,7 +5,6 @@ import 'package:tafsir/common/ui/app_error_widget.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/masjid.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
-import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/main/ui/adjzaa_list.dart';
 import 'package:tafsir/main/ui/bookmarks_list.dart';
 import 'package:tafsir/main/ui/header.dart';
@@ -20,22 +19,19 @@ class MainWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => MainDb(context.read()),
-      child: BlocProvider(
-        create: (context) => MainCubit(context.read())..init(),
-        child: BlocBuilder<MainCubit, MainState>(
-          builder: (context, state) {
-            return switch (state) {
-              MainStateSuccess() => _Success(theme: theme, state: state),
-
-              MainStateFailure(:final error) => AppErrorWidget(
-                error: error,
-                onPressed: context.read<MainCubit>().init,
-              ),
-            };
-          },
-        ),
+    return BlocProvider(
+      create: (context) => MainCubit(context.read())..init(),
+      child: BlocBuilder<MainCubit, MainState>(
+        builder: (context, state) {
+          return switch (state) {
+            MainStateSuccess() => _Success(theme: theme, state: state),
+    
+            MainStateFailure(:final error) => AppErrorWidget(
+              error: error,
+              onPressed: context.read<MainCubit>().init,
+            ),
+          };
+        },
       ),
     );
   }

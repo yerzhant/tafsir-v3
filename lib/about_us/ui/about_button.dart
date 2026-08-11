@@ -30,8 +30,8 @@ class AboutButton extends StatelessWidget {
             IconPanel(theme: theme, icon: icon),
             Text(
               title,
-              style: textBodyReg.copyWith(color: typographyPrimary(theme)),
               overflow: .ellipsis,
+              style: textBodyReg.copyWith(color: typographyPrimary(theme)),
             ),
           ],
         ),

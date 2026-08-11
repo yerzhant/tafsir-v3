@@ -56,15 +56,15 @@ class _AyahCardState extends State<AyahCard> {
               boxShadow: const [
                 .new(
                   blurRadius: 4,
+                  blurStyle: .outer,
                   offset: .new(0, 2),
                   color: Color(0x14A0A0A0),
-                  blurStyle: .outer,
                 ),
               ],
             ),
 
             child: BlocBuilder<SettingsCubit, SettingsState>(
-              builder: (context, state) {
+              builder: (context, settings) {
                 return Column(
                   spacing: 12,
                   children: [
@@ -73,8 +73,8 @@ class _AyahCardState extends State<AyahCard> {
                         Container(
                           padding: const .symmetric(horizontal: 8),
                           decoration: BoxDecoration(
-                            color: bgPrimary(widget.theme),
                             borderRadius: .circular(4),
+                            color: bgPrimary(widget.theme),
                           ),
                           child: Text(
                             '${widget.ayah.number}',
@@ -105,58 +105,58 @@ class _AyahCardState extends State<AyahCard> {
                       ],
                     ),
 
-                    if (state.showAyah || state.showTranslation)
+                    if (settings.showAyah || settings.showTranslation)
                       Container(
                         width: .infinity,
                         padding: const .all(8),
                         decoration: BoxDecoration(
-                          color: bgPrimary(widget.theme),
                           borderRadius: .circular(8),
+                          color: bgPrimary(widget.theme),
                         ),
                         child: Column(
                           spacing: 8,
                           crossAxisAlignment: .start,
                           children: [
-                            if (state.showAyah)
+                            if (settings.showAyah)
                               Row(
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      widget.ayah.arabic,
                                       textAlign: .right,
+                                      widget.ayah.arabic,
                                       style: textBodyReg.copyWith(
-                                        fontSize: state.ayahFontSize,
+                                        fontSize: settings.ayahFontSize,
                                         color: typographyPrimary(widget.theme),
                                         fontFamily:
-                                            state.ayahFontType.fontFamily,
+                                            settings.ayahFontType.fontFamily,
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
 
-                            if (state.showTranslation)
+                            if (settings.showTranslation)
                               Text(
                                 widget.ayah.translation,
                                 style: textCallout.copyWith(
-                                  fontSize: state.translationFontSize,
                                   color: typographyPrimary(widget.theme),
+                                  fontSize: settings.translationFontSize,
                                 ),
                               ),
                           ],
                         ),
                       ),
 
-                    if (state.showTafsir)
+                    if (settings.showTafsir)
                       Html(
                         data: widget.ayah.tafsir,
                         style: {
                           ...htmlStyles(
                             widget.theme,
-                            state.tafsirFontSize,
+                            settings.tafsirFontSize,
                           ),
                           'div.snoski': .new(
-                            display: state.showFootnotes ? .block : .none,
+                            display: settings.showFootnotes ? .block : .none,
                           ),
                         },
                       ),
@@ -212,16 +212,16 @@ class _AyahCardState extends State<AyahCard> {
 class _Menu extends StatelessWidget {
   const _Menu({
     required this.theme,
-    required this.onShare,
     required this.onPlay,
+    required this.onShare,
     required this.onBookmark,
     required this.isBookmarked,
   });
 
   final AppTheme theme;
 
-  final VoidCallback onShare;
   final VoidCallback onPlay;
+  final VoidCallback onShare;
   final VoidCallback onBookmark;
 
   final bool isBookmarked;
@@ -240,9 +240,9 @@ class _Menu extends StatelessWidget {
         boxShadow: const [
           .new(
             blurRadius: 12,
+            blurStyle: .outer,
             offset: .new(0, 2),
             color: Color(0x14000000),
-            blurStyle: .outer,
           ),
         ],
       ),

@@ -19,8 +19,8 @@ class SuwarList extends StatelessWidget {
 
   final AppTheme theme;
   final List<Surah> suwar;
-  final List<Muqaddimah> muqaddimat;
   final bool hasTopPadding;
+  final List<Muqaddimah> muqaddimat;
 
   @override
   Widget build(BuildContext context) {

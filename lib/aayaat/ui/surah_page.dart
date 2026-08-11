@@ -63,12 +63,8 @@ class _SurahPageState extends State<SurahPage> {
         top: false,
         child: MultiRepositoryProvider(
           providers: [
-            RepositoryProvider(
-              create: (context) => MainDb(context.read()),
-            ),
-            RepositoryProvider(
-              create: (context) => AayaatDb(context.read()),
-            ),
+            RepositoryProvider(create: (context) => MainDb(context.read())),
+            RepositoryProvider(create: (context) => AayaatDb(context.read())),
           ],
           child: BlocProvider(
             create: (context) => AayaatCubit(

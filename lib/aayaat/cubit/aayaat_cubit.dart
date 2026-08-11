@@ -37,7 +37,9 @@ class AayaatCubit extends Cubit<AayaatState> {
       emit(const .inProgress());
 
       _surah = await $(_mainDb.getSurah(_surahNumber));
+
       final aayaat = await $(_aayaatDb.getAayaat(_surah));
+
       final bookmarks = await $(
         _mainDb.getBookmarkAayahNumbersForSurah(_surah),
       );

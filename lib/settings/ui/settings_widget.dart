@@ -189,8 +189,8 @@ class _Slider extends StatelessWidget {
     required this.onChanged,
   });
 
-  final AppTheme theme;
   final String title;
+  final AppTheme theme;
   final double value, min, max;
   final ValueChanged<double> onChanged;
 
@@ -240,10 +240,10 @@ class _Checkbox extends StatelessWidget {
     required this.onChanged,
   });
 
+  final ValueChanged<bool>? onChanged;
   final AppTheme theme;
   final String title;
   final bool value;
-  final ValueChanged<bool>? onChanged;
 
   @override
   Widget build(BuildContext context) {

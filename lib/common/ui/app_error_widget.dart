@@ -16,51 +16,47 @@ class AppErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, ThemeState>(
-      builder: (context, state) {
-        final theme = state.theme;
+    final theme = context.read<ThemeCubit>().state.theme;
 
-        return Container(
-          color: bgPrimary(theme),
-          padding: const .all(16),
-          width: .infinity,
-          child: Column(
-            mainAxisAlignment: .center,
+    return Container(
+      color: bgPrimary(theme),
+      padding: const .all(16),
+      width: .infinity,
+      child: Column(
+        mainAxisAlignment: .center,
+        spacing: 16,
+        children: [
+          Column(
             spacing: 16,
             children: [
-              Column(
-                spacing: 16,
-                children: [
-                  Text(
-                    error.title,
-                    textAlign: .center,
-                    style: textBodyLarge.copyWith(
-                      color: typographyPrimary(theme),
-                      fontWeight: .w500,
-                    ),
-                  ),
-                  Text(
-                    error.message,
-                    maxLines: 10,
-                    overflow: .ellipsis,
-                    style: textBodyReg.copyWith(
-                      color: typographyPrimary(theme),
-                    ),
-                  ),
-                ],
-              ),
-              FilledButton(
-                style: .new(
-                  backgroundColor: .all(bgSecondary(theme)),
-                  foregroundColor: .all(typographyPrimary(theme)),
+              Text(
+                error.title,
+                textAlign: .center,
+                style: textBodyLarge.copyWith(
+                  color: typographyPrimary(theme),
+                  fontWeight: .w500,
                 ),
-                onPressed: onPressed,
-                child: const Text('OK'),
+              ),
+              Text(
+                error.message,
+                maxLines: 10,
+                overflow: .ellipsis,
+                style: textBodyReg.copyWith(
+                  color: typographyPrimary(theme),
+                ),
               ),
             ],
           ),
-        );
-      },
+          FilledButton(
+            style: .new(
+              backgroundColor: .all(bgSecondary(theme)),
+              foregroundColor: .all(typographyPrimary(theme)),
+            ),
+            onPressed: onPressed,
+            child: const Text('OK'),
+          ),
+        ],
+      ),
     );
   }
 }

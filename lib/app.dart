@@ -75,46 +75,37 @@ class App extends StatelessWidget {
                     context.read(),
                   )..init(),
                   child: Scaffold(
-                    body: BlocBuilder<ThemeCubit, ThemeState>(
+                    body: BlocBuilder<InitCubit, InitState>(
                       builder: (context, state) {
-                        if (state.error != null) {
+                        if (themeState.error != null) {
                           return AppErrorWidget(
-                            error: state.error!,
+                            error: themeState.error!,
                             onPressed: context.read<InitCubit>().init,
                           );
                         }
 
-                        return BlocBuilder<SettingsCubit, SettingsState>(
-                          builder: (context, state) {
-                            if (state.error != null) {
-                              return AppErrorWidget(
-                                error: state.error!,
-                                onPressed: context.read<InitCubit>().init,
-                              );
-                            }
+                        final settings = context.read<SettingsCubit>().state;
 
-                            return BlocBuilder<InitCubit, InitState>(
-                              builder: (context, state) {
-                                return switch (state) {
-                                  InitStateInitializing(:final progress) =>
-                                    ProgressWidget(
-                                      value: progress,
-                                    ),
+                        if (settings.error != null) {
+                          return AppErrorWidget(
+                            error: settings.error!,
+                            onPressed: context.read<InitCubit>().init,
+                          );
+                        }
 
-                                  InitStateInitialized() => MainWidget(
-                                    theme: themeState.theme,
-                                  ),
+                        return switch (state) {
+                          InitStateInitializing(:final progress) =>
+                            ProgressWidget(value: progress),
 
-                                  InitStateFailure(:final error) =>
-                                    AppErrorWidget(
-                                      error: error,
-                                      onPressed: context.read<InitCubit>().init,
-                                    ),
-                                };
-                              },
-                            );
-                          },
-                        );
+                          InitStateInitialized() => MainWidget(
+                            theme: themeState.theme,
+                          ),
+
+                          InitStateFailure(:final error) => AppErrorWidget(
+                            error: error,
+                            onPressed: context.read<InitCubit>().init,
+                          ),
+                        };
                       },
                     ),
                   ),

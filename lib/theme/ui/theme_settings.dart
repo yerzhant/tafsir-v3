@@ -53,22 +53,22 @@ class ThemeSettings extends StatelessWidget {
                       spacing: 8,
                       children: [
                         _Theme(
+                          icon: 'light',
                           theme: state.theme,
                           title: 'Светлая синяя',
-                          icon: 'light',
+                          active: state.theme == .light,
                           onTap: () => context.read<ThemeCubit>().setTheme(
                             .light,
                           ),
-                          active: state.theme == .light,
                         ),
                         _Theme(
+                          icon: 'dark',
                           theme: state.theme,
                           title: 'Темная синяя',
-                          icon: 'dark',
+                          active: state.theme == .dark,
                           onTap: () => context.read<ThemeCubit>().setTheme(
                             .dark,
                           ),
-                          active: state.theme == .dark,
                         ),
                       ],
                     ),
@@ -77,21 +77,21 @@ class ThemeSettings extends StatelessWidget {
                       children: [
                         _Theme(
                           theme: state.theme,
-                          title: 'Светлая коричневая',
                           icon: 'brown-light',
+                          title: 'Светлая коричневая',
+                          active: state.theme == .brownLight,
                           onTap: () => context.read<ThemeCubit>().setTheme(
                             .brownLight,
                           ),
-                          active: state.theme == .brownLight,
                         ),
                         _Theme(
                           theme: state.theme,
-                          title: 'Темная коричневая',
                           icon: 'brown-dark',
+                          title: 'Темная коричневая',
+                          active: state.theme == .brownDark,
                           onTap: () => context.read<ThemeCubit>().setTheme(
                             .brownDark,
                           ),
-                          active: state.theme == .brownDark,
                         ),
                       ],
                     ),
@@ -114,10 +114,10 @@ class _Switch extends StatelessWidget {
     required this.onChanged,
   });
 
+  final ValueChanged<bool> onChanged;
   final AppTheme theme;
   final String title;
   final bool value;
-  final Function(bool value) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -151,11 +151,11 @@ class _Theme extends StatelessWidget {
     required this.active,
   });
 
+  final VoidCallback onTap;
   final AppTheme theme;
   final String title;
   final String icon;
   final bool active;
-  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

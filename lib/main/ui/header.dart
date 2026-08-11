@@ -43,29 +43,34 @@ class Header extends StatelessWidget {
   void _showMenu(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      useSafeArea: true,
       showDragHandle: true,
-      builder: (context) => Padding(
-        padding: const .symmetric(horizontal: 20, vertical: 18),
-        child: Column(
-          spacing: 8,
-          children: [
-            MenuButton(
-              theme: theme,
-              menu: .howToUse,
-              onTap: () {
-                Navigator.pop(context);
-                HowToUsePage.open(context);
-              },
-            ),
-            MenuButton(
-              theme: theme,
-              menu: .aboutUs,
-              onTap: () {
-                Navigator.pop(context);
-                AboutPage.open(context);
-              },
-            ),
-          ],
+      isScrollControlled: true,
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: const .only(right: 20, left: 20, bottom: 18),
+          child: Column(
+            mainAxisSize: .min,
+            spacing: 8,
+            children: [
+              MenuButton(
+                theme: theme,
+                menu: .howToUse,
+                onTap: () {
+                  Navigator.pop(context);
+                  HowToUsePage.open(context);
+                },
+              ),
+              MenuButton(
+                theme: theme,
+                menu: .aboutUs,
+                onTap: () {
+                  Navigator.pop(context);
+                  AboutPage.open(context);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

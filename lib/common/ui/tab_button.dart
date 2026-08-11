@@ -10,10 +10,10 @@ class TabButton extends StatelessWidget {
     this.isActive = false,
   });
 
+  final VoidCallback onTap;
   final AppTheme theme;
   final bool isActive;
   final String title;
-  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

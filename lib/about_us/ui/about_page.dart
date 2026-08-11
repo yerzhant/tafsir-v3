@@ -22,78 +22,75 @@ class AboutPage extends StatelessWidget {
       builder: (context) => const AboutPage._(),
     ),
   );
+
   @override
   Widget build(BuildContext context) {
+    final theme = context.read<ThemeCubit>().state.theme;
+
+    final imageSuffix = theme == .brownLight || theme == .brownDark
+        ? '-brown'
+        : '';
+
+    final appLink = Platform.isAndroid
+        ? 'https://play.google.com/store/apps/details?id=ru.azan.tafsir'
+        : 'https://apps.apple.com/us/app/тафсир-корана/id1542515717';
+
     return Scaffold(
-      body: BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) {
-          final theme = state.theme;
-
-          final imageSuffix = theme == .brownLight || theme == .brownDark
-              ? '-brown'
-              : '';
-
-          final appLink = Platform.isAndroid
-              ? 'https://play.google.com/store/apps/details?id=ru.azan.tafsir'
-              : 'https://apps.apple.com/us/app/тафсир-корана/id1542515717';
-
-          return Masjid(
-            theme: theme,
-            child: SafeArea(
-              child: Column(
-                children: [
-                  InfoPageHeader(theme: theme, title: 'О нас'),
-                  Expanded(
-                    child: AppContainer(
-                      theme: theme,
-                      child: SingleChildScrollView(
-                        padding: const .all(20),
-                        child: Column(
-                          spacing: 12,
+      body: Masjid(
+        theme: theme,
+        child: SafeArea(
+          child: Column(
+            children: [
+              InfoPageHeader(theme: theme, title: 'О нас'),
+              Expanded(
+                child: AppContainer(
+                  theme: theme,
+                  child: SingleChildScrollView(
+                    padding: const .all(20),
+                    child: Column(
+                      spacing: 12,
+                      children: [
+                        Image.asset('assets/images/tafsir$imageSuffix.png'),
+                        Column(
+                          spacing: 8,
                           children: [
-                            Image.asset('assets/images/tafsir$imageSuffix.png'),
-                            Column(
-                              spacing: 8,
-                              children: [
-                                AboutButton(
-                                  theme: theme,
-                                  title: 'Поделиться',
-                                  icon: 'share',
-                                  onTap: () => SharePlus.instance.share(
-                                    .new(
-                                      title: appTitle,
-                                      uri: .parse(appLink),
-                                    ),
-                                  ),
+                            AboutButton(
+                              icon: 'share',
+                              theme: theme,
+                              title: 'Поделиться',
+                              onTap: () => SharePlus.instance.share(
+                                .new(
+                                  title: appTitle,
+                                  uri: .parse(appLink),
                                 ),
-                                AboutButton(
-                                  theme: theme,
-                                  title: 'Оценить приложение',
-                                  icon: 'star',
-                                  onTap: () => launchUrlString(appLink),
-                                ),
-                                AboutButton(
-                                  theme: theme,
-                                  title: 'Предложения и замечания',
-                                  icon: 'note-pencil',
-                                  onTap: () => launchUrlString(
-                                    'https://azan.ru/site/write-to-admin',
-                                  ),
-                                ),
-                                SocialsWidget(theme: theme),
-                              ],
+                              ),
                             ),
-                            DoNotForgetUsWidget(theme: theme),
+                            AboutButton(
+                              icon: 'star',
+                              theme: theme,
+                              title: 'Оценить приложение',
+                              onTap: () => launchUrlString(appLink),
+                            ),
+                            AboutButton(
+                              theme: theme,
+                              icon: 'note-pencil',
+                              title: 'Предложения и замечания',
+                              onTap: () => launchUrlString(
+                                'https://azan.ru/site/write-to-admin',
+                              ),
+                            ),
+                            SocialsWidget(theme: theme),
                           ],
                         ),
-                      ),
+                        DoNotForgetUsWidget(theme: theme),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-          );
-        },
+            ],
+          ),
+        ),
       ),
     );
   }

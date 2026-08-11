@@ -14,8 +14,8 @@ class SettingsHeader extends StatelessWidget {
     return Container(
       padding: const .symmetric(horizontal: 20, vertical: 8),
       decoration: BoxDecoration(
-        borderRadius: const .vertical(bottom: .circular(20)),
         color: bgSecondary(theme),
+        borderRadius: const .vertical(bottom: .circular(20)),
       ),
       child: Column(
         children: [
@@ -40,9 +40,7 @@ class SettingsHeader extends StatelessWidget {
 
               Text(
                 'Настройки',
-                style: textHeadline.copyWith(
-                  color: typographyPrimary(theme),
-                ),
+                style: textHeadline.copyWith(color: typographyPrimary(theme)),
               ),
             ],
           ),

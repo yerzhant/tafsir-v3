@@ -12,8 +12,8 @@ class BookmarksList extends StatelessWidget {
   });
 
   final AppTheme theme;
-  final List<Bookmark> items;
   final bool hasTopPadding;
+  final List<Bookmark> items;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,8 @@ class BookmarksList extends StatelessWidget {
       ),
       itemCount: items.length,
       itemBuilder: (context, index) => BookmarkItem(
-        theme: theme,
         bookmark: items[index],
+        theme: theme,
       ),
       separatorBuilder: (context, index) => const SizedBox(height: 8),
     );

@@ -11,40 +11,32 @@ class ProgressWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, ThemeState>(
-      builder: (context, state) {
-        final theme = state.theme;
+    final theme = context.read<ThemeCubit>().state.theme;
 
-        return Container(
-          color: bgPrimary(theme),
-          width: .infinity,
-          child: Column(
-            mainAxisAlignment: .center,
-            spacing: 20,
-            children: [
-              if (value != null)
-                Text(
-                  'Инициализация',
-                  style: textBodyMedium.copyWith(
-                    color: typographyPrimary(theme),
-                  ),
-                ),
-              CircularProgressIndicator.adaptive(
-                backgroundColor: bgSecondary(theme),
-                value: value?.let((it) => it < 0 ? null : it / 100),
-              ),
-              ?value?.let(
-                (it) => Text(
-                  style: textBodyMedium.copyWith(
-                    color: typographyPrimary(theme),
-                  ),
-                  it < 0 ? '' : '${it.toStringAsFixed(1)} %',
-                ),
-              ),
-            ],
+    return Container(
+      color: bgPrimary(theme),
+      width: .infinity,
+      child: Column(
+        mainAxisAlignment: .center,
+        spacing: 20,
+        children: [
+          if (value != null)
+            Text(
+              'Инициализация',
+              style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
+            ),
+          CircularProgressIndicator.adaptive(
+            backgroundColor: bgSecondary(theme),
+            value: value?.let((it) => it < 0 ? null : it / 100),
           ),
-        );
-      },
+          ?value?.let(
+            (it) => Text(
+              it < 0 ? '' : '${it.toStringAsFixed(1)} %',
+              style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

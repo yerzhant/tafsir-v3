@@ -27,13 +27,13 @@ class Masjid extends StatelessWidget {
       children: [
         Container(
           foregroundDecoration: BoxDecoration(
-            color: color,
             backgroundBlendMode: blendMode,
+            color: color,
           ),
           decoration: const BoxDecoration(
             image: .new(
-              image: AssetImage('assets/images/masjid.png'),
               alignment: .topCenter,
+              image: AssetImage('assets/images/masjid.png'),
             ),
           ),
         ),
