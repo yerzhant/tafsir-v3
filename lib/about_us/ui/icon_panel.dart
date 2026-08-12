@@ -35,9 +35,12 @@ class IconPanel extends StatelessWidget {
           ],
         ),
         child: Center(
-          child: SvgPicture.asset(
-            'assets/icons/$icon.svg',
-            colorFilter: .mode(brandPrimary(theme), .srcIn),
+          child: ShaderMask(
+            blendMode: .srcIn,
+            child: SvgPicture.asset('assets/icons/$icon.svg'),
+            shaderCallback: (bounds) => gradientPrimary(theme).createShader(
+              bounds,
+            ),
           ),
         ),
       ),

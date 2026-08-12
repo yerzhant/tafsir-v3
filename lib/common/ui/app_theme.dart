@@ -263,3 +263,8 @@ Color alertSuccess200(AppTheme theme) => switch (theme) {
   .brownLight => alertSuccess200BrownLight,
   .brownDark => alertSuccess200BrownDark,
 };
+
+LinearGradient gradientPrimary(AppTheme theme) => switch (theme) {
+  .light || .dark => gradiendPrimaryBlue,
+  .brownLight || .brownDark => gradiendPrimaryBrown,
+};
