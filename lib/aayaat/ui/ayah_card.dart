@@ -238,14 +238,22 @@ class _Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = typographyLabelsAndIcons(theme);
+    final color = switch (theme) {
+      .light || .brownLight => typographyLabelsAndIcons(theme),
+      .dark || .brownDark => typographyPrimary(theme),
+    };
+
+    final bgColor = switch (theme) {
+      .light => bgContainer(theme),
+      .dark || .brownLight || .brownDark => bgTertirary(theme),
+    };
 
     final bookmarkIcon = isBookmarked ? '-active' : '';
 
     return Container(
       padding: const .all(18),
       decoration: BoxDecoration(
-        color: bgContainer(theme),
+        color: bgColor,
         borderRadius: .circular(12),
         boxShadow: const [
           .new(
@@ -258,7 +266,6 @@ class _Menu extends StatelessWidget {
       ),
       child: Row(
         spacing: 12,
-        mainAxisSize: .min,
         children: [
           GestureDetector(
             onTap: onShare,

@@ -56,6 +56,8 @@ class _Font extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final settings = context.read<SettingsCubit>().state;
+
     return GestureDetector(
       onTap: () => onSelected(type),
       child: SettingPanel(
@@ -67,6 +69,9 @@ class _Font extends StatelessWidget {
             Radio<AyahFontType>.adaptive(
               value: type,
               activeColor: alertSuccess200(theme),
+              fillColor: settings.ayahFontType != type
+                  ? .all(typographySecondary(theme))
+                  : null,
             ),
             Column(
               crossAxisAlignment: .start,

@@ -33,15 +33,9 @@ class BookmarkItem extends StatelessWidget {
           children: [
             CircleCard(
               theme: theme,
-              child: Column(
-                mainAxisAlignment: .center,
-                children: [
-                  const SizedBox(height: 3),
-                  SvgPicture.asset(
-                    'assets/icons/bookmark.svg',
-                    colorFilter: .mode(brandPrimary(theme), .srcIn),
-                  ),
-                ],
+              child: SvgPicture.asset(
+                'assets/icons/bookmark.svg',
+                colorFilter: .mode(brandPrimary(theme), .srcIn),
               ),
             ),
             Expanded(

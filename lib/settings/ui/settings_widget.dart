@@ -196,6 +196,11 @@ class _Slider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final trackColor = switch (theme) {
+      .dark => borderTertirary(theme),
+      .light || .brownLight || .brownDark => borderPrimary(theme),
+    };
+
     return Column(
       crossAxisAlignment: .start,
       spacing: 8,
@@ -212,8 +217,8 @@ class _Slider extends StatelessWidget {
                 max: max,
                 value: value,
                 onChanged: onChanged,
-                activeColor: borderPrimary(theme),
-                inactiveColor: borderPrimary(theme),
+                activeColor: trackColor,
+                inactiveColor: trackColor,
                 thumbColor: typographyPrimary(theme),
               ),
             ),
@@ -258,6 +263,7 @@ class _Checkbox extends StatelessWidget {
       children: [
         Checkbox.adaptive(
           value: value,
+          checkColor: Colors.white,
           materialTapTargetSize: .shrinkWrap,
           activeColor: onChanged != null
               ? alertSuccess200(theme)

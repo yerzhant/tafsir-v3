@@ -45,6 +45,7 @@ class App extends StatelessWidget {
                 ),
                 bottomSheetTheme: .new(
                   backgroundColor: bgPrimary(themeState.theme),
+                  dragHandleColor: typographyTertirary(themeState.theme),
                 ),
                 sliderTheme: .new(
                   overlayShape: .noOverlay,

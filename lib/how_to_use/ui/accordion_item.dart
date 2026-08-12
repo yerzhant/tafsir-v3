@@ -56,7 +56,10 @@ class _AccordionItemState extends State<AccordionItem>
                 child: AnimatedRotation(
                   duration: _duration,
                   turns: _expanded ? .25 : 0,
-                  child: SvgPicture.asset('assets/icons/accordion-state.svg'),
+                  child: SvgPicture.asset(
+                    'assets/icons/accordion-state.svg',
+                    colorFilter: .mode(typographyLabelsAndIcons(theme), .srcIn),
+                  ),
                 ),
               ),
             ],

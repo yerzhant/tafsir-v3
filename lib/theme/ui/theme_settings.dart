@@ -134,6 +134,7 @@ class _Switch extends StatelessWidget {
             value: value,
             onChanged: onChanged,
             padding: const .all(0),
+            activeThumbColor: Colors.white,
             activeTrackColor: alertSuccess200(theme),
           ),
         ],

@@ -215,6 +215,13 @@ Color borderPrimary(AppTheme theme) => switch (theme) {
   .brownDark => borderPrimaryBrownDark,
 };
 
+Color borderTertirary(AppTheme theme) => switch (theme) {
+  .light => borderTertiraryLight,
+  .dark => borderTertiraryDark,
+  .brownLight => borderTertiraryBrownLight,
+  .brownDark => borderTertiraryBrownDark,
+};
+
 Color typographyPrimary(AppTheme theme) => switch (theme) {
   .light => typographyPrimaryLight,
   .dark => typographyPrimaryDark,
