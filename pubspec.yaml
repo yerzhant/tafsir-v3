@@ -34,6 +34,12 @@ dev_dependencies:
   freezed: ^3.2.5
   build_runner: ^2.15.0
   json_serializable: ^6.14.1
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: true
+  min_sdk_android: 24
+  image_path: design/logo.png
 
 flutter:
   uses-material-design: true
