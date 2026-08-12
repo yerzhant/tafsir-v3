@@ -39,6 +39,7 @@ class App extends StatelessWidget {
           builder: (context, themeState) {
             return MaterialApp(
               title: appTitle,
+              color: Colors.white,
               theme: .new(
                 progressIndicatorTheme: .new(
                   color: brandPrimary(themeState.theme),
