@@ -41,7 +41,7 @@ flutter_launcher_icons:
   android: true
   min_sdk_android: 24
   remove_alpha_ios: true
-  image_path: design/logo.png
+  image_path: design/logo-blue.png
 
 flutter:
   uses-material-design: true
