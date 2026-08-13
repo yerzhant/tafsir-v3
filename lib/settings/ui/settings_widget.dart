@@ -212,7 +212,7 @@ class _Slider extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: Slider.adaptive(
+              child: Slider(
                 min: min,
                 max: max,
                 value: value,
@@ -261,7 +261,7 @@ class _Checkbox extends StatelessWidget {
     return Row(
       spacing: 8,
       children: [
-        Checkbox.adaptive(
+        Checkbox(
           value: value,
           checkColor: Colors.white,
           materialTapTargetSize: .shrinkWrap,

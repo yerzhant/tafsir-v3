@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
@@ -130,11 +130,11 @@ class _Switch extends StatelessWidget {
             style: textBodyReg.copyWith(color: typographyPrimary(theme)),
           ),
           const Spacer(),
-          Switch.adaptive(
+          CupertinoSwitch(
             value: value,
             onChanged: onChanged,
-            padding: const .all(0),
-            activeThumbColor: Colors.white,
+            // padding: const .all(0),
+            // activeThumbColor: Colors.white,
             activeTrackColor: alertSuccess200(theme),
           ),
         ],

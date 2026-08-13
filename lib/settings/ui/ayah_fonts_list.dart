@@ -66,7 +66,7 @@ class _Font extends StatelessWidget {
           crossAxisAlignment: .start,
           spacing: 12,
           children: [
-            Radio<AyahFontType>.adaptive(
+            Radio<AyahFontType>(
               value: type,
               activeColor: alertSuccess200(theme),
               fillColor: settings.ayahFontType != type
