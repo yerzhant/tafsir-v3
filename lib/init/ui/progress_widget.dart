@@ -25,7 +25,7 @@ class ProgressWidget extends StatelessWidget {
               'Инициализация',
               style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
             ),
-          CircularProgressIndicator.adaptive(
+          CircularProgressIndicator(
             backgroundColor: bgSecondary(theme),
             value: value?.let((it) => it < 0 ? null : it / 100),
           ),

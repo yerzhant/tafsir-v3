@@ -33,7 +33,7 @@ class AboutPage extends StatelessWidget {
 
     final appLink = Platform.isAndroid
         ? 'https://play.google.com/store/apps/details?id=ru.azan.tafsir'
-        : 'https://apps.apple.com/us/app/тафсир-корана/id1542515717';
+        : 'https://apps.apple.com/app/id1542515717';
 
     return Scaffold(
       body: Masjid(
