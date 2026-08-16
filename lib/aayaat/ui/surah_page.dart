@@ -120,7 +120,12 @@ class _SurahPageState extends State<SurahPage> {
             onSettings: () => SettingsPage.open(context),
             onInfo: () => _showInfo(context, state.surah.info),
           ),
-          Expanded(child: AyahList(state: state)),
+          Expanded(
+            child: AyahList(
+              cubit: context.read(),
+              state: state,
+            ),
+          ),
         ],
       ),
     );

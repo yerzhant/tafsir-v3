@@ -6,15 +6,16 @@ import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
 
 class AyahList extends StatefulWidget {
-  const AyahList({super.key, required this.state});
+  const AyahList({super.key, required this.state, required this.cubit});
 
+  final AayaatCubit cubit;
   final AayaatStateSuccess state;
 
   @override
   State<AyahList> createState() => _AyahListState();
 }
 
-class _AyahListState extends State<AyahList> {
+class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
   final _controller = ItemScrollController();
   final _listener = ItemPositionsListener.create();
 
@@ -24,7 +25,36 @@ class _AyahListState extends State<AyahList> {
   void initState() {
     super.initState();
 
+    WidgetsBinding.instance.addObserver(this);
+
     _lastScrolledPosition = widget.state.position;
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == .paused || state == .detached) {
+      _savePosition();
+    }
+  }
+
+  void _savePosition() {
+    final position = _listener.itemPositions.value.first;
+
+    widget.cubit.savePosition(
+      .new(
+        .new(position.index + 1),
+        position.itemLeadingEdge,
+      ),
+    );
   }
 
   void _scrollTo(AyahPosition position) async {
@@ -41,16 +71,7 @@ class _AyahListState extends State<AyahList> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvokedWithResult: (didPop, result) {
-        final position = _listener.itemPositions.value.first;
-
-        context.read<AayaatCubit>().savePosition(
-          .new(
-            .new(position.index + 1),
-            position.itemLeadingEdge,
-          ),
-        );
-      },
+      onPopInvokedWithResult: (didPop, result) => _savePosition(),
 
       child: BlocListener<AayaatCubit, AayaatState>(
         listener: (context, state) {
