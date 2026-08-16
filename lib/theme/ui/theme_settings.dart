@@ -30,12 +30,12 @@ class ThemeSettings extends StatelessWidget {
                         color: typographyPrimary(state.theme),
                       ),
                     ),
-                    // _Switch(
-                    //   theme: state.theme,
-                    //   title: 'Как в системе',
-                    //   value: state.sameAsInSystem,
-                    //   onChanged: context.read<ThemeCubit>().setSameAsInSystem,
-                    // ),
+                    _Switch(
+                      theme: state.theme,
+                      title: 'Как в системе',
+                      value: state.sameAsInSystem,
+                      onChanged: context.read<ThemeCubit>().setSameAsInSystem,
+                    ),
                     _Switch(
                       theme: state.theme,
                       title: 'Не выключать экран',
@@ -56,7 +56,7 @@ class ThemeSettings extends StatelessWidget {
                           icon: 'light',
                           theme: state.theme,
                           title: 'Светлая синяя',
-                          active: state.theme == .light,
+                          active: state.savedTheme == .light,
                           onTap: () => context.read<ThemeCubit>().setTheme(
                             .light,
                           ),
@@ -65,7 +65,7 @@ class ThemeSettings extends StatelessWidget {
                           icon: 'dark',
                           theme: state.theme,
                           title: 'Темная синяя',
-                          active: state.theme == .dark,
+                          active: state.savedTheme == .dark,
                           onTap: () => context.read<ThemeCubit>().setTheme(
                             .dark,
                           ),
@@ -79,7 +79,7 @@ class ThemeSettings extends StatelessWidget {
                           theme: state.theme,
                           icon: 'brown-light',
                           title: 'Светлая коричневая',
-                          active: state.theme == .brownLight,
+                          active: state.savedTheme == .brownLight,
                           onTap: () => context.read<ThemeCubit>().setTheme(
                             .brownLight,
                           ),
@@ -88,7 +88,7 @@ class ThemeSettings extends StatelessWidget {
                           theme: state.theme,
                           icon: 'brown-dark',
                           title: 'Темная коричневая',
-                          active: state.theme == .brownDark,
+                          active: state.savedTheme == .brownDark,
                           onTap: () => context.read<ThemeCubit>().setTheme(
                             .brownDark,
                           ),

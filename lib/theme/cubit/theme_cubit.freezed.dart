@@ -12,9 +12,9 @@ part of 'theme_cubit.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$ThemeState {
+mixin _$ThemeState implements DiagnosticableTreeMixin {
 
- bool get sameAsInSystem; bool get doNotSwitchOffScreen; AppTheme get theme; AppError? get error;
+ bool get doNotSwitchOffScreen; bool get sameAsInSystem; AppTheme get savedTheme; AppTheme get theme; AppError? get error;
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -22,19 +22,25 @@ mixin _$ThemeState {
 $ThemeStateCopyWith<ThemeState> get copyWith => _$ThemeStateCopyWithImpl<ThemeState>(this as ThemeState, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'ThemeState'))
+    ..add(DiagnosticsProperty('doNotSwitchOffScreen', doNotSwitchOffScreen))..add(DiagnosticsProperty('sameAsInSystem', sameAsInSystem))..add(DiagnosticsProperty('savedTheme', savedTheme))..add(DiagnosticsProperty('theme', theme))..add(DiagnosticsProperty('error', error));
+}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeState&&(identical(other.sameAsInSystem, sameAsInSystem) || other.sameAsInSystem == sameAsInSystem)&&(identical(other.doNotSwitchOffScreen, doNotSwitchOffScreen) || other.doNotSwitchOffScreen == doNotSwitchOffScreen)&&(identical(other.theme, theme) || other.theme == theme)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeState&&(identical(other.doNotSwitchOffScreen, doNotSwitchOffScreen) || other.doNotSwitchOffScreen == doNotSwitchOffScreen)&&(identical(other.sameAsInSystem, sameAsInSystem) || other.sameAsInSystem == sameAsInSystem)&&(identical(other.savedTheme, savedTheme) || other.savedTheme == savedTheme)&&(identical(other.theme, theme) || other.theme == theme)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,sameAsInSystem,doNotSwitchOffScreen,theme,error);
+int get hashCode => Object.hash(runtimeType,doNotSwitchOffScreen,sameAsInSystem,savedTheme,theme,error);
 
 @override
-String toString() {
-  return 'ThemeState(sameAsInSystem: $sameAsInSystem, doNotSwitchOffScreen: $doNotSwitchOffScreen, theme: $theme, error: $error)';
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'ThemeState(doNotSwitchOffScreen: $doNotSwitchOffScreen, sameAsInSystem: $sameAsInSystem, savedTheme: $savedTheme, theme: $theme, error: $error)';
 }
 
 
@@ -45,7 +51,7 @@ abstract mixin class $ThemeStateCopyWith<$Res>  {
   factory $ThemeStateCopyWith(ThemeState value, $Res Function(ThemeState) _then) = _$ThemeStateCopyWithImpl;
 @useResult
 $Res call({
- bool sameAsInSystem, bool doNotSwitchOffScreen, AppTheme theme, AppError? error
+ bool doNotSwitchOffScreen, bool sameAsInSystem, AppTheme savedTheme, AppTheme theme, AppError? error
 });
 
 
@@ -62,11 +68,12 @@ class _$ThemeStateCopyWithImpl<$Res>
 
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? sameAsInSystem = null,Object? doNotSwitchOffScreen = null,Object? theme = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? doNotSwitchOffScreen = null,Object? sameAsInSystem = null,Object? savedTheme = null,Object? theme = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
-sameAsInSystem: null == sameAsInSystem ? _self.sameAsInSystem : sameAsInSystem // ignore: cast_nullable_to_non_nullable
-as bool,doNotSwitchOffScreen: null == doNotSwitchOffScreen ? _self.doNotSwitchOffScreen : doNotSwitchOffScreen // ignore: cast_nullable_to_non_nullable
-as bool,theme: null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nullable
+doNotSwitchOffScreen: null == doNotSwitchOffScreen ? _self.doNotSwitchOffScreen : doNotSwitchOffScreen // ignore: cast_nullable_to_non_nullable
+as bool,sameAsInSystem: null == sameAsInSystem ? _self.sameAsInSystem : sameAsInSystem // ignore: cast_nullable_to_non_nullable
+as bool,savedTheme: null == savedTheme ? _self.savedTheme : savedTheme // ignore: cast_nullable_to_non_nullable
+as AppTheme,theme: null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nullable
 as AppTheme,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as AppError?,
   ));
@@ -165,10 +172,10 @@ return current(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( bool sameAsInSystem,  bool doNotSwitchOffScreen,  AppTheme theme,  AppError? error)?  current,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( bool doNotSwitchOffScreen,  bool sameAsInSystem,  AppTheme savedTheme,  AppTheme theme,  AppError? error)?  current,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Current() when current != null:
-return current(_that.sameAsInSystem,_that.doNotSwitchOffScreen,_that.theme,_that.error);case _:
+return current(_that.doNotSwitchOffScreen,_that.sameAsInSystem,_that.savedTheme,_that.theme,_that.error);case _:
   return orElse();
 
 }
@@ -186,10 +193,10 @@ return current(_that.sameAsInSystem,_that.doNotSwitchOffScreen,_that.theme,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( bool sameAsInSystem,  bool doNotSwitchOffScreen,  AppTheme theme,  AppError? error)  current,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( bool doNotSwitchOffScreen,  bool sameAsInSystem,  AppTheme savedTheme,  AppTheme theme,  AppError? error)  current,}) {final _that = this;
 switch (_that) {
 case _Current():
-return current(_that.sameAsInSystem,_that.doNotSwitchOffScreen,_that.theme,_that.error);case _:
+return current(_that.doNotSwitchOffScreen,_that.sameAsInSystem,_that.savedTheme,_that.theme,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -206,10 +213,10 @@ return current(_that.sameAsInSystem,_that.doNotSwitchOffScreen,_that.theme,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( bool sameAsInSystem,  bool doNotSwitchOffScreen,  AppTheme theme,  AppError? error)?  current,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( bool doNotSwitchOffScreen,  bool sameAsInSystem,  AppTheme savedTheme,  AppTheme theme,  AppError? error)?  current,}) {final _that = this;
 switch (_that) {
 case _Current() when current != null:
-return current(_that.sameAsInSystem,_that.doNotSwitchOffScreen,_that.theme,_that.error);case _:
+return current(_that.doNotSwitchOffScreen,_that.sameAsInSystem,_that.savedTheme,_that.theme,_that.error);case _:
   return null;
 
 }
@@ -220,12 +227,13 @@ return current(_that.sameAsInSystem,_that.doNotSwitchOffScreen,_that.theme,_that
 /// @nodoc
 
 
-class _Current implements ThemeState {
-  const _Current(this.sameAsInSystem, this.doNotSwitchOffScreen, this.theme, this.error);
+class _Current with DiagnosticableTreeMixin implements ThemeState {
+  const _Current({required this.doNotSwitchOffScreen, required this.sameAsInSystem, required this.savedTheme, required this.theme, required this.error});
   
 
-@override final  bool sameAsInSystem;
 @override final  bool doNotSwitchOffScreen;
+@override final  bool sameAsInSystem;
+@override final  AppTheme savedTheme;
 @override final  AppTheme theme;
 @override final  AppError? error;
 
@@ -236,19 +244,25 @@ class _Current implements ThemeState {
 _$CurrentCopyWith<_Current> get copyWith => __$CurrentCopyWithImpl<_Current>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'ThemeState.current'))
+    ..add(DiagnosticsProperty('doNotSwitchOffScreen', doNotSwitchOffScreen))..add(DiagnosticsProperty('sameAsInSystem', sameAsInSystem))..add(DiagnosticsProperty('savedTheme', savedTheme))..add(DiagnosticsProperty('theme', theme))..add(DiagnosticsProperty('error', error));
+}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Current&&(identical(other.sameAsInSystem, sameAsInSystem) || other.sameAsInSystem == sameAsInSystem)&&(identical(other.doNotSwitchOffScreen, doNotSwitchOffScreen) || other.doNotSwitchOffScreen == doNotSwitchOffScreen)&&(identical(other.theme, theme) || other.theme == theme)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Current&&(identical(other.doNotSwitchOffScreen, doNotSwitchOffScreen) || other.doNotSwitchOffScreen == doNotSwitchOffScreen)&&(identical(other.sameAsInSystem, sameAsInSystem) || other.sameAsInSystem == sameAsInSystem)&&(identical(other.savedTheme, savedTheme) || other.savedTheme == savedTheme)&&(identical(other.theme, theme) || other.theme == theme)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,sameAsInSystem,doNotSwitchOffScreen,theme,error);
+int get hashCode => Object.hash(runtimeType,doNotSwitchOffScreen,sameAsInSystem,savedTheme,theme,error);
 
 @override
-String toString() {
-  return 'ThemeState.current(sameAsInSystem: $sameAsInSystem, doNotSwitchOffScreen: $doNotSwitchOffScreen, theme: $theme, error: $error)';
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'ThemeState.current(doNotSwitchOffScreen: $doNotSwitchOffScreen, sameAsInSystem: $sameAsInSystem, savedTheme: $savedTheme, theme: $theme, error: $error)';
 }
 
 
@@ -259,7 +273,7 @@ abstract mixin class _$CurrentCopyWith<$Res> implements $ThemeStateCopyWith<$Res
   factory _$CurrentCopyWith(_Current value, $Res Function(_Current) _then) = __$CurrentCopyWithImpl;
 @override @useResult
 $Res call({
- bool sameAsInSystem, bool doNotSwitchOffScreen, AppTheme theme, AppError? error
+ bool doNotSwitchOffScreen, bool sameAsInSystem, AppTheme savedTheme, AppTheme theme, AppError? error
 });
 
 
@@ -276,12 +290,13 @@ class __$CurrentCopyWithImpl<$Res>
 
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? sameAsInSystem = null,Object? doNotSwitchOffScreen = null,Object? theme = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? doNotSwitchOffScreen = null,Object? sameAsInSystem = null,Object? savedTheme = null,Object? theme = null,Object? error = freezed,}) {
   return _then(_Current(
-null == sameAsInSystem ? _self.sameAsInSystem : sameAsInSystem // ignore: cast_nullable_to_non_nullable
-as bool,null == doNotSwitchOffScreen ? _self.doNotSwitchOffScreen : doNotSwitchOffScreen // ignore: cast_nullable_to_non_nullable
-as bool,null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nullable
-as AppTheme,freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+doNotSwitchOffScreen: null == doNotSwitchOffScreen ? _self.doNotSwitchOffScreen : doNotSwitchOffScreen // ignore: cast_nullable_to_non_nullable
+as bool,sameAsInSystem: null == sameAsInSystem ? _self.sameAsInSystem : sameAsInSystem // ignore: cast_nullable_to_non_nullable
+as bool,savedTheme: null == savedTheme ? _self.savedTheme : savedTheme // ignore: cast_nullable_to_non_nullable
+as AppTheme,theme: null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nullable
+as AppTheme,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as AppError?,
   ));
 }

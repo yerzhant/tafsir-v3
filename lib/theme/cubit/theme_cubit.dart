@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fpdart/fpdart.dart';
@@ -11,27 +12,80 @@ part 'theme_cubit.freezed.dart';
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit(this._db) : super(const .current(false, false, .light, null));
+  ThemeCubit(this._db)
+    : super(
+        const .current(
+          doNotSwitchOffScreen: false,
+          sameAsInSystem: false,
+          savedTheme: .light,
+          theme: .light,
+          error: null,
+        ),
+      );
 
   final ThemeDb _db;
 
   Future<void> init() => TaskEither<AppError, void>.Do(
     ($) async {
-      final theme = await $(_db.getTheme());
       final sameAsInSystem = await $(_db.sameAsInSystem());
       final doNotSwitchOffScreen = await $(_db.doNotSwitchOffScreen());
 
-      emit(.current(sameAsInSystem, doNotSwitchOffScreen, theme, null));
+      emit(
+        state.copyWith(
+          doNotSwitchOffScreen: doNotSwitchOffScreen,
+          sameAsInSystem: sameAsInSystem,
+        ),
+      );
 
-      _setSystemUI(theme);
+      PlatformDispatcher.instance.onPlatformBrightnessChanged = _selectTheme;
+
+      _selectTheme();
     },
   ).mapLeft((l) => emit(state.copyWith(error: l))).run();
+
+  Future<void> _selectTheme() => TaskEither<AppError, void>.Do(
+    ($) async {
+      final savedTheme = await $(_db.getTheme());
+
+      if (!await $(_db.sameAsInSystem())) {
+        emit(state.copyWith(theme: savedTheme, savedTheme: savedTheme));
+        await $(_setSystemUI(savedTheme));
+        return;
+      }
+
+      final brightness = PlatformDispatcher.instance.platformBrightness;
+
+      late final AppTheme theme;
+
+      if (savedTheme == .light || savedTheme == .dark) {
+        theme = brightness == .light ? .light : .dark;
+      } else {
+        theme = brightness == .light ? .brownLight : .brownDark;
+      }
+
+      emit(state.copyWith(theme: theme, savedTheme: savedTheme));
+      await $(_setSystemUI(theme));
+    },
+  ).mapLeft((l) => emit(state.copyWith(error: l))).run();
+
+  TaskEither<AppError, void> _setSystemUI(AppTheme theme) =>
+      .tryCatch(() async {
+        SystemChrome.setSystemUIOverlayStyle(
+          .new(
+            systemNavigationBarContrastEnforced: false,
+            systemNavigationBarColor: Colors.transparent,
+            systemNavigationBarIconBrightness: theme.brightness == .dark
+                ? .light
+                : .dark,
+          ),
+        );
+      }, ExceptionError.new);
 
   Future<void> setSameAsInSystem(bool value) => TaskEither<AppError, void>.Do(
     ($) async {
       emit(state.copyWith(sameAsInSystem: value));
-
       await $(_db.setSameAsInSystem(value));
+      _selectTheme();
     },
   ).mapLeft((l) => emit(state.copyWith(error: l))).run();
 
@@ -39,30 +93,14 @@ class ThemeCubit extends Cubit<ThemeState> {
       TaskEither<AppError, void>.Do(
         ($) async {
           emit(state.copyWith(doNotSwitchOffScreen: value));
-
           await $(_db.setDoNotSwitchOffScreen(value));
         },
       ).mapLeft((l) => emit(state.copyWith(error: l))).run();
 
   Future<void> setTheme(AppTheme theme) => TaskEither<AppError, void>.Do(
     ($) async {
-      _setSystemUI(theme);
-
-      emit(state.copyWith(theme: theme));
-
       await $(_db.setTheme(theme));
+      _selectTheme();
     },
   ).mapLeft((l) => emit(state.copyWith(error: l))).run();
-
-  void _setSystemUI(AppTheme theme) {
-    SystemChrome.setSystemUIOverlayStyle(
-      .new(
-        systemNavigationBarContrastEnforced: false,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: theme.brightness == .dark
-            ? .light
-            : .dark,
-      ),
-    );
-  }
 }
