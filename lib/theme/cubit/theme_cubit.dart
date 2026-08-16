@@ -70,6 +70,8 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   TaskEither<AppError, void> _setSystemUI(AppTheme theme) =>
       .tryCatch(() async {
+        await Future.delayed(const .new(milliseconds: 100));
+
         SystemChrome.setSystemUIOverlayStyle(
           .new(
             systemNavigationBarContrastEnforced: false,

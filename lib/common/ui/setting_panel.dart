@@ -23,8 +23,10 @@ class SettingPanel extends StatelessWidget {
       padding: .all(padding),
       decoration: BoxDecoration(
         borderRadius: .circular(radius),
-        border: active ? .all(color: typographyLink(theme)) : null,
         color: active ? brandWhite : bgSecondary(theme),
+        border: .all(
+          color: active ? typographyLink(theme) : Colors.transparent,
+        ),
       ),
       child: child,
     );
