@@ -6,21 +6,21 @@ class AppCard extends StatelessWidget {
     super.key,
     required this.child,
     required this.theme,
-    this.horizontalPadding = 12,
     this.verticalPadding = 12,
+    this.horizontalPadding = 12,
   });
 
   final Widget child;
   final AppTheme theme;
-  final double horizontalPadding;
   final double verticalPadding;
+  final double horizontalPadding;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: .symmetric(
-        horizontal: horizontalPadding,
         vertical: verticalPadding,
+        horizontal: horizontalPadding,
       ),
       decoration: BoxDecoration(
         color: bgSecondary(theme).withAlpha(200),
