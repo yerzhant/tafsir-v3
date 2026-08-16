@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/last_read.dart';
+import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/main/ui/last_read_item.dart';
 
 class LastReadList extends StatelessWidget {
-  const LastReadList({super.key, required this.theme, required this.items});
+  const LastReadList({
+    super.key,
+    required this.theme,
+    required this.items,
+    required this.suwar,
+  });
 
   final AppTheme theme;
+  final List<Surah> suwar;
   final List<LastRead> items;
 
   @override
@@ -34,7 +41,11 @@ class LastReadList extends StatelessWidget {
                 return const SizedBox(width: 12);
               }
 
-              return LastReadItem(theme: theme, lastRead: items[index - 1]);
+              return LastReadItem(
+                theme: theme,
+                suwar: suwar,
+                lastRead: items[index - 1],
+              );
             },
             separatorBuilder: (context, index) => const SizedBox(width: 8),
           ),

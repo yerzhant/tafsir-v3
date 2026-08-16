@@ -6,14 +6,17 @@ import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
 import 'package:tafsir/main/domain/djuz.dart';
+import 'package:tafsir/main/domain/surah.dart';
 
 class DjuzItem extends StatelessWidget {
   const DjuzItem({
     super.key,
+    required this.suwar,
     required this.theme,
     required this.djuz,
   });
 
+  final List<Surah> suwar;
   final AppTheme theme;
   final Djuz djuz;
 
@@ -23,6 +26,7 @@ class DjuzItem extends StatelessWidget {
       onTap: () => SurahPage.open(
         context,
         context.read(),
+        suwar,
         djuz.fromSurahNumber,
         .new(djuz.fromAayah, 0),
       ),

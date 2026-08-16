@@ -25,7 +25,7 @@ class MainWidget extends StatelessWidget {
         builder: (context, state) {
           return switch (state) {
             MainStateSuccess() => _Success(theme: theme, state: state),
-    
+
             MainStateFailure(:final error) => AppErrorWidget(
               error: error,
               onPressed: context.read<MainCubit>().init,
@@ -61,7 +61,11 @@ class _Success extends StatelessWidget {
                 child: Column(
                   children: [
                     if (state.lastReads.isNotEmpty)
-                      LastReadList(theme: theme, items: state.lastReads),
+                      LastReadList(
+                        theme: theme,
+                        suwar: state.suwar,
+                        items: state.lastReads,
+                      ),
 
                     Expanded(
                       child: switch (state.tab) {
@@ -74,12 +78,14 @@ class _Success extends StatelessWidget {
 
                         .adjzaa => AdjzaaList(
                           theme: theme,
+                          suwar: state.suwar,
                           items: state.adjzaa,
                           hasTopPadding: state.lastReads.isEmpty,
                         ),
 
                         .bookmarks => BookmarksList(
                           theme: theme,
+                          suwar: state.suwar,
                           items: state.bookmarks,
                           hasTopPadding: state.lastReads.isEmpty,
                         ),

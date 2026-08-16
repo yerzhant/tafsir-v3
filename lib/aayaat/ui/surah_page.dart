@@ -4,6 +4,7 @@ import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_list.dart';
+import 'package:tafsir/aayaat/ui/short_suwar_list.dart';
 import 'package:tafsir/aayaat/ui/surah_header.dart';
 import 'package:tafsir/aayaat/ui/surah_info_card.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
@@ -19,11 +20,13 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 
 class SurahPage extends StatefulWidget {
   const SurahPage._(
+    this._suwar,
     this._mainCubit,
     this._surahNumber,
     this._ayahPosition,
   );
 
+  final List<Surah> _suwar;
   final MainCubit _mainCubit;
   final SurahNumber _surahNumber;
   final AyahPosition _ayahPosition;
@@ -31,12 +34,14 @@ class SurahPage extends StatefulWidget {
   static void open(
     BuildContext context,
     MainCubit mainCubit,
+    List<Surah> suwar,
     SurahNumber surahNumber,
     AyahPosition ayahPosition,
   ) => Navigator.push(
     context,
     MaterialPageRoute(
       builder: (context) => SurahPage._(
+        suwar,
         mainCubit,
         surahNumber,
         ayahPosition,
@@ -50,6 +55,8 @@ class SurahPage extends StatefulWidget {
 
 class _SurahPageState extends State<SurahPage> {
   final _aayahController = TextEditingController();
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void dispose() {
@@ -67,6 +74,7 @@ class _SurahPageState extends State<SurahPage> {
     }
 
     return Scaffold(
+      key: _scaffoldKey,
       body: SafeArea(
         top: false,
         child: MultiRepositoryProvider(
@@ -99,6 +107,14 @@ class _SurahPageState extends State<SurahPage> {
           ),
         ),
       ),
+      drawer: Drawer(
+        child: SafeArea(
+          child: ShortSuwarList(
+            suwar: widget._suwar,
+            mainCubit: widget._mainCubit,
+          ),
+        ),
+      ),
     );
   }
 
@@ -114,11 +130,11 @@ class _SurahPageState extends State<SurahPage> {
             number: widget._surahNumber,
             translation: state.surah.translation,
 
-            onSuwar: () {},
             onTheme: () => _showTheme(context),
             onGoToAyah: () => _goToAayah(context),
             onSettings: () => SettingsPage.open(context),
             onInfo: () => _showInfo(context, state.surah.info),
+            onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
           ),
           Expanded(
             child: AyahList(

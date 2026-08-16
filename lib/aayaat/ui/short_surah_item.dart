@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
-import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/main/domain/surah.dart';
 
 class ShortSurahItem extends StatelessWidget {
@@ -107,38 +105,38 @@ class ShortSurahItem extends StatelessWidget {
   }
 }
 
-@Preview(group: 'ShortSurahItem', name: 'Light')
-Widget previewLight() => sizedWrapper(
-  ShortSurahItem(
-    theme: .light,
-    surah: const .new(
-      .new(1),
-      .new('Аль-Фатиха'),
-      .new(''),
-      .new('1'),
-      .makkah,
-      .new('Открывающая'),
-      .new(7),
-    ),
-    onTap: () {},
-  ),
-  width: 400,
-);
+// @Preview(group: 'ShortSurahItem', name: 'Light')
+// Widget previewLight() => sizedWrapper(
+//   ShortSurahItem(
+//     theme: .light,
+//     surah: const .new(
+//       .new(1),
+//       .new('Аль-Фатиха'),
+//       .new(''),
+//       .new('1'),
+//       .makkah,
+//       .new('Открывающая'),
+//       .new(7),
+//     ),
+//     onTap: () {},
+//   ),
+//   width: 400,
+// );
 
-@Preview(group: 'ShortSurahItem', name: 'Light Long')
-Widget previewLightLong() => sizedWrapper(
-  ShortSurahItem(
-    theme: .light,
-    surah: const .new(
-      .new(2),
-      .new('Аль-Бакара Аль-Бакара Аль-Бакара'),
-      .new(''),
-      .new('1'),
-      .madinah,
-      .new('Корова Корова Корова'),
-      .new(286),
-    ),
-    onTap: () {},
-  ),
-  width: 300,
-);
+// @Preview(group: 'ShortSurahItem', name: 'Light Long')
+// Widget previewLightLong() => sizedWrapper(
+//   ShortSurahItem(
+//     theme: .light,
+//     surah: const .new(
+//       .new(2),
+//       .new('Аль-Бакара Аль-Бакара Аль-Бакара'),
+//       .new(''),
+//       .new('1'),
+//       .madinah,
+//       .new('Корова Корова Корова'),
+//       .new(286),
+//     ),
+//     onTap: () {},
+//   ),
+//   width: 300,
+// );

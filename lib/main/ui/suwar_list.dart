@@ -49,6 +49,7 @@ class SuwarList extends StatelessWidget {
             onTap: () => SurahPage.open(
               context,
               context.read(),
+              suwar,
               surah.number,
               const .new(.new(1), 0),
             ),

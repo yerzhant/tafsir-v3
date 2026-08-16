@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/djuz.dart';
+import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/main/ui/djuz_item.dart';
 
 class AdjzaaList extends StatelessWidget {
@@ -8,11 +9,13 @@ class AdjzaaList extends StatelessWidget {
     super.key,
     required this.theme,
     required this.items,
+    required this.suwar,
     required this.hasTopPadding,
   });
 
   final AppTheme theme;
   final List<Djuz> items;
+  final List<Surah> suwar;
   final bool hasTopPadding;
 
   @override
@@ -27,6 +30,7 @@ class AdjzaaList extends StatelessWidget {
       itemCount: items.length,
       itemBuilder: (context, index) => DjuzItem(
         theme: theme,
+        suwar: suwar,
         djuz: items[index],
       ),
       separatorBuilder: (context, index) => const SizedBox(height: 8),

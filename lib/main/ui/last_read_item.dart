@@ -3,16 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/aayaat/ui/surah_page.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/last_read.dart';
+import 'package:tafsir/main/domain/surah.dart';
 
 class LastReadItem extends StatelessWidget {
   const LastReadItem({
     super.key,
     required this.theme,
+    required this.suwar,
     required this.lastRead,
   });
 
   final AppTheme theme;
   final LastRead lastRead;
+  final List<Surah> suwar;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +23,7 @@ class LastReadItem extends StatelessWidget {
       onTap: () => SurahPage.open(
         context,
         context.read(),
+        suwar,
         lastRead.surahNumber,
         .new(
           lastRead.ayahPosition.number,

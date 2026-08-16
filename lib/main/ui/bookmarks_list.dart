@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/bookmark.dart';
+import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/main/ui/bookmark_item.dart';
 
 class BookmarksList extends StatelessWidget {
@@ -8,10 +9,12 @@ class BookmarksList extends StatelessWidget {
     super.key,
     required this.theme,
     required this.items,
+    required this.suwar,
     required this.hasTopPadding,
   });
 
   final AppTheme theme;
+  final List<Surah> suwar;
   final bool hasTopPadding;
   final List<Bookmark> items;
 
@@ -28,6 +31,7 @@ class BookmarksList extends StatelessWidget {
       itemBuilder: (context, index) => BookmarkItem(
         bookmark: items[index],
         theme: theme,
+        suwar: suwar,
       ),
       separatorBuilder: (context, index) => const SizedBox(height: 8),
     );

@@ -65,52 +65,57 @@ class SurahHeader extends StatelessWidget {
                   ),
 
                   Flexible(
-                    child: Column(
-                      mainAxisSize: .min,
-                      mainAxisAlignment: .center,
-                      crossAxisAlignment: .start,
-                      children: [
-                        Row(
-                          spacing: 2,
-                          children: [
-                            Text(
-                              '$number.',
-                              style: textHeadline.copyWith(
-                                height: 0,
-                                color: typographyPrimary(themeState.theme),
-                              ),
-                            ),
-                            Flexible(
-                              child: Text(
-                                name,
-                                overflow: .ellipsis,
+                    child: GestureDetector(
+                      onTap: onSuwar,
+                      child: Column(
+                        mainAxisSize: .min,
+                        mainAxisAlignment: .center,
+                        crossAxisAlignment: .start,
+                        children: [
+                          Row(
+                            spacing: 2,
+                            children: [
+                              Text(
+                                '$number.',
                                 style: textHeadline.copyWith(
                                   height: 0,
                                   color: typographyPrimary(themeState.theme),
                                 ),
                               ),
-                            ),
-                            // _Icon(
-                            //   icon: 'arrow-up-right-surah',
-                            //   theme: theme,
-                            //   onTap: onSuwar,
-                            // ),
-                          ],
-                        ),
+                              Flexible(
+                                child: Text(
+                                  name,
+                                  overflow: .ellipsis,
+                                  style: textHeadline.copyWith(
+                                    height: 0,
+                                    color: typographyPrimary(themeState.theme),
+                                  ),
+                                ),
+                              ),
+                              SvgPicture.asset(
+                                'assets/icons/arrow-up-right-surah.svg',
+                                colorFilter: .mode(
+                                  typographyPrimary(themeState.theme),
+                                  .srcIn,
+                                ),
+                              ),
+                            ],
+                          ),
 
-                        ?translation?.let(
-                          (it) => Flexible(
-                            child: Text(
-                              it,
-                              overflow: .ellipsis,
-                              style: textBodyMedium.copyWith(
-                                height: 0,
-                                color: typographySecondary(themeState.theme),
+                          ?translation?.let(
+                            (it) => Flexible(
+                              child: Text(
+                                it,
+                                overflow: .ellipsis,
+                                style: textBodyMedium.copyWith(
+                                  height: 0,
+                                  color: typographySecondary(themeState.theme),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
 

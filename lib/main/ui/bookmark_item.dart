@@ -6,16 +6,19 @@ import 'package:tafsir/common/ui/app_card.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/common/ui/circle_card.dart';
 import 'package:tafsir/main/domain/bookmark.dart';
+import 'package:tafsir/main/domain/surah.dart';
 
 class BookmarkItem extends StatelessWidget {
   const BookmarkItem({
     super.key,
     required this.theme,
+    required this.suwar,
     required this.bookmark,
   });
 
   final AppTheme theme;
   final Bookmark bookmark;
+  final List<Surah> suwar;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,7 @@ class BookmarkItem extends StatelessWidget {
       onTap: () => SurahPage.open(
         context,
         context.read(),
+        suwar,
         bookmark.surahNumber,
         .new(bookmark.aayahNumber, 0),
       ),
