@@ -43,17 +43,19 @@ class _AccordionItemState extends State<AccordionItem>
       child: Column(
         spacing: 4,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  widget.title,
-                  style: textCallout.copyWith(color: typographyPrimary(theme)),
+          GestureDetector(
+            onTap: _toggle,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    widget.title,
+                    style: textCallout.copyWith(
+                      color: typographyPrimary(theme),
+                    ),
+                  ),
                 ),
-              ),
-              GestureDetector(
-                onTap: _toggle,
-                child: AnimatedRotation(
+                AnimatedRotation(
                   duration: _duration,
                   turns: _expanded ? .25 : 0,
                   child: SvgPicture.asset(
@@ -61,8 +63,8 @@ class _AccordionItemState extends State<AccordionItem>
                     colorFilter: .mode(typographyLabelsAndIcons(theme), .srcIn),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           AnimatedCrossFade(
             duration: _duration,
