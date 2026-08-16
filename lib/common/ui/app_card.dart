@@ -23,14 +23,14 @@ class AppCard extends StatelessWidget {
         vertical: verticalPadding,
       ),
       decoration: BoxDecoration(
-        color: bgSecondary(theme),
+        color: bgSecondary(theme).withAlpha(200),
         borderRadius: .circular(16),
         boxShadow: const [
           .new(
             blurRadius: 4,
             offset: .new(0, 2),
             color: Color(0x14A0A0A0),
-            blurStyle: .outer,
+            // blurStyle: .outer,
           ),
         ],
       ),

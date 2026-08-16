@@ -258,7 +258,7 @@ class _Menu extends StatelessWidget {
         boxShadow: const [
           .new(
             blurRadius: 12,
-            blurStyle: .outer,
+            // blurStyle: .outer,
             offset: .new(0, 2),
             color: Color(0x14000000),
           ),

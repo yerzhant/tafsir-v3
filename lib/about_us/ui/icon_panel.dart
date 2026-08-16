@@ -23,12 +23,12 @@ class IconPanel extends StatelessWidget {
       child: Container(
         padding: .all(padding),
         decoration: BoxDecoration(
-          color: bgTertirary(theme),
+          color: bgTertirary(theme).withAlpha(200),
           borderRadius: .circular(padding),
           boxShadow: const [
             .new(
               blurRadius: 12,
-              blurStyle: .outer,
+              // blurStyle: .outer,
               offset: .new(0, 2),
               color: Color(0x14000000),
             ),

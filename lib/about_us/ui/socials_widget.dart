@@ -28,7 +28,6 @@ class SocialsWidget extends StatelessWidget {
           ),
           Row(
             spacing: 12,
-            mainAxisAlignment: .spaceBetween,
             children: [
               IconPanel(
                 theme: theme,

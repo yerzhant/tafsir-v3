@@ -32,14 +32,14 @@ class CircleCard extends StatelessWidget {
       width: diameter,
       height: diameter,
       decoration: BoxDecoration(
-        color: bgColor,
+        color: bgColor.withAlpha(255),
         borderRadius: .circular(diameter / 2),
         boxShadow: const [
           .new(
             blurRadius: 12,
             offset: .new(0, 2),
             color: Color(0x14000000),
-            blurStyle: .outer,
+            // blurStyle: .outer,
           ),
         ],
       ),
@@ -48,10 +48,13 @@ class CircleCard extends StatelessWidget {
   }
 }
 
-// @Preview(group: 'CircleCard', name: 'Light Normal', wrapper: wrapper)
+// @Preview(group: 'Circle Card', name: 'Light Normal', wrapper: wrapper)
 // Widget previewLightNormal() =>
 //     const CircleCard(theme: .light, child: Text('1'));
 
-// @Preview(group: 'CircleCard', name: 'Light Small', wrapper: wrapper)
+// @Preview(group: 'Circle Card', name: 'Dark Normal', wrapper: wrapper)
+// Widget previewDarkNormal() => const CircleCard(theme: .dark, child: Text('1'));
+
+// @Preview(group: 'Circle Card', name: 'Light Small', wrapper: wrapper)
 // Widget previewLightSmall() =>
 //     const CircleCard(theme: .light, size: .small, child: Text('1'));
