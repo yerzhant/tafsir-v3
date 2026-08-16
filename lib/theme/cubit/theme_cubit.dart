@@ -6,10 +6,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/theme/db/theme_db.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 
-part 'theme_state.dart';
 part 'theme_cubit.freezed.dart';
+part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
   ThemeCubit(this._db) : super(const .current(false, false, .light, null));
@@ -25,7 +24,6 @@ class ThemeCubit extends Cubit<ThemeState> {
       emit(.current(sameAsInSystem, doNotSwitchOffScreen, theme, null));
 
       _setSystemUI(theme);
-      await _toggleWakelock(doNotSwitchOffScreen);
     },
   ).mapLeft((l) => emit(state.copyWith(error: l))).run();
 
@@ -40,16 +38,11 @@ class ThemeCubit extends Cubit<ThemeState> {
   Future<void> setDoNotSwitchOffScreen(bool value) =>
       TaskEither<AppError, void>.Do(
         ($) async {
-          await _toggleWakelock(value);
-
           emit(state.copyWith(doNotSwitchOffScreen: value));
 
           await $(_db.setDoNotSwitchOffScreen(value));
         },
       ).mapLeft((l) => emit(state.copyWith(error: l))).run();
-
-  Future<void> _toggleWakelock(bool value) =>
-      WakelockPlus.toggle(enable: value);
 
   Future<void> setTheme(AppTheme theme) => TaskEither<AppError, void>.Do(
     ($) async {

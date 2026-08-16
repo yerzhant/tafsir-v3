@@ -15,6 +15,7 @@ import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/settings/ui/settings_page.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 import 'package:tafsir/theme/ui/theme_settings.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class SurahPage extends StatefulWidget {
   const SurahPage._(
@@ -52,12 +53,19 @@ class _SurahPageState extends State<SurahPage> {
 
   @override
   void dispose() {
+    WakelockPlus.disable();
     _aayahController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final themeState = context.read<ThemeCubit>().state;
+
+    if (themeState.doNotSwitchOffScreen) {
+      WakelockPlus.enable();
+    }
+
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -94,22 +102,27 @@ class _SurahPageState extends State<SurahPage> {
     );
   }
 
-  Column _success(BuildContext context, AayaatStateSuccess state) {
-    return Column(
-      children: [
-        SurahHeader(
-          name: state.surah.name,
-          number: widget._surahNumber,
-          translation: state.surah.translation,
+  Widget _success(BuildContext context, AayaatStateSuccess state) {
+    return BlocListener<ThemeCubit, ThemeState>(
+      listener: (context, state) {
+        WakelockPlus.toggle(enable: state.doNotSwitchOffScreen);
+      },
+      child: Column(
+        children: [
+          SurahHeader(
+            name: state.surah.name,
+            number: widget._surahNumber,
+            translation: state.surah.translation,
 
-          onSuwar: () {},
-          onTheme: () => _showTheme(context),
-          onGoToAyah: () => _goToAayah(context),
-          onSettings: () => SettingsPage.open(context),
-          onInfo: () => _showInfo(context, state.surah.info),
-        ),
-        Expanded(child: AyahList(state: state)),
-      ],
+            onSuwar: () {},
+            onTheme: () => _showTheme(context),
+            onGoToAyah: () => _goToAayah(context),
+            onSettings: () => SettingsPage.open(context),
+            onInfo: () => _showInfo(context, state.surah.info),
+          ),
+          Expanded(child: AyahList(state: state)),
+        ],
+      ),
     );
   }
 
