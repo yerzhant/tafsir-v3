@@ -4,11 +4,11 @@ import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_list.dart';
+import 'package:tafsir/aayaat/ui/go_to_aayah.dart';
 import 'package:tafsir/aayaat/ui/short_suwar_list.dart';
 import 'package:tafsir/aayaat/ui/surah_header.dart';
 import 'package:tafsir/aayaat/ui/surah_info_card.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
-import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/init/ui/progress_widget.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
 import 'package:tafsir/main/db/main_db.dart';
@@ -54,14 +54,11 @@ class SurahPage extends StatefulWidget {
 }
 
 class _SurahPageState extends State<SurahPage> {
-  final _aayahController = TextEditingController();
-
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void dispose() {
     WakelockPlus.disable();
-    _aayahController.dispose();
     super.dispose();
   }
 
@@ -168,8 +165,6 @@ class _SurahPageState extends State<SurahPage> {
   }
 
   void _goToAayah(BuildContext context) {
-    final theme = context.read<ThemeCubit>().state.theme;
-
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
@@ -182,54 +177,11 @@ class _SurahPageState extends State<SurahPage> {
             left: 20,
             bottom: MediaQuery.of(ctx).viewInsets.bottom + 20,
           ),
-          child: Column(
-            mainAxisSize: .min,
-            spacing: 12,
-            children: [
-              TextField(
-                autofocus: true,
-                controller: _aayahController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: .circular(9999),
-                    borderSide: .new(color: borderPrimary(theme)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: .circular(9999),
-                    borderSide: .new(color: borderPrimary(theme)),
-                  ),
-                  contentPadding: const .symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                  filled: true,
-                  fillColor: bgSecondary(theme),
-                  hintText: '№ аята',
-                  hintStyle: textBodyReg.copyWith(
-                    color: typographyTertirary(theme),
-                  ),
-                  alignLabelWithHint: true,
-                ),
-                keyboardType: .number,
-                textAlign: .center,
-              ),
-              FilledButton(
-                style: .new(
-                  backgroundColor: .all(bgSecondary(theme)),
-                  foregroundColor: .all(typographyPrimary(theme)),
-                ),
-                onPressed: () {
-                  final aayah = int.tryParse(_aayahController.text);
-
-                  if (aayah == null) return;
-
-                  context.read<AayaatCubit>().scrollTo(.new(.new(aayah), 0));
-
-                  Navigator.pop(context);
-                },
-                child: const Text('Перейти'),
-              ),
-            ],
+          child: GoToAayah(
+            onSet: (aayah) {
+              context.read<AayaatCubit>().scrollTo(.new(.new(aayah), 0));
+              Navigator.pop(context);
+            },
           ),
         ),
       ),
