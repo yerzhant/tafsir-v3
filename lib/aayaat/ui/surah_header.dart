@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tafsir/aayaat/domain/aayah.dart';
+import 'package:tafsir/aayaat/ui/scroll_position_widget.dart';
 import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/surah.dart';
@@ -9,9 +11,9 @@ import 'package:tafsir/theme/cubit/theme_cubit.dart';
 class SurahHeader extends StatelessWidget {
   const SurahHeader({
     super.key,
-    required this.name,
-    required this.number,
-    required this.translation,
+
+    required this.surah,
+    required this.currentAayahNumber,
 
     required this.onInfo,
     required this.onSuwar,
@@ -20,9 +22,8 @@ class SurahHeader extends StatelessWidget {
     required this.onGoToAyah,
   });
 
-  final SurahName name;
-  final SurahNumber number;
-  final SurahTranslation? translation;
+  final Surah surah;
+  final AayahNumber currentAayahNumber;
 
   final VoidCallback onInfo;
   final VoidCallback onSuwar;
@@ -43,6 +44,11 @@ class SurahHeader extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: MediaQuery.paddingOf(context).top),
+              ScrollPositionWidget(
+                quantity: surah.quantity,
+                number: currentAayahNumber,
+              ),
+              const SizedBox(height: 8),
               Row(
                 spacing: 12,
                 children: [
@@ -76,7 +82,7 @@ class SurahHeader extends StatelessWidget {
                             spacing: 2,
                             children: [
                               Text(
-                                '$number.',
+                                '${surah.number}.',
                                 style: textHeadline.copyWith(
                                   height: 0,
                                   color: typographyPrimary(themeState.theme),
@@ -84,7 +90,7 @@ class SurahHeader extends StatelessWidget {
                               ),
                               Flexible(
                                 child: Text(
-                                  name,
+                                  surah.name,
                                   overflow: .ellipsis,
                                   style: textHeadline.copyWith(
                                     height: 0,
@@ -102,7 +108,7 @@ class SurahHeader extends StatelessWidget {
                             ],
                           ),
 
-                          ?translation?.let(
+                          ?surah.translation?.let(
                             (it) => Flexible(
                               child: Text(
                                 it,
@@ -179,18 +185,27 @@ class _Icon extends StatelessWidget {
 
 // @Preview(group: 'Surah Header', name: 'Light')
 // Widget previewLight() => sizedWrapper(
-//   SurahHeader(
-//     theme: .light,
+//   BlocProvider(
+//     create: (context) => ThemeCubit(.new(.new())),
+//     child: SurahHeader(
+//       surah: const .new(
+//         .new(1),
+//         .new('Name Name Name Name'),
+//         .new('value'),
+//         .new('value'),
+//         .makkah,
+//         .new('Translation Translation Translation'),
+//         .new(7),
+//       ),
 
-//     number: const .new(1),
-//     name: const .new('Name Name Name Name'),
-//     translation: const .new('Translation Translation Translation'),
+//       position: const .new(.new(1), 0),
 
-//     onInfo: () => print('on info'),
-//     onSuwar: () => print('on suwar'),
-//     onTheme: () => print('on theme'),
-//     onSettings: () => print('on settings'),
-//     onGoToAyah: () => print('on go to ayah'),
+//       onInfo: () => print('on info'),
+//       onSuwar: () => print('on suwar'),
+//       onTheme: () => print('on theme'),
+//       onSettings: () => print('on settings'),
+//       onGoToAyah: () => print('on go to ayah'),
+//     ),
 //   ),
 //   width: 500,
 // );

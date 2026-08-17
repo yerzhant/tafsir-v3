@@ -123,9 +123,8 @@ class _SurahPageState extends State<SurahPage> {
       child: Column(
         children: [
           SurahHeader(
-            name: state.surah.name,
-            number: widget._surahNumber,
-            translation: state.surah.translation,
+            surah: state.surah,
+            currentAayahNumber: state.currentAayahNumber,
 
             onTheme: () => _showTheme(context),
             onGoToAyah: () => _goToAayah(context),

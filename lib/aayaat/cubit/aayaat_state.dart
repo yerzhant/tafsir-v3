@@ -8,8 +8,9 @@ sealed class AayaatState with _$AayaatState {
 
   const factory AayaatState.success(
     Surah surah,
-    AyahPosition position,
     List<Aayah> aayaat,
     Set<AayahNumber> bookmarks,
+    AyahPosition scrollPosition,
+    AayahNumber currentAayahNumber,
   ) = AayaatStateSuccess;
 }

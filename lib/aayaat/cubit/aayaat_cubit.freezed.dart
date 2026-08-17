@@ -122,12 +122,12 @@ return success(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  inProgress,TResult Function( AppError error)?  failure,TResult Function( Surah surah,  AyahPosition position,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks)?  success,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  inProgress,TResult Function( AppError error)?  failure,TResult Function( Surah surah,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks,  AyahPosition scrollPosition,  AayahNumber currentAayahNumber)?  success,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case AayaatStateInProgress() when inProgress != null:
 return inProgress();case AayaatStateFailure() when failure != null:
 return failure(_that.error);case AayaatStateSuccess() when success != null:
-return success(_that.surah,_that.position,_that.aayaat,_that.bookmarks);case _:
+return success(_that.surah,_that.aayaat,_that.bookmarks,_that.scrollPosition,_that.currentAayahNumber);case _:
   return orElse();
 
 }
@@ -145,12 +145,12 @@ return success(_that.surah,_that.position,_that.aayaat,_that.bookmarks);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  inProgress,required TResult Function( AppError error)  failure,required TResult Function( Surah surah,  AyahPosition position,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks)  success,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  inProgress,required TResult Function( AppError error)  failure,required TResult Function( Surah surah,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks,  AyahPosition scrollPosition,  AayahNumber currentAayahNumber)  success,}) {final _that = this;
 switch (_that) {
 case AayaatStateInProgress():
 return inProgress();case AayaatStateFailure():
 return failure(_that.error);case AayaatStateSuccess():
-return success(_that.surah,_that.position,_that.aayaat,_that.bookmarks);}
+return success(_that.surah,_that.aayaat,_that.bookmarks,_that.scrollPosition,_that.currentAayahNumber);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -164,12 +164,12 @@ return success(_that.surah,_that.position,_that.aayaat,_that.bookmarks);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  inProgress,TResult? Function( AppError error)?  failure,TResult? Function( Surah surah,  AyahPosition position,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks)?  success,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  inProgress,TResult? Function( AppError error)?  failure,TResult? Function( Surah surah,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks,  AyahPosition scrollPosition,  AayahNumber currentAayahNumber)?  success,}) {final _that = this;
 switch (_that) {
 case AayaatStateInProgress() when inProgress != null:
 return inProgress();case AayaatStateFailure() when failure != null:
 return failure(_that.error);case AayaatStateSuccess() when success != null:
-return success(_that.surah,_that.position,_that.aayaat,_that.bookmarks);case _:
+return success(_that.surah,_that.aayaat,_that.bookmarks,_that.scrollPosition,_that.currentAayahNumber);case _:
   return null;
 
 }
@@ -288,11 +288,10 @@ $AppErrorCopyWith<$Res> get error {
 
 
 class AayaatStateSuccess implements AayaatState {
-  const AayaatStateSuccess(this.surah, this.position, final  List<Aayah> aayaat, final  Set<AayahNumber> bookmarks): _aayaat = aayaat,_bookmarks = bookmarks;
+  const AayaatStateSuccess(this.surah, final  List<Aayah> aayaat, final  Set<AayahNumber> bookmarks, this.scrollPosition, this.currentAayahNumber): _aayaat = aayaat,_bookmarks = bookmarks;
   
 
  final  Surah surah;
- final  AyahPosition position;
  final  List<Aayah> _aayaat;
  List<Aayah> get aayaat {
   if (_aayaat is EqualUnmodifiableListView) return _aayaat;
@@ -307,6 +306,8 @@ class AayaatStateSuccess implements AayaatState {
   return EqualUnmodifiableSetView(_bookmarks);
 }
 
+ final  AyahPosition scrollPosition;
+ final  AayahNumber currentAayahNumber;
 
 /// Create a copy of AayaatState
 /// with the given fields replaced by the non-null parameter values.
@@ -318,16 +319,16 @@ $AayaatStateSuccessCopyWith<AayaatStateSuccess> get copyWith => _$AayaatStateSuc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AayaatStateSuccess&&(identical(other.surah, surah) || other.surah == surah)&&(identical(other.position, position) || other.position == position)&&const DeepCollectionEquality().equals(other._aayaat, _aayaat)&&const DeepCollectionEquality().equals(other._bookmarks, _bookmarks));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AayaatStateSuccess&&(identical(other.surah, surah) || other.surah == surah)&&const DeepCollectionEquality().equals(other._aayaat, _aayaat)&&const DeepCollectionEquality().equals(other._bookmarks, _bookmarks)&&(identical(other.scrollPosition, scrollPosition) || other.scrollPosition == scrollPosition)&&(identical(other.currentAayahNumber, currentAayahNumber) || other.currentAayahNumber == currentAayahNumber));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,surah,position,const DeepCollectionEquality().hash(_aayaat),const DeepCollectionEquality().hash(_bookmarks));
+int get hashCode => Object.hash(runtimeType,surah,const DeepCollectionEquality().hash(_aayaat),const DeepCollectionEquality().hash(_bookmarks),scrollPosition,currentAayahNumber);
 
 @override
 String toString() {
-  return 'AayaatState.success(surah: $surah, position: $position, aayaat: $aayaat, bookmarks: $bookmarks)';
+  return 'AayaatState.success(surah: $surah, aayaat: $aayaat, bookmarks: $bookmarks, scrollPosition: $scrollPosition, currentAayahNumber: $currentAayahNumber)';
 }
 
 
@@ -338,11 +339,11 @@ abstract mixin class $AayaatStateSuccessCopyWith<$Res> implements $AayaatStateCo
   factory $AayaatStateSuccessCopyWith(AayaatStateSuccess value, $Res Function(AayaatStateSuccess) _then) = _$AayaatStateSuccessCopyWithImpl;
 @useResult
 $Res call({
- Surah surah, AyahPosition position, List<Aayah> aayaat, Set<AayahNumber> bookmarks
+ Surah surah, List<Aayah> aayaat, Set<AayahNumber> bookmarks, AyahPosition scrollPosition, AayahNumber currentAayahNumber
 });
 
 
-$SurahCopyWith<$Res> get surah;$AyahPositionCopyWith<$Res> get position;
+$SurahCopyWith<$Res> get surah;$AyahPositionCopyWith<$Res> get scrollPosition;
 
 }
 /// @nodoc
@@ -355,13 +356,14 @@ class _$AayaatStateSuccessCopyWithImpl<$Res>
 
 /// Create a copy of AayaatState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? surah = null,Object? position = null,Object? aayaat = null,Object? bookmarks = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? surah = null,Object? aayaat = null,Object? bookmarks = null,Object? scrollPosition = null,Object? currentAayahNumber = null,}) {
   return _then(AayaatStateSuccess(
 null == surah ? _self.surah : surah // ignore: cast_nullable_to_non_nullable
-as Surah,null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as AyahPosition,null == aayaat ? _self._aayaat : aayaat // ignore: cast_nullable_to_non_nullable
+as Surah,null == aayaat ? _self._aayaat : aayaat // ignore: cast_nullable_to_non_nullable
 as List<Aayah>,null == bookmarks ? _self._bookmarks : bookmarks // ignore: cast_nullable_to_non_nullable
-as Set<AayahNumber>,
+as Set<AayahNumber>,null == scrollPosition ? _self.scrollPosition : scrollPosition // ignore: cast_nullable_to_non_nullable
+as AyahPosition,null == currentAayahNumber ? _self.currentAayahNumber : currentAayahNumber // ignore: cast_nullable_to_non_nullable
+as AayahNumber,
   ));
 }
 
@@ -378,10 +380,10 @@ $SurahCopyWith<$Res> get surah {
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$AyahPositionCopyWith<$Res> get position {
+$AyahPositionCopyWith<$Res> get scrollPosition {
   
-  return $AyahPositionCopyWith<$Res>(_self.position, (value) {
-    return _then(_self.copyWith(position: value));
+  return $AyahPositionCopyWith<$Res>(_self.scrollPosition, (value) {
+    return _then(_self.copyWith(scrollPosition: value));
   });
 }
 }

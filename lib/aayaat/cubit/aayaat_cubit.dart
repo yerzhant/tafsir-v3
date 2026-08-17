@@ -44,7 +44,15 @@ class AayaatCubit extends Cubit<AayaatState> {
         _mainDb.getBookmarkAayahNumbersForSurah(_surah),
       );
 
-      emit(.success(_surah, _position, aayaat, bookmarks));
+      emit(
+        .success(
+          _surah,
+          aayaat,
+          bookmarks,
+          _position,
+          _position.number,
+        ),
+      );
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
@@ -108,8 +116,12 @@ class AayaatCubit extends Cubit<AayaatState> {
 
     emit(
       (state as AayaatStateSuccess).copyWith(
-        position: position.copyWith(number: .new(aayah)),
+        scrollPosition: position.copyWith(number: .new(aayah)),
       ),
     );
   }
+
+  void updateCurrentAayahNumber(AayahNumber number) => emit(
+    (state as AayaatStateSuccess).copyWith(currentAayahNumber: number),
+  );
 }

@@ -27,11 +27,15 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
 
     WidgetsBinding.instance.addObserver(this);
 
-    _lastScrolledPosition = widget.state.position;
+    _lastScrolledPosition = widget.state.scrollPosition;
+
+    _listener.itemPositions.addListener(_updateCurrentPosition);
   }
 
   @override
   void dispose() {
+    _listener.itemPositions.removeListener(_updateCurrentPosition);
+
     WidgetsBinding.instance.removeObserver(this);
 
     super.dispose();
@@ -44,6 +48,11 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
     if (state == .paused || state == .detached) {
       _savePosition();
     }
+  }
+
+  void _updateCurrentPosition() {
+    final position = _listener.itemPositions.value.first;
+    widget.cubit.updateCurrentAayahNumber(.new(position.index + 1));
   }
 
   void _savePosition() {
@@ -62,7 +71,7 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
       index: position.number - 1,
       curve: Curves.easeInOutCubic,
       alignment: position.alignment,
-      duration: const .new(milliseconds: 300),
+      duration: const .new(milliseconds: 500),
     );
 
     _lastScrolledPosition = position;
@@ -76,9 +85,9 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
       child: BlocListener<AayaatCubit, AayaatState>(
         listener: (context, state) {
           if (state case AayaatStateSuccess(
-            :final position,
-          ) when position != _lastScrolledPosition) {
-            _scrollTo(position);
+            :final scrollPosition,
+          ) when scrollPosition != _lastScrolledPosition) {
+            _scrollTo(scrollPosition);
           }
         },
 
@@ -86,8 +95,8 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
           separatorBuilder: (context, index) => const SizedBox(height: 8),
 
           padding: const .symmetric(horizontal: 20, vertical: 12),
-          initialScrollIndex: widget.state.position.number - 1,
-          initialAlignment: widget.state.position.alignment,
+          initialAlignment: widget.state.scrollPosition.alignment,
+          initialScrollIndex: widget.state.scrollPosition.number - 1,
           itemCount: widget.state.aayaat.length,
           itemScrollController: _controller,
           itemPositionsListener: _listener,

@@ -175,6 +175,7 @@ const textCallout = TextStyle(
 const textBodyLarge = TextStyle(fontFamily: 'Roboto', fontSize: 18);
 const textBodyReg = TextStyle(fontFamily: 'Roboto', fontSize: 16);
 const textBodyMedium = TextStyle(fontFamily: 'Roboto', fontSize: 14);
+const textBodySmall = TextStyle(fontFamily: 'Roboto', fontSize: 12);
 
 Color brandPrimary(AppTheme theme) => switch (theme) {
   .light => brandPrimaryLight,
