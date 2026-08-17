@@ -10,7 +10,7 @@ sealed class AayaatState with _$AayaatState {
     Surah surah,
     List<Aayah> aayaat,
     Set<AayahNumber> bookmarks,
-    AyahPosition scrollPosition,
-    AayahNumber currentAayahNumber,
+    AyahPosition scrollToPosition,
+    bool scrollToNewPosition,
   ) = AayaatStateSuccess;
 }

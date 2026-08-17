@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
+import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
 
 class AyahList extends StatefulWidget {
-  const AyahList({super.key, required this.state, required this.cubit});
+  const AyahList({
+    super.key,
+    required this.cubit,
+    required this.state,
+    required this.positionCubit,
+  });
 
   final AayaatCubit cubit;
   final AayaatStateSuccess state;
+  final ScrollPositionCubit positionCubit;
 
   @override
   State<AyahList> createState() => _AyahListState();
@@ -19,22 +26,22 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
   final _controller = ItemScrollController();
   final _listener = ItemPositionsListener.create();
 
-  late AyahPosition _lastScrolledPosition;
+  late AyahPosition _position;
 
   @override
   void initState() {
     super.initState();
 
+    _position = widget.state.scrollToPosition;
+
     WidgetsBinding.instance.addObserver(this);
 
-    _lastScrolledPosition = widget.state.scrollPosition;
-
-    _listener.itemPositions.addListener(_updateCurrentPosition);
+    _listener.itemPositions.addListener(_updatePosition);
   }
 
   @override
   void dispose() {
-    _listener.itemPositions.removeListener(_updateCurrentPosition);
+    _listener.itemPositions.removeListener(_updatePosition);
 
     WidgetsBinding.instance.removeObserver(this);
 
@@ -46,24 +53,14 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
     super.didChangeAppLifecycleState(state);
 
     if (state == .paused || state == .detached) {
-      _savePosition();
+      widget.cubit.savePosition(_position);
     }
   }
 
-  void _updateCurrentPosition() {
+  void _updatePosition() {
     final position = _listener.itemPositions.value.first;
-    widget.cubit.updateCurrentAayahNumber(.new(position.index + 1));
-  }
-
-  void _savePosition() {
-    final position = _listener.itemPositions.value.first;
-
-    widget.cubit.savePosition(
-      .new(
-        .new(position.index + 1),
-        position.itemLeadingEdge,
-      ),
-    );
+    _position = .new(.new(position.index + 1), position.itemLeadingEdge);
+    widget.positionCubit.updateAayahNumber(_position.number);
   }
 
   void _scrollTo(AyahPosition position) async {
@@ -73,21 +70,22 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
       alignment: position.alignment,
       duration: const .new(milliseconds: 500),
     );
-
-    _lastScrolledPosition = position;
   }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvokedWithResult: (didPop, result) => _savePosition(),
+      onPopInvokedWithResult: (didPop, result) => widget.cubit.savePosition(
+        _position,
+      ),
 
       child: BlocListener<AayaatCubit, AayaatState>(
         listener: (context, state) {
           if (state case AayaatStateSuccess(
-            :final scrollPosition,
-          ) when scrollPosition != _lastScrolledPosition) {
-            _scrollTo(scrollPosition);
+            :final scrollToPosition,
+            :final scrollToNewPosition,
+          ) when scrollToNewPosition) {
+            _scrollTo(scrollToPosition);
           }
         },
 
@@ -95,8 +93,8 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
           separatorBuilder: (context, index) => const SizedBox(height: 8),
 
           padding: const .symmetric(horizontal: 20, vertical: 12),
-          initialAlignment: widget.state.scrollPosition.alignment,
-          initialScrollIndex: widget.state.scrollPosition.number - 1,
+          initialScrollIndex: _position.number - 1,
+          initialAlignment: _position.alignment,
           itemCount: widget.state.aayaat.length,
           itemScrollController: _controller,
           itemPositionsListener: _listener,

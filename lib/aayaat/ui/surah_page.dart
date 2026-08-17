@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
+import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_list.dart';
@@ -120,25 +121,31 @@ class _SurahPageState extends State<SurahPage> {
       listener: (context, state) {
         WakelockPlus.toggle(enable: state.doNotSwitchOffScreen);
       },
-      child: Column(
-        children: [
-          SurahHeader(
-            surah: state.surah,
-            currentAayahNumber: state.currentAayahNumber,
-
-            onTheme: () => _showTheme(context),
-            onGoToAyah: () => _goToAayah(context),
-            onSettings: () => SettingsPage.open(context),
-            onInfo: () => _showInfo(context, state.surah.info),
-            onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
-          ),
-          Expanded(
-            child: AyahList(
-              cubit: context.read(),
-              state: state,
+      child: BlocProvider(
+        create: (context) => ScrollPositionCubit(state.scrollToPosition.number),
+        child: Column(
+          children: [
+            SurahHeader(
+              surah: state.surah,
+              onTheme: () => _showTheme(context),
+              onGoToAyah: () => _goToAayah(context),
+              onSettings: () => SettingsPage.open(context),
+              onInfo: () => _showInfo(context, state.surah.info),
+              onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
             ),
-          ),
-        ],
+            Expanded(
+              child: Builder(
+                builder: (context) {
+                  return AyahList(
+                    positionCubit: context.read(),
+                    cubit: context.read(),
+                    state: state,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -178,7 +185,7 @@ class _SurahPageState extends State<SurahPage> {
           ),
           child: GoToAayah(
             onSet: (aayah) {
-              context.read<AayaatCubit>().scrollTo(.new(.new(aayah), 0));
+              context.read<AayaatCubit>().goToAayah(.new(aayah));
               Navigator.pop(context);
             },
           ),

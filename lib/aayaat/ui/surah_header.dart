@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/aayaat/ui/scroll_position_widget.dart';
 import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
@@ -11,9 +10,7 @@ import 'package:tafsir/theme/cubit/theme_cubit.dart';
 class SurahHeader extends StatelessWidget {
   const SurahHeader({
     super.key,
-
     required this.surah,
-    required this.currentAayahNumber,
 
     required this.onInfo,
     required this.onSuwar,
@@ -23,7 +20,6 @@ class SurahHeader extends StatelessWidget {
   });
 
   final Surah surah;
-  final AayahNumber currentAayahNumber;
 
   final VoidCallback onInfo;
   final VoidCallback onSuwar;
@@ -44,10 +40,7 @@ class SurahHeader extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: MediaQuery.paddingOf(context).top),
-              ScrollPositionWidget(
-                quantity: surah.quantity,
-                number: currentAayahNumber,
-              ),
+              ScrollPositionWidget(quantity: surah.quantity),
               const SizedBox(height: 8),
               Row(
                 spacing: 12,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tafsir/aayaat/domain/aayah.dart';
+import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
@@ -8,11 +8,9 @@ import 'package:tafsir/theme/cubit/theme_cubit.dart';
 class ScrollPositionWidget extends StatelessWidget {
   const ScrollPositionWidget({
     super.key,
-    required this.number,
     required this.quantity,
   });
 
-  final AayahNumber number;
   final AayahQuantity quantity;
 
   @override
@@ -38,9 +36,13 @@ class ScrollPositionWidget extends StatelessWidget {
             builder: (context, constraints) => Stack(
               alignment: .centerStart,
               children: [
-                Container(
-                  color: brandPrimary(themeState.theme),
-                  width: constraints.maxWidth / quantity * number,
+                BlocBuilder<ScrollPositionCubit, ScrollPositionState>(
+                  builder: (context, state) {
+                    return Container(
+                      color: brandPrimary(themeState.theme),
+                      width: constraints.maxWidth / quantity * state.number,
+                    );
+                  },
                 ),
                 Center(
                   child: Text(
