@@ -17,8 +17,12 @@ class ScrollPositionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, themeState) {
+        final textColor = themeState.theme == .dark
+            ? typographyPrimaryLight
+            : typographyPrimary(themeState.theme);
+
         return Container(
-          height: 18,
+          height: 17,
           clipBehavior: .hardEdge,
           decoration: BoxDecoration(
             borderRadius: .circular(100),
@@ -32,28 +36,27 @@ class ScrollPositionWidget extends StatelessWidget {
               ),
             ],
           ),
-          child: LayoutBuilder(
-            builder: (context, constraints) => Stack(
-              alignment: .centerStart,
-              children: [
-                BlocBuilder<ScrollPositionCubit, ScrollPositionState>(
-                  builder: (context, state) {
-                    return Container(
-                      color: brandPrimary(themeState.theme),
-                      width: constraints.maxWidth / quantity * state.number,
-                    );
-                  },
+          child: Stack(
+            children: [
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  return BlocBuilder<ScrollPositionCubit, ScrollPositionState>(
+                    builder: (context, state) {
+                      return Container(
+                        color: brandPrimary(themeState.theme),
+                        width: constraints.maxWidth / quantity * state.number,
+                      );
+                    },
+                  );
+                },
+              ),
+              Center(
+                child: Text(
+                  '$quantity аятов',
+                  style: textBodySmall.copyWith(color: textColor),
                 ),
-                Center(
-                  child: Text(
-                    '$quantity аятов',
-                    style: textBodySmall.copyWith(
-                      color: typographyPrimary(themeState.theme),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
@@ -62,12 +65,12 @@ class ScrollPositionWidget extends StatelessWidget {
 }
 
 // @Preview(group: 'Scroll Position Widget', name: 'Light')
-// Widget previewLight() => BlocProvider(
-//   create: (context) => ThemeCubit(.new(.new())),
+// Widget previewLight() => MultiBlocProvider(
+//   providers: [
+//     BlocProvider(create: (context) => ThemeCubit(.new(.new()))),
+//     BlocProvider(create: (context) => ScrollPositionCubit(const .new(6))),
+//   ],
 //   child: sizedWrapper(
-//     const ScrollPositionWidget(
-//       position: .new(.new(11), 0),
-//       quantity: .new(12),
-//     ),
+//     const Column(children: [ScrollPositionWidget(quantity: .new(12))]),
 //   ),
 // );
