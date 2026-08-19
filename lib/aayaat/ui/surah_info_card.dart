@@ -14,9 +14,6 @@ class SurahInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<ThemeCubit>().state.theme;
-    final settings = context.read<SettingsCubit>().state;
-
     return SafeArea(
       child: SingleChildScrollView(
         padding: const .only(
@@ -25,16 +22,27 @@ class SurahInfoCard extends StatelessWidget {
           left: 20,
           top: 0,
         ),
-        child: Container(
-          padding: const .all(12),
-          decoration: BoxDecoration(
-            color: bgSecondary(theme),
-            borderRadius: .circular(16),
-          ),
-          child: Html(
-            data: info.value,
-            style: htmlStyles(theme, settings.tafsirFontSize),
-          ),
+        child: BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, themeState) {
+            return Container(
+              padding: const .all(12),
+              decoration: BoxDecoration(
+                borderRadius: .circular(16),
+                color: bgSecondary(themeState.theme),
+              ),
+              child: BlocBuilder<SettingsCubit, SettingsState>(
+                builder: (context, settings) {
+                  return Html(
+                    data: info.value,
+                    style: htmlStyles(
+                      themeState.theme,
+                      settings.tafsirFontSize,
+                    ),
+                  );
+                },
+              ),
+            );
+          },
         ),
       ),
     );

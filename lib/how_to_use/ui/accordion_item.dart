@@ -31,52 +31,59 @@ class _AccordionItemState extends State<AccordionItem>
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<ThemeCubit>().state.theme;
-
-    return Container(
-      padding: const .all(16),
-      decoration: BoxDecoration(
-        borderRadius: .circular(16),
-        border: .all(color: borderPrimary(theme)),
-        color: _expanded ? bgSecondary(theme) : null,
-      ),
-      child: Column(
-        spacing: 4,
-        children: [
-          GestureDetector(
-            onTap: _toggle,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    widget.title,
-                    style: textCallout.copyWith(
-                      color: typographyPrimary(theme),
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        return Container(
+          padding: const .all(16),
+          decoration: BoxDecoration(
+            borderRadius: .circular(16),
+            border: .all(color: borderPrimary(state.theme)),
+            color: _expanded ? bgSecondary(state.theme) : null,
+          ),
+          child: Column(
+            spacing: 4,
+            children: [
+              GestureDetector(
+                onTap: _toggle,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.title,
+                        style: textCallout.copyWith(
+                          color: typographyPrimary(state.theme),
+                        ),
+                      ),
                     ),
+                    AnimatedRotation(
+                      duration: _duration,
+                      turns: _expanded ? .25 : 0,
+                      child: SvgPicture.asset(
+                        'assets/icons/accordion-state.svg',
+                        colorFilter: .mode(
+                          typographyLabelsAndIcons(state.theme),
+                          .srcIn,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              AnimatedCrossFade(
+                duration: _duration,
+                firstChild: Container(),
+                secondChild: Text(
+                  widget.content,
+                  style: textBodyReg.copyWith(
+                    color: typographySecondary(state.theme),
                   ),
                 ),
-                AnimatedRotation(
-                  duration: _duration,
-                  turns: _expanded ? .25 : 0,
-                  child: SvgPicture.asset(
-                    'assets/icons/accordion-state.svg',
-                    colorFilter: .mode(typographyLabelsAndIcons(theme), .srcIn),
-                  ),
-                ),
-              ],
-            ),
+                crossFadeState: _expanded ? .showSecond : .showFirst,
+              ),
+            ],
           ),
-          AnimatedCrossFade(
-            duration: _duration,
-            firstChild: Container(),
-            secondChild: Text(
-              widget.content,
-              style: textBodyReg.copyWith(color: typographySecondary(theme)),
-            ),
-            crossFadeState: _expanded ? .showSecond : .showFirst,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

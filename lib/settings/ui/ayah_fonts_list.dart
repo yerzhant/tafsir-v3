@@ -11,26 +11,26 @@ class AyahFontsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<ThemeCubit>().state.theme;
-    final settings = context.read<SettingsCubit>().state;
-
     return SafeArea(
-      child: RadioGroup<AyahFontType>(
-        groupValue: settings.ayahFontType,
-        onChanged: (value) => _onSelected(value!, context),
+      child: BlocBuilder<SettingsCubit, SettingsState>(
+        builder: (context, settings) {
+          return RadioGroup<AyahFontType>(
+            groupValue: settings.ayahFontType,
+            onChanged: (value) => _onSelected(value!, context),
 
-        child: ListView.separated(
-          shrinkWrap: true,
-          itemCount: AyahFontType.values.length,
-          itemBuilder: (context, index) => _Font(
-            theme: theme,
-            fontSize: settings.ayahFontSize,
-            type: AyahFontType.values[index],
-            onSelected: (type) => _onSelected(type, context),
-          ),
-          padding: const .only(right: 20, left: 20, bottom: 18),
-          separatorBuilder: (context, index) => const SizedBox(height: 8),
-        ),
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemCount: AyahFontType.values.length,
+              itemBuilder: (context, index) => _Font(
+                fontSize: settings.ayahFontSize,
+                type: AyahFontType.values[index],
+                onSelected: (type) => _onSelected(type, context),
+              ),
+              padding: const .only(right: 20, left: 20, bottom: 18),
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+            ),
+          );
+        },
       ),
     );
   }
@@ -44,12 +44,10 @@ class AyahFontsList extends StatelessWidget {
 class _Font extends StatelessWidget {
   const _Font({
     required this.type,
-    required this.theme,
     required this.fontSize,
     required this.onSelected,
   });
 
-  final AppTheme theme;
   final double fontSize;
   final AyahFontType type;
   final Function(AyahFontType type) onSelected;
@@ -60,41 +58,45 @@ class _Font extends StatelessWidget {
 
     return GestureDetector(
       onTap: () => onSelected(type),
-      child: SettingPanel(
-        theme: theme,
-        child: Row(
-          crossAxisAlignment: .start,
-          spacing: 12,
-          children: [
-            Radio<AyahFontType>(
-              value: type,
-              activeColor: alertSuccess200(theme),
-              fillColor: settings.ayahFontType != type
-                  ? .all(typographySecondary(theme))
-                  : null,
-            ),
-            Column(
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          return SettingPanel(
+            theme: state.theme,
+            child: Row(
               crossAxisAlignment: .start,
-              spacing: 4,
+              spacing: 12,
               children: [
-                Text(
-                  'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
-                  style: textBodyLarge.copyWith(
-                    fontSize: fontSize,
-                    fontFamily: type.fontFamily,
-                    color: typographyPrimary(theme),
-                  ),
+                Radio<AyahFontType>(
+                  value: type,
+                  activeColor: alertSuccess200(state.theme),
+                  fillColor: settings.ayahFontType != type
+                      ? .all(typographySecondary(state.theme))
+                      : null,
                 ),
-                Text(
-                  type.fontFamily,
-                  style: textBodyReg.copyWith(
-                    color: typographySecondary(theme),
-                  ),
+                Column(
+                  crossAxisAlignment: .start,
+                  spacing: 4,
+                  children: [
+                    Text(
+                      'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
+                      style: textBodyLarge.copyWith(
+                        fontSize: fontSize,
+                        fontFamily: type.fontFamily,
+                        color: typographyPrimary(state.theme),
+                      ),
+                    ),
+                    Text(
+                      type.fontFamily,
+                      style: textBodyReg.copyWith(
+                        color: typographySecondary(state.theme),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

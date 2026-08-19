@@ -9,43 +9,50 @@ class SettingsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<ThemeCubit>().state.theme;
-
-    return Container(
-      padding: const .symmetric(horizontal: 20, vertical: 8),
-      decoration: BoxDecoration(
-        color: bgSecondary(theme),
-        borderRadius: const .vertical(bottom: .circular(20)),
-      ),
-      child: Column(
-        children: [
-          SizedBox(height: MediaQuery.paddingOf(context).top),
-          Row(
-            spacing: 12,
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        return Container(
+          padding: const .symmetric(horizontal: 20, vertical: 8),
+          decoration: BoxDecoration(
+            color: bgSecondary(state.theme),
+            borderRadius: const .vertical(bottom: .circular(20)),
+          ),
+          child: Column(
             children: [
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Container(
-                  padding: const .symmetric(horizontal: 6, vertical: 4),
-                  decoration: BoxDecoration(
-                    borderRadius: .circular(8),
-                    color: bgPrimary(theme),
+              SizedBox(height: MediaQuery.paddingOf(context).top),
+              Row(
+                spacing: 12,
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      padding: const .symmetric(horizontal: 6, vertical: 4),
+                      decoration: BoxDecoration(
+                        borderRadius: .circular(8),
+                        color: bgPrimary(state.theme),
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/icons/arrow-left-surah.svg',
+                        colorFilter: .mode(
+                          typographyPrimary(state.theme),
+                          .srcIn,
+                        ),
+                      ),
+                    ),
                   ),
-                  child: SvgPicture.asset(
-                    'assets/icons/arrow-left-surah.svg',
-                    colorFilter: .mode(typographyPrimary(theme), .srcIn),
-                  ),
-                ),
-              ),
 
-              Text(
-                'Настройки',
-                style: textHeadline.copyWith(color: typographyPrimary(theme)),
+                  Text(
+                    'Настройки',
+                    style: textHeadline.copyWith(
+                      color: typographyPrimary(state.theme),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

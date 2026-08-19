@@ -16,47 +16,49 @@ class AppErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<ThemeCubit>().state.theme;
-
-    return Container(
-      color: bgPrimary(theme),
-      padding: const .all(16),
-      width: .infinity,
-      child: Column(
-        mainAxisAlignment: .center,
-        spacing: 16,
-        children: [
-          Column(
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        return Container(
+          color: bgPrimary(state.theme),
+          padding: const .all(16),
+          width: .infinity,
+          child: Column(
+            mainAxisAlignment: .center,
             spacing: 16,
             children: [
-              Text(
-                error.title,
-                textAlign: .center,
-                style: textBodyLarge.copyWith(
-                  color: typographyPrimary(theme),
-                  fontWeight: .w500,
-                ),
+              Column(
+                spacing: 16,
+                children: [
+                  Text(
+                    error.title,
+                    textAlign: .center,
+                    style: textBodyLarge.copyWith(
+                      color: typographyPrimary(state.theme),
+                      fontWeight: .w500,
+                    ),
+                  ),
+                  Text(
+                    error.message,
+                    maxLines: 10,
+                    overflow: .ellipsis,
+                    style: textBodyReg.copyWith(
+                      color: typographyPrimary(state.theme),
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                error.message,
-                maxLines: 10,
-                overflow: .ellipsis,
-                style: textBodyReg.copyWith(
-                  color: typographyPrimary(theme),
+              FilledButton(
+                style: .new(
+                  backgroundColor: .all(bgSecondary(state.theme)),
+                  foregroundColor: .all(typographyPrimary(state.theme)),
                 ),
+                onPressed: onPressed,
+                child: const Text('OK'),
               ),
             ],
           ),
-          FilledButton(
-            style: .new(
-              backgroundColor: .all(bgSecondary(theme)),
-              foregroundColor: .all(typographyPrimary(theme)),
-            ),
-            onPressed: onPressed,
-            child: const Text('OK'),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

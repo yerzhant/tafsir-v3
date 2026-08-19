@@ -12,156 +12,160 @@ class SettingsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<ThemeCubit>().state.theme;
-
     return SingleChildScrollView(
       padding: const .symmetric(horizontal: 20, vertical: 12),
       child: BlocBuilder<SettingsCubit, SettingsState>(
-        builder: (context, state) {
-          return Column(
-            spacing: 12,
-            children: [
-              Column(
-                crossAxisAlignment: .start,
-                spacing: 8,
+        builder: (context, settings) {
+          return BlocBuilder<ThemeCubit, ThemeState>(
+            builder: (context, themeState) {
+              return Column(
+                spacing: 12,
                 children: [
-                  Text(
-                    'Отображать',
-                    style: textCallout.copyWith(
-                      color: typographyPrimary(theme),
-                    ),
+                  Column(
+                    crossAxisAlignment: .start,
+                    spacing: 8,
+                    children: [
+                      Text(
+                        'Отображать',
+                        style: textCallout.copyWith(
+                          color: typographyPrimary(themeState.theme),
+                        ),
+                      ),
+                      SettingPanel(
+                        theme: themeState.theme,
+                        child: Padding(
+                          padding: const .all(4),
+                          child: Column(
+                            spacing: 8,
+                            children: [
+                              _Checkbox(
+                                theme: themeState.theme,
+                                title: 'Арабский текст',
+                                value: settings.showAyah,
+                                onChanged: context
+                                    .read<SettingsCubit>()
+                                    .setShowAyah,
+                              ),
+                              _Checkbox(
+                                theme: themeState.theme,
+                                title: 'Перевод',
+                                value: settings.showTranslation,
+                                onChanged: context
+                                    .read<SettingsCubit>()
+                                    .setShowTranslation,
+                              ),
+                              _Checkbox(
+                                theme: themeState.theme,
+                                title: 'Тафсир',
+                                value: settings.showTafsir,
+                                onChanged: context
+                                    .read<SettingsCubit>()
+                                    .setShowTafsir,
+                              ),
+                              _Checkbox(
+                                theme: themeState.theme,
+                                title: 'Сноски',
+                                value: settings.showFootnotes,
+                                onChanged: settings.showTafsir
+                                    ? context
+                                          .read<SettingsCubit>()
+                                          .setShowFootnotes
+                                    : null,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  SettingPanel(
-                    theme: theme,
-                    child: Padding(
-                      padding: const .all(4),
-                      child: Column(
-                        spacing: 8,
+                  Column(
+                    crossAxisAlignment: .start,
+                    spacing: 8,
+                    children: [
+                      Text(
+                        'Размер шрифта',
+                        style: textCallout.copyWith(
+                          color: typographyPrimary(themeState.theme),
+                        ),
+                      ),
+                      SettingPanel(
+                        padding: 16,
+                        theme: themeState.theme,
+                        child: Column(
+                          spacing: 12,
+                          children: [
+                            _Slider(
+                              min: 14,
+                              max: 30,
+                              theme: themeState.theme,
+                              title: 'Арабский текст',
+                              value: settings.ayahFontSize,
+                              onChanged: context
+                                  .read<SettingsCubit>()
+                                  .setAyahFontSize,
+                            ),
+                            _Slider(
+                              min: 12,
+                              max: 24,
+                              theme: themeState.theme,
+                              title: 'Текст перевода',
+                              value: settings.translationFontSize,
+                              onChanged: context
+                                  .read<SettingsCubit>()
+                                  .setTranslationFontSize,
+                            ),
+                            _Slider(
+                              min: 12,
+                              max: 24,
+                              theme: themeState.theme,
+                              title: 'Текст тафсира',
+                              value: settings.tafsirFontSize,
+                              onChanged: context
+                                  .read<SettingsCubit>()
+                                  .setTafsirFontSize,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () => _showFonts(context),
+                    child: SettingPanel(
+                      theme: themeState.theme,
+                      child: Row(
+                        mainAxisAlignment: .spaceBetween,
+                        spacing: 4,
                         children: [
-                          _Checkbox(
-                            theme: theme,
-                            title: 'Арабский текст',
-                            value: state.showAyah,
-                            onChanged: context
-                                .read<SettingsCubit>()
-                                .setShowAyah,
+                          Text(
+                            'Арабский шрифт',
+                            style: textBodyReg.copyWith(
+                              color: typographyPrimary(themeState.theme),
+                            ),
                           ),
-                          _Checkbox(
-                            theme: theme,
-                            title: 'Перевод',
-                            value: state.showTranslation,
-                            onChanged: context
-                                .read<SettingsCubit>()
-                                .setShowTranslation,
+                          Expanded(
+                            child: Text(
+                              overflow: .ellipsis,
+                              settings.ayahFontType.fontFamily,
+                              style: textBodyMedium.copyWith(
+                                color: typographyTertirary(themeState.theme),
+                              ),
+                            ),
                           ),
-                          _Checkbox(
-                            theme: theme,
-                            title: 'Тафсир',
-                            value: state.showTafsir,
-                            onChanged: context
-                                .read<SettingsCubit>()
-                                .setShowTafsir,
-                          ),
-                          _Checkbox(
-                            theme: theme,
-                            title: 'Сноски',
-                            value: state.showFootnotes,
-                            onChanged: state.showTafsir
-                                ? context.read<SettingsCubit>().setShowFootnotes
-                                : null,
+                          SvgPicture.asset(
+                            'assets/icons/caret-right.svg',
+                            colorFilter: .mode(
+                              typographyLabelsAndIcons(themeState.theme),
+                              .srcIn,
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ],
-              ),
-              Column(
-                crossAxisAlignment: .start,
-                spacing: 8,
-                children: [
-                  Text(
-                    'Размер шрифта',
-                    style: textCallout.copyWith(
-                      color: typographyPrimary(theme),
-                    ),
-                  ),
-                  SettingPanel(
-                    padding: 16,
-                    theme: theme,
-                    child: Column(
-                      spacing: 12,
-                      children: [
-                        _Slider(
-                          min: 14,
-                          max: 30,
-                          theme: theme,
-                          title: 'Арабский текст',
-                          value: state.ayahFontSize,
-                          onChanged: context
-                              .read<SettingsCubit>()
-                              .setAyahFontSize,
-                        ),
-                        _Slider(
-                          min: 12,
-                          max: 24,
-                          theme: theme,
-                          title: 'Текст перевода',
-                          value: state.translationFontSize,
-                          onChanged: context
-                              .read<SettingsCubit>()
-                              .setTranslationFontSize,
-                        ),
-                        _Slider(
-                          min: 12,
-                          max: 24,
-                          theme: theme,
-                          title: 'Текст тафсира',
-                          value: state.tafsirFontSize,
-                          onChanged: context
-                              .read<SettingsCubit>()
-                              .setTafsirFontSize,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              GestureDetector(
-                onTap: () => _showFonts(context),
-                child: SettingPanel(
-                  theme: theme,
-                  child: Row(
-                    mainAxisAlignment: .spaceBetween,
-                    spacing: 4,
-                    children: [
-                      Text(
-                        'Арабский шрифт',
-                        style: textBodyReg.copyWith(
-                          color: typographyPrimary(theme),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          overflow: .ellipsis,
-                          state.ayahFontType.fontFamily,
-                          style: textBodyMedium.copyWith(
-                            color: typographyTertirary(theme),
-                          ),
-                        ),
-                      ),
-                      SvgPicture.asset(
-                        'assets/icons/caret-right.svg',
-                        colorFilter: .mode(
-                          typographyLabelsAndIcons(theme),
-                          .srcIn,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+              );
+            },
           );
         },
       ),

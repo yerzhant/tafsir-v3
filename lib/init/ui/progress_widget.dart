@@ -11,32 +11,38 @@ class ProgressWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<ThemeCubit>().state.theme;
-
-    return Container(
-      color: bgPrimary(theme),
-      width: .infinity,
-      child: Column(
-        mainAxisAlignment: .center,
-        spacing: 20,
-        children: [
-          if (value != null)
-            Text(
-              'Инициализация',
-              style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
-            ),
-          CircularProgressIndicator(
-            backgroundColor: bgSecondary(theme),
-            value: value?.let((it) => it < 0 ? null : it / 100),
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        return Container(
+          color: bgPrimary(state.theme),
+          width: .infinity,
+          child: Column(
+            mainAxisAlignment: .center,
+            spacing: 20,
+            children: [
+              if (value != null)
+                Text(
+                  'Инициализация',
+                  style: textBodyMedium.copyWith(
+                    color: typographyPrimary(state.theme),
+                  ),
+                ),
+              CircularProgressIndicator(
+                backgroundColor: bgSecondary(state.theme),
+                value: value?.let((it) => it < 0 ? null : it / 100),
+              ),
+              ?value?.let(
+                (it) => Text(
+                  it < 0 ? '' : '${it.toStringAsFixed(1)} %',
+                  style: textBodyMedium.copyWith(
+                    color: typographyPrimary(state.theme),
+                  ),
+                ),
+              ),
+            ],
           ),
-          ?value?.let(
-            (it) => Text(
-              it < 0 ? '' : '${it.toStringAsFixed(1)} %',
-              style: textBodyMedium.copyWith(color: typographyPrimary(theme)),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

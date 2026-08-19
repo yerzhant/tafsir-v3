@@ -19,39 +19,44 @@ class HowToUsePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<ThemeCubit>().state.theme;
-
     return Scaffold(
-      body: Masjid(
-        theme: theme,
-        child: SafeArea(
-          child: Column(
-            children: [
-              InfoPageHeader(theme: theme, title: 'Как пользоваться'),
-              Expanded(
-                child: AppContainer(
-                  theme: theme,
-                  child: ListView.separated(
-                    padding: const .all(20),
-                    itemCount: howToList.length,
-                    itemBuilder: (context, index) {
-                      final item = howToList[index];
+      body: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, themeState) {
+          return Masjid(
+            theme: themeState.theme,
+            child: SafeArea(
+              child: Column(
+                children: [
+                  InfoPageHeader(
+                    theme: themeState.theme,
+                    title: 'Как пользоваться',
+                  ),
+                  Expanded(
+                    child: AppContainer(
+                      theme: themeState.theme,
+                      child: ListView.separated(
+                        padding: const .all(20),
+                        itemCount: howToList.length,
+                        itemBuilder: (context, index) {
+                          final item = howToList[index];
 
-                      return AccordionItem(
-                        title: item.title,
-                        content: item.content,
-                        key: .new(index.toString()),
-                      );
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 8,
+                          return AccordionItem(
+                            title: item.title,
+                            content: item.content,
+                            key: .new(index.toString()),
+                          );
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 8,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
