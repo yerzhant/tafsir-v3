@@ -41,6 +41,7 @@ class AboutPage extends StatelessWidget {
           return Masjid(
             theme: theme,
             child: SafeArea(
+              bottom: false,
               child: Column(
                 children: [
                   InfoPageHeader(theme: theme, title: 'О нас'),
@@ -48,7 +49,12 @@ class AboutPage extends StatelessWidget {
                     child: AppContainer(
                       theme: theme,
                       child: SingleChildScrollView(
-                        padding: const .all(20),
+                        padding: .only(
+                          right: 20,
+                          top: 20,
+                          left: 20,
+                          bottom: MediaQuery.paddingOf(context).bottom,
+                        ),
                         child: Column(
                           spacing: 12,
                           children: [

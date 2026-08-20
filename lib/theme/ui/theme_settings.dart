@@ -11,8 +11,13 @@ class ThemeSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      bottom: false,
       child: Padding(
-        padding: const .only(right: 20, left: 20, bottom: 18),
+        padding: .only(
+          right: 20,
+          left: 20,
+          bottom: MediaQuery.paddingOf(context).bottom,
+        ),
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, state) {
             return Column(

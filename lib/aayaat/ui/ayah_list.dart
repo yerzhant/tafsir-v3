@@ -92,7 +92,13 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
         child: ScrollablePositionedList.separated(
           separatorBuilder: (context, index) => const SizedBox(height: 8),
 
-          padding: const .symmetric(horizontal: 20, vertical: 12),
+          padding: .only(
+            right: 20,
+            left: 20,
+            top: 12,
+            bottom: MediaQuery.paddingOf(context).bottom,
+          ),
+
           initialScrollIndex: _position.number - 1,
           initialAlignment: _position.alignment,
           itemCount: widget.state.aayaat.length,

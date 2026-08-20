@@ -15,14 +15,11 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: SafeArea(
-        top: false,
-        child: Column(
-          children: [
-            SettingsHeader(),
-            SettingsWidget(),
-          ],
-        ),
+      body: Column(
+        children: [
+          SettingsHeader(),
+          SettingsWidget(),
+        ],
       ),
     );
   }

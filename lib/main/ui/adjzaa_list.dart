@@ -24,8 +24,8 @@ class AdjzaaList extends StatelessWidget {
       padding: .only(
         right: 20,
         left: 20,
-        bottom: 20,
         top: hasTopPadding ? 20 : 0,
+        bottom: MediaQuery.paddingOf(context).bottom,
       ),
       itemCount: items.length,
       itemBuilder: (context, index) => DjuzItem(

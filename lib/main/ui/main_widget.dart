@@ -51,6 +51,7 @@ class _Success extends StatelessWidget {
     return Masjid(
       theme: theme,
       child: SafeArea(
+        bottom: false,
         child: Column(
           children: [
             Header(theme: theme),

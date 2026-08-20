@@ -13,7 +13,12 @@ class SettingsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const .symmetric(horizontal: 20, vertical: 12),
+      padding: .only(
+        right: 20,
+        left: 20,
+        top: 12,
+        bottom: MediaQuery.paddingOf(context).bottom,
+      ),
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, settings) {
           return BlocBuilder<ThemeCubit, ThemeState>(

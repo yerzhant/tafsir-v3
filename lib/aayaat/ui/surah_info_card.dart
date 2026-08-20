@@ -15,9 +15,10 @@ class SurahInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      bottom: false,
       child: SingleChildScrollView(
-        padding: const .only(
-          bottom: 20,
+        padding: .only(
+          bottom: MediaQuery.paddingOf(context).bottom,
           right: 20,
           left: 20,
           top: 0,

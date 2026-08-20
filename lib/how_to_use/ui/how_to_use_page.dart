@@ -25,6 +25,7 @@ class HowToUsePage extends StatelessWidget {
           return Masjid(
             theme: themeState.theme,
             child: SafeArea(
+              bottom: false,
               child: Column(
                 children: [
                   InfoPageHeader(
@@ -35,7 +36,12 @@ class HowToUsePage extends StatelessWidget {
                     child: AppContainer(
                       theme: themeState.theme,
                       child: ListView.separated(
-                        padding: const .all(20),
+                        padding: .only(
+                          right: 20,
+                          top: 20,
+                          left: 20,
+                          bottom: MediaQuery.paddingOf(context).bottom,
+                        ),
                         itemCount: howToList.length,
                         itemBuilder: (context, index) {
                           final item = howToList[index];

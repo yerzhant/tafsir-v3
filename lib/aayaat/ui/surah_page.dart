@@ -73,35 +73,32 @@ class _SurahPageState extends State<SurahPage> {
 
     return Scaffold(
       key: _scaffoldKey,
-      body: SafeArea(
-        top: false,
-        child: MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider(create: (context) => MainDb(context.read())),
-            RepositoryProvider(create: (context) => AayaatDb(context.read())),
-          ],
-          child: BlocProvider(
-            create: (context) => AayaatCubit(
-              context.read(),
-              context.read(),
-              widget._mainCubit,
-              widget._surahNumber,
-              widget._ayahPosition,
-            )..init(),
-            child: BlocBuilder<AayaatCubit, AayaatState>(
-              builder: (context, state) {
-                return switch (state) {
-                  AayaatStateInProgress() => const ProgressWidget(),
+      body: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider(create: (context) => MainDb(context.read())),
+          RepositoryProvider(create: (context) => AayaatDb(context.read())),
+        ],
+        child: BlocProvider(
+          create: (context) => AayaatCubit(
+            context.read(),
+            context.read(),
+            widget._mainCubit,
+            widget._surahNumber,
+            widget._ayahPosition,
+          )..init(),
+          child: BlocBuilder<AayaatCubit, AayaatState>(
+            builder: (context, state) {
+              return switch (state) {
+                AayaatStateInProgress() => const ProgressWidget(),
 
-                  AayaatStateSuccess() => _success(context, state),
+                AayaatStateSuccess() => _success(context, state),
 
-                  AayaatStateFailure(:final error) => AppErrorWidget(
-                    error: error,
-                    onPressed: context.read<AayaatCubit>().init,
-                  ),
-                };
-              },
-            ),
+                AayaatStateFailure(:final error) => AppErrorWidget(
+                  error: error,
+                  onPressed: context.read<AayaatCubit>().init,
+                ),
+              };
+            },
           ),
         ),
       ),

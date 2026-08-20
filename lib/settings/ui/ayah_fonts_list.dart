@@ -12,6 +12,7 @@ class AyahFontsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      bottom: false,
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, settings) {
           return RadioGroup<AyahFontType>(
@@ -26,7 +27,11 @@ class AyahFontsList extends StatelessWidget {
                 type: AyahFontType.values[index],
                 onSelected: (type) => _onSelected(type, context),
               ),
-              padding: const .only(right: 20, left: 20, bottom: 18),
+              padding: .only(
+                right: 20,
+                left: 20,
+                bottom: MediaQuery.paddingOf(context).bottom,
+              ),
               separatorBuilder: (context, index) => const SizedBox(height: 8),
             ),
           );

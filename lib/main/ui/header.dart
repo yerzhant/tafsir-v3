@@ -48,7 +48,7 @@ class Header extends StatelessWidget {
       isScrollControlled: true,
       builder: (context) => SafeArea(
         child: Padding(
-          padding: const .only(right: 20, left: 20, bottom: 18),
+          padding: const .symmetric(horizontal: 20),
           child: Column(
             mainAxisSize: .min,
             spacing: 8,
