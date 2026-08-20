@@ -28,6 +28,7 @@ class InfoPageHeader extends StatelessWidget {
               style: textH2.copyWith(color: typographyPrimary(theme)),
             ),
           ),
+          const SizedBox(width: 32),
         ],
       ),
     );
