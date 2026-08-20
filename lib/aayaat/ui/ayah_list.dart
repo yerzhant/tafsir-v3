@@ -5,16 +5,25 @@ import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
+import 'package:tafsir/aayaat/ui/surah_navigator.dart';
+import 'package:tafsir/main/cubit/main_cubit.dart';
+import 'package:tafsir/main/domain/surah.dart';
 
 class AyahList extends StatefulWidget {
   const AyahList({
     super.key,
     required this.cubit,
     required this.state,
+    required this.suwar,
+    required this.mainCubit,
+    required this.onShowSuwar,
     required this.positionCubit,
   });
 
   final AayaatCubit cubit;
+  final List<Surah> suwar;
+  final MainCubit mainCubit;
+  final VoidCallback onShowSuwar;
   final AayaatStateSuccess state;
   final ScrollPositionCubit positionCubit;
 
@@ -99,18 +108,30 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
             bottom: MediaQuery.paddingOf(context).bottom,
           ),
 
-          initialScrollIndex: _position.number - 1,
           initialAlignment: _position.alignment,
-          itemCount: widget.state.aayaat.length,
+          initialScrollIndex: _position.number - 1,
+          itemCount: widget.state.aayaat.length + 1,
+
           itemScrollController: _controller,
           itemPositionsListener: _listener,
 
-          itemBuilder: (context, index) => AyahCard(
-            surah: widget.state.surah,
-            key: .new(index.toString()),
-            ayah: widget.state.aayaat[index],
-            isBookmarked: widget.state.bookmarks.contains(index + 1),
-          ),
+          itemBuilder: (context, index) {
+            if (index == widget.state.aayaat.length) {
+              return SurahNavigator(
+                suwar: widget.suwar,
+                mainCubit: widget.mainCubit,
+                onShowSuwar: widget.onShowSuwar,
+                number: widget.state.surah.number,
+              );
+            }
+
+            return AyahCard(
+              surah: widget.state.surah,
+              key: .new(index.toString()),
+              ayah: widget.state.aayaat[index],
+              isBookmarked: widget.state.bookmarks.contains(index + 1),
+            );
+          },
         ),
       ),
     );

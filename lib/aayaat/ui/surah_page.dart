@@ -134,9 +134,12 @@ class _SurahPageState extends State<SurahPage> {
               child: Builder(
                 builder: (context) {
                   return AyahList(
-                    positionCubit: context.read(),
-                    cubit: context.read(),
                     state: state,
+                    suwar: widget._suwar,
+                    cubit: context.read(),
+                    mainCubit: widget._mainCubit,
+                    positionCubit: context.read(),
+                    onShowSuwar: () => _scaffoldKey.currentState!.openDrawer(),
                   );
                 },
               ),
