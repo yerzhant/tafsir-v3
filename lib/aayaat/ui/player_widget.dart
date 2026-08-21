@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 
-class Player extends StatelessWidget {
-  const Player({super.key, required this.theme, required this.onClosed});
+class PlayerWidget extends StatelessWidget {
+  const PlayerWidget({super.key, required this.theme, required this.onClosed});
 
   final AppTheme theme;
   final VoidCallback onClosed;
