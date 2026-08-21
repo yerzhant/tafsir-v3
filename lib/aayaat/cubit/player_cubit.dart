@@ -1,0 +1,79 @@
+import 'dart:async';
+
+import 'package:bloc/bloc.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tafsir/aayaat/domain/aayah.dart';
+import 'package:tafsir/aayaat/domain/player.dart';
+import 'package:tafsir/aayaat/domain/player_position.dart';
+import 'package:tafsir/common/domain/error.dart';
+import 'package:tafsir/main/domain/surah.dart';
+
+part 'player_state.dart';
+part 'player_cubit.freezed.dart';
+
+class PlayerCubit extends Cubit<PlayerState> {
+  PlayerCubit() : super(const .inactive());
+
+  Player _player = .new();
+
+  StreamSubscription<PlayerPosition>? _positions;
+
+  Future<void> play(SurahNumber surahNumber, AayahNumber aayahNumber) =>
+      TaskEither<AppError, void>.Do(
+        ($) async {
+          emit(const .playing(false, false, .new(0, 'Загрузка...')));
+
+          _player = .new();
+
+          await $(_player.play(surahNumber, aayahNumber));
+
+          _positions = _player.getPositionStream().listen(
+            (event) {
+              if (state is! PlayerStatePlaying) {
+                _positions?.cancel();
+                return;
+              }
+
+              emit((state as PlayerStatePlaying).copyWith(position: event));
+            },
+            onError: (_) => emit(const .inactive()),
+            onDone: () => emit(const .inactive()),
+          );
+        },
+      ).mapLeft((l) => emit(.failure(l))).run();
+
+  Future<void> pause() => TaskEither<AppError, void>.Do(
+    ($) async {
+      final s = state as PlayerStatePlaying;
+      final isPaused = !s.isPaused;
+
+      await $(_player.setPause(isPaused));
+
+      emit(s.copyWith(isPaused: isPaused));
+    },
+  ).mapLeft((l) => emit(.failure(l))).run();
+
+  Future<void> loop() => TaskEither<AppError, void>.Do(
+    ($) async {
+      final s = state as PlayerStatePlaying;
+      final isLooping = !s.isLooping;
+
+      await $(_player.setLooping(isLooping));
+
+      emit(s.copyWith(isLooping: isLooping));
+    },
+  ).mapLeft((l) => emit(.failure(l))).run();
+
+  Future<void> stop() async {
+    emit(const .inactive());
+    await _player.stop();
+  }
+
+  @override
+  Future<void> close() async {
+    await _positions?.cancel();
+    await _player.stop();
+    return super.close();
+  }
+}
