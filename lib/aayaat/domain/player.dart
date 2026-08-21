@@ -19,7 +19,7 @@ class Player {
     SurahNumber surahNumber,
     AayahNumber aayahNumber,
   ) => .tryCatch(() async {
-    await _player.init();
+    await _player.init(automaticCleanup: true);
 
     await _player.disposeAllSources();
 
@@ -36,36 +36,38 @@ class Player {
     _handle = _player.play(source);
   }, ExceptionError.new);
 
-  TaskEither<AppError, Stream<PlayerPosition>> getPositionStream() =>
-      .tryCatch(() async {
-        Timer? timer;
-        late StreamController<PlayerPosition> controller;
+  Stream<PlayerPosition> getPositionStream() {
+    late StreamController<PlayerPosition> controller;
+    Timer? timer;
 
-        controller = StreamController<PlayerPosition>(
-          onListen: () {
-            timer = Timer.periodic(
-              const .new(milliseconds: 500),
-              (_) {
-                if (!_player.getIsValidVoiceHandle(_handle)) {
-                  timer?.cancel();
-                  controller.close();
-                  return;
-                }
+    controller = StreamController<PlayerPosition>(
+      onListen: () {
+        timer = Timer.periodic(
+          const .new(milliseconds: 500),
+          (_) {
+            if (!_player.isInitialized ||
+                !_player.getIsValidVoiceHandle(_handle)) {
+              timer?.cancel();
+              controller.close();
+              return;
+            }
 
-                final current = _player.getPosition(_handle);
-                final position =
-                    current.inMilliseconds / _length.inMilliseconds * 100;
-                final title = '${current.inSeconds} / ${_length.inSeconds} сек';
+            final current = _player.getPosition(_handle);
 
-                controller.add(.new(position, title));
-              },
-            );
+            final position =
+                current.inMilliseconds / _length.inMilliseconds * 100;
+
+            final title = '${current.inSeconds} / ${_length.inSeconds} сек';
+
+            controller.add(.new(position, title));
           },
-          onCancel: () => timer?.cancel(),
         );
+      },
+      onCancel: () => timer?.cancel(),
+    );
 
-        return controller.stream;
-      }, ExceptionError.new);
+    return controller.stream;
+  }
 
   TaskEither<AppError, void> setPause(bool value) => .tryCatch(() async {
     _player.setPause(_handle, value);
@@ -75,8 +77,5 @@ class Player {
     _player.setLooping(_handle, value);
   }, ExceptionError.new);
 
-  TaskEither<AppError, void> stop() => .tryCatch(() async {
-    await _player.stop(_handle);
-    await _player.deinitAsync();
-  }, ExceptionError.new);
+  Future<void> stop() => _player.deinitAsync();
 }
