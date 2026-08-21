@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tafsir/common/ui/app_button.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
@@ -56,7 +57,10 @@ class _GoToAayahState extends State<GoToAayah> {
               keyboardType: .number,
               textAlign: .center,
             ),
-            GestureDetector(
+
+            AppButton(
+              title: 'Перейти',
+              theme: state.theme,
               onTap: () {
                 final aayah = int.tryParse(_aayahController.text);
 
@@ -64,23 +68,6 @@ class _GoToAayahState extends State<GoToAayah> {
 
                 widget.onSet(aayah);
               },
-              child: Container(
-                width: .infinity,
-                padding: const .symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
-                decoration: BoxDecoration(
-                  color: brandPrimary(state.theme),
-                  borderRadius: .circular(100),
-                ),
-                child: Center(
-                  child: Text(
-                    'Перейти',
-                    style: textBodyReg.copyWith(color: typographyTextWhite),
-                  ),
-                ),
-              ),
             ),
           ],
         );

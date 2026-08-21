@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/common/domain/error.dart';
+import 'package:tafsir/common/ui/app_button.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
@@ -20,10 +21,11 @@ class AppErrorWidget extends StatelessWidget {
       builder: (context, state) {
         return Container(
           color: bgPrimary(state.theme),
-          padding: const .all(16),
+          padding: const .symmetric(horizontal: 20),
           width: .infinity,
           child: Column(
             mainAxisAlignment: .center,
+            mainAxisSize: .min,
             spacing: 16,
             children: [
               Column(
@@ -47,14 +49,8 @@ class AppErrorWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              FilledButton(
-                style: .new(
-                  backgroundColor: .all(bgSecondary(state.theme)),
-                  foregroundColor: .all(typographyPrimary(state.theme)),
-                ),
-                onPressed: onPressed,
-                child: const Text('OK'),
-              ),
+
+              AppButton(title: 'Закрыть', theme: state.theme, onTap: onPressed),
             ],
           ),
         );
