@@ -4,6 +4,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
+import 'package:tafsir/aayaat/cubit/player_cubit.dart';
 import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/aayaat/ui/html_styles.dart';
 import 'package:tafsir/app.dart';
@@ -184,7 +185,14 @@ class _AyahCardState extends State<AyahCard> {
                   isBookmarked: widget.isBookmarked,
 
                   onShare: _onShare,
-                  onPlay: () {},
+                  onPlay: () {
+                    _toggleMenu();
+
+                    context.read<PlayerCubit>().play(
+                      widget.surah.number,
+                      widget.ayah.number,
+                    );
+                  },
                   onBookmark: () => context.read<AayaatCubit>().toggleBookmark(
                     widget.ayah.number,
                   ),
@@ -275,13 +283,14 @@ class _Menu extends StatelessWidget {
             ),
           ),
 
-          // GestureDetector(
-          //   onTap: onPlay,
-          //   child: SvgPicture.asset(
-          //     'assets/icons/play-ayah.svg',
-          //     colorFilter: .mode(color, .srcIn),
-          //   ),
-          // ),
+          GestureDetector(
+            onTap: onPlay,
+            child: SvgPicture.asset(
+              'assets/icons/play-ayah.svg',
+              colorFilter: .mode(color, .srcIn),
+            ),
+          ),
+
           GestureDetector(
             onTap: onBookmark,
             child: SvgPicture.asset(

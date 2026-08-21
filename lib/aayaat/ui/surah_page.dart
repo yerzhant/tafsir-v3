@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
+import 'package:tafsir/aayaat/cubit/player_cubit.dart';
 import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
@@ -118,8 +119,15 @@ class _SurahPageState extends State<SurahPage> {
       listener: (context, state) {
         WakelockPlus.toggle(enable: state.doNotSwitchOffScreen);
       },
-      child: BlocProvider(
-        create: (context) => ScrollPositionCubit(state.scrollToPosition.number),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => ScrollPositionCubit(
+              state.scrollToPosition.number,
+            ),
+          ),
+          BlocProvider(create: (context) => PlayerCubit()),
+        ],
         child: Column(
           children: [
             SurahHeader(

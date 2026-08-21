@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tafsir/aayaat/cubit/player_cubit.dart';
+import 'package:tafsir/aayaat/domain/player_position.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 
 class PlayerWidget extends StatelessWidget {
-  const PlayerWidget({super.key, required this.theme, required this.onClosed});
+  const PlayerWidget({
+    super.key,
+    required this.theme,
+
+    required this.isPaused,
+    required this.isLooping,
+    required this.position,
+
+    required this.onClosed,
+  });
 
   final AppTheme theme;
+
+  final bool isPaused;
+  final bool isLooping;
+  final PlayerPosition position;
+
   final VoidCallback onClosed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: const .all(12),
       decoration: BoxDecoration(
         color: brandSoft(theme),
         border: .symmetric(
@@ -30,12 +46,10 @@ class PlayerWidget extends StatelessWidget {
                   theme: theme,
                   icon: 'close',
                   isClose: true,
-                  onTap: () {
-                    onClosed();
-                  },
+                  onTap: () => onClosed(),
                 ),
                 Text(
-                  '1 / 2 sec',
+                  position.title,
                   style: textBodyReg.copyWith(color: typographyPrimary(theme)),
                 ),
                 Row(
@@ -44,14 +58,14 @@ class PlayerWidget extends StatelessWidget {
                     _Button(
                       theme: theme,
                       icon: 'loop',
-                      isActive: false,
-                      onTap: () => print('loop'),
+                      isActive: isLooping,
+                      onTap: context.read<PlayerCubit>().loop,
                     ),
                     _Button(
                       theme: theme,
                       icon: 'pause',
-                      isActive: true,
-                      onTap: () => print('pause'),
+                      isActive: isPaused,
+                      onTap: context.read<PlayerCubit>().pause,
                     ),
                   ],
                 ),
