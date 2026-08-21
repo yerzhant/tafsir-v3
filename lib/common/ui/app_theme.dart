@@ -191,6 +191,13 @@ Color brandSecondary(AppTheme theme) => switch (theme) {
   .brownDark => brandSecondaryBrownDark,
 };
 
+Color brandSoft(AppTheme theme) => switch (theme) {
+  .light => brandSoftLight,
+  .dark => brandSoftDark,
+  .brownLight => brandSoftBrownLight,
+  .brownDark => brandSoftBrownDark,
+};
+
 Color bgPrimary(AppTheme theme) => switch (theme) {
   .light => bgPrimaryLight,
   .dark => bgPrimaryDark,
@@ -224,6 +231,13 @@ Color borderPrimary(AppTheme theme) => switch (theme) {
   .dark => borderPrimaryDark,
   .brownLight => borderPrimaryBrownLight,
   .brownDark => borderPrimaryBrownDark,
+};
+
+Color borderSecondary(AppTheme theme) => switch (theme) {
+  .light => borderSecondaryLight,
+  .dark => borderSecondaryDark,
+  .brownLight => borderSecondaryBrownLight,
+  .brownDark => borderSecondaryBrownDark,
 };
 
 Color borderTertirary(AppTheme theme) => switch (theme) {
