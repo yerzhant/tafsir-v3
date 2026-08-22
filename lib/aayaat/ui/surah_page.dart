@@ -126,7 +126,7 @@ class _SurahPageState extends State<SurahPage> {
               state.scrollToPosition.number,
             ),
           ),
-          BlocProvider(create: (context) => PlayerCubit()),
+          BlocProvider(create: (context) => PlayerCubit(context.read())),
         ],
         child: Column(
           children: [

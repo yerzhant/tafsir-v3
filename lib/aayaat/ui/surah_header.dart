@@ -124,6 +124,7 @@ class _Player extends StatelessWidget {
         child: AppErrorWidget(
           onPressed: () => Navigator.pop(context),
           error: error,
+          size: .min,
         ),
       ),
     );

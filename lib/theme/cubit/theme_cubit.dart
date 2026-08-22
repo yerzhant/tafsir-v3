@@ -34,6 +34,7 @@ class ThemeCubit extends Cubit<ThemeState> {
         state.copyWith(
           doNotSwitchOffScreen: doNotSwitchOffScreen,
           sameAsInSystem: sameAsInSystem,
+          error: null,
         ),
       );
 

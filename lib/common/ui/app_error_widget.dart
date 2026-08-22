@@ -8,11 +8,13 @@ import 'package:tafsir/theme/cubit/theme_cubit.dart';
 class AppErrorWidget extends StatelessWidget {
   const AppErrorWidget({
     super.key,
+    this.size = .max,
     required this.error,
     required this.onPressed,
   });
 
   final AppError error;
+  final MainAxisSize size;
   final VoidCallback onPressed;
 
   @override
@@ -25,7 +27,7 @@ class AppErrorWidget extends StatelessWidget {
           width: .infinity,
           child: Column(
             mainAxisAlignment: .center,
-            mainAxisSize: .min,
+            mainAxisSize: size,
             spacing: 16,
             children: [
               Column(

@@ -13,19 +13,20 @@ part 'player_state.dart';
 part 'player_cubit.freezed.dart';
 
 class PlayerCubit extends Cubit<PlayerState> {
-  PlayerCubit() : super(const .inactive());
+  PlayerCubit(this._player) : super(const .inactive());
 
-  Player _player = .new();
+  final Player _player;
 
   StreamSubscription<PlayerPosition>? _positions;
 
   Future<void> play(SurahNumber surahNumber, AayahNumber aayahNumber) =>
       TaskEither<AppError, void>.Do(
         ($) async {
+          _positions?.cancel();
+
           emit(const .playing(false, false, .new(0, 'Загрузка...')));
 
-          _player = .new();
-
+          await $(_player.init());
           await $(_player.play(surahNumber, aayahNumber));
 
           _positions = _player.getPositionStream().listen(
@@ -37,7 +38,7 @@ class PlayerCubit extends Cubit<PlayerState> {
 
               emit((state as PlayerStatePlaying).copyWith(position: event));
             },
-            onError: (_) => emit(const .inactive()),
+            onError: (error, trace) => emit(.failure(.exception(error, trace))),
             onDone: () => emit(const .inactive()),
           );
         },
@@ -65,15 +66,17 @@ class PlayerCubit extends Cubit<PlayerState> {
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
-  Future<void> stop() async {
-    emit(const .inactive());
-    await _player.stop();
-  }
+  Future<void> stop() => TaskEither<AppError, void>.Do(
+    ($) async {
+      await _positions?.cancel();
+      emit(const .inactive());
+      await $(_player.stop());
+    },
+  ).mapLeft((l) => emit(.failure(l))).run();
 
   @override
   Future<void> close() async {
-    await _positions?.cancel();
-    await _player.stop();
+    await stop();
     return super.close();
   }
 }

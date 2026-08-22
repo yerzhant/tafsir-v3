@@ -11,16 +11,22 @@ class Player {
   Player() : _player = SoLoud.instance;
 
   final SoLoud _player;
+  late Duration _length;
+  late SoundHandle _handle;
 
-  late final Duration _length;
-  late final SoundHandle _handle;
+  TaskEither<AppError, void> init() => .tryCatch(
+    () async {
+      if (!_player.isInitialized) {
+        await _player.init();
+      }
+    },
+    ExceptionError.new,
+  );
 
   TaskEither<AppError, void> play(
     SurahNumber surahNumber,
     AayahNumber aayahNumber,
   ) => .tryCatch(() async {
-    await _player.init(automaticCleanup: true);
-
     await _player.disposeAllSources();
 
     final surah = surahNumber.toString().padLeft(3, '0');
@@ -43,7 +49,7 @@ class Player {
     controller = StreamController<PlayerPosition>(
       onListen: () {
         timer = Timer.periodic(
-          const .new(milliseconds: 500),
+          const .new(milliseconds: 200),
           (_) {
             if (!_player.isInitialized ||
                 !_player.getIsValidVoiceHandle(_handle)) {
@@ -53,10 +59,7 @@ class Player {
             }
 
             final current = _player.getPosition(_handle);
-
-            final position =
-                current.inMilliseconds / _length.inMilliseconds * 100;
-
+            final position = current.inMilliseconds / _length.inMilliseconds;
             final title = '${current.inSeconds} / ${_length.inSeconds} сек';
 
             controller.add(.new(position, title));
@@ -77,5 +80,10 @@ class Player {
     _player.setLooping(_handle, value);
   }, ExceptionError.new);
 
-  Future<void> stop() => _player.deinitAsync();
+  TaskEither<AppError, void> stop() => .tryCatch(
+    () => _player.stop(_handle),
+    ExceptionError.new,
+  );
+
+  void deinit() => _player.deinit();
 }

@@ -46,7 +46,7 @@ class PlayerWidget extends StatelessWidget {
                   theme: theme,
                   icon: 'close',
                   isClose: true,
-                  onTap: () => onClosed(),
+                  onTap: onClosed,
                 ),
                 Text(
                   position.title,
@@ -72,12 +72,14 @@ class PlayerWidget extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            height: 4,
-            width: 30,
-            decoration: BoxDecoration(
-              color: brandPrimary(theme),
-              borderRadius: .circular(2),
+          LayoutBuilder(
+            builder: (context, constraints) => Container(
+              height: 4,
+              decoration: BoxDecoration(
+                color: brandPrimary(theme),
+                borderRadius: .circular(2),
+              ),
+              width: constraints.maxWidth * position.position,
             ),
           ),
         ],
