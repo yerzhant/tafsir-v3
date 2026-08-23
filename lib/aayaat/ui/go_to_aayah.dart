@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tafsir/aayaat/cubit/go_to_aayah_cubit.dart';
 import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/aayaat/ui/aayah_selector.dart';
 import 'package:tafsir/aayaat/ui/surah_page.dart';
@@ -55,80 +56,89 @@ class _GoToAayahState extends State<GoToAayah> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, ThemeState>(
-      builder: (context, state) {
-        return Column(
-          spacing: 12,
-          mainAxisSize: .min,
-          children: [
-            Row(
-              spacing: 8,
-              children: [
-                Expanded(
-                  child: _Field(
-                    hint: 'Название или номер суры',
-                    theme: state.theme,
-                    controller: _surahController,
+    return BlocProvider(
+      create: (context) => GoToAayahCubit(
+        widget.suwar,
+        _surahNumber,
+        _aayahNumber,
+      ),
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          return Column(
+            spacing: 12,
+            mainAxisSize: .min,
+            children: [
+              Row(
+                spacing: 8,
+                children: [
+                  Expanded(
+                    child: _Field(
+                      theme: state.theme,
+                      controller: _surahController,
+                      hint: 'Название или номер суры',
+                      onChanged: context.read<GoToAayahCubit>().onSurahEdited,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: _aayaatWidth,
-                  child: _Field(
-                    hint: '№ аята',
-                    inputType: .number,
-                    theme: state.theme,
-                    controller: _aayahController,
+                  SizedBox(
+                    width: _aayaatWidth,
+                    child: _Field(
+                      hint: '№ аята',
+                      inputType: .number,
+                      theme: state.theme,
+                      controller: _aayahController,
+                      onChanged: context.read<GoToAayahCubit>().onAayahEdited,
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
 
-            AayahSelector(
-              theme: state.theme,
-              suwar: widget.suwar,
-              surahNumber: widget.surahNumber,
-              aayahNumber: widget.aayahNumber,
-              aayaatWidth: _aayaatWidth,
-              onChanged: (surahNumber, aayahNumber) {
-                _surahNumber = surahNumber;
-                _aayahNumber = aayahNumber;
-              },
-            ),
+              AayahSelector(
+                theme: state.theme,
+                suwar: widget.suwar,
+                surahNumber: _surahNumber,
+                aayahNumber: _aayahNumber,
+                aayaatWidth: _aayaatWidth,
+                onChanged: (surahNumber, aayahNumber) {
+                  _surahNumber = surahNumber;
+                  _aayahNumber = aayahNumber;
+                },
+              ),
 
-            AppButton(
-              title: 'Перейти',
-              theme: state.theme,
-              onTap: () {
-                Navigator.pop(context);
-
-                final surah = int.tryParse(_surahController.text);
-                final aayah = int.tryParse(_aayahController.text);
-
-                if (surah != null &&
-                    aayah != null &&
-                    surah >= 1 &&
-                    surah <= 114) {
+              AppButton(
+                title: 'Перейти',
+                theme: state.theme,
+                onTap: () {
                   Navigator.pop(context);
 
-                  SurahPage.open(
-                    context,
-                    widget.mainCubit,
-                    widget.suwar,
-                    .new(surah),
-                    .new(.new(aayah), 0),
-                  );
+                  final surah = int.tryParse(_surahController.text);
+                  final aayah = int.tryParse(_aayahController.text);
 
-                  return;
-                }
+                  if (surah != null &&
+                      aayah != null &&
+                      surah >= 1 &&
+                      surah <= 114) {
+                    Navigator.pop(context);
 
-                if (aayah != null) {
-                  widget.onGoTo(.new(aayah));
-                }
-              },
-            ),
-          ],
-        );
-      },
+                    SurahPage.open(
+                      context,
+                      widget.mainCubit,
+                      widget.suwar,
+                      .new(surah),
+                      .new(.new(aayah), 0),
+                    );
+
+                    return;
+                  }
+
+                  if (aayah != null) {
+                    widget.onGoTo(.new(aayah));
+                  }
+                },
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
@@ -138,17 +148,20 @@ class _Field extends StatelessWidget {
     this.inputType,
     required this.hint,
     required this.theme,
+    required this.onChanged,
     required this.controller,
   });
 
   final String hint;
   final AppTheme theme;
   final TextInputType? inputType;
+  final ValueChanged<String> onChanged;
   final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChanged,
       controller: controller,
       keyboardType: inputType,
       decoration: InputDecoration(

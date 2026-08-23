@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tafsir/aayaat/cubit/go_to_aayah_cubit.dart';
 import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/surah.dart';
@@ -56,11 +58,11 @@ class _AayahSelectorState extends State<AayahSelector> {
     _aayahNumber = widget.aayahNumber;
 
     _suwarController = .new(
-      initialScrollOffset: (_surahNumber - 1) * (_rowHeight + _separatorHeight),
+      initialScrollOffset: _getOffsetForNumber(_surahNumber),
     );
 
     _aayaatController = .new(
-      initialScrollOffset: (_aayahNumber - 1) * (_rowHeight + _separatorHeight),
+      initialScrollOffset: _getOffsetForNumber(_aayahNumber),
     );
   }
 
@@ -72,6 +74,18 @@ class _AayahSelectorState extends State<AayahSelector> {
     super.dispose();
   }
 
+  double _getOffsetForNumber(int number) {
+    return (number - 1) * (_rowHeight + _separatorHeight);
+  }
+
+  void _scrollTo(ScrollController controller, int number) {
+    controller.animateTo(
+      curve: Curves.easeInOut,
+      _getOffsetForNumber(number),
+      duration: const .new(milliseconds: 500),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -79,54 +93,71 @@ class _AayahSelectorState extends State<AayahSelector> {
           _windowLength * (_rowHeight + _separatorHeight) - _separatorHeight,
       child: Stack(
         children: [
-          Row(
-            spacing: 8,
-            children: [
-              Expanded(
-                child: ListView.separated(
-                  padding: _padding,
-                  controller: _suwarController,
-                  itemCount: widget.suwar.length,
-                  itemBuilder: (context, index) {
-                    final surah = widget.suwar[index];
+          BlocConsumer<GoToAayahCubit, GoToAayahState>(
+            listener: (context, state) {
+              if (state.surahNumber != _surahNumber) {
+                _surahNumber = state.surahNumber;
+                _scrollTo(_suwarController, _surahNumber);
+                widget.onChanged(_surahNumber, _aayahNumber);
+              }
 
-                    return _Cell(
-                      theme: widget.theme,
-                      active: _surahNumber == surah.number,
-                      title: '${surah.number}. ${surah.name}',
-                      onTap: () {
-                        setState(() => _surahNumber = surah.number);
-                        widget.onChanged(_surahNumber, _aayahNumber);
+              if (state.aayahNumber != _aayahNumber) {
+                _aayahNumber = state.aayahNumber;
+                _scrollTo(_aayaatController, _aayahNumber);
+                widget.onChanged(_surahNumber, _aayahNumber);
+              }
+            },
+            builder: (context, state) {
+              return Row(
+                spacing: 8,
+                children: [
+                  Expanded(
+                    child: ListView.separated(
+                      padding: _padding,
+                      controller: _suwarController,
+                      itemCount: widget.suwar.length,
+                      itemBuilder: (context, index) {
+                        final surah = widget.suwar[index];
+
+                        return _Cell(
+                          theme: widget.theme,
+                          active: _surahNumber == surah.number,
+                          title: '${surah.number}. ${surah.name}',
+                          onTap: () {
+                            setState(() => _surahNumber = surah.number);
+                            widget.onChanged(_surahNumber, _aayahNumber);
+                          },
+                        );
                       },
-                    );
-                  },
-                  separatorBuilder: (context, index) => const SizedBox(
-                    height: _separatorHeight,
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: _separatorHeight,
+                      ),
+                    ),
                   ),
-                ),
-              ),
 
-              SizedBox(
-                width: widget.aayaatWidth,
-                child: ListView.separated(
-                  padding: _padding,
-                  controller: _aayaatController,
-                  itemBuilder: (context, index) => _Cell(
-                    theme: widget.theme,
-                    title: (index + 1).toString(),
-                    active: _aayahNumber == index + 1,
-                    onTap: () {
-                      setState(() => _aayahNumber = .new(index + 1));
-                      widget.onChanged(_surahNumber, _aayahNumber);
-                    },
+                  SizedBox(
+                    width: widget.aayaatWidth,
+                    child: ListView.separated(
+                      padding: _padding,
+                      controller: _aayaatController,
+                      itemBuilder: (context, index) => _Cell(
+                        theme: widget.theme,
+                        title: (index + 1).toString(),
+                        active: _aayahNumber == index + 1,
+                        onTap: () {
+                          setState(() => _aayahNumber = .new(index + 1));
+                          widget.onChanged(_surahNumber, _aayahNumber);
+                        },
+                      ),
+                      itemCount: widget.suwar[_surahNumber - 1].quantity,
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: _separatorHeight,
+                      ),
+                    ),
                   ),
-                  itemCount: widget.suwar[_surahNumber - 1].quantity,
-                  separatorBuilder: (context, index) => const SizedBox(
-                    height: _separatorHeight,
-                  ),
-                ),
-              ),
-            ],
+                ],
+              );
+            },
           ),
 
           const Positioned.fill(
@@ -136,6 +167,7 @@ class _AayahSelectorState extends State<AayahSelector> {
               curve: Curves.easeInCubic,
             ),
           ),
+
           const Positioned.fill(
             top: null,
             child: _Blur(
