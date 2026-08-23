@@ -6,7 +6,6 @@ import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_list.dart';
-import 'package:tafsir/aayaat/ui/go_to_aayah.dart';
 import 'package:tafsir/aayaat/ui/short_suwar_list.dart';
 import 'package:tafsir/aayaat/ui/surah_header.dart';
 import 'package:tafsir/aayaat/ui/surah_info_card.dart';
@@ -191,12 +190,12 @@ class _SurahPageState extends State<SurahPage> {
             left: 20,
             bottom: MediaQuery.of(ctx).viewInsets.bottom + 20,
           ),
-          child: GoToAayah(
-            onSet: (aayah) {
-              context.read<AayaatCubit>().goToAayah(.new(aayah));
-              Navigator.pop(context);
-            },
-          ),
+          // child: GoToAayah(
+          //   onSet: (aayah) {
+          //     context.read<AayaatCubit>().goToAayah(.new(aayah));
+          //     Navigator.pop(context);
+          //   },
+          // ),
         ),
       ),
     );
