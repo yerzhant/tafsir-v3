@@ -6,8 +6,12 @@ import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/surah.dart';
 
 const _rowHeight = 43.0;
-const _windowLegth = 7;
+const _windowLength = 7;
 const _separatorHeight = 8.0;
+
+const _padding = EdgeInsets.symmetric(
+  vertical: 3 * (_rowHeight + _separatorHeight),
+);
 
 class AayahSelector extends StatefulWidget {
   const AayahSelector({
@@ -38,10 +42,41 @@ class AayahSelector extends StatefulWidget {
 }
 
 class _AayahSelectorState extends State<AayahSelector> {
+  late final ScrollController _suwarController;
+  late final ScrollController _aayaatController;
+
+  late SurahNumber _surahNumber;
+  late AayahNumber _aayahNumber;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _surahNumber = widget.surahNumber;
+    _aayahNumber = widget.aayahNumber;
+
+    _suwarController = .new(
+      initialScrollOffset: (_surahNumber - 1) * (_rowHeight + _separatorHeight),
+    );
+
+    _aayaatController = .new(
+      initialScrollOffset: (_aayahNumber - 1) * (_rowHeight + _separatorHeight),
+    );
+  }
+
+  @override
+  void dispose() {
+    _aayaatController.dispose();
+    _suwarController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: _windowLegth * (_rowHeight + _separatorHeight) - _separatorHeight,
+      height:
+          _windowLength * (_rowHeight + _separatorHeight) - _separatorHeight,
       child: Stack(
         children: [
           Row(
@@ -49,30 +84,43 @@ class _AayahSelectorState extends State<AayahSelector> {
             children: [
               Expanded(
                 child: ListView.separated(
+                  padding: _padding,
+                  controller: _suwarController,
                   itemCount: widget.suwar.length,
                   itemBuilder: (context, index) {
                     final surah = widget.suwar[index];
 
                     return _Cell(
                       theme: widget.theme,
+                      active: _surahNumber == surah.number,
                       title: '${surah.number}. ${surah.name}',
-                      active: surah.number == widget.surahNumber,
+                      onTap: () {
+                        setState(() => _surahNumber = surah.number);
+                        widget.onChanged(_surahNumber, _aayahNumber);
+                      },
                     );
                   },
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: _separatorHeight),
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: _separatorHeight,
+                  ),
                 ),
               ),
 
               SizedBox(
                 width: widget.aayaatWidth,
                 child: ListView.separated(
+                  padding: _padding,
+                  controller: _aayaatController,
                   itemBuilder: (context, index) => _Cell(
                     theme: widget.theme,
                     title: (index + 1).toString(),
-                    active: widget.aayahNumber == index + 1,
+                    active: _aayahNumber == index + 1,
+                    onTap: () {
+                      setState(() => _aayahNumber = .new(index + 1));
+                      widget.onChanged(_surahNumber, _aayahNumber);
+                    },
                   ),
-                  itemCount: widget.suwar[widget.surahNumber].quantity,
+                  itemCount: widget.suwar[_surahNumber - 1].quantity,
                   separatorBuilder: (context, index) => const SizedBox(
                     height: _separatorHeight,
                   ),
@@ -103,42 +151,49 @@ class _AayahSelectorState extends State<AayahSelector> {
 
 class _Cell extends StatelessWidget {
   const _Cell({
+    required this.onTap,
     required this.theme,
     required this.title,
     required this.active,
   });
 
+  final VoidCallback onTap;
   final AppTheme theme;
   final String title;
   final bool active;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: _rowHeight,
-      padding: const .symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        color: bgSecondary(theme),
-        borderRadius: .circular(16),
-        boxShadow: const [
-          .new(
-            blurRadius: 4,
-            blurStyle: .outer,
-            offset: .new(0, 2),
-            color: Color(0x14A0A0A0),
-          ),
-        ],
-        border: active ? .all(color: typographyLink(theme)) : null,
-      ),
-      child: Center(
-        child: SizedBox(
-          width: .infinity,
-          child: Text(
-            title,
-            maxLines: 1,
-            overflow: .ellipsis,
-            style: textBodyReg.copyWith(
-              color: active ? typographyLink(theme) : typographyPrimary(theme),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: _rowHeight,
+        padding: const .symmetric(horizontal: 12),
+        decoration: BoxDecoration(
+          color: bgSecondary(theme),
+          borderRadius: .circular(16),
+          boxShadow: const [
+            .new(
+              blurRadius: 4,
+              blurStyle: .outer,
+              offset: .new(0, 2),
+              color: Color(0x14A0A0A0),
+            ),
+          ],
+          border: active ? .all(color: typographyLink(theme)) : null,
+        ),
+        child: Center(
+          child: SizedBox(
+            width: .infinity,
+            child: Text(
+              title,
+              maxLines: 1,
+              overflow: .ellipsis,
+              style: textBodyReg.copyWith(
+                color: active
+                    ? typographyLink(theme)
+                    : typographyPrimary(theme),
+              ),
             ),
           ),
         ),
@@ -186,7 +241,6 @@ class _Blur extends StatelessWidget {
       final blur = lerp.clamp(0, _maxBlur).toDouble();
 
       if (blur <= 0) {
-        print('************************* $blur');
         slices.add(const Expanded(child: child));
         continue;
       }

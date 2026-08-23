@@ -6,6 +6,7 @@ import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_list.dart';
+import 'package:tafsir/aayaat/ui/go_to_aayah.dart';
 import 'package:tafsir/aayaat/ui/short_suwar_list.dart';
 import 'package:tafsir/aayaat/ui/surah_header.dart';
 import 'package:tafsir/aayaat/ui/surah_info_card.dart';
@@ -129,13 +130,17 @@ class _SurahPageState extends State<SurahPage> {
         ],
         child: Column(
           children: [
-            SurahHeader(
-              surah: state.surah,
-              onTheme: () => _showTheme(context),
-              onGoToAyah: () => _goToAayah(context),
-              onSettings: () => SettingsPage.open(context),
-              onInfo: () => _showInfo(context, state.surah.info),
-              onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
+            Builder(
+              builder: (context) {
+                return SurahHeader(
+                  surah: state.surah,
+                  onTheme: () => _showTheme(context),
+                  onGoToAyah: () => _goToAayah(context),
+                  onSettings: () => SettingsPage.open(context),
+                  onInfo: () => _showInfo(context, state.surah.info),
+                  onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
+                );
+              },
             ),
             Expanded(
               child: Builder(
@@ -178,26 +183,30 @@ class _SurahPageState extends State<SurahPage> {
   }
 
   void _goToAayah(BuildContext context) {
+    final aayahNumber = context.read<ScrollPositionCubit>().state.number;
+
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
       showDragHandle: true,
       isScrollControlled: true,
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: .only(
-            right: 20,
-            left: 20,
-            bottom: MediaQuery.of(ctx).viewInsets.bottom + 20,
+      builder: (ctx) {
+        final viewBottom = MediaQuery.of(ctx).viewInsets.bottom;
+        final bottom = viewBottom + (viewBottom > 0 ? 20 : 0);
+
+        return SafeArea(
+          child: SingleChildScrollView(
+            padding: .only(right: 20, left: 20, bottom: bottom),
+            child: GoToAayah(
+              suwar: widget._suwar,
+              aayahNumber: aayahNumber,
+              mainCubit: widget._mainCubit,
+              surahNumber: widget._surahNumber,
+              onGoTo: context.read<AayaatCubit>().goToAayah,
+            ),
           ),
-          // child: GoToAayah(
-          //   onSet: (aayah) {
-          //     context.read<AayaatCubit>().goToAayah(.new(aayah));
-          //     Navigator.pop(context);
-          //   },
-          // ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
