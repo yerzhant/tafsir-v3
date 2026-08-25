@@ -261,9 +261,7 @@ class _Checkbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.brightnessOf(context);
-
-    final inactiveColor = brightness == .dark
+    final inactiveColor = theme.brightness == .dark
         ? typographySecondary(theme)
         : typographyTertirary(theme);
 
