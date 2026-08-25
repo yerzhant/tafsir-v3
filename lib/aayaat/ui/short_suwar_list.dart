@@ -45,6 +45,7 @@ class ShortSuwarList extends StatelessWidget {
                 },
               );
             },
+            key: const PageStorageKey('short-suwar-list-key'),
             separatorBuilder: (context, index) => const SizedBox(height: 8),
           ),
         );

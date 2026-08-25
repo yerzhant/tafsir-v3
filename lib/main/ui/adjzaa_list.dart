@@ -33,6 +33,7 @@ class AdjzaaList extends StatelessWidget {
         suwar: suwar,
         djuz: items[index],
       ),
+      key: const PageStorageKey('adjzaa-list-key'),
       separatorBuilder: (context, index) => const SizedBox(height: 8),
     );
   }

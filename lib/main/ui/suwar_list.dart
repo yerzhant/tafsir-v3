@@ -56,6 +56,7 @@ class SuwarList extends StatelessWidget {
           );
         }
       },
+      key: const PageStorageKey('suwar-list-key'),
       itemCount: muqaddimat.length + suwar.length,
       separatorBuilder: (context, index) => SizedBox(
         height: index == muqaddimat.length - 1 ? 12 : 8,

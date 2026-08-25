@@ -33,6 +33,7 @@ class BookmarksList extends StatelessWidget {
         theme: theme,
         suwar: suwar,
       ),
+      key: const PageStorageKey('bookmarks-list-key'),
       separatorBuilder: (context, index) => const SizedBox(height: 8),
     );
   }
