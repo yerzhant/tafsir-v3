@@ -90,6 +90,7 @@ class _Player extends StatelessWidget {
       builder: (context, state) {
         return switch (state) {
           PlayerStatePlaying(
+            :final isReady,
             :final isPaused,
             :final isLooping,
             :final position,
@@ -101,6 +102,7 @@ class _Player extends StatelessWidget {
                   position: position,
                   isPaused: isPaused,
                   isLooping: isLooping,
+                  isDisabled: !isReady,
                   onClosed: context.read<PlayerCubit>().stop,
                 ),
 

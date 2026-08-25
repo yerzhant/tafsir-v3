@@ -24,7 +24,7 @@ class PlayerCubit extends Cubit<PlayerState> {
         ($) async {
           _positions?.cancel();
 
-          emit(const .playing(false, false, .new(0, 'Загрузка...')));
+          emit(const .playing(false, false, false, .new(0, 'Загрузка...')));
 
           await $(_player.init());
           await $(_player.play(surahNumber, aayahNumber));
@@ -41,6 +41,8 @@ class PlayerCubit extends Cubit<PlayerState> {
             onError: (error, trace) => emit(.failure(.exception(error, trace))),
             onDone: () => emit(const .inactive()),
           );
+
+          emit((state as PlayerStatePlaying).copyWith(isReady: true));
         },
       ).mapLeft((l) => emit(.failure(l))).run();
 

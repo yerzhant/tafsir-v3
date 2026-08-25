@@ -7,6 +7,7 @@ sealed class PlayerState with _$PlayerState {
   const factory PlayerState.failure(AppError error) = PlayerStateFailure;
 
   const factory PlayerState.playing(
+    bool isReady,
     bool isPaused,
     bool isLooping,
     PlayerPosition position,

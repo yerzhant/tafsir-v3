@@ -122,12 +122,12 @@ return playing(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  inactive,TResult Function( AppError error)?  failure,TResult Function( bool isPaused,  bool isLooping,  PlayerPosition position)?  playing,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  inactive,TResult Function( AppError error)?  failure,TResult Function( bool isReady,  bool isPaused,  bool isLooping,  PlayerPosition position)?  playing,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case PlayerStateInactive() when inactive != null:
 return inactive();case PlayerStateFailure() when failure != null:
 return failure(_that.error);case PlayerStatePlaying() when playing != null:
-return playing(_that.isPaused,_that.isLooping,_that.position);case _:
+return playing(_that.isReady,_that.isPaused,_that.isLooping,_that.position);case _:
   return orElse();
 
 }
@@ -145,12 +145,12 @@ return playing(_that.isPaused,_that.isLooping,_that.position);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  inactive,required TResult Function( AppError error)  failure,required TResult Function( bool isPaused,  bool isLooping,  PlayerPosition position)  playing,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  inactive,required TResult Function( AppError error)  failure,required TResult Function( bool isReady,  bool isPaused,  bool isLooping,  PlayerPosition position)  playing,}) {final _that = this;
 switch (_that) {
 case PlayerStateInactive():
 return inactive();case PlayerStateFailure():
 return failure(_that.error);case PlayerStatePlaying():
-return playing(_that.isPaused,_that.isLooping,_that.position);}
+return playing(_that.isReady,_that.isPaused,_that.isLooping,_that.position);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -164,12 +164,12 @@ return playing(_that.isPaused,_that.isLooping,_that.position);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  inactive,TResult? Function( AppError error)?  failure,TResult? Function( bool isPaused,  bool isLooping,  PlayerPosition position)?  playing,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  inactive,TResult? Function( AppError error)?  failure,TResult? Function( bool isReady,  bool isPaused,  bool isLooping,  PlayerPosition position)?  playing,}) {final _that = this;
 switch (_that) {
 case PlayerStateInactive() when inactive != null:
 return inactive();case PlayerStateFailure() when failure != null:
 return failure(_that.error);case PlayerStatePlaying() when playing != null:
-return playing(_that.isPaused,_that.isLooping,_that.position);case _:
+return playing(_that.isReady,_that.isPaused,_that.isLooping,_that.position);case _:
   return null;
 
 }
@@ -288,9 +288,10 @@ $AppErrorCopyWith<$Res> get error {
 
 
 class PlayerStatePlaying implements PlayerState {
-  const PlayerStatePlaying(this.isPaused, this.isLooping, this.position);
+  const PlayerStatePlaying(this.isReady, this.isPaused, this.isLooping, this.position);
   
 
+ final  bool isReady;
  final  bool isPaused;
  final  bool isLooping;
  final  PlayerPosition position;
@@ -305,16 +306,16 @@ $PlayerStatePlayingCopyWith<PlayerStatePlaying> get copyWith => _$PlayerStatePla
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlayerStatePlaying&&(identical(other.isPaused, isPaused) || other.isPaused == isPaused)&&(identical(other.isLooping, isLooping) || other.isLooping == isLooping)&&(identical(other.position, position) || other.position == position));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlayerStatePlaying&&(identical(other.isReady, isReady) || other.isReady == isReady)&&(identical(other.isPaused, isPaused) || other.isPaused == isPaused)&&(identical(other.isLooping, isLooping) || other.isLooping == isLooping)&&(identical(other.position, position) || other.position == position));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isPaused,isLooping,position);
+int get hashCode => Object.hash(runtimeType,isReady,isPaused,isLooping,position);
 
 @override
 String toString() {
-  return 'PlayerState.playing(isPaused: $isPaused, isLooping: $isLooping, position: $position)';
+  return 'PlayerState.playing(isReady: $isReady, isPaused: $isPaused, isLooping: $isLooping, position: $position)';
 }
 
 
@@ -325,7 +326,7 @@ abstract mixin class $PlayerStatePlayingCopyWith<$Res> implements $PlayerStateCo
   factory $PlayerStatePlayingCopyWith(PlayerStatePlaying value, $Res Function(PlayerStatePlaying) _then) = _$PlayerStatePlayingCopyWithImpl;
 @useResult
 $Res call({
- bool isPaused, bool isLooping, PlayerPosition position
+ bool isReady, bool isPaused, bool isLooping, PlayerPosition position
 });
 
 
@@ -342,9 +343,10 @@ class _$PlayerStatePlayingCopyWithImpl<$Res>
 
 /// Create a copy of PlayerState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? isPaused = null,Object? isLooping = null,Object? position = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? isReady = null,Object? isPaused = null,Object? isLooping = null,Object? position = null,}) {
   return _then(PlayerStatePlaying(
-null == isPaused ? _self.isPaused : isPaused // ignore: cast_nullable_to_non_nullable
+null == isReady ? _self.isReady : isReady // ignore: cast_nullable_to_non_nullable
+as bool,null == isPaused ? _self.isPaused : isPaused // ignore: cast_nullable_to_non_nullable
 as bool,null == isLooping ? _self.isLooping : isLooping // ignore: cast_nullable_to_non_nullable
 as bool,null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
 as PlayerPosition,

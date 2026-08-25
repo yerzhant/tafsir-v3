@@ -12,6 +12,8 @@ class PlayerWidget extends StatelessWidget {
 
     required this.isPaused,
     required this.isLooping,
+    required this.isDisabled,
+
     required this.position,
 
     required this.onClosed,
@@ -21,6 +23,8 @@ class PlayerWidget extends StatelessWidget {
 
   final bool isPaused;
   final bool isLooping;
+  final bool isDisabled;
+
   final PlayerPosition position;
 
   final VoidCallback onClosed;
@@ -29,7 +33,9 @@ class PlayerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: brandSoft(theme),
+        color: theme.brightness == .dark
+            ? bgTertirary(theme)
+            : brandSoft(theme),
         border: .symmetric(
           horizontal: BorderSide(color: borderSecondary(theme)),
         ),
@@ -42,11 +48,18 @@ class PlayerWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: .spaceBetween,
               children: [
-                _Button(
-                  theme: theme,
-                  icon: 'close',
-                  isClose: true,
-                  onTap: onClosed,
+                Row(
+                  spacing: 20,
+                  children: [
+                    _Button(
+                      theme: theme,
+                      icon: 'close',
+                      isClose: true,
+                      onTap: onClosed,
+                      isDisabled: isDisabled,
+                    ),
+                    const SizedBox(width: 24),
+                  ],
                 ),
                 Text(
                   position.title,
@@ -59,12 +72,14 @@ class PlayerWidget extends StatelessWidget {
                       theme: theme,
                       icon: 'loop',
                       isActive: isLooping,
+                      isDisabled: isDisabled,
                       onTap: context.read<PlayerCubit>().loop,
                     ),
                     _Button(
                       theme: theme,
                       icon: 'pause',
                       isActive: isPaused,
+                      isDisabled: isDisabled,
                       onTap: context.read<PlayerCubit>().pause,
                     ),
                   ],
@@ -95,30 +110,37 @@ class _Button extends StatelessWidget {
     required this.onTap,
     this.isClose = false,
     this.isActive = false,
+    required this.isDisabled,
   });
 
   final String icon;
   final bool isClose;
   final bool isActive;
+  final bool isDisabled;
   final AppTheme theme;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isDisabled ? null : onTap,
       child: SvgPicture.asset(
         'assets/icons/player-$icon.svg',
-        colorFilter: .mode(
-          isClose
-              ? typographyPrimary(theme)
-              : isActive
-              ? typographyLink(theme)
-              : typographyLabelsAndIcons(theme),
-          .srcIn,
-        ),
+        colorFilter: .mode(_color(), .srcIn),
       ),
     );
+  }
+
+  Color _color() {
+    if (isDisabled) {
+      if (theme.brightness == .dark) return bgTertirary(theme);
+      return brandSoft(theme);
+    }
+
+    if (isClose) typographyPrimary(theme);
+    if (isActive) return typographyLink(theme);
+
+    return typographyLabelsAndIcons(theme);
   }
 }
 
