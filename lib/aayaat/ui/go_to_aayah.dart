@@ -36,17 +36,6 @@ class _GoToAayahState extends State<GoToAayah> {
   final _surahController = TextEditingController();
   final _aayahController = TextEditingController();
 
-  late SurahNumber _surahNumber;
-  late AayahNumber _aayahNumber;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _surahNumber = widget.surahNumber;
-    _aayahNumber = widget.aayahNumber;
-  }
-
   @override
   void dispose() {
     _aayahController.dispose();
@@ -59,8 +48,8 @@ class _GoToAayahState extends State<GoToAayah> {
     return BlocProvider(
       create: (context) => GoToAayahCubit(
         widget.suwar,
-        _surahNumber,
-        _aayahNumber,
+        widget.surahNumber,
+        widget.aayahNumber,
       ),
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
@@ -95,13 +84,9 @@ class _GoToAayahState extends State<GoToAayah> {
               AayahSelector(
                 theme: state.theme,
                 suwar: widget.suwar,
-                surahNumber: _surahNumber,
-                aayahNumber: _aayahNumber,
                 aayaatWidth: _aayaatWidth,
-                onChanged: (surahNumber, aayahNumber) {
-                  _surahNumber = surahNumber;
-                  _aayahNumber = aayahNumber;
-                },
+                surahNumber: widget.surahNumber,
+                aayahNumber: widget.aayahNumber,
               ),
 
               AppButton(
@@ -110,29 +95,31 @@ class _GoToAayahState extends State<GoToAayah> {
                 onTap: () {
                   Navigator.pop(context);
 
-                  final surah = int.tryParse(_surahController.text);
-                  final aayah = int.tryParse(_aayahController.text);
+                  final surahNumber = context
+                      .read<GoToAayahCubit>()
+                      .state
+                      .surahNumber;
 
-                  if (surah != null &&
-                      aayah != null &&
-                      surah >= 1 &&
-                      surah <= 114) {
+                  final aayahNumber = context
+                      .read<GoToAayahCubit>()
+                      .state
+                      .aayahNumber;
+
+                  if (widget.surahNumber != surahNumber) {
                     Navigator.pop(context);
 
                     SurahPage.open(
                       context,
                       widget.mainCubit,
                       widget.suwar,
-                      .new(surah),
-                      .new(.new(aayah), 0),
+                      surahNumber,
+                      .new(aayahNumber, 0),
                     );
 
                     return;
                   }
 
-                  if (aayah != null) {
-                    widget.onGoTo(.new(aayah));
-                  }
+                  widget.onGoTo(aayahNumber);
                 },
               ),
             ],

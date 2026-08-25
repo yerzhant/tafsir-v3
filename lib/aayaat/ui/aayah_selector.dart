@@ -23,8 +23,6 @@ class AayahSelector extends StatefulWidget {
     required this.surahNumber,
     required this.aayahNumber,
     required this.aayaatWidth,
-
-    required this.onChanged,
   });
 
   final AppTheme theme;
@@ -32,12 +30,6 @@ class AayahSelector extends StatefulWidget {
   final double aayaatWidth;
   final SurahNumber surahNumber;
   final AayahNumber aayahNumber;
-
-  final void Function(
-    SurahNumber surahNumber,
-    AayahNumber aayahNumber,
-  )
-  onChanged;
 
   @override
   State<AayahSelector> createState() => _AayahSelectorState();
@@ -98,13 +90,11 @@ class _AayahSelectorState extends State<AayahSelector> {
               if (state.surahNumber != _surahNumber) {
                 _surahNumber = state.surahNumber;
                 _scrollTo(_suwarController, _surahNumber);
-                widget.onChanged(_surahNumber, _aayahNumber);
               }
 
               if (state.aayahNumber != _aayahNumber) {
                 _aayahNumber = state.aayahNumber;
                 _scrollTo(_aayaatController, _aayahNumber);
-                widget.onChanged(_surahNumber, _aayahNumber);
               }
             },
             builder: (context, state) {
@@ -121,12 +111,12 @@ class _AayahSelectorState extends State<AayahSelector> {
 
                         return _Cell(
                           theme: widget.theme,
+                          key: .new(surah.number.toString()),
                           active: _surahNumber == surah.number,
                           title: '${surah.number}. ${surah.name}',
-                          onTap: () {
-                            setState(() => _surahNumber = surah.number);
-                            widget.onChanged(_surahNumber, _aayahNumber);
-                          },
+                          onTap: () => context.read<GoToAayahCubit>().setSurah(
+                            surah.number,
+                          ),
                         );
                       },
                       separatorBuilder: (context, index) => const SizedBox(
@@ -142,12 +132,12 @@ class _AayahSelectorState extends State<AayahSelector> {
                       controller: _aayaatController,
                       itemBuilder: (context, index) => _Cell(
                         theme: widget.theme,
+                        key: .new(index.toString()),
                         title: (index + 1).toString(),
                         active: _aayahNumber == index + 1,
-                        onTap: () {
-                          setState(() => _aayahNumber = .new(index + 1));
-                          widget.onChanged(_surahNumber, _aayahNumber);
-                        },
+                        onTap: () => context.read<GoToAayahCubit>().setAayah(
+                          .new(index + 1),
+                        ),
                       ),
                       itemCount: widget.suwar[_surahNumber - 1].quantity,
                       separatorBuilder: (context, index) => const SizedBox(
@@ -183,6 +173,7 @@ class _AayahSelectorState extends State<AayahSelector> {
 
 class _Cell extends StatelessWidget {
   const _Cell({
+    super.key,
     required this.onTap,
     required this.theme,
     required this.title,
@@ -234,8 +225,8 @@ class _Cell extends StatelessWidget {
   }
 }
 
-const _slices = 20;
-const _maxBlur = 2;
+const _slices = 25;
+const _maxBlur = 2.5;
 
 enum _BlurDirection { up, down }
 

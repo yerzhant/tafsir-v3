@@ -26,6 +26,7 @@ dependencies:
   url_launcher: ^6.3.2
   wakelock_plus: ^1.7.0
   flutter_soloud: ^4.1.7
+  collection: ^1.19.1
 
 dev_dependencies:
   flutter_test:

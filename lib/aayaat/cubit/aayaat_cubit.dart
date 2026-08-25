@@ -100,17 +100,11 @@ class AayaatCubit extends Cubit<AayaatState> {
       ).mapLeft((l) => emit(.failure(l))).run();
 
   void goToAayah(AayahNumber number) {
-    final aayah = switch (number) {
-      < 1 => 1,
-      _ when number > _surah.quantity => _surah.quantity,
-      _ => number,
-    };
-
     final s = state as AayaatStateSuccess;
 
     emit(
       s.copyWith(
-        scrollToPosition: .new(.new(aayah), 0),
+        scrollToPosition: .new(number, 0),
         scrollToNewPosition: true,
       ),
     );
