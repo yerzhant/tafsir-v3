@@ -29,7 +29,9 @@ class AppButton extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: textBodyReg.copyWith(color: typographyTextWhite),
+            style: textBodyReg.copyWith(
+              color: theme == .dark ? bgPrimary(theme) : typographyTextWhite,
+            ),
           ),
         ),
       ),
