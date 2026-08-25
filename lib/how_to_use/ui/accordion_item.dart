@@ -41,6 +41,7 @@ class _AccordionItemState extends State<AccordionItem>
             color: _expanded ? bgSecondary(state.theme) : null,
           ),
           child: Column(
+            crossAxisAlignment: .start,
             spacing: 4,
             children: [
               GestureDetector(
