@@ -151,7 +151,7 @@ class SettingsWidget extends StatelessWidget {
                           Expanded(
                             child: Text(
                               overflow: .ellipsis,
-                              settings.ayahFontType.fontFamily,
+                              settings.ayahFontType.family,
                               style: textBodyMedium.copyWith(
                                 color: typographyTertirary(themeState.theme),
                               ),

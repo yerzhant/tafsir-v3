@@ -131,9 +131,10 @@ class _AyahCardState extends State<AyahCard> {
                                             color: typographyPrimary(
                                               themeState.theme,
                                             ),
-                                            fontFamily: settings
-                                                .ayahFontType
-                                                .fontFamily,
+                                            fontFamily:
+                                                settings.ayahFontType.family,
+                                            height:
+                                                settings.ayahFontType.height,
                                           ),
                                         ),
                                       ),

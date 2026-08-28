@@ -83,15 +83,15 @@ class _Font extends StatelessWidget {
                   spacing: 4,
                   children: [
                     Text(
-                      'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
+                      'لا إله إلا الله',
                       style: textBodyLarge.copyWith(
                         fontSize: fontSize,
-                        fontFamily: type.fontFamily,
+                        fontFamily: type.family,
                         color: typographyPrimary(state.theme),
                       ),
                     ),
                     Text(
-                      type.fontFamily,
+                      type.family,
                       style: textBodyReg.copyWith(
                         color: typographySecondary(state.theme),
                       ),
