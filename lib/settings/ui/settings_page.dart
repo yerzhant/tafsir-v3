@@ -5,7 +5,7 @@ import 'package:tafsir/settings/ui/settings_widget.dart';
 class SettingsPage extends StatelessWidget {
   const SettingsPage._();
 
-  static void open(BuildContext context) => Navigator.push(
+  static Future<void> open(BuildContext context) async => Navigator.push(
     context,
     MaterialPageRoute(
       builder: (context) => const SettingsPage._(),

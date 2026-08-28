@@ -64,13 +64,15 @@ class _SurahPageState extends State<SurahPage> {
     super.dispose();
   }
 
+  var _doNotSwitchOffScreen = false;
+
   @override
   Widget build(BuildContext context) {
     final themeState = context.read<ThemeCubit>().state;
 
-    if (themeState.doNotSwitchOffScreen) {
-      WakelockPlus.enable();
-    }
+    _doNotSwitchOffScreen = themeState.doNotSwitchOffScreen;
+
+    if (_doNotSwitchOffScreen) WakelockPlus.enable();
 
     return Scaffold(
       key: _scaffoldKey,
@@ -136,7 +138,11 @@ class _SurahPageState extends State<SurahPage> {
                   surah: state.surah,
                   onTheme: () => _showTheme(context),
                   onGoToAyah: () => _goToAayah(context),
-                  onSettings: () => SettingsPage.open(context),
+                  onSettings: () async {
+                    WakelockPlus.disable();
+                    await SettingsPage.open(context);
+                    if (_doNotSwitchOffScreen) WakelockPlus.enable();
+                  },
                   onInfo: () => _showInfo(context, state.surah.info),
                   onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
                 );
