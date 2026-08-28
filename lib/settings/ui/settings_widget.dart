@@ -101,7 +101,7 @@ class SettingsWidget extends StatelessWidget {
                           children: [
                             _Slider(
                               min: 14,
-                              max: 30,
+                              max: 48,
                               theme: themeState.theme,
                               title: 'Арабский текст',
                               value: settings.ayahFontSize,
@@ -111,7 +111,7 @@ class SettingsWidget extends StatelessWidget {
                             ),
                             _Slider(
                               min: 12,
-                              max: 24,
+                              max: 30,
                               theme: themeState.theme,
                               title: 'Текст перевода',
                               value: settings.translationFontSize,
@@ -121,7 +121,7 @@ class SettingsWidget extends StatelessWidget {
                             ),
                             _Slider(
                               min: 12,
-                              max: 24,
+                              max: 30,
                               theme: themeState.theme,
                               title: 'Текст тафсира',
                               value: settings.tafsirFontSize,
