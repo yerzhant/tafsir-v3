@@ -33,32 +33,32 @@ class FoundItemCard extends StatelessWidget {
         spacing: 2,
         children: [
           Expanded(
-            child: Row(
-              children: [
-                ?item.prefix?.let(
-                  (it) => Text(
-                    it,
-                    style: textBodyReg.copyWith(
-                      color: typographyPrimary(theme),
-                    ),
-                  ),
-                ),
-                Text(
-                  item.text,
-                  style: textBodyReg.copyWith(color: typographyLink(theme)),
-                ),
-                ?item.suffix?.let(
-                  (it) => Expanded(
-                    child: Text(
-                      it,
-                      overflow: .ellipsis,
+            child: Text.rich(
+              overflow: .ellipsis,
+              TextSpan(
+                children: [
+                  ?item.prefix?.let(
+                    (it) => TextSpan(
+                      text: it,
                       style: textBodyReg.copyWith(
                         color: typographyPrimary(theme),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  TextSpan(
+                    text: item.text,
+                    style: textBodyReg.copyWith(color: typographyLink(theme)),
+                  ),
+                  ?item.suffix?.let(
+                    (it) => TextSpan(
+                      text: it,
+                      style: textBodyReg.copyWith(
+                        color: typographyPrimary(theme),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Text(
