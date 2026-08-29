@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widget_previews.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
-import 'package:tafsir/common/ui/preview.dart';
 import 'package:tafsir/search/cubit/search_cubit.dart';
 import 'package:tafsir/search/ui/found_item_card.dart';
 import 'package:tafsir/search/ui/search_tab_bar.dart';
@@ -118,9 +116,9 @@ class _SearchField extends StatelessWidget {
   }
 }
 
-@Preview(name: 'Search')
-Widget previewLight() => sizedWrapper(
-  themeWrapper(const SearchWidget()),
-  width: 400,
-  hight: 400,
-);
+// @Preview(name: 'Search')
+// Widget previewLight() => sizedWrapper(
+//   themeWrapper(const SearchWidget()),
+//   width: 400,
+//   hight: 400,
+// );
