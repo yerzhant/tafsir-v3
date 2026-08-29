@@ -42,8 +42,10 @@ class ScrollPositionWidget extends StatelessWidget {
                 builder: (context, constraints) {
                   return BlocBuilder<ScrollPositionCubit, ScrollPositionState>(
                     builder: (context, state) {
-                      return Container(
+                      return AnimatedContainer(
+                        curve: Curves.easeInOut,
                         color: brandPrimary(themeState.theme),
+                        duration: const .new(milliseconds: 500),
                         width: constraints.maxWidth / quantity * state.number,
                       );
                     },
