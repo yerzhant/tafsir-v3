@@ -27,7 +27,7 @@ class InitCubit extends Cubit<InitState> {
     this._aayaatDb,
     this._themeCubit,
     this._settingsCubit,
-  ) : super(const .initializing(-1));
+  ) : super(const .initializing(null));
 
   final DbService _dbService;
 
@@ -50,7 +50,7 @@ class InitCubit extends Cubit<InitState> {
 
   Future<void> init() => TaskEither<AppError, void>.Do(
     ($) async {
-      emit(const .initializing(-1));
+      emit(const .initializing(null));
 
       if (_dbClosed) {
         await $(_dbService.open());

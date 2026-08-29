@@ -46,9 +46,6 @@ class App extends StatelessWidget {
               title: appTitle,
               color: Colors.white,
               theme: .new(
-                progressIndicatorTheme: .new(
-                  color: brandPrimary(themeState.theme),
-                ),
                 bottomSheetTheme: .new(
                   backgroundColor: bgPrimary(themeState.theme),
                   dragHandleColor: typographyTertirary(themeState.theme),

@@ -55,13 +55,13 @@ extension InitStatePatterns on InitState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( InitStateInitializing value)?  initializing,TResult Function( InitStateFailure value)?  failure,TResult Function( InitStateInitialized value)?  initialized,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( InitStateInitialized value)?  initialized,TResult Function( InitStateFailure value)?  failure,TResult Function( InitStateInitializing value)?  initializing,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case InitStateInitializing() when initializing != null:
-return initializing(_that);case InitStateFailure() when failure != null:
-return failure(_that);case InitStateInitialized() when initialized != null:
-return initialized(_that);case _:
+case InitStateInitialized() when initialized != null:
+return initialized(_that);case InitStateFailure() when failure != null:
+return failure(_that);case InitStateInitializing() when initializing != null:
+return initializing(_that);case _:
   return orElse();
 
 }
@@ -79,13 +79,13 @@ return initialized(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( InitStateInitializing value)  initializing,required TResult Function( InitStateFailure value)  failure,required TResult Function( InitStateInitialized value)  initialized,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( InitStateInitialized value)  initialized,required TResult Function( InitStateFailure value)  failure,required TResult Function( InitStateInitializing value)  initializing,}){
 final _that = this;
 switch (_that) {
-case InitStateInitializing():
-return initializing(_that);case InitStateFailure():
-return failure(_that);case InitStateInitialized():
-return initialized(_that);}
+case InitStateInitialized():
+return initialized(_that);case InitStateFailure():
+return failure(_that);case InitStateInitializing():
+return initializing(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -99,13 +99,13 @@ return initialized(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( InitStateInitializing value)?  initializing,TResult? Function( InitStateFailure value)?  failure,TResult? Function( InitStateInitialized value)?  initialized,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( InitStateInitialized value)?  initialized,TResult? Function( InitStateFailure value)?  failure,TResult? Function( InitStateInitializing value)?  initializing,}){
 final _that = this;
 switch (_that) {
-case InitStateInitializing() when initializing != null:
-return initializing(_that);case InitStateFailure() when failure != null:
-return failure(_that);case InitStateInitialized() when initialized != null:
-return initialized(_that);case _:
+case InitStateInitialized() when initialized != null:
+return initialized(_that);case InitStateFailure() when failure != null:
+return failure(_that);case InitStateInitializing() when initializing != null:
+return initializing(_that);case _:
   return null;
 
 }
@@ -122,12 +122,12 @@ return initialized(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( double progress)?  initializing,TResult Function( AppError error)?  failure,TResult Function()?  initialized,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initialized,TResult Function( AppError error)?  failure,TResult Function( double? progress)?  initializing,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case InitStateInitializing() when initializing != null:
-return initializing(_that.progress);case InitStateFailure() when failure != null:
-return failure(_that.error);case InitStateInitialized() when initialized != null:
-return initialized();case _:
+case InitStateInitialized() when initialized != null:
+return initialized();case InitStateFailure() when failure != null:
+return failure(_that.error);case InitStateInitializing() when initializing != null:
+return initializing(_that.progress);case _:
   return orElse();
 
 }
@@ -145,12 +145,12 @@ return initialized();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( double progress)  initializing,required TResult Function( AppError error)  failure,required TResult Function()  initialized,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initialized,required TResult Function( AppError error)  failure,required TResult Function( double? progress)  initializing,}) {final _that = this;
 switch (_that) {
-case InitStateInitializing():
-return initializing(_that.progress);case InitStateFailure():
-return failure(_that.error);case InitStateInitialized():
-return initialized();}
+case InitStateInitialized():
+return initialized();case InitStateFailure():
+return failure(_that.error);case InitStateInitializing():
+return initializing(_that.progress);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -164,12 +164,12 @@ return initialized();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( double progress)?  initializing,TResult? Function( AppError error)?  failure,TResult? Function()?  initialized,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initialized,TResult? Function( AppError error)?  failure,TResult? Function( double? progress)?  initializing,}) {final _that = this;
 switch (_that) {
-case InitStateInitializing() when initializing != null:
-return initializing(_that.progress);case InitStateFailure() when failure != null:
-return failure(_that.error);case InitStateInitialized() when initialized != null:
-return initialized();case _:
+case InitStateInitialized() when initialized != null:
+return initialized();case InitStateFailure() when failure != null:
+return failure(_that.error);case InitStateInitializing() when initializing != null:
+return initializing(_that.progress);case _:
   return null;
 
 }
@@ -180,68 +180,34 @@ return initialized();case _:
 /// @nodoc
 
 
-class InitStateInitializing implements InitState {
-  const InitStateInitializing(this.progress);
+class InitStateInitialized implements InitState {
+  const InitStateInitialized();
   
 
- final  double progress;
 
-/// Create a copy of InitState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$InitStateInitializingCopyWith<InitStateInitializing> get copyWith => _$InitStateInitializingCopyWithImpl<InitStateInitializing>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitStateInitializing&&(identical(other.progress, progress) || other.progress == progress));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitStateInitialized);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,progress);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'InitState.initializing(progress: $progress)';
+  return 'InitState.initialized()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class $InitStateInitializingCopyWith<$Res> implements $InitStateCopyWith<$Res> {
-  factory $InitStateInitializingCopyWith(InitStateInitializing value, $Res Function(InitStateInitializing) _then) = _$InitStateInitializingCopyWithImpl;
-@useResult
-$Res call({
- double progress
-});
 
 
-
-
-}
-/// @nodoc
-class _$InitStateInitializingCopyWithImpl<$Res>
-    implements $InitStateInitializingCopyWith<$Res> {
-  _$InitStateInitializingCopyWithImpl(this._self, this._then);
-
-  final InitStateInitializing _self;
-  final $Res Function(InitStateInitializing) _then;
-
-/// Create a copy of InitState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? progress = null,}) {
-  return _then(InitStateInitializing(
-null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
-as double,
-  ));
-}
-
-
-}
 
 /// @nodoc
 
@@ -321,33 +287,67 @@ $AppErrorCopyWith<$Res> get error {
 /// @nodoc
 
 
-class InitStateInitialized implements InitState {
-  const InitStateInitialized();
+class InitStateInitializing implements InitState {
+  const InitStateInitializing(this.progress);
   
 
+ final  double? progress;
 
-
+/// Create a copy of InitState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$InitStateInitializingCopyWith<InitStateInitializing> get copyWith => _$InitStateInitializingCopyWithImpl<InitStateInitializing>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitStateInitialized);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitStateInitializing&&(identical(other.progress, progress) || other.progress == progress));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,progress);
 
 @override
 String toString() {
-  return 'InitState.initialized()';
+  return 'InitState.initializing(progress: $progress)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $InitStateInitializingCopyWith<$Res> implements $InitStateCopyWith<$Res> {
+  factory $InitStateInitializingCopyWith(InitStateInitializing value, $Res Function(InitStateInitializing) _then) = _$InitStateInitializingCopyWithImpl;
+@useResult
+$Res call({
+ double? progress
+});
 
 
+
+
+}
+/// @nodoc
+class _$InitStateInitializingCopyWithImpl<$Res>
+    implements $InitStateInitializingCopyWith<$Res> {
+  _$InitStateInitializingCopyWithImpl(this._self, this._then);
+
+  final InitStateInitializing _self;
+  final $Res Function(InitStateInitializing) _then;
+
+/// Create a copy of InitState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? progress = freezed,}) {
+  return _then(InitStateInitializing(
+freezed == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
+as double?,
+  ));
+}
+
+
+}
 
 // dart format on

@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
@@ -14,31 +13,37 @@ class ProgressWidget extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return Container(
+          padding: const .symmetric(horizontal: 20),
           color: bgPrimary(state.theme),
           width: .infinity,
           child: Column(
             mainAxisAlignment: .center,
             spacing: 20,
             children: [
-              if (value != null)
+              if (value == null)
+                CupertinoActivityIndicator(
+                  color: brandPrimary(state.theme),
+                  radius: 15,
+                ),
+              if (value != null) ...[
                 Text(
                   'Инициализация',
                   style: textBodyMedium.copyWith(
                     color: typographyPrimary(state.theme),
                   ),
                 ),
-              CircularProgressIndicator(
-                backgroundColor: bgSecondary(state.theme),
-                value: value?.let((it) => it < 0 ? null : it / 100),
-              ),
-              ?value?.let(
-                (it) => Text(
-                  it < 0 ? '' : '${it.toStringAsFixed(1)} %',
+                CupertinoLinearActivityIndicator(
+                  color: brandPrimary(state.theme),
+                  progress: value! / 100,
+                  height: 7,
+                ),
+                Text(
+                  '${value!.toStringAsFixed(0)} %',
                   style: textBodyMedium.copyWith(
                     color: typographyPrimary(state.theme),
                   ),
                 ),
-              ),
+              ],
             ],
           ),
         );
