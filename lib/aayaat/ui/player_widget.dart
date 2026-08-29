@@ -52,8 +52,8 @@ class PlayerWidget extends StatelessWidget {
                   spacing: 20,
                   children: [
                     _Button(
+                      icon: 'x',
                       theme: theme,
-                      icon: 'close',
                       isClose: true,
                       onTap: onClosed,
                       isDisabled: isDisabled,
@@ -70,15 +70,15 @@ class PlayerWidget extends StatelessWidget {
                   children: [
                     _Button(
                       theme: theme,
-                      icon: 'loop',
+                      icon: 'player-loop',
                       isActive: isLooping,
                       isDisabled: isDisabled,
                       onTap: context.read<PlayerCubit>().loop,
                     ),
                     _Button(
                       theme: theme,
-                      icon: 'pause',
                       isActive: isPaused,
+                      icon: 'player-pause',
                       isDisabled: isDisabled,
                       onTap: context.read<PlayerCubit>().pause,
                     ),
@@ -126,7 +126,7 @@ class _Button extends StatelessWidget {
     return GestureDetector(
       onTap: isDisabled ? null : onTap,
       child: SvgPicture.asset(
-        'assets/icons/player-$icon.svg',
+        'assets/icons/$icon.svg',
         colorFilter: .mode(_color(), .srcIn),
       ),
     );
@@ -149,9 +149,16 @@ class _Button extends StatelessWidget {
 // Widget previewLight() => sizedWrapper(
 //   Column(
 //     children: [
-//       Player(
-//         theme: .light,
-//         onClosed: () => print('closed'),
+//       BlocProvider(
+//         create: (context) => PlayerCubit(.new()),
+//         child: PlayerWidget(
+//           theme: .light,
+//           isPaused: false,
+//           isLooping: false,
+//           isDisabled: false,
+//           onClosed: () => print('closed'),
+//           position: const .new(.1, '2 / 5 sec'),
+//         ),
 //       ),
 //     ],
 //   ),
