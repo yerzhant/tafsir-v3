@@ -10,6 +10,7 @@ import 'package:tafsir/init/db/init_db.dart';
 import 'package:tafsir/init/ui/progress_widget.dart';
 import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/main/ui/main_widget.dart';
+import 'package:tafsir/search/db/search_db.dart';
 import 'package:tafsir/settings/cubit/settings_cubit.dart';
 import 'package:tafsir/settings/db/settings_db.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
@@ -68,9 +69,13 @@ class App extends StatelessWidget {
                   RepositoryProvider(
                     create: (context) => AayaatDb(context.read()),
                   ),
+                  RepositoryProvider(
+                    create: (context) => SearchDb(context.read()),
+                  ),
                 ],
                 child: BlocProvider(
                   create: (context) => InitCubit(
+                    context.read(),
                     context.read(),
                     context.read(),
                     context.read(),

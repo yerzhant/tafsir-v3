@@ -6,6 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/db/aayah_row.dart';
 import 'package:tafsir/common/db/db_service.dart';
+import 'package:tafsir/common/domain/arabic_normalizer.dart';
 import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/common/domain/html_to_text.dart';
 import 'package:tafsir/init/db/init_db.dart';
@@ -13,6 +14,8 @@ import 'package:tafsir/main/db/djuz_row.dart';
 import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/main/db/muqaddimah_row.dart';
 import 'package:tafsir/main/db/surah_row.dart';
+import 'package:tafsir/search/db/search_content_row.dart';
+import 'package:tafsir/search/db/search_db.dart';
 import 'package:tafsir/settings/cubit/settings_cubit.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
@@ -25,6 +28,7 @@ class InitCubit extends Cubit<InitState> {
     this._initDb,
     this._mainDb,
     this._aayaatDb,
+    this._searchDb,
     this._themeCubit,
     this._settingsCubit,
   ) : super(const .initializing(null));
@@ -34,14 +38,17 @@ class InitCubit extends Cubit<InitState> {
   final InitDb _initDb;
   final MainDb _mainDb;
   final AayaatDb _aayaatDb;
+  final SearchDb _searchDb;
 
   final ThemeCubit _themeCubit;
   final SettingsCubit _settingsCubit;
 
-  late final List<MuqaddimahRow> _muqaddimat;
-  late final List<AayahRow> _aayaah;
-  late final List<SurahRow> _suwar;
-  late final List<DjuzRow> _adjzaa;
+  late List<MuqaddimahRow> _muqaddimat;
+  late List<AayahRow> _aayaah;
+  late List<SurahRow> _suwar;
+  late List<DjuzRow> _adjzaa;
+
+  final List<SearchContentRow> _searchContents = [];
 
   late final int _total;
 
@@ -65,13 +72,19 @@ class InitCubit extends Cubit<InitState> {
         return;
       }
 
+      await $(_searchDb.cleanUp());
       await $(_aayaatDb.cleanUp());
       await $(_mainDb.cleanUp());
 
       await $(_parseFiles());
+      await $(_prepareSeachContents());
 
       _total =
-          _muqaddimat.length + _suwar.length + _aayaah.length + _adjzaa.length;
+          _muqaddimat.length +
+          _suwar.length +
+          _aayaah.length +
+          _adjzaa.length +
+          _searchContents.length;
 
       emit(const .initializing(0));
 
@@ -95,6 +108,11 @@ class InitCubit extends Cubit<InitState> {
         _progress();
       }
 
+      for (var row in _searchContents) {
+        await $(_searchDb.addContent(row));
+        _progress();
+      }
+
       await $(_initDb.setInitialized());
 
       emit(const .initialized());
@@ -105,6 +123,24 @@ class InitCubit extends Cubit<InitState> {
     _processed++;
     emit(.initializing(_processed / _total * 100.0));
   }
+
+  TaskEither<AppError, void> _prepareSeachContents() => .tryCatch(() async {
+    _searchContents.clear();
+
+    for (var aayah in _aayaah) {
+      final arabic = normalizeArabic(aayah.arabic);
+      final tafsir = normalizeArabic(aayah.tafsir);
+      final content = '$tafsir ${aayah.translation} $arabic';
+
+      _searchContents.add(
+        .new(
+          aayah.surahNumber,
+          aayah.aayahNumber,
+          .new(content),
+        ),
+      );
+    }
+  }, ExceptionError.new);
 
   TaskEither<AppError, void> _parseFiles() => .Do(($) async {
     _muqaddimat = await $(

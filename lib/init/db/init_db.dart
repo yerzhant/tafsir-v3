@@ -25,6 +25,11 @@ class InitDb {
     );
   }
 
+  static Future<void> reset(Database db) => db.update(
+    _initParams,
+    const InitDbParam(.initialized, 'false').toJson(),
+  );
+
   TaskEither<AppError, bool> initialized() =>
       .Do(($) => $(_getBool(.initialized)));
 
