@@ -9,7 +9,7 @@ part 'search_cubit.freezed.dart';
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit()
     : super(
-        const .new(null, .everyWhere, [
+        const .new(.general('ABC'), .everyWhere, [
           .new(
             surah: .new(
               .new(1),
@@ -38,7 +38,9 @@ class SearchCubit extends Cubit<SearchState> {
             aayahNumber: .new(1),
             text: .new('found'),
             prefix: .new('prefix '),
-            suffix: .new(' sufix sufix sufix sufix sufix sufix sufix sufix sufix sufix'),
+            suffix: .new(
+              ' sufix sufix sufix sufix sufix sufix sufix sufix sufix sufix',
+            ),
           ),
           .new(
             surah: .new(
@@ -74,4 +76,6 @@ class SearchCubit extends Cubit<SearchState> {
   void setSearchIn(SeachIn searchIn) => emit(
     state.copyWith(searchIn: searchIn),
   );
+
+  void clearError() => emit(state.copyWith(error: null));
 }
