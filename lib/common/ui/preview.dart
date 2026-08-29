@@ -41,28 +41,38 @@ Widget themeWrapper(Widget child) => BlocProvider(
             children: [
               _Button(
                 title: 'Light',
-                onPressed: () => context.read<ThemeCubit>().setTheme(.light),
+                onPressed: () => context.read<ThemeCubit>().setTheme(
+                  .light,
+                ),
               ),
               _Button(
                 title: 'BLight',
-                onPressed: () => context.read<ThemeCubit>().setTheme(.brownLight),
+                onPressed: () => context.read<ThemeCubit>().setTheme(
+                  .brownLight,
+                ),
               ),
               _Button(
                 title: 'Dark',
-                onPressed: () => context.read<ThemeCubit>().setTheme(.dark),
+                onPressed: () => context.read<ThemeCubit>().setTheme(
+                  .dark,
+                ),
               ),
               _Button(
                 title: 'BDark',
-                onPressed: () => context.read<ThemeCubit>().setTheme(.brownDark),
+                onPressed: () => context.read<ThemeCubit>().setTheme(
+                  .brownDark,
+                ),
               ),
             ],
           );
         },
       ),
-      BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) {
-          return Container(color: bgPrimary(state.theme), child: child);
-        },
+      Expanded(
+        child: BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, state) {
+            return Container(color: bgPrimary(state.theme), child: child);
+          },
+        ),
       ),
     ],
   ),
