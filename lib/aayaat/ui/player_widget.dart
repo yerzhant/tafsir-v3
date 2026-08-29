@@ -88,12 +88,13 @@ class PlayerWidget extends StatelessWidget {
             ),
           ),
           LayoutBuilder(
-            builder: (context, constraints) => Container(
+            builder: (context, constraints) => AnimatedContainer(
               height: 4,
               decoration: BoxDecoration(
                 color: brandPrimary(theme),
                 borderRadius: .circular(2),
               ),
+              duration: const .new(milliseconds: 300),
               width: constraints.maxWidth * position.position,
             ),
           ),
