@@ -28,7 +28,6 @@ class AppTabBar extends StatelessWidget {
             child: Padding(
               padding: const .all(4),
               child: Row(
-                mainAxisAlignment: .spaceEvenly, // TODO: maybe excessive
                 children: [
                   TabButton(
                     theme: theme,
