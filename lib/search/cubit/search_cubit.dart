@@ -33,7 +33,10 @@ class SearchCubit extends Cubit<SearchState> {
 
       emit(state.copyWith(searching: true));
 
-      final contents = await $(_db.searchEverywhereFor(phrase));
+      final contents = await $(switch (state.searchIn) {
+        .everyWhere => _db.searchEverywhereFor(phrase),
+        .bookmarks => _db.searchInBookmarkedFor(phrase),
+      });
 
       final items = [
         for (final content in contents) await $(_getItem(content, phrase)),

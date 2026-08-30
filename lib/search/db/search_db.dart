@@ -41,6 +41,28 @@ class SearchDb {
     }, ExceptionError.new),
   );
 
+  TaskEither<AppError, List<SearchContent>> searchInBookmarkedFor(
+    SearchPhrase phrase,
+  ) => _dbService.db.toTaskEither().flatMap(
+    (db) => .tryCatch(() async {
+      final rows = await db.rawQuery(
+        '''
+        select *
+          from $_aayahContents c
+          join bookmarks b
+            on b.surah_number = c.surah_number
+           and b.aayah_number = c.aayah_number
+         where lower(content) like ?
+        ''',
+        ['%$phrase%'],
+      );
+
+      return [
+        for (final row in rows) SearchContentRow.fromJson(row).toDomain(),
+      ];
+    }, ExceptionError.new),
+  );
+
   TaskEither<AppError, void> addContent(Batch batch, SearchContentRow row) =>
       .tryCatch(
         () async => batch.insert(_aayahContents, row.toJson()),
