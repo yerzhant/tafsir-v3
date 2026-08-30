@@ -3,13 +3,22 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/about_us/ui/about_page.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/how_to_use/ui/how_to_use_page.dart';
+import 'package:tafsir/main/cubit/main_cubit.dart';
+import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/main/ui/menu_button.dart';
 import 'package:tafsir/search/ui/search_widget.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key, required this.theme});
+  const Header({
+    super.key,
+    required this.suwar,
+    required this.theme,
+    required this.mainCubit,
+  });
 
   final AppTheme theme;
+  final List<Surah> suwar;
+  final MainCubit mainCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +65,7 @@ class Header extends StatelessWidget {
 
         return Padding(
           padding: .only(right: 20, left: 20, bottom: bottom),
-          child: const SearchWidget(),
+          child: SearchWidget(suwar: suwar, mainCubit: mainCubit),
         );
       },
     );

@@ -54,7 +54,11 @@ class _Success extends StatelessWidget {
         bottom: false,
         child: Column(
           children: [
-            Header(theme: theme),
+            Header(
+              theme: theme,
+              suwar: state.suwar,
+              mainCubit: context.read(),
+            ),
             AppTabBar(theme: theme, tab: state.tab),
             Expanded(
               child: AppContainer(

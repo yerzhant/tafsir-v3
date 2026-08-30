@@ -4,13 +4,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/init/ui/progress_widget.dart';
+import 'package:tafsir/main/cubit/main_cubit.dart';
+import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/search/cubit/search_cubit.dart';
 import 'package:tafsir/search/ui/found_item_card.dart';
 import 'package:tafsir/search/ui/search_tab_bar.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class SearchWidget extends StatefulWidget {
-  const SearchWidget({super.key});
+  const SearchWidget({super.key, required this.suwar, required this.mainCubit});
+
+  final List<Surah> suwar;
+  final MainCubit mainCubit;
 
   @override
   State<SearchWidget> createState() => _SearchWidgetState();
@@ -56,8 +61,10 @@ class _SearchWidgetState extends State<SearchWidget> {
                     return ListView.separated(
                       itemCount: state.items.length,
                       itemBuilder: (context, index) => FoundItemCard(
+                        suwar: widget.suwar,
                         theme: themeState.theme,
                         item: state.items[index],
+                        mainCubit: widget.mainCubit,
                         key: .new(index.toString()),
                       ),
                       separatorBuilder: (context, index) => const SizedBox(
