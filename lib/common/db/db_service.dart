@@ -53,5 +53,15 @@ class DbService {
     () => const GeneralError('Database is not open.'),
   );
 
+  Either<AppError, Batch> get batch => Either.fromNullable(
+    _database?.batch(),
+    () => const GeneralError('Database is not open.'),
+  );
+
+  TaskEither<AppError, void> commitBatch(Batch batch) => .tryCatch(
+    () => batch.commit(),
+    ExceptionError.new,
+  );
+
   Future<void> close() async => _database?.close();
 }

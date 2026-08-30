@@ -41,12 +41,10 @@ class SearchDb {
     }, ExceptionError.new),
   );
 
-  TaskEither<AppError, void> addContent(SearchContentRow row) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(
-          () => db.insert(_aayahContents, row.toJson()),
-          ExceptionError.new,
-        ),
+  TaskEither<AppError, void> addContent(Batch batch, SearchContentRow row) =>
+      .tryCatch(
+        () async => batch.insert(_aayahContents, row.toJson()),
+        ExceptionError.new,
       );
 
   TaskEither<AppError, void> cleanUp() => _dbService.db.toTaskEither().flatMap(

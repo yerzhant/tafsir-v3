@@ -88,30 +88,34 @@ class InitCubit extends Cubit<InitState> {
 
       emit(const .initializing(0));
 
+      final batch = await $(_dbService.batch.toTaskEither());
+
       for (var row in _muqaddimat) {
-        await $(_mainDb.addMuqaddimah(row));
+        await $(_mainDb.addMuqaddimah(batch, row));
         _progress();
       }
 
       for (var row in _suwar) {
-        await $(_mainDb.addSurah(row));
+        await $(_mainDb.addSurah(batch, row));
         _progress();
       }
 
       for (var row in _adjzaa) {
-        await $(_mainDb.addDjuz(row));
+        await $(_mainDb.addDjuz(batch, row));
         _progress();
       }
 
       for (var row in _aayaat) {
-        await $(_aayaatDb.addAayah(row));
+        await $(_aayaatDb.addAayah(batch, row));
         _progress();
       }
 
       for (var row in _searchContents) {
-        await $(_searchDb.addContent(row));
+        await $(_searchDb.addContent(batch, row));
         _progress();
       }
+
+      await $(_dbService.commitBatch(batch));
 
       await $(_initDb.setInitialized());
 

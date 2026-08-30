@@ -85,13 +85,10 @@ class MainDb {
         }, ExceptionError.new),
       );
 
-  TaskEither<AppError, void> addSurah(SurahRow row) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(
-          () => db.insert(_suwar, row.toJson()),
-          ExceptionError.new,
-        ),
-      );
+  TaskEither<AppError, void> addSurah(Batch batch, SurahRow row) => .tryCatch(
+    () async => batch.insert(_suwar, row.toJson()),
+    ExceptionError.new,
+  );
 
   TaskEither<AppError, List<Djuz>> getAdjzaa() => _dbService.db
       .toTaskEither()
@@ -114,13 +111,10 @@ class MainDb {
         ),
       );
 
-  TaskEither<AppError, void> addDjuz(DjuzRow row) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(
-          () => db.insert(_adjzaa, row.toJson()),
-          ExceptionError.new,
-        ),
-      );
+  TaskEither<AppError, void> addDjuz(Batch batch, DjuzRow row) => .tryCatch(
+    () async => batch.insert(_adjzaa, row.toJson()),
+    ExceptionError.new,
+  );
 
   TaskEither<AppError, List<Muqaddimah>> getMuqaddimat() =>
       _dbService.db.toTaskEither().flatMap(
@@ -132,12 +126,10 @@ class MainDb {
         }, ExceptionError.new),
       );
 
-  TaskEither<AppError, void> addMuqaddimah(MuqaddimahRow row) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(
-          () => db.insert(_muqaddimat, row.toJson()),
-          ExceptionError.new,
-        ),
+  TaskEither<AppError, void> addMuqaddimah(Batch batch, MuqaddimahRow row) =>
+      .tryCatch(
+        () async => batch.insert(_muqaddimat, row.toJson()),
+        ExceptionError.new,
       );
 
   TaskEither<AppError, List<LastRead>> getLastReads() => _dbService.db
