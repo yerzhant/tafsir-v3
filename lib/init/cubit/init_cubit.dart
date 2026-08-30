@@ -129,7 +129,7 @@ class InitCubit extends Cubit<InitState> {
 
     for (var aayah in _aayaah) {
       final arabic = normalizeArabic(aayah.arabic);
-      final tafsir = normalizeArabic(aayah.tafsir);
+      final tafsir = normalizeArabic(htmlToPlainText(aayah.tafsir));
       final content = '$tafsir ${aayah.translation} $arabic';
 
       _searchContents.add(
