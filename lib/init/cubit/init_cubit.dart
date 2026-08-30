@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:csv/csv.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -43,12 +44,11 @@ class InitCubit extends Cubit<InitState> {
   final ThemeCubit _themeCubit;
   final SettingsCubit _settingsCubit;
 
+  late List<SearchContentRow> _searchContents;
   late List<MuqaddimahRow> _muqaddimat;
-  late List<AayahRow> _aayaah;
+  late List<AayahRow> _aayaat;
   late List<SurahRow> _suwar;
   late List<DjuzRow> _adjzaa;
-
-  final List<SearchContentRow> _searchContents = [];
 
   late final int _total;
 
@@ -82,7 +82,7 @@ class InitCubit extends Cubit<InitState> {
       _total =
           _muqaddimat.length +
           _suwar.length +
-          _aayaah.length +
+          _aayaat.length +
           _adjzaa.length +
           _searchContents.length;
 
@@ -103,7 +103,7 @@ class InitCubit extends Cubit<InitState> {
         _progress();
       }
 
-      for (var row in _aayaah) {
+      for (var row in _aayaat) {
         await $(_aayaatDb.addAayah(row));
         _progress();
       }
@@ -125,24 +125,28 @@ class InitCubit extends Cubit<InitState> {
   }
 
   TaskEither<AppError, void> _prepareSeachContents() => .tryCatch(() async {
-    _searchContents.clear();
+    _searchContents = await compute((aayaat) {
+      final List<SearchContentRow> contents = [];
 
-    for (var aayah in _aayaah) {
-      final arabic = normalizeArabic(aayah.arabic);
-      final tafsir = normalizeArabic(htmlToPlainText(aayah.tafsir));
-      final content = '$tafsir ${aayah.translation} $arabic'.replaceAll(
-        RegExp(r'[\n\r]'),
-        ' ',
-      );
+      for (var aayah in aayaat) {
+        final arabic = normalizeArabic(aayah.arabic);
+        final tafsir = normalizeArabic(htmlToPlainText(aayah.tafsir));
+        final content = '$tafsir ${aayah.translation} $arabic'.replaceAll(
+          RegExp(r'[\n\r]'),
+          ' ',
+        );
 
-      _searchContents.add(
-        .new(
-          aayah.surahNumber,
-          aayah.aayahNumber,
-          .new(content),
-        ),
-      );
-    }
+        contents.add(
+          .new(
+            aayah.surahNumber,
+            aayah.aayahNumber,
+            .new(content),
+          ),
+        );
+      }
+
+      return contents;
+    }, _aayaat);
   }, ExceptionError.new);
 
   TaskEither<AppError, void> _parseFiles() => .Do(($) async {
@@ -187,7 +191,7 @@ class InitCubit extends Cubit<InitState> {
       ),
     );
 
-    _aayaah = await $(
+    _aayaat = await $(
       _parseFile(
         'aayaat',
         (e) => AayahRow(

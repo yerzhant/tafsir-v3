@@ -12,11 +12,17 @@ part of 'init_cubit.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$InitState {
+mixin _$InitState implements DiagnosticableTreeMixin {
 
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'InitState'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -28,7 +34,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'InitState()';
 }
 
@@ -180,7 +186,7 @@ return initializing(_that.progress);case _:
 /// @nodoc
 
 
-class InitStateInitialized implements InitState {
+class InitStateInitialized with DiagnosticableTreeMixin implements InitState {
   const InitStateInitialized();
   
 
@@ -188,6 +194,12 @@ class InitStateInitialized implements InitState {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'InitState.initialized'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -199,7 +211,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'InitState.initialized()';
 }
 
@@ -212,7 +224,7 @@ String toString() {
 /// @nodoc
 
 
-class InitStateFailure implements InitState {
+class InitStateFailure with DiagnosticableTreeMixin implements InitState {
   const InitStateFailure(this.error);
   
 
@@ -225,6 +237,12 @@ class InitStateFailure implements InitState {
 $InitStateFailureCopyWith<InitStateFailure> get copyWith => _$InitStateFailureCopyWithImpl<InitStateFailure>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'InitState.failure'))
+    ..add(DiagnosticsProperty('error', error));
+}
 
 @override
 bool operator ==(Object other) {
@@ -236,7 +254,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,error);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'InitState.failure(error: $error)';
 }
 
@@ -287,7 +305,7 @@ $AppErrorCopyWith<$Res> get error {
 /// @nodoc
 
 
-class InitStateInitializing implements InitState {
+class InitStateInitializing with DiagnosticableTreeMixin implements InitState {
   const InitStateInitializing(this.progress);
   
 
@@ -300,6 +318,12 @@ class InitStateInitializing implements InitState {
 $InitStateInitializingCopyWith<InitStateInitializing> get copyWith => _$InitStateInitializingCopyWithImpl<InitStateInitializing>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'InitState.initializing'))
+    ..add(DiagnosticsProperty('progress', progress));
+}
 
 @override
 bool operator ==(Object other) {
@@ -311,7 +335,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,progress);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'InitState.initializing(progress: $progress)';
 }
 
