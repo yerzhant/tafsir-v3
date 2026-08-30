@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/search/domain/found_item.dart';
 
@@ -37,24 +36,20 @@ class FoundItemCard extends StatelessWidget {
               overflow: .ellipsis,
               TextSpan(
                 children: [
-                  ?item.prefix?.let(
-                    (it) => TextSpan(
-                      text: it,
-                      style: textBodyReg.copyWith(
-                        color: typographyPrimary(theme),
-                      ),
+                  TextSpan(
+                    text: item.prefix,
+                    style: textBodyReg.copyWith(
+                      color: typographyPrimary(theme),
                     ),
                   ),
                   TextSpan(
                     text: item.text,
                     style: textBodyReg.copyWith(color: typographyLink(theme)),
                   ),
-                  ?item.suffix?.let(
-                    (it) => TextSpan(
-                      text: it,
-                      style: textBodyReg.copyWith(
-                        color: typographyPrimary(theme),
-                      ),
+                  TextSpan(
+                    text: item.suffix,
+                    style: textBodyReg.copyWith(
+                      color: typographyPrimary(theme),
                     ),
                   ),
                 ],

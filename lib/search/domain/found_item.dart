@@ -13,8 +13,7 @@ abstract class FoundItem with _$FoundItem {
     required AayahNumber aayahNumber,
 
     required FoundText text,
-
-    FoundText? prefix,
-    FoundText? suffix,
+    required FoundText prefix,
+    required FoundText suffix,
   }) = _FoundItem;
 }

@@ -24,21 +24,22 @@ class SearchDb {
     ''');
   }
 
-  TaskEither<AppError, List<SearchContent>> searchFor(SearchPhrase phrase) =>
-      _dbService.db.toTaskEither().flatMap(
-        (db) => .tryCatch(() async {
-          final rows = await db.query(
-            _aayahContents,
-            where: 'content like ?',
-            whereArgs: [phrase],
-            orderBy: 'surah_number, aayah_number',
-          );
-
-          return [
-            for (final row in rows) SearchContentRow.fromJson(row).toDomain(),
-          ];
-        }, ExceptionError.new),
+  TaskEither<AppError, List<SearchContent>> searchEverywhereFor(
+    SearchPhrase phrase,
+  ) => _dbService.db.toTaskEither().flatMap(
+    (db) => .tryCatch(() async {
+      final rows = await db.query(
+        _aayahContents,
+        whereArgs: ['%$phrase%'],
+        where: 'LOWER(content) like ?',
+        orderBy: 'surah_number, aayah_number',
       );
+
+      return [
+        for (final row in rows) SearchContentRow.fromJson(row).toDomain(),
+      ];
+    }, ExceptionError.new),
+  );
 
   TaskEither<AppError, void> addContent(SearchContentRow row) =>
       _dbService.db.toTaskEither().flatMap(

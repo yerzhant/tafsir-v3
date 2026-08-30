@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
+import 'package:tafsir/init/ui/progress_widget.dart';
 import 'package:tafsir/search/cubit/search_cubit.dart';
 import 'package:tafsir/search/ui/found_item_card.dart';
 import 'package:tafsir/search/ui/search_tab_bar.dart';
@@ -16,7 +17,7 @@ class SearchWidget extends StatefulWidget {
 }
 
 class _SearchWidgetState extends State<SearchWidget> {
-  final _controller = TextEditingController(text: '1234');
+  final _controller = TextEditingController();
 
   @override
   void dispose() {
@@ -29,7 +30,7 @@ class _SearchWidgetState extends State<SearchWidget> {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, themeState) {
         return BlocProvider(
-          create: (context) => SearchCubit(),
+          create: (context) => SearchCubit(context.read(), context.read()),
           child: Column(
             spacing: 12,
             children: [
@@ -46,6 +47,10 @@ class _SearchWidgetState extends State<SearchWidget> {
                         error: state.error!,
                         onPressed: context.read<SearchCubit>().clearError,
                       );
+                    }
+
+                    if (state.searching) {
+                      return const ProgressWidget();
                     }
 
                     return ListView.separated(
@@ -90,25 +95,36 @@ class _SearchField extends StatelessWidget {
       child: Row(
         spacing: 12,
         children: [
-          SvgPicture.asset(
-            width: 28,
-            'assets/icons/magnifying-glass.svg',
-            colorFilter: .mode(brandPrimary(theme), .srcIn),
+          GestureDetector(
+            onTap: () => context.read<SearchCubit>().search(
+              .new(controller.text),
+            ),
+            child: SvgPicture.asset(
+              width: 28,
+              'assets/icons/magnifying-glass.svg',
+              colorFilter: .mode(brandPrimary(theme), .srcIn),
+            ),
           ),
           Expanded(
             child: TextField(
               autofocus: true,
               controller: controller,
               style: textBodyReg.copyWith(color: typographyPrimary(theme)),
-              decoration: const InputDecoration.collapsed(
+              decoration: InputDecoration.collapsed(
                 hintText: 'Введите фразу',
+                hintStyle: textBodyMedium.copyWith(
+                  color: typographyTertirary(theme),
+                ),
               ),
             ),
           ),
-          SvgPicture.asset(
-            width: 28,
-            'assets/icons/x.svg',
-            colorFilter: .mode(typographyPrimary(theme), .srcIn),
+          GestureDetector(
+            onTap: controller.clear,
+            child: SvgPicture.asset(
+              width: 28,
+              'assets/icons/x.svg',
+              colorFilter: .mode(typographyPrimary(theme), .srcIn),
+            ),
           ),
         ],
       ),

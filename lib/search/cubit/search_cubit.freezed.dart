@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SearchState {
 
- AppError? get error; SeachIn get searchIn; List<FoundItem> get items;
+ bool get searching; AppError? get error; SeachIn get searchIn; List<FoundItem> get items;
 /// Create a copy of SearchState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SearchStateCopyWith<SearchState> get copyWith => _$SearchStateCopyWithImpl<Sear
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SearchState&&(identical(other.error, error) || other.error == error)&&(identical(other.searchIn, searchIn) || other.searchIn == searchIn)&&const DeepCollectionEquality().equals(other.items, items));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SearchState&&(identical(other.searching, searching) || other.searching == searching)&&(identical(other.error, error) || other.error == error)&&(identical(other.searchIn, searchIn) || other.searchIn == searchIn)&&const DeepCollectionEquality().equals(other.items, items));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,error,searchIn,const DeepCollectionEquality().hash(items));
+int get hashCode => Object.hash(runtimeType,searching,error,searchIn,const DeepCollectionEquality().hash(items));
 
 @override
 String toString() {
-  return 'SearchState(error: $error, searchIn: $searchIn, items: $items)';
+  return 'SearchState(searching: $searching, error: $error, searchIn: $searchIn, items: $items)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SearchStateCopyWith<$Res>  {
   factory $SearchStateCopyWith(SearchState value, $Res Function(SearchState) _then) = _$SearchStateCopyWithImpl;
 @useResult
 $Res call({
- AppError? error, SeachIn searchIn, List<FoundItem> items
+ bool searching, AppError? error, SeachIn searchIn, List<FoundItem> items
 });
 
 
@@ -62,9 +62,10 @@ class _$SearchStateCopyWithImpl<$Res>
 
 /// Create a copy of SearchState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? error = freezed,Object? searchIn = null,Object? items = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? searching = null,Object? error = freezed,Object? searchIn = null,Object? items = null,}) {
   return _then(_self.copyWith(
-error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+searching: null == searching ? _self.searching : searching // ignore: cast_nullable_to_non_nullable
+as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as AppError?,searchIn: null == searchIn ? _self.searchIn : searchIn // ignore: cast_nullable_to_non_nullable
 as SeachIn,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
 as List<FoundItem>,
@@ -164,10 +165,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AppError? error,  SeachIn searchIn,  List<FoundItem> items)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool searching,  AppError? error,  SeachIn searchIn,  List<FoundItem> items)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _State() when $default != null:
-return $default(_that.error,_that.searchIn,_that.items);case _:
+return $default(_that.searching,_that.error,_that.searchIn,_that.items);case _:
   return orElse();
 
 }
@@ -185,10 +186,10 @@ return $default(_that.error,_that.searchIn,_that.items);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AppError? error,  SeachIn searchIn,  List<FoundItem> items)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool searching,  AppError? error,  SeachIn searchIn,  List<FoundItem> items)  $default,) {final _that = this;
 switch (_that) {
 case _State():
-return $default(_that.error,_that.searchIn,_that.items);case _:
+return $default(_that.searching,_that.error,_that.searchIn,_that.items);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +206,10 @@ return $default(_that.error,_that.searchIn,_that.items);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AppError? error,  SeachIn searchIn,  List<FoundItem> items)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool searching,  AppError? error,  SeachIn searchIn,  List<FoundItem> items)?  $default,) {final _that = this;
 switch (_that) {
 case _State() when $default != null:
-return $default(_that.error,_that.searchIn,_that.items);case _:
+return $default(_that.searching,_that.error,_that.searchIn,_that.items);case _:
   return null;
 
 }
@@ -220,9 +221,10 @@ return $default(_that.error,_that.searchIn,_that.items);case _:
 
 
 class _State implements SearchState {
-  const _State(this.error, this.searchIn, final  List<FoundItem> items): _items = items;
+  const _State(this.searching, this.error, this.searchIn, final  List<FoundItem> items): _items = items;
   
 
+@override final  bool searching;
 @override final  AppError? error;
 @override final  SeachIn searchIn;
  final  List<FoundItem> _items;
@@ -243,16 +245,16 @@ _$StateCopyWith<_State> get copyWith => __$StateCopyWithImpl<_State>(this, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _State&&(identical(other.error, error) || other.error == error)&&(identical(other.searchIn, searchIn) || other.searchIn == searchIn)&&const DeepCollectionEquality().equals(other._items, _items));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _State&&(identical(other.searching, searching) || other.searching == searching)&&(identical(other.error, error) || other.error == error)&&(identical(other.searchIn, searchIn) || other.searchIn == searchIn)&&const DeepCollectionEquality().equals(other._items, _items));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,error,searchIn,const DeepCollectionEquality().hash(_items));
+int get hashCode => Object.hash(runtimeType,searching,error,searchIn,const DeepCollectionEquality().hash(_items));
 
 @override
 String toString() {
-  return 'SearchState(error: $error, searchIn: $searchIn, items: $items)';
+  return 'SearchState(searching: $searching, error: $error, searchIn: $searchIn, items: $items)';
 }
 
 
@@ -263,7 +265,7 @@ abstract mixin class _$StateCopyWith<$Res> implements $SearchStateCopyWith<$Res>
   factory _$StateCopyWith(_State value, $Res Function(_State) _then) = __$StateCopyWithImpl;
 @override @useResult
 $Res call({
- AppError? error, SeachIn searchIn, List<FoundItem> items
+ bool searching, AppError? error, SeachIn searchIn, List<FoundItem> items
 });
 
 
@@ -280,9 +282,10 @@ class __$StateCopyWithImpl<$Res>
 
 /// Create a copy of SearchState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? error = freezed,Object? searchIn = null,Object? items = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? searching = null,Object? error = freezed,Object? searchIn = null,Object? items = null,}) {
   return _then(_State(
-freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+null == searching ? _self.searching : searching // ignore: cast_nullable_to_non_nullable
+as bool,freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as AppError?,null == searchIn ? _self.searchIn : searchIn // ignore: cast_nullable_to_non_nullable
 as SeachIn,null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
 as List<FoundItem>,

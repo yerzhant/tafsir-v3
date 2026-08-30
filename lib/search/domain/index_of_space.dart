@@ -1,22 +1,27 @@
+import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/search/domain/search_content.dart';
 
 extension AayahContentExt on AayahContent {
   int indexOfPrefix(int start, int min, int max) {
     if (start <= min) return 0;
 
-    final index = indexOf(' ');
+    final border = (start - max).let((it) => it < 0 ? 0 : it);
 
-    if (index == -1) return start - max;
+    final index = substring(border, start).indexOf(' ');
 
-    return index + 1;
+    if (index == -1) return border;
+
+    return border + index + 1;
   }
 
   int indexOfSuffix(int end, int min, int max) {
     if (end + min >= length) return length;
 
-    final index = substring(end).lastIndexOf(' ');
+    final border = (end + max).let((it) => it < length ? it : length);
 
-    if (index == -1) return end + max;
+    final index = substring(end, border).lastIndexOf(' ');
+
+    if (index == -1) return border;
 
     return index + end;
   }

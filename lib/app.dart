@@ -33,7 +33,9 @@ class App extends StatelessWidget {
           create: (context) => Player(),
           dispose: (player) => player.deinit(),
         ),
+        RepositoryProvider(create: (context) => MainDb(context.read())),
         RepositoryProvider(create: (context) => ThemeDb(context.read())),
+        RepositoryProvider(create: (context) => SearchDb(context.read())),
         RepositoryProvider(create: (context) => SettingsDb(context.read())),
       ],
       child: MultiBlocProvider(
@@ -51,6 +53,10 @@ class App extends StatelessWidget {
                   backgroundColor: bgPrimary(themeState.theme),
                   dragHandleColor: typographyTertirary(themeState.theme),
                 ),
+                textSelectionTheme: .new(
+                  cursorColor: brandPrimary(themeState.theme),
+                  selectionHandleColor: brandPrimary(themeState.theme),
+                ),
                 sliderTheme: .new(
                   overlayShape: .noOverlay,
                   trackShape: const RectangularSliderTrackShape(),
@@ -64,13 +70,7 @@ class App extends StatelessWidget {
                     create: (context) => InitDb(context.read()),
                   ),
                   RepositoryProvider(
-                    create: (context) => MainDb(context.read()),
-                  ),
-                  RepositoryProvider(
                     create: (context) => AayaatDb(context.read()),
-                  ),
-                  RepositoryProvider(
-                    create: (context) => SearchDb(context.read()),
                   ),
                 ],
                 child: BlocProvider(

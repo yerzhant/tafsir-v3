@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FoundItem {
 
- Surah get surah; AayahNumber get aayahNumber; FoundText get text; FoundText? get prefix; FoundText? get suffix;
+ Surah get surah; AayahNumber get aayahNumber; FoundText get text; FoundText get prefix; FoundText get suffix;
 /// Create a copy of FoundItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $FoundItemCopyWith<$Res>  {
   factory $FoundItemCopyWith(FoundItem value, $Res Function(FoundItem) _then) = _$FoundItemCopyWithImpl;
 @useResult
 $Res call({
- Surah surah, AayahNumber aayahNumber, FoundText text, FoundText? prefix, FoundText? suffix
+ Surah surah, AayahNumber aayahNumber, FoundText text, FoundText prefix, FoundText suffix
 });
 
 
@@ -62,14 +62,14 @@ class _$FoundItemCopyWithImpl<$Res>
 
 /// Create a copy of FoundItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? surah = null,Object? aayahNumber = null,Object? text = null,Object? prefix = freezed,Object? suffix = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? surah = null,Object? aayahNumber = null,Object? text = null,Object? prefix = null,Object? suffix = null,}) {
   return _then(_self.copyWith(
 surah: null == surah ? _self.surah : surah // ignore: cast_nullable_to_non_nullable
 as Surah,aayahNumber: null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
 as AayahNumber,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
-as FoundText,prefix: freezed == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
-as FoundText?,suffix: freezed == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
-as FoundText?,
+as FoundText,prefix: null == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
+as FoundText,suffix: null == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
+as FoundText,
   ));
 }
 /// Create a copy of FoundItem
@@ -163,7 +163,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Surah surah,  AayahNumber aayahNumber,  FoundText text,  FoundText? prefix,  FoundText? suffix)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Surah surah,  AayahNumber aayahNumber,  FoundText text,  FoundText prefix,  FoundText suffix)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FoundItem() when $default != null:
 return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suffix);case _:
@@ -184,7 +184,7 @@ return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suff
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Surah surah,  AayahNumber aayahNumber,  FoundText text,  FoundText? prefix,  FoundText? suffix)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Surah surah,  AayahNumber aayahNumber,  FoundText text,  FoundText prefix,  FoundText suffix)  $default,) {final _that = this;
 switch (_that) {
 case _FoundItem():
 return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suffix);case _:
@@ -204,7 +204,7 @@ return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suff
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Surah surah,  AayahNumber aayahNumber,  FoundText text,  FoundText? prefix,  FoundText? suffix)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Surah surah,  AayahNumber aayahNumber,  FoundText text,  FoundText prefix,  FoundText suffix)?  $default,) {final _that = this;
 switch (_that) {
 case _FoundItem() when $default != null:
 return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suffix);case _:
@@ -219,14 +219,14 @@ return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suff
 
 
 class _FoundItem implements FoundItem {
-  const _FoundItem({required this.surah, required this.aayahNumber, required this.text, this.prefix, this.suffix});
+  const _FoundItem({required this.surah, required this.aayahNumber, required this.text, required this.prefix, required this.suffix});
   
 
 @override final  Surah surah;
 @override final  AayahNumber aayahNumber;
 @override final  FoundText text;
-@override final  FoundText? prefix;
-@override final  FoundText? suffix;
+@override final  FoundText prefix;
+@override final  FoundText suffix;
 
 /// Create a copy of FoundItem
 /// with the given fields replaced by the non-null parameter values.
@@ -258,7 +258,7 @@ abstract mixin class _$FoundItemCopyWith<$Res> implements $FoundItemCopyWith<$Re
   factory _$FoundItemCopyWith(_FoundItem value, $Res Function(_FoundItem) _then) = __$FoundItemCopyWithImpl;
 @override @useResult
 $Res call({
- Surah surah, AayahNumber aayahNumber, FoundText text, FoundText? prefix, FoundText? suffix
+ Surah surah, AayahNumber aayahNumber, FoundText text, FoundText prefix, FoundText suffix
 });
 
 
@@ -275,14 +275,14 @@ class __$FoundItemCopyWithImpl<$Res>
 
 /// Create a copy of FoundItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? surah = null,Object? aayahNumber = null,Object? text = null,Object? prefix = freezed,Object? suffix = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? surah = null,Object? aayahNumber = null,Object? text = null,Object? prefix = null,Object? suffix = null,}) {
   return _then(_FoundItem(
 surah: null == surah ? _self.surah : surah // ignore: cast_nullable_to_non_nullable
 as Surah,aayahNumber: null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
 as AayahNumber,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
-as FoundText,prefix: freezed == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
-as FoundText?,suffix: freezed == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
-as FoundText?,
+as FoundText,prefix: null == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
+as FoundText,suffix: null == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
+as FoundText,
   ));
 }
 

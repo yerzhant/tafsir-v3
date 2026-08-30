@@ -4,6 +4,7 @@ import 'package:tafsir/about_us/ui/about_page.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/how_to_use/ui/how_to_use_page.dart';
 import 'package:tafsir/main/ui/menu_button.dart';
+import 'package:tafsir/search/ui/search_widget.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key, required this.theme});
@@ -24,10 +25,13 @@ class Header extends StatelessWidget {
             style: textH1.copyWith(color: textColor),
           ),
           const Spacer(),
-          // SvgPicture.asset(
-          //   'assets/icons/magnifying-glass.svg',
-          //   colorFilter: .mode(textColor, .srcIn),
-          // ),
+          GestureDetector(
+            onTap: () => _showSearch(context),
+            child: SvgPicture.asset(
+              'assets/icons/magnifying-glass.svg',
+              colorFilter: .mode(textColor, .srcIn),
+            ),
+          ),
           GestureDetector(
             onTap: () => _showMenu(context),
             child: SvgPicture.asset(
@@ -37,6 +41,24 @@ class Header extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  void _showSearch(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (ctx) {
+        final viewBottom = MediaQuery.of(ctx).viewInsets.bottom;
+        final bottom = viewBottom + (viewBottom > 0 ? 20 : 0);
+
+        return Padding(
+          padding: .only(right: 20, left: 20, bottom: bottom),
+          child: const SearchWidget(),
+        );
+      },
     );
   }
 
