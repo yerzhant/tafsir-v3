@@ -61,11 +61,18 @@ class Header extends StatelessWidget {
       isScrollControlled: true,
       builder: (ctx) {
         final viewBottom = MediaQuery.of(ctx).viewInsets.bottom;
-        final bottom = viewBottom + (viewBottom > 0 ? 20 : 0);
 
         return Padding(
-          padding: .only(right: 20, left: 20, bottom: bottom),
-          child: SearchWidget(suwar: suwar, mainCubit: mainCubit),
+          padding: .only(
+            right: 20,
+            left: 20,
+            bottom: viewBottom,
+          ),
+          child: SearchWidget(
+            suwar: suwar,
+            mainCubit: mainCubit,
+            viewBottom: viewBottom,
+          ),
         );
       },
     );

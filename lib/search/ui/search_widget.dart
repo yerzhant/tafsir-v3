@@ -12,8 +12,14 @@ import 'package:tafsir/search/ui/search_tab_bar.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class SearchWidget extends StatefulWidget {
-  const SearchWidget({super.key, required this.suwar, required this.mainCubit});
+  const SearchWidget({
+    super.key,
+    required this.suwar,
+    required this.mainCubit,
+    required this.viewBottom,
+  });
 
+  final double viewBottom;
   final List<Surah> suwar;
   final MainCubit mainCubit;
 
@@ -60,6 +66,11 @@ class _SearchWidgetState extends State<SearchWidget> {
 
                     return ListView.separated(
                       itemCount: state.items.length,
+                      padding: .only(
+                        bottom: widget.viewBottom == 0
+                            ? MediaQuery.paddingOf(context).bottom
+                            : 20,
+                      ),
                       itemBuilder: (context, index) => FoundItemCard(
                         suwar: widget.suwar,
                         theme: themeState.theme,
