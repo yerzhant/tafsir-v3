@@ -2,7 +2,7 @@ name: tafsir
 description: "Azan.ru's Tafsir."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 3.3.0+42
+version: 3.4.0+43
 
 environment:
   sdk: ^3.12.2
