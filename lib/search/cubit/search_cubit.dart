@@ -70,7 +70,7 @@ class SearchCubit extends Cubit<SearchState> {
   });
 
   void setSearchIn(SeachIn searchIn) => emit(
-    state.copyWith(searchIn: searchIn),
+    state.copyWith(searchIn: searchIn, items: []),
   );
 
   void clearError() => emit(state.copyWith(error: null, searching: false));
