@@ -50,10 +50,11 @@ class InitCubit extends Cubit<InitState> {
   late List<SurahRow> _suwar;
   late List<DjuzRow> _adjzaa;
 
-  late final int _total;
+  final _total = 7;
+
+  late int _processed;
 
   var _dbClosed = true;
-  var _processed = 0;
 
   Future<void> init() => TaskEither<AppError, void>.Do(
     ($) async {
@@ -72,50 +73,43 @@ class InitCubit extends Cubit<InitState> {
         return;
       }
 
+      _processed = 0;
+      emit(const .initializing(0));
+
       await $(_searchDb.cleanUp());
       await $(_aayaatDb.cleanUp());
       await $(_mainDb.cleanUp());
 
+      _progress();
+
       await $(_parseFiles());
       await $(_prepareSeachContents());
-
-      _total =
-          _muqaddimat.length +
-          _suwar.length +
-          _aayaat.length +
-          _adjzaa.length +
-          _searchContents.length;
-
-      emit(const .initializing(0));
 
       final batch = await $(_dbService.batch.toTaskEither());
 
       for (var row in _muqaddimat) {
         await $(_mainDb.addMuqaddimah(batch, row));
-        _progress();
       }
 
       for (var row in _suwar) {
         await $(_mainDb.addSurah(batch, row));
-        _progress();
       }
 
       for (var row in _adjzaa) {
         await $(_mainDb.addDjuz(batch, row));
-        _progress();
       }
 
       for (var row in _aayaat) {
         await $(_aayaatDb.addAayah(batch, row));
-        _progress();
       }
 
       for (var row in _searchContents) {
         await $(_searchDb.addContent(batch, row));
-        _progress();
       }
 
       await $(_dbService.commitBatch(batch));
+
+      _progress();
 
       await $(_initDb.setInitialized());
 
@@ -125,7 +119,7 @@ class InitCubit extends Cubit<InitState> {
 
   void _progress() {
     _processed++;
-    emit(.initializing(_processed / _total * 100.0));
+    emit(.initializing(_processed / _total * 100));
   }
 
   TaskEither<AppError, void> _prepareSeachContents() => .tryCatch(() async {
@@ -151,6 +145,8 @@ class InitCubit extends Cubit<InitState> {
 
       return contents;
     }, _aayaat);
+
+    _progress();
   }, ExceptionError.new);
 
   TaskEither<AppError, void> _parseFiles() => .Do(($) async {
@@ -165,6 +161,8 @@ class InitCubit extends Cubit<InitState> {
         ),
       ),
     );
+
+    _progress();
 
     _suwar = await $(
       _parseFile(
@@ -181,6 +179,8 @@ class InitCubit extends Cubit<InitState> {
       ),
     );
 
+    _progress();
+
     _adjzaa = await $(
       _parseFile(
         'adjzaa',
@@ -195,6 +195,8 @@ class InitCubit extends Cubit<InitState> {
       ),
     );
 
+    _progress();
+
     _aayaat = await $(
       _parseFile(
         'aayaat',
@@ -207,6 +209,8 @@ class InitCubit extends Cubit<InitState> {
         ),
       ),
     );
+
+    _progress();
   });
 
   TaskEither<AppError, List<T>> _parseFile<T>(

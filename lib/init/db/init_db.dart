@@ -36,6 +36,9 @@ class InitDb {
   TaskEither<AppError, void> setInitialized() =>
       .Do(($) => $(_setBool(.initialized, true)));
 
+  TaskEither<AppError, void> setUninitialized() =>
+      .Do(($) => $(_setBool(.initialized, false)));
+
   TaskEither<AppError, bool> _getBool(InitDbParamKey key) =>
       _dbService.db.toTaskEither().flatMap(
         (db) => .tryCatch(() async {
