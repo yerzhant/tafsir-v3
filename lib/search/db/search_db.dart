@@ -25,49 +25,43 @@ class SearchDb {
     ''');
   }
 
-  TaskEither<AppError, List<SearchContent>> searchEverywhereFor(
-    SearchPhrase phrase,
-  ) => _dbService.db.toTaskEither().flatMap(
-    (db) => .tryCatch(() async {
-      final rows = await db.rawQuery(
-        '''
-        select s.name surah_name, c.*
-          from $_aayahContents c
-          join suwar s on s.number = c.surah_number
-         where lower(content) like ?
-         order by surah_number, aayah_number
-        ''',
-        ['%$phrase%'],
+  TaskEither<AppError, List<SearchContent>> getAll() =>
+      _dbService.db.toTaskEither().flatMap(
+        (db) => .tryCatch(() async {
+          final rows = await db.rawQuery(
+            '''
+            select s.name surah_name, c.*
+              from $_aayahContents c
+              join suwar s on s.number = c.surah_number
+            order by surah_number, aayah_number
+            ''',
+          );
+
+          return [
+            for (final row in rows) SearchResultRow.fromJson(row).toDomain(),
+          ];
+        }, ExceptionError.new),
       );
 
-      return [
-        for (final row in rows) SearchResultRow.fromJson(row).toDomain(),
-      ];
-    }, ExceptionError.new),
-  );
+  TaskEither<AppError, List<SearchContent>> getBookmarked() =>
+      _dbService.db.toTaskEither().flatMap(
+        (db) => .tryCatch(() async {
+          final rows = await db.rawQuery(
+            '''
+            select s.name surah_name, c.*
+              from $_aayahContents c
+              join bookmarks b
+                on b.surah_number = c.surah_number
+               and b.aayah_number = c.aayah_number
+              join suwar s on s.number = c.surah_number
+            ''',
+          );
 
-  TaskEither<AppError, List<SearchContent>> searchInBookmarkedFor(
-    SearchPhrase phrase,
-  ) => _dbService.db.toTaskEither().flatMap(
-    (db) => .tryCatch(() async {
-      final rows = await db.rawQuery(
-        '''
-        select s.name surah_name, c.*
-          from $_aayahContents c
-          join bookmarks b
-            on b.surah_number = c.surah_number
-           and b.aayah_number = c.aayah_number
-          join suwar s on s.number = c.surah_number
-         where lower(content) like ?
-        ''',
-        ['%$phrase%'],
+          return [
+            for (final row in rows) SearchResultRow.fromJson(row).toDomain(),
+          ];
+        }, ExceptionError.new),
       );
-
-      return [
-        for (final row in rows) SearchResultRow.fromJson(row).toDomain(),
-      ];
-    }, ExceptionError.new),
-  );
 
   TaskEither<AppError, void> addContent(Batch batch, SearchContentRow row) =>
       .tryCatch(
