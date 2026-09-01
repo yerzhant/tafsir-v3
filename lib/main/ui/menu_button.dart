@@ -17,13 +17,14 @@ class MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      borderRadius: .circular(12),
       child: Container(
         padding: const .all(12),
         decoration: BoxDecoration(
-          borderRadius: .circular(12),
           color: bgSecondary(theme),
+          borderRadius: .circular(12),
         ),
         child: Row(
           spacing: 8,

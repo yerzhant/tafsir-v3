@@ -61,8 +61,9 @@ class _Font extends StatelessWidget {
   Widget build(BuildContext context) {
     final settings = context.read<SettingsCubit>().state;
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => onSelected(type),
+      borderRadius: .circular(12),
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return SettingPanel(

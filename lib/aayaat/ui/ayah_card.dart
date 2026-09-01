@@ -88,8 +88,9 @@ class _AyahCardState extends State<AyahCard> {
 
                             const Spacer(),
 
-                            GestureDetector(
+                            InkWell(
                               onTap: _toggleMenu,
+                              borderRadius: .circular(8),
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: bgPrimary(themeState.theme),
@@ -276,7 +277,7 @@ class _Menu extends StatelessWidget {
       child: Row(
         spacing: 12,
         children: [
-          GestureDetector(
+          InkWell(
             onTap: onShare,
             child: SvgPicture.asset(
               'assets/icons/share-ayah.svg',
@@ -284,7 +285,7 @@ class _Menu extends StatelessWidget {
             ),
           ),
 
-          GestureDetector(
+          InkWell(
             onTap: onPlay,
             child: SvgPicture.asset(
               'assets/icons/play-ayah.svg',
@@ -292,7 +293,7 @@ class _Menu extends StatelessWidget {
             ),
           ),
 
-          GestureDetector(
+          InkWell(
             onTap: onBookmark,
             child: SvgPicture.asset(
               'assets/icons/bookmark-ayah$bookmarkIcon.svg',

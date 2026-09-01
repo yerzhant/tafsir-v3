@@ -44,7 +44,7 @@ class _AccordionItemState extends State<AccordionItem>
             crossAxisAlignment: .start,
             spacing: 4,
             children: [
-              GestureDetector(
+              InkWell(
                 onTap: _toggle,
                 child: Row(
                   children: [

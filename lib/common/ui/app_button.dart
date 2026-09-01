@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 
 class AppButton extends StatelessWidget {
@@ -15,8 +15,9 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      borderRadius: .circular(100),
       child: Container(
         padding: const .symmetric(
           horizontal: 16,

@@ -14,7 +14,8 @@ class InfoPageHeader extends StatelessWidget {
       padding: const .symmetric(horizontal: 20, vertical: 12),
       child: Row(
         children: [
-          GestureDetector(
+          InkWell(
+            borderRadius: .circular(100),
             onTap: () => Navigator.pop(context),
             child: SvgPicture.asset(
               'assets/icons/arrow-left.svg',

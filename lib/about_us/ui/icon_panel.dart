@@ -18,8 +18,9 @@ class IconPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      borderRadius: .circular(padding),
       child: Container(
         padding: .all(padding),
         decoration: BoxDecoration(

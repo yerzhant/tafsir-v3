@@ -34,14 +34,16 @@ class Header extends StatelessWidget {
             style: textH1.copyWith(color: textColor),
           ),
           const Spacer(),
-          GestureDetector(
+          InkWell(
+            borderRadius: .circular(5),
             onTap: () => _showSearch(context),
             child: SvgPicture.asset(
               'assets/icons/magnifying-glass.svg',
               colorFilter: .mode(textColor, .srcIn),
             ),
           ),
-          GestureDetector(
+          InkWell(
+            borderRadius: .circular(5),
             onTap: () => _showMenu(context),
             child: SvgPicture.asset(
               'assets/icons/vertical-dots.svg',

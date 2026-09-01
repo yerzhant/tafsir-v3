@@ -124,7 +124,8 @@ class _SearchField extends StatelessWidget {
       child: Row(
         spacing: 12,
         children: [
-          GestureDetector(
+          InkWell(
+            borderRadius: .circular(100),
             onTap: () => context.read<SearchCubit>().search(
               .new(controller.text),
             ),
@@ -150,7 +151,8 @@ class _SearchField extends StatelessWidget {
               ),
             ),
           ),
-          GestureDetector(
+          InkWell(
+            borderRadius: .circular(100),
             onTap: controller.clear,
             child: SvgPicture.asset(
               width: 28,

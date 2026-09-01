@@ -105,8 +105,9 @@ class _Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      borderRadius: .circular(8),
       child: Container(
         padding: const .all(12),
         decoration: BoxDecoration(

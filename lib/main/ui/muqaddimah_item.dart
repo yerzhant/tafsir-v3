@@ -25,7 +25,7 @@ class MuqaddimahItem extends StatelessWidget {
       .basmalah => 'basmalah',
     };
 
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: BigFrame(
         theme: theme,

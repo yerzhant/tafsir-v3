@@ -158,8 +158,9 @@ class _Main extends StatelessWidget {
     return Row(
       spacing: 12,
       children: [
-        GestureDetector(
+        InkWell(
           onTap: () => Navigator.pop(context),
+          borderRadius: .circular(8),
           child: Container(
             padding: const .all(6),
             decoration: BoxDecoration(
@@ -174,8 +175,9 @@ class _Main extends StatelessWidget {
         ),
 
         Flexible(
-          child: GestureDetector(
+          child: InkWell(
             onTap: onSuwar,
+            borderRadius: .circular(5),
             child: Column(
               mainAxisSize: .min,
               mainAxisAlignment: .center,
@@ -268,8 +270,9 @@ class _Icon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      borderRadius: .circular(5),
       child: SvgPicture.asset(
         'assets/icons/$icon.svg',
         colorFilter: .mode(typographyPrimary(theme), .srcIn),

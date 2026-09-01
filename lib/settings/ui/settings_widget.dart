@@ -134,8 +134,9 @@ class SettingsWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () => _showFonts(context),
+                    borderRadius: .circular(12),
                     child: SettingPanel(
                       theme: themeState.theme,
                       child: Row(

@@ -187,8 +187,9 @@ class _Cell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      borderRadius: .circular(16),
       child: Container(
         height: _rowHeight,
         padding: const .symmetric(horizontal: 12),

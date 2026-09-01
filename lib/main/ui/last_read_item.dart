@@ -19,7 +19,8 @@ class LastReadItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      borderRadius: .circular(12),
       onTap: () => SurahPage.open(
         context,
         context.read(),

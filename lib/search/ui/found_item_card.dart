@@ -21,7 +21,7 @@ class FoundItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         Navigator.pop(context);
 
@@ -33,6 +33,7 @@ class FoundItemCard extends StatelessWidget {
           .new(item.aayahNumber, 0),
         );
       },
+      borderRadius: .circular(16),
       child: Container(
         padding: const .all(12),
         decoration: BoxDecoration(

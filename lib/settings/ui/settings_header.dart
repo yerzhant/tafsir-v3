@@ -23,7 +23,8 @@ class SettingsHeader extends StatelessWidget {
               Row(
                 spacing: 12,
                 children: [
-                  GestureDetector(
+                  InkWell(
+                    borderRadius: .circular(8),
                     onTap: () => Navigator.pop(context),
                     child: Container(
                       padding: const .symmetric(horizontal: 6, vertical: 4),

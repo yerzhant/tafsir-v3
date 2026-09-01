@@ -123,7 +123,7 @@ class _Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: isDisabled ? null : onTap,
       child: SvgPicture.asset(
         'assets/icons/$icon.svg',
