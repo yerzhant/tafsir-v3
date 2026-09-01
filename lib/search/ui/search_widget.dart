@@ -38,16 +38,22 @@ class _SearchWidgetState extends State<SearchWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, ThemeState>(
-      builder: (context, themeState) {
-        return BlocProvider(
-          create: (context) => SearchCubit(context.read(), context.read()),
-          child: Column(
+    return BlocProvider(
+      create: (context) => SearchCubit(context.read(), context.read()),
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, themeState) {
+          return Column(
             spacing: 12,
             children: [
               _SearchField(theme: themeState.theme, controller: _controller),
 
-              SearchTabBar(theme: themeState.theme),
+              SearchTabBar(
+                theme: themeState.theme,
+                onChanged: (value) => context.read<SearchCubit>().setSearchIn(
+                  value,
+                  .new(_controller.text),
+                ),
+              ),
 
               Expanded(
                 child: BlocBuilder<SearchCubit, SearchState>(
@@ -86,9 +92,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                 ),
               ),
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

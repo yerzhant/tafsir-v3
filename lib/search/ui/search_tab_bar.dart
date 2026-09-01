@@ -5,9 +5,14 @@ import 'package:tafsir/common/ui/tab_button.dart';
 import 'package:tafsir/search/cubit/search_cubit.dart';
 
 class SearchTabBar extends StatelessWidget {
-  const SearchTabBar({super.key, required this.theme});
+  const SearchTabBar({
+    super.key,
+    required this.theme,
+    required this.onChanged,
+  });
 
   final AppTheme theme;
+  final ValueChanged<SeachIn> onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +29,14 @@ class SearchTabBar extends StatelessWidget {
               TabButton(
                 theme: theme,
                 title: 'Везде',
+                onTap: () => onChanged(.everyWhere),
                 isActive: state.searchIn == .everyWhere,
-                onTap: () => context.read<SearchCubit>().setSearchIn(
-                  .everyWhere,
-                ),
               ),
               TabButton(
                 theme: theme,
                 title: 'Закладки',
+                onTap: () => onChanged(.bookmarks),
                 isActive: state.searchIn == .bookmarks,
-                onTap: () => context.read<SearchCubit>().setSearchIn(
-                  .bookmarks,
-                ),
               ),
             ],
           );
