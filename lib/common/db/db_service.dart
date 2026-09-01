@@ -14,7 +14,7 @@ class DbService {
   TaskEither<AppError, void> open() => .tryCatch(() async {
     _database = await openDatabase(
       'app.db',
-      version: 4,
+      version: 5,
       onCreate: (db, version) async {
         await InitDb.init(db);
         await ThemeDb.init(db);
@@ -42,6 +42,10 @@ class DbService {
 
         if (oldVersion < 4) {
           await SearchDb.init(db);
+          await InitDb.reset(db);
+        }
+
+        if (oldVersion < 5) {
           await InitDb.reset(db);
         }
       },
