@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tafsir/common/domain/arabic_normalizer.dart';
+import 'package:tafsir/common/domain/debouncer.dart';
 import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/search/db/search_db.dart';
@@ -25,8 +26,19 @@ class SearchCubit extends Cubit<SearchState> {
   final SearchDb _db;
   final MainDb _mainDb;
 
+  final _debouncer = Debouncer(const .new(milliseconds: 500));
+
+  late int _timestamp;
+
+  void delayedSearch(SearchPhrase phrase) => _debouncer.run(
+    () => search(phrase),
+  );
+
   void search(SearchPhrase phrase) => TaskEither<AppError, void>.Do(
     ($) async {
+      final timestamp = DateTime.now().microsecondsSinceEpoch;
+      _timestamp = timestamp;
+
       phrase = SearchPhrase(normalizeArabic(phrase).toLowerCase().trim());
 
       if (phrase.isEmpty) return;
@@ -38,9 +50,13 @@ class SearchCubit extends Cubit<SearchState> {
         .bookmarks => _db.searchInBookmarkedFor(phrase),
       });
 
+      if (timestamp != _timestamp) return;
+
       final items = [
         for (final content in contents) await $(_getItem(content, phrase)),
       ];
+
+      if (timestamp != _timestamp) return;
 
       emit(state.copyWith(items: items, searching: false));
     },

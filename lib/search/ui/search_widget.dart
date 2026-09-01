@@ -140,6 +140,9 @@ class _SearchField extends StatelessWidget {
                   color: typographyTertirary(theme),
                 ),
               ),
+              onChanged: (value) => context.read<SearchCubit>().delayedSearch(
+                .new(value),
+              ),
             ),
           ),
           GestureDetector(
