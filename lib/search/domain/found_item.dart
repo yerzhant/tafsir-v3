@@ -9,7 +9,8 @@ extension type const FoundText(String value) implements String {}
 @freezed
 abstract class FoundItem with _$FoundItem {
   const factory FoundItem({
-    required Surah surah,
+    required SurahName surahName,
+    required SurahNumber surahNumber,
     required AayahNumber aayahNumber,
 
     required FoundText text,

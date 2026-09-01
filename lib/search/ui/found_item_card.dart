@@ -29,7 +29,7 @@ class FoundItemCard extends StatelessWidget {
           context,
           mainCubit,
           suwar,
-          item.surah.number,
+          item.surahNumber,
           .new(item.aayahNumber, 0),
         );
       },
@@ -76,7 +76,7 @@ class FoundItemCard extends StatelessWidget {
               ),
             ),
             Text(
-              '${item.surah.name}, ${item.aayahNumber} аят',
+              '${item.surahName}, ${item.aayahNumber} аят',
               style: textBodyMedium.copyWith(color: typographyTertirary(theme)),
             ),
           ],

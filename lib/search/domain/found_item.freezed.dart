@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FoundItem {
 
- Surah get surah; AayahNumber get aayahNumber; FoundText get text; FoundText get prefix; FoundText get suffix;
+ SurahName get surahName; SurahNumber get surahNumber; AayahNumber get aayahNumber; FoundText get text; FoundText get prefix; FoundText get suffix;
 /// Create a copy of FoundItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $FoundItemCopyWith<FoundItem> get copyWith => _$FoundItemCopyWithImpl<FoundItem>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FoundItem&&(identical(other.surah, surah) || other.surah == surah)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber)&&(identical(other.text, text) || other.text == text)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FoundItem&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber)&&(identical(other.text, text) || other.text == text)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,surah,aayahNumber,text,prefix,suffix);
+int get hashCode => Object.hash(runtimeType,surahName,surahNumber,aayahNumber,text,prefix,suffix);
 
 @override
 String toString() {
-  return 'FoundItem(surah: $surah, aayahNumber: $aayahNumber, text: $text, prefix: $prefix, suffix: $suffix)';
+  return 'FoundItem(surahName: $surahName, surahNumber: $surahNumber, aayahNumber: $aayahNumber, text: $text, prefix: $prefix, suffix: $suffix)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $FoundItemCopyWith<$Res>  {
   factory $FoundItemCopyWith(FoundItem value, $Res Function(FoundItem) _then) = _$FoundItemCopyWithImpl;
 @useResult
 $Res call({
- Surah surah, AayahNumber aayahNumber, FoundText text, FoundText prefix, FoundText suffix
+ SurahName surahName, SurahNumber surahNumber, AayahNumber aayahNumber, FoundText text, FoundText prefix, FoundText suffix
 });
 
 
-$SurahCopyWith<$Res> get surah;
+
 
 }
 /// @nodoc
@@ -62,26 +62,18 @@ class _$FoundItemCopyWithImpl<$Res>
 
 /// Create a copy of FoundItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? surah = null,Object? aayahNumber = null,Object? text = null,Object? prefix = null,Object? suffix = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? surahName = null,Object? surahNumber = null,Object? aayahNumber = null,Object? text = null,Object? prefix = null,Object? suffix = null,}) {
   return _then(_self.copyWith(
-surah: null == surah ? _self.surah : surah // ignore: cast_nullable_to_non_nullable
-as Surah,aayahNumber: null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
+surahName: null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
+as SurahName,surahNumber: null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
+as SurahNumber,aayahNumber: null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
 as AayahNumber,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as FoundText,prefix: null == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
 as FoundText,suffix: null == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
 as FoundText,
   ));
 }
-/// Create a copy of FoundItem
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$SurahCopyWith<$Res> get surah {
-  
-  return $SurahCopyWith<$Res>(_self.surah, (value) {
-    return _then(_self.copyWith(surah: value));
-  });
-}
+
 }
 
 
@@ -163,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Surah surah,  AayahNumber aayahNumber,  FoundText text,  FoundText prefix,  FoundText suffix)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber,  FoundText text,  FoundText prefix,  FoundText suffix)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FoundItem() when $default != null:
-return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suffix);case _:
+return $default(_that.surahName,_that.surahNumber,_that.aayahNumber,_that.text,_that.prefix,_that.suffix);case _:
   return orElse();
 
 }
@@ -184,10 +176,10 @@ return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suff
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Surah surah,  AayahNumber aayahNumber,  FoundText text,  FoundText prefix,  FoundText suffix)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber,  FoundText text,  FoundText prefix,  FoundText suffix)  $default,) {final _that = this;
 switch (_that) {
 case _FoundItem():
-return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suffix);case _:
+return $default(_that.surahName,_that.surahNumber,_that.aayahNumber,_that.text,_that.prefix,_that.suffix);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +196,10 @@ return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suff
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Surah surah,  AayahNumber aayahNumber,  FoundText text,  FoundText prefix,  FoundText suffix)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber,  FoundText text,  FoundText prefix,  FoundText suffix)?  $default,) {final _that = this;
 switch (_that) {
 case _FoundItem() when $default != null:
-return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suffix);case _:
+return $default(_that.surahName,_that.surahNumber,_that.aayahNumber,_that.text,_that.prefix,_that.suffix);case _:
   return null;
 
 }
@@ -219,10 +211,11 @@ return $default(_that.surah,_that.aayahNumber,_that.text,_that.prefix,_that.suff
 
 
 class _FoundItem implements FoundItem {
-  const _FoundItem({required this.surah, required this.aayahNumber, required this.text, required this.prefix, required this.suffix});
+  const _FoundItem({required this.surahName, required this.surahNumber, required this.aayahNumber, required this.text, required this.prefix, required this.suffix});
   
 
-@override final  Surah surah;
+@override final  SurahName surahName;
+@override final  SurahNumber surahNumber;
 @override final  AayahNumber aayahNumber;
 @override final  FoundText text;
 @override final  FoundText prefix;
@@ -238,16 +231,16 @@ _$FoundItemCopyWith<_FoundItem> get copyWith => __$FoundItemCopyWithImpl<_FoundI
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FoundItem&&(identical(other.surah, surah) || other.surah == surah)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber)&&(identical(other.text, text) || other.text == text)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FoundItem&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber)&&(identical(other.text, text) || other.text == text)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,surah,aayahNumber,text,prefix,suffix);
+int get hashCode => Object.hash(runtimeType,surahName,surahNumber,aayahNumber,text,prefix,suffix);
 
 @override
 String toString() {
-  return 'FoundItem(surah: $surah, aayahNumber: $aayahNumber, text: $text, prefix: $prefix, suffix: $suffix)';
+  return 'FoundItem(surahName: $surahName, surahNumber: $surahNumber, aayahNumber: $aayahNumber, text: $text, prefix: $prefix, suffix: $suffix)';
 }
 
 
@@ -258,11 +251,11 @@ abstract mixin class _$FoundItemCopyWith<$Res> implements $FoundItemCopyWith<$Re
   factory _$FoundItemCopyWith(_FoundItem value, $Res Function(_FoundItem) _then) = __$FoundItemCopyWithImpl;
 @override @useResult
 $Res call({
- Surah surah, AayahNumber aayahNumber, FoundText text, FoundText prefix, FoundText suffix
+ SurahName surahName, SurahNumber surahNumber, AayahNumber aayahNumber, FoundText text, FoundText prefix, FoundText suffix
 });
 
 
-@override $SurahCopyWith<$Res> get surah;
+
 
 }
 /// @nodoc
@@ -275,10 +268,11 @@ class __$FoundItemCopyWithImpl<$Res>
 
 /// Create a copy of FoundItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? surah = null,Object? aayahNumber = null,Object? text = null,Object? prefix = null,Object? suffix = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? surahName = null,Object? surahNumber = null,Object? aayahNumber = null,Object? text = null,Object? prefix = null,Object? suffix = null,}) {
   return _then(_FoundItem(
-surah: null == surah ? _self.surah : surah // ignore: cast_nullable_to_non_nullable
-as Surah,aayahNumber: null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
+surahName: null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
+as SurahName,surahNumber: null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
+as SurahNumber,aayahNumber: null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
 as AayahNumber,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as FoundText,prefix: null == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
 as FoundText,suffix: null == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
@@ -286,16 +280,7 @@ as FoundText,
   ));
 }
 
-/// Create a copy of FoundItem
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$SurahCopyWith<$Res> get surah {
-  
-  return $SurahCopyWith<$Res>(_self.surah, (value) {
-    return _then(_self.copyWith(surah: value));
-  });
-}
+
 }
 
 // dart format on

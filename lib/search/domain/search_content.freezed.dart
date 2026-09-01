@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SearchContent {
 
- SurahNumber get surahNumber; AayahNumber get aayahNumber; AayahContent get content;
+ SurahName get surahName; SurahNumber get surahNumber; AayahNumber get aayahNumber; AayahContent get content;
 /// Create a copy of SearchContent
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SearchContentCopyWith<SearchContent> get copyWith => _$SearchContentCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SearchContent&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber)&&(identical(other.content, content) || other.content == content));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SearchContent&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber)&&(identical(other.content, content) || other.content == content));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,surahNumber,aayahNumber,content);
+int get hashCode => Object.hash(runtimeType,surahName,surahNumber,aayahNumber,content);
 
 @override
 String toString() {
-  return 'SearchContent(surahNumber: $surahNumber, aayahNumber: $aayahNumber, content: $content)';
+  return 'SearchContent(surahName: $surahName, surahNumber: $surahNumber, aayahNumber: $aayahNumber, content: $content)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SearchContentCopyWith<$Res>  {
   factory $SearchContentCopyWith(SearchContent value, $Res Function(SearchContent) _then) = _$SearchContentCopyWithImpl;
 @useResult
 $Res call({
- SurahNumber surahNumber, AayahNumber aayahNumber, AayahContent content
+ SurahName surahName, SurahNumber surahNumber, AayahNumber aayahNumber, AayahContent content
 });
 
 
@@ -62,9 +62,10 @@ class _$SearchContentCopyWithImpl<$Res>
 
 /// Create a copy of SearchContent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? surahNumber = null,Object? aayahNumber = null,Object? content = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? surahName = null,Object? surahNumber = null,Object? aayahNumber = null,Object? content = null,}) {
   return _then(_self.copyWith(
-surahNumber: null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
+surahName: null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
+as SurahName,surahNumber: null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
 as SurahNumber,aayahNumber: null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
 as AayahNumber,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as AayahContent,
@@ -152,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahNumber surahNumber,  AayahNumber aayahNumber,  AayahContent content)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber,  AayahContent content)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SearchContent() when $default != null:
-return $default(_that.surahNumber,_that.aayahNumber,_that.content);case _:
+return $default(_that.surahName,_that.surahNumber,_that.aayahNumber,_that.content);case _:
   return orElse();
 
 }
@@ -173,10 +174,10 @@ return $default(_that.surahNumber,_that.aayahNumber,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahNumber surahNumber,  AayahNumber aayahNumber,  AayahContent content)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber,  AayahContent content)  $default,) {final _that = this;
 switch (_that) {
 case _SearchContent():
-return $default(_that.surahNumber,_that.aayahNumber,_that.content);case _:
+return $default(_that.surahName,_that.surahNumber,_that.aayahNumber,_that.content);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +194,10 @@ return $default(_that.surahNumber,_that.aayahNumber,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahNumber surahNumber,  AayahNumber aayahNumber,  AayahContent content)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SurahName surahName,  SurahNumber surahNumber,  AayahNumber aayahNumber,  AayahContent content)?  $default,) {final _that = this;
 switch (_that) {
 case _SearchContent() when $default != null:
-return $default(_that.surahNumber,_that.aayahNumber,_that.content);case _:
+return $default(_that.surahName,_that.surahNumber,_that.aayahNumber,_that.content);case _:
   return null;
 
 }
@@ -208,9 +209,10 @@ return $default(_that.surahNumber,_that.aayahNumber,_that.content);case _:
 
 
 class _SearchContent implements SearchContent {
-  const _SearchContent(this.surahNumber, this.aayahNumber, this.content);
+  const _SearchContent(this.surahName, this.surahNumber, this.aayahNumber, this.content);
   
 
+@override final  SurahName surahName;
 @override final  SurahNumber surahNumber;
 @override final  AayahNumber aayahNumber;
 @override final  AayahContent content;
@@ -225,16 +227,16 @@ _$SearchContentCopyWith<_SearchContent> get copyWith => __$SearchContentCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SearchContent&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber)&&(identical(other.content, content) || other.content == content));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SearchContent&&(identical(other.surahName, surahName) || other.surahName == surahName)&&(identical(other.surahNumber, surahNumber) || other.surahNumber == surahNumber)&&(identical(other.aayahNumber, aayahNumber) || other.aayahNumber == aayahNumber)&&(identical(other.content, content) || other.content == content));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,surahNumber,aayahNumber,content);
+int get hashCode => Object.hash(runtimeType,surahName,surahNumber,aayahNumber,content);
 
 @override
 String toString() {
-  return 'SearchContent(surahNumber: $surahNumber, aayahNumber: $aayahNumber, content: $content)';
+  return 'SearchContent(surahName: $surahName, surahNumber: $surahNumber, aayahNumber: $aayahNumber, content: $content)';
 }
 
 
@@ -245,7 +247,7 @@ abstract mixin class _$SearchContentCopyWith<$Res> implements $SearchContentCopy
   factory _$SearchContentCopyWith(_SearchContent value, $Res Function(_SearchContent) _then) = __$SearchContentCopyWithImpl;
 @override @useResult
 $Res call({
- SurahNumber surahNumber, AayahNumber aayahNumber, AayahContent content
+ SurahName surahName, SurahNumber surahNumber, AayahNumber aayahNumber, AayahContent content
 });
 
 
@@ -262,9 +264,10 @@ class __$SearchContentCopyWithImpl<$Res>
 
 /// Create a copy of SearchContent
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? surahNumber = null,Object? aayahNumber = null,Object? content = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? surahName = null,Object? surahNumber = null,Object? aayahNumber = null,Object? content = null,}) {
   return _then(_SearchContent(
-null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
+null == surahName ? _self.surahName : surahName // ignore: cast_nullable_to_non_nullable
+as SurahName,null == surahNumber ? _self.surahNumber : surahNumber // ignore: cast_nullable_to_non_nullable
 as SurahNumber,null == aayahNumber ? _self.aayahNumber : aayahNumber // ignore: cast_nullable_to_non_nullable
 as AayahNumber,null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as AayahContent,

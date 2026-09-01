@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:tafsir/common/db/db_service.dart';
 import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/search/db/search_content_row.dart';
+import 'package:tafsir/search/db/search_result_row.dart';
 import 'package:tafsir/search/domain/search_content.dart';
 
 const _aayahContents = 'aayah_search_contents';
@@ -28,15 +29,19 @@ class SearchDb {
     SearchPhrase phrase,
   ) => _dbService.db.toTaskEither().flatMap(
     (db) => .tryCatch(() async {
-      final rows = await db.query(
-        _aayahContents,
-        whereArgs: ['%$phrase%'],
-        where: 'LOWER(content) like ?',
-        orderBy: 'surah_number, aayah_number',
+      final rows = await db.rawQuery(
+        '''
+        select s.name surah_name, c.*
+          from $_aayahContents c
+          join suwar s on s.number = c.surah_number
+         where lower(content) like ?
+         order by surah_number, aayah_number
+        ''',
+        ['%$phrase%'],
       );
 
       return [
-        for (final row in rows) SearchContentRow.fromJson(row).toDomain(),
+        for (final row in rows) SearchResultRow.fromJson(row).toDomain(),
       ];
     }, ExceptionError.new),
   );
@@ -47,18 +52,19 @@ class SearchDb {
     (db) => .tryCatch(() async {
       final rows = await db.rawQuery(
         '''
-        select *
+        select s.name surah_name, c.*
           from $_aayahContents c
           join bookmarks b
             on b.surah_number = c.surah_number
            and b.aayah_number = c.aayah_number
+          join suwar s on s.number = c.surah_number
          where lower(content) like ?
         ''',
         ['%$phrase%'],
       );
 
       return [
-        for (final row in rows) SearchContentRow.fromJson(row).toDomain(),
+        for (final row in rows) SearchResultRow.fromJson(row).toDomain(),
       ];
     }, ExceptionError.new),
   );

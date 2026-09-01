@@ -10,6 +10,7 @@ extension type const AayahContent(String value) implements String {}
 @freezed
 abstract class SearchContent with _$SearchContent {
   const factory SearchContent(
+    SurahName surahName,
     SurahNumber surahNumber,
     AayahNumber aayahNumber,
     AayahContent content,

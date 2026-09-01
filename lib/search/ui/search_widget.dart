@@ -39,7 +39,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SearchCubit(context.read(), context.read()),
+      create: (context) => SearchCubit(context.read()),
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, themeState) {
           return Column(
@@ -59,10 +59,15 @@ class _SearchWidgetState extends State<SearchWidget> {
                 child: BlocBuilder<SearchCubit, SearchState>(
                   builder: (context, state) {
                     if (state.error != null) {
-                      return AppErrorWidget(
-                        padding: 0,
-                        error: state.error!,
-                        onPressed: context.read<SearchCubit>().clearError,
+                      return SingleChildScrollView(
+                        child: Padding(
+                          padding: const .only(bottom: 20),
+                          child: AppErrorWidget(
+                            error: state.error!,
+                            horizontalPadding: 0,
+                            onPressed: context.read<SearchCubit>().clearError,
+                          ),
+                        ),
                       );
                     }
 

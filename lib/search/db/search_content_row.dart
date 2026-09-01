@@ -17,8 +17,4 @@ abstract class SearchContentRow with _$SearchContentRow {
 
   factory SearchContentRow.fromJson(Map<String, dynamic> json) =>
       _$SearchContentRowFromJson(json);
-
-  const SearchContentRow._();
-
-  SearchContent toDomain() => .new(surahNumber, aayahNumber, content);
 }

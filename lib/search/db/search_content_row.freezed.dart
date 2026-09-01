@@ -210,8 +210,8 @@ return $default(_that.surahNumber,_that.aayahNumber,_that.content);case _:
 /// @nodoc
 
 @JsonSerializable(fieldRename: .snake)
-class _SearchContentRow extends SearchContentRow {
-  const _SearchContentRow(this.surahNumber, this.aayahNumber, this.content): super._();
+class _SearchContentRow implements SearchContentRow {
+  const _SearchContentRow(this.surahNumber, this.aayahNumber, this.content);
   factory _SearchContentRow.fromJson(Map<String, dynamic> json) => _$SearchContentRowFromJson(json);
 
 @override final  SurahNumber surahNumber;

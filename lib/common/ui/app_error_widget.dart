@@ -9,15 +9,15 @@ class AppErrorWidget extends StatelessWidget {
   const AppErrorWidget({
     super.key,
     this.size = .max,
-    this.padding = 20,
     required this.error,
     required this.onPressed,
+    this.horizontalPadding = 20,
   });
 
-  final double padding;
   final AppError error;
   final MainAxisSize size;
   final VoidCallback onPressed;
+  final double horizontalPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class AppErrorWidget extends StatelessWidget {
       builder: (context, state) {
         return Container(
           color: bgPrimary(state.theme),
-          padding: .symmetric(horizontal: padding),
+          padding: .symmetric(horizontal: horizontalPadding),
           width: .infinity,
           child: Column(
             mainAxisAlignment: .center,

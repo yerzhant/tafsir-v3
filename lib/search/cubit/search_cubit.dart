@@ -4,7 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tafsir/common/domain/arabic_normalizer.dart';
 import 'package:tafsir/common/domain/debouncer.dart';
 import 'package:tafsir/common/domain/error.dart';
-import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/search/db/search_db.dart';
 import 'package:tafsir/search/domain/found_item.dart';
 import 'package:tafsir/search/domain/index_of_space.dart';
@@ -20,11 +19,9 @@ const _minSuffix = 10;
 const _maxSuffix = 30;
 
 class SearchCubit extends Cubit<SearchState> {
-  SearchCubit(this._db, this._mainDb)
-    : super(const .new(false, null, .everyWhere, []));
+  SearchCubit(this._db) : super(const .new(false, null, .everyWhere, []));
 
   final SearchDb _db;
-  final MainDb _mainDb;
 
   final _debouncer = Debouncer(const .new(milliseconds: 500));
 
@@ -66,8 +63,6 @@ class SearchCubit extends Cubit<SearchState> {
     SearchContent searchContent,
     SearchPhrase phrase,
   ) => .Do(($) async {
-    final surah = await $(_mainDb.getSurah(searchContent.surahNumber));
-
     final content = searchContent.content;
 
     final start = content.toLowerCase().indexOf(phrase);
@@ -77,7 +72,8 @@ class SearchCubit extends Cubit<SearchState> {
     final suffix = content.indexOfSuffix(end, _minSuffix, _maxSuffix);
 
     return .new(
-      surah: surah,
+      surahName: searchContent.surahName,
+      surahNumber: searchContent.surahNumber,
       aayahNumber: searchContent.aayahNumber,
       text: .new(content.substring(start, end)),
       prefix: .new(content.substring(prefix, start)),
