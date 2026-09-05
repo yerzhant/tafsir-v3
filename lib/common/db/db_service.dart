@@ -32,7 +32,7 @@ class DbService {
           await AayaatDb.init(db);
 
           await db.execute(
-            'insert into bookmarks select surah_id, aayah from bookmark',
+            'insert into bookmarks select distinct surah_id, aayah from bookmark',
           );
 
           await db.execute('drop table aayah');
