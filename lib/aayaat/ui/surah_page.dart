@@ -105,12 +105,10 @@ class _SurahPageState extends State<SurahPage> {
           ),
         ),
       ),
-      drawer: SafeArea(
-        child: Drawer(
-          child: ShortSuwarList(
-            suwar: widget._suwar,
-            mainCubit: widget._mainCubit,
-          ),
+      drawer: Drawer(
+        child: ShortSuwarList(
+          suwar: widget._suwar,
+          mainCubit: widget._mainCubit,
         ),
       ),
     );

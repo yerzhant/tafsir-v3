@@ -19,12 +19,19 @@ class ShortSuwarList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final padding = MediaQuery.paddingOf(context);
+
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return Container(
           color: bgPrimary(state.theme),
           child: ListView.separated(
-            padding: const .all(20),
+            padding: .only(
+              right: 20,
+              left: 20,
+              top: padding.top,
+              bottom: padding.bottom,
+            ),
             itemCount: suwar.length,
             itemBuilder: (context, index) {
               final surah = suwar[index];
