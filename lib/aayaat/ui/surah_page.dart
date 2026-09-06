@@ -115,24 +115,24 @@ class _SurahPageState extends State<SurahPage> {
   }
 
   Widget _success(BuildContext context, AayaatStateSuccess state) {
-    return BlocListener<ThemeCubit, ThemeState>(
-      listener: (context, state) {
-        WakelockPlus.toggle(enable: state.doNotSwitchOffScreen);
-      },
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => ScrollPositionCubit(
-              state.scrollToPosition.number,
-            ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ScrollPositionCubit(
+            state.scrollToPosition.number,
           ),
-          BlocProvider(create: (context) => PlayerCubit(context.read())),
-        ],
-        child: Column(
-          children: [
-            Builder(
-              builder: (context) {
-                return SurahHeader(
+        ),
+        BlocProvider(create: (context) => PlayerCubit(context.read())),
+      ],
+      child: BlocListener<ThemeCubit, ThemeState>(
+        listener: (context, state) {
+          WakelockPlus.toggle(enable: state.doNotSwitchOffScreen);
+        },
+        child: Builder(
+          builder: (context) {
+            return Column(
+              children: [
+                SurahHeader(
                   surah: state.surah,
                   onTheme: () => _showTheme(context),
                   onGoToAyah: () => _goToAayah(context),
@@ -143,24 +143,20 @@ class _SurahPageState extends State<SurahPage> {
                   },
                   onInfo: () => _showInfo(context, state.surah.info),
                   onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
-                );
-              },
-            ),
-            Expanded(
-              child: Builder(
-                builder: (context) {
-                  return AyahList(
+                ),
+                Expanded(
+                  child: AyahList(
                     state: state,
                     suwar: widget._suwar,
                     cubit: context.read(),
                     mainCubit: widget._mainCubit,
                     positionCubit: context.read(),
                     onShowSuwar: () => _scaffoldKey.currentState!.openDrawer(),
-                  );
-                },
-              ),
-            ),
-          ],
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
