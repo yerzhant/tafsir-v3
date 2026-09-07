@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scrollview_observer/scrollview_observer.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/cubit/player_cubit.dart';
 import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
@@ -55,16 +56,59 @@ class SurahPage extends StatefulWidget {
   State<SurahPage> createState() => _SurahPageState();
 }
 
-class _SurahPageState extends State<SurahPage> {
+class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final _scrollController = ScrollController();
+
+  late final SliverObserverController _observerController;
+
+  var _doNotSwitchOffScreen = false;
+
+  BuildContext? _listContext;
+
+  AayaatCubit? _aayaatCubit;
+
+  AyahPosition? _position;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _observerController = .new(controller: _scrollController);
+
+    WidgetsBinding.instance.addObserver(this);
+  }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+
+    _scrollController.dispose();
+
     WakelockPlus.disable();
+
     super.dispose();
   }
 
-  var _doNotSwitchOffScreen = false;
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == .paused || state == .detached) {
+      _aayaatCubit?.savePosition(_position!);
+    }
+  }
+
+  void _scrollTo(AyahPosition position) async {
+    await _observerController.animateTo(
+      index: position.number - 1,
+      sliverContext: _listContext,
+      curve: Curves.easeInOutCubic,
+      alignment: position.alignment,
+      duration: const .new(milliseconds: 500),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,12 +133,43 @@ class _SurahPageState extends State<SurahPage> {
             widget._surahNumber,
             widget._ayahPosition,
           )..init(),
-          child: BlocBuilder<AayaatCubit, AayaatState>(
+          child: BlocConsumer<AayaatCubit, AayaatState>(
+            listener: (context, state) {
+              if (state case AayaatStateSuccess(
+                :final scrollToPosition,
+                :final scrollToNewPosition,
+              ) when scrollToNewPosition) {
+                _scrollTo(scrollToPosition);
+              }
+
+              if (state case AayaatStateSuccess(
+                :final scrollToPosition,
+              ) when _position == null) {
+                _aayaatCubit = context.read();
+
+                _position = scrollToPosition;
+
+                _observerController.initialIndexModel = .new(
+                  index: _position!.number - 1,
+                  alignment: _position!.alignment,
+                );
+
+                // Future.delayed(
+                //   .new(milliseconds: 100),
+                //   () => _observerController.jumpTo(index: 100),
+                // );
+              }
+            },
+
             builder: (context, state) {
               return switch (state) {
                 AayaatStateInProgress() => const ProgressWidget(),
 
-                AayaatStateSuccess() => _success(context, state),
+                AayaatStateSuccess() => PopScope(
+                  child: _success(context, state),
+                  onPopInvokedWithResult: (didPop, result) =>
+                      context.read<AayaatCubit>().savePosition(_position!),
+                ),
 
                 AayaatStateFailure(:final error) => AppErrorWidget(
                   error: error,
@@ -130,31 +205,72 @@ class _SurahPageState extends State<SurahPage> {
         },
         child: Builder(
           builder: (context) {
-            return Column(
-              children: [
-                SurahHeader(
-                  surah: state.surah,
-                  onTheme: () => _showTheme(context),
-                  onGoToAyah: () => _goToAayah(context),
-                  onSettings: () async {
-                    WakelockPlus.disable();
-                    await SettingsPage.open(context);
-                    if (_doNotSwitchOffScreen) WakelockPlus.enable();
-                  },
-                  onInfo: () => _showInfo(context, state.surah.info),
-                  onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
-                ),
-                Expanded(
-                  child: AyahList(
-                    state: state,
-                    suwar: widget._suwar,
-                    cubit: context.read(),
-                    mainCubit: widget._mainCubit,
-                    positionCubit: context.read(),
-                    onShowSuwar: () => _scaffoldKey.currentState!.openDrawer(),
+            return SliverViewObserver(
+              controller: _observerController,
+              sliverContexts: () => [?_listContext],
+              onObserve: (model) {
+                // if (model is! ListViewObserveModel) return;
+
+                // final first = model.firstChild!;
+
+                // final leading = first.leadingMarginToViewport;
+                // final trailing = first.trailingMarginToViewport;
+
+                // var alignment = 0.0;
+
+                // if (leading.abs() + trailing.abs() > 0) {
+                //   alignment = leading.abs() / (leading.abs() + trailing.abs());
+                // }
+
+                // _position = .new(.new(first.index + 1), alignment);
+                _position = .new(
+                  .new(model.displayingChildIndexList.first + 1),
+                  0,
+                );
+
+                context.read<ScrollPositionCubit>().updateAayahNumber(
+                  _position!.number,
+                );
+              },
+              child: CustomScrollView(
+                controller: _scrollController,
+                slivers: [
+                  SliverFloatingHeader(
+                    child: SurahHeader(
+                      surah: state.surah,
+                      onTheme: () => _showTheme(context),
+                      onGoToAyah: () => _goToAayah(context),
+                      onSettings: () async {
+                        WakelockPlus.disable();
+                        await SettingsPage.open(context);
+                        if (_doNotSwitchOffScreen) WakelockPlus.enable();
+                      },
+                      onInfo: () => _showInfo(context, state.surah.info),
+                      onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
+                    ),
                   ),
-                ),
-              ],
+                  SliverPadding(
+                    padding: .only(
+                      right: 20,
+                      left: 20,
+                      top: 12,
+                      bottom: MediaQuery.paddingOf(context).bottom,
+                    ),
+
+                    sliver: AyahList(
+                      state: state,
+                      suwar: widget._suwar,
+                      cubit: context.read(),
+                      mainCubit: widget._mainCubit,
+                      positionCubit: context.read(),
+                      onShowSuwar: () {
+                        _scaffoldKey.currentState!.openDrawer();
+                      },
+                      setListContext: (context) => _listContext = context,
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),

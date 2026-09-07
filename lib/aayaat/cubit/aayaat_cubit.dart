@@ -104,8 +104,8 @@ class AayaatCubit extends Cubit<AayaatState> {
 
     emit(
       s.copyWith(
-        scrollToPosition: .new(number, 0),
         scrollToNewPosition: true,
+        scrollToPosition: .new(number, 0),
       ),
     );
 

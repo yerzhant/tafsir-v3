@@ -37,36 +37,42 @@ class SurahHeader extends StatelessWidget {
       builder: (context, themeState) {
         return Container(
           decoration: BoxDecoration(
-            color: bgSecondary(themeState.theme),
+            color: bgPrimary(themeState.theme),
             borderRadius: const .vertical(bottom: .circular(20)),
           ),
-          child: Column(
-            children: [
-              SizedBox(height: MediaQuery.paddingOf(context).top),
+          child: Container(
+            decoration: BoxDecoration(
+              color: bgSecondary(themeState.theme),
+              borderRadius: const .vertical(bottom: .circular(20)),
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: MediaQuery.paddingOf(context).top),
 
-              _Player(theme: themeState.theme),
+                _Player(theme: themeState.theme),
 
-              Padding(
-                padding: const .only(right: 20, left: 20, bottom: 8),
-                child: Column(
-                  children: [
-                    ScrollPositionWidget(quantity: surah.quantity),
+                Padding(
+                  padding: const .only(right: 20, left: 20, bottom: 8),
+                  child: Column(
+                    children: [
+                      ScrollPositionWidget(quantity: surah.quantity),
 
-                    const SizedBox(height: 8),
+                      const SizedBox(height: 8),
 
-                    _Main(
-                      surah: surah,
-                      onInfo: onInfo,
-                      onSuwar: onSuwar,
-                      onTheme: onTheme,
-                      onGoToAyah: onGoToAyah,
-                      onSettings: onSettings,
-                      theme: themeState.theme,
-                    ),
-                  ],
+                      _Main(
+                        surah: surah,
+                        onInfo: onInfo,
+                        onSuwar: onSuwar,
+                        onTheme: onTheme,
+                        onGoToAyah: onGoToAyah,
+                        onSettings: onSettings,
+                        theme: themeState.theme,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
