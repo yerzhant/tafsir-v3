@@ -56,6 +56,7 @@ class SurahPage extends StatefulWidget {
 }
 
 class _SurahPageState extends State<SurahPage> {
+  final _headerKey = GlobalKey();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -130,31 +131,28 @@ class _SurahPageState extends State<SurahPage> {
         },
         child: Builder(
           builder: (context) {
-            return Column(
-              children: [
-                SurahHeader(
-                  surah: state.surah,
-                  onTheme: () => _showTheme(context),
-                  onGoToAyah: () => _goToAayah(context),
-                  onSettings: () async {
-                    WakelockPlus.disable();
-                    await SettingsPage.open(context);
-                    if (_doNotSwitchOffScreen) WakelockPlus.enable();
-                  },
-                  onInfo: () => _showInfo(context, state.surah.info),
-                  onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
-                ),
-                Expanded(
-                  child: AyahList(
-                    state: state,
-                    suwar: widget._suwar,
-                    cubit: context.read(),
-                    mainCubit: widget._mainCubit,
-                    positionCubit: context.read(),
-                    onShowSuwar: () => _scaffoldKey.currentState!.openDrawer(),
-                  ),
-                ),
-              ],
+            return AyahList(
+              state: state,
+              suwar: widget._suwar,
+              cubit: context.read(),
+              headerKey: _headerKey,
+              mainCubit: widget._mainCubit,
+              positionCubit: context.read(),
+              onShowSuwar: () => _scaffoldKey.currentState!.openDrawer(),
+
+              header: SurahHeader(
+                key: _headerKey,
+                surah: state.surah,
+                onTheme: () => _showTheme(context),
+                onGoToAyah: () => _goToAayah(context),
+                onSettings: () async {
+                  WakelockPlus.disable();
+                  await SettingsPage.open(context);
+                  if (_doNotSwitchOffScreen) WakelockPlus.enable();
+                },
+                onInfo: () => _showInfo(context, state.surah.info),
+                onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
+              ),
             );
           },
         ),

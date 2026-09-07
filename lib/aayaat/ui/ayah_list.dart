@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -6,6 +8,7 @@ import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
 import 'package:tafsir/aayaat/ui/surah_navigator.dart';
+import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
 import 'package:tafsir/main/domain/surah.dart';
 
@@ -15,13 +18,17 @@ class AyahList extends StatefulWidget {
     required this.cubit,
     required this.state,
     required this.suwar,
+    required this.header,
+    required this.headerKey,
     required this.mainCubit,
     required this.onShowSuwar,
     required this.positionCubit,
   });
 
+  final Widget header;
   final AayaatCubit cubit;
   final List<Surah> suwar;
+  final GlobalKey headerKey;
   final MainCubit mainCubit;
   final VoidCallback onShowSuwar;
   final AayaatStateSuccess state;
@@ -34,8 +41,17 @@ class AyahList extends StatefulWidget {
 class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
   final _controller = ItemScrollController();
   final _listener = ItemPositionsListener.create();
+  final _offsetListener = ScrollOffsetListener.create();
+
+  late final Stream<double> _stream;
+
+  StreamSubscription<double>? _offsetSubscription;
 
   late AyahPosition _position;
+
+  var _offset = 0.0;
+  var _headerTop = 0.0;
+  var _headerHeight = 0.0;
 
   @override
   void initState() {
@@ -46,10 +62,18 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
 
     _listener.itemPositions.addListener(_updatePosition);
+
+    _stream = _offsetListener.changes.asBroadcastStream();
+
+    _offsetSubscription = _stream.listen(_updateOffset);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => _updateHeaderHeight());
   }
 
   @override
   void dispose() {
+    _offsetSubscription?.cancel();
+
     _listener.itemPositions.removeListener(_updatePosition);
 
     WidgetsBinding.instance.removeObserver(this);
@@ -72,6 +96,27 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
     widget.positionCubit.updateAayahNumber(_position.number);
   }
 
+  void _updateOffset(double delta) {
+    _offset -= delta;
+    print('--- $delta');
+    print('================ $_offset');
+
+    if (_headerTop == 0 && delta > 0 && _offset < -_headerHeight) {
+      setState(() => _headerTop = -_headerHeight);
+    }
+
+    if (_headerTop != 0 && delta < 0) {
+      setState(() => _headerTop = 0);
+    }
+  }
+
+  void _updateHeaderHeight() {
+    widget.headerKey.currentContext?.let((it) {
+      final box = it.findRenderObject() as RenderBox;
+      setState(() => _headerHeight = box.size.height);
+    });
+  }
+
   void _scrollTo(AyahPosition position) async {
     await _controller.scrollTo(
       index: position.number - 1,
@@ -79,6 +124,9 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
       alignment: position.alignment,
       duration: const .new(milliseconds: 500),
     );
+
+    await _offsetSubscription?.cancel();
+    _offsetSubscription = _stream.listen(_updateOffset);
   }
 
   @override
@@ -98,42 +146,86 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
           }
         },
 
-        child: ScrollablePositionedList.separated(
-          separatorBuilder: (context, index) => const SizedBox(height: 8),
+        child: Stack(
+          children: [
+            _List(
+              widget: widget,
+              listener: _listener,
+              position: _position,
+              controller: _controller,
+              headerHeight: _headerHeight,
+              offsetListener: _offsetListener,
+            ),
 
-          padding: .only(
-            right: 20,
-            left: 20,
-            top: 12,
-            bottom: MediaQuery.paddingOf(context).bottom,
-          ),
-
-          initialAlignment: _position.alignment,
-          initialScrollIndex: _position.number - 1,
-          itemCount: widget.state.aayaat.length + 1,
-
-          itemScrollController: _controller,
-          itemPositionsListener: _listener,
-
-          itemBuilder: (context, index) {
-            if (index == widget.state.aayaat.length) {
-              return SurahNavigator(
-                suwar: widget.suwar,
-                mainCubit: widget.mainCubit,
-                onShowSuwar: widget.onShowSuwar,
-                number: widget.state.surah.number,
-              );
-            }
-
-            return AyahCard(
-              surah: widget.state.surah,
-              key: .new(index.toString()),
-              ayah: widget.state.aayaat[index],
-              isBookmarked: widget.state.bookmarks.contains(index + 1),
-            );
-          },
+            AnimatedPositioned(
+              duration: const .new(milliseconds: 500),
+              right: 0,
+              left: 0,
+              top: _headerTop,
+              child: widget.header,
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class _List extends StatelessWidget {
+  const _List({
+    required this.widget,
+    required this._listener,
+    required this._position,
+    required this._controller,
+    required this.headerHeight,
+    required this._offsetListener,
+  });
+
+  final AyahList widget;
+  final double headerHeight;
+  final AyahPosition _position;
+  final ItemPositionsListener _listener;
+  final ItemScrollController _controller;
+  final ScrollOffsetListener _offsetListener;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollablePositionedList.separated(
+      separatorBuilder: (context, index) => const SizedBox(height: 8),
+
+      padding: .only(
+        right: 20,
+        left: 20,
+        top: 12 + headerHeight,
+        bottom: MediaQuery.paddingOf(context).bottom,
+      ),
+
+      initialAlignment: _position.alignment,
+      initialScrollIndex: _position.number - 1,
+      itemCount: widget.state.aayaat.length + 1,
+
+      itemScrollController: _controller,
+      itemPositionsListener: _listener,
+
+      scrollOffsetListener: _offsetListener,
+
+      itemBuilder: (context, index) {
+        if (index == widget.state.aayaat.length) {
+          return SurahNavigator(
+            suwar: widget.suwar,
+            mainCubit: widget.mainCubit,
+            onShowSuwar: widget.onShowSuwar,
+            number: widget.state.surah.number,
+          );
+        }
+
+        return AyahCard(
+          surah: widget.state.surah,
+          key: .new(index.toString()),
+          ayah: widget.state.aayaat[index],
+          isBookmarked: widget.state.bookmarks.contains(index + 1),
+        );
+      },
     );
   }
 }
