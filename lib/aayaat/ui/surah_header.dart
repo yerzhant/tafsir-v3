@@ -42,16 +42,12 @@ class SurahHeader extends StatelessWidget {
           ),
           child: Column(
             children: [
-              SizedBox(height: MediaQuery.paddingOf(context).top),
-
               _Player(theme: themeState.theme),
 
               Padding(
                 padding: const .only(right: 20, left: 20, bottom: 8),
                 child: Column(
                   children: [
-                    ScrollPositionWidget(quantity: surah.quantity),
-
                     const SizedBox(height: 8),
 
                     _Main(
