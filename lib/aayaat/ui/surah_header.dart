@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tafsir/aayaat/cubit/player_cubit.dart';
-import 'package:tafsir/aayaat/ui/player_widget.dart';
 import 'package:tafsir/aayaat/ui/scroll_position_widget.dart';
-import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/common/domain/scope_functions.dart';
-import 'package:tafsir/common/ui/app_error_widget.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
@@ -40,91 +36,25 @@ class SurahHeader extends StatelessWidget {
             color: bgSecondary(themeState.theme),
             borderRadius: const .vertical(bottom: .circular(20)),
           ),
-          child: Column(
-            children: [
-              _Player(theme: themeState.theme),
-
-              Padding(
-                padding: const .only(right: 20, left: 20, bottom: 8),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 8),
-
-                    _Main(
-                      surah: surah,
-                      onInfo: onInfo,
-                      onSuwar: onSuwar,
-                      onTheme: onTheme,
-                      onGoToAyah: onGoToAyah,
-                      onSettings: onSettings,
-                      theme: themeState.theme,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          child: Padding(
+            padding: const .only(
+              right: 20,
+              left: 20,
+              bottom: 8,
+              top: 16 + ScrollPositionWidget.height,
+            ),
+            child: _Main(
+              surah: surah,
+              onInfo: onInfo,
+              onSuwar: onSuwar,
+              onTheme: onTheme,
+              onGoToAyah: onGoToAyah,
+              onSettings: onSettings,
+              theme: themeState.theme,
+            ),
           ),
         );
       },
-    );
-  }
-}
-
-class _Player extends StatelessWidget {
-  const _Player({required this.theme});
-
-  final AppTheme theme;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<PlayerCubit, PlayerState>(
-      listener: (context, state) {
-        if (state case PlayerStateFailure(:final error)) {
-          _showError(context, error);
-        }
-      },
-      builder: (context, state) {
-        return switch (state) {
-          PlayerStatePlaying(
-            :final isReady,
-            :final isPaused,
-            :final isLooping,
-            :final position,
-          ) =>
-            Column(
-              children: [
-                PlayerWidget(
-                  theme: theme,
-                  position: position,
-                  isPaused: isPaused,
-                  isLooping: isLooping,
-                  isDisabled: !isReady,
-                  onClosed: context.read<PlayerCubit>().stop,
-                ),
-
-                const SizedBox(height: 8),
-              ],
-            ),
-
-          PlayerStateFailure() || PlayerStateInactive() => const SizedBox(),
-        };
-      },
-    );
-  }
-
-  void _showError(BuildContext context, AppError error) {
-    showModalBottomSheet(
-      context: context,
-      useSafeArea: true,
-      showDragHandle: true,
-      isScrollControlled: true,
-      builder: (context) => SafeArea(
-        child: AppErrorWidget(
-          onPressed: () => Navigator.pop(context),
-          error: error,
-          size: .min,
-        ),
-      ),
     );
   }
 }

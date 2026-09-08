@@ -8,6 +8,7 @@ import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_list.dart';
 import 'package:tafsir/aayaat/ui/go_to_aayah.dart';
+import 'package:tafsir/aayaat/ui/scroll_position_widget.dart';
 import 'package:tafsir/aayaat/ui/short_suwar_list.dart';
 import 'package:tafsir/aayaat/ui/surah_header.dart';
 import 'package:tafsir/aayaat/ui/surah_info_card.dart';
@@ -138,30 +139,37 @@ class _SurahPageState extends State<SurahPage> {
         },
         child: Builder(
           builder: (context) {
-            return Column(
+            return Stack(
               children: [
-                SurahHeader(
-                  surah: state.surah,
-                  onTheme: () => _showTheme(context),
-                  onGoToAyah: () => _goToAayah(context),
-                  onSettings: () async {
-                    WakelockPlus.disable();
-                    await SettingsPage.open(context);
-                    if (_doNotSwitchOffScreen) WakelockPlus.enable();
-                  },
-                  onInfo: () => _showInfo(context, state.surah.info),
-                  onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
+                Column(
+                  children: [
+                    SurahHeader(
+                      surah: state.surah,
+                      onTheme: () => _showTheme(context),
+                      onGoToAyah: () => _goToAayah(context),
+                      onSettings: () async {
+                        WakelockPlus.disable();
+                        await SettingsPage.open(context);
+                        if (_doNotSwitchOffScreen) WakelockPlus.enable();
+                      },
+                      onInfo: () => _showInfo(context, state.surah.info),
+                      onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
+                    ),
+                    Expanded(
+                      child: AyahList(
+                        state: state,
+                        suwar: widget._suwar,
+                        cubit: context.read(),
+                        mainCubit: widget._mainCubit,
+                        positionCubit: context.read(),
+                        onShowSuwar: () =>
+                            _scaffoldKey.currentState!.openDrawer(),
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: AyahList(
-                    state: state,
-                    suwar: widget._suwar,
-                    cubit: context.read(),
-                    mainCubit: widget._mainCubit,
-                    positionCubit: context.read(),
-                    onShowSuwar: () => _scaffoldKey.currentState!.openDrawer(),
-                  ),
-                ),
+
+                ScrollPositionWidget(quantity: state.surah.quantity),
               ],
             );
           },

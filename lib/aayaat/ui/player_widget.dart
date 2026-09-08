@@ -4,11 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tafsir/aayaat/cubit/player_cubit.dart';
 import 'package:tafsir/aayaat/domain/player_position.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
+import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class PlayerWidget extends StatelessWidget {
   const PlayerWidget({
     super.key,
-    required this.theme,
 
     required this.isPaused,
     required this.isLooping,
@@ -18,8 +18,6 @@ class PlayerWidget extends StatelessWidget {
 
     required this.onClosed,
   });
-
-  final AppTheme theme;
 
   final bool isPaused;
   final bool isLooping;
@@ -31,75 +29,83 @@ class PlayerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.brightness == .dark
-            ? bgTertirary(theme)
-            : brandSoft(theme),
-        border: .symmetric(
-          horizontal: BorderSide(color: borderSecondary(theme)),
-        ),
-      ),
-      child: Stack(
-        alignment: .bottomStart,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
-              mainAxisAlignment: .spaceBetween,
-              children: [
-                Row(
-                  spacing: 20,
-                  children: [
-                    _Button(
-                      icon: 'x',
-                      theme: theme,
-                      isClose: true,
-                      onTap: onClosed,
-                      isDisabled: isDisabled,
-                    ),
-                    const SizedBox(width: 24),
-                  ],
-                ),
-                Text(
-                  position.title,
-                  style: textBodyReg.copyWith(color: typographyPrimary(theme)),
-                ),
-                Row(
-                  spacing: 20,
-                  children: [
-                    _Button(
-                      theme: theme,
-                      icon: 'player-loop',
-                      isActive: isLooping,
-                      isDisabled: isDisabled,
-                      onTap: context.read<PlayerCubit>().loop,
-                    ),
-                    _Button(
-                      theme: theme,
-                      isActive: isPaused,
-                      icon: 'player-pause',
-                      isDisabled: isDisabled,
-                      onTap: context.read<PlayerCubit>().pause,
-                    ),
-                  ],
-                ),
-              ],
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        final theme = state.theme;
+
+        return Container(
+          decoration: BoxDecoration(
+            color: theme.brightness == .dark
+                ? bgTertirary(theme)
+                : brandSoft(theme),
+            border: .symmetric(
+              horizontal: BorderSide(color: borderSecondary(theme)),
             ),
           ),
-          LayoutBuilder(
-            builder: (context, constraints) => AnimatedContainer(
-              height: 4,
-              decoration: BoxDecoration(
-                color: brandPrimary(theme),
-                borderRadius: .circular(2),
+          child: Stack(
+            alignment: .bottomStart,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  mainAxisAlignment: .spaceBetween,
+                  children: [
+                    Row(
+                      spacing: 20,
+                      children: [
+                        _Button(
+                          icon: 'x',
+                          theme: theme,
+                          isClose: true,
+                          onTap: onClosed,
+                          isDisabled: isDisabled,
+                        ),
+                        const SizedBox(width: 24),
+                      ],
+                    ),
+                    Text(
+                      position.title,
+                      style: textBodyReg.copyWith(
+                        color: typographyPrimary(theme),
+                      ),
+                    ),
+                    Row(
+                      spacing: 20,
+                      children: [
+                        _Button(
+                          theme: theme,
+                          icon: 'player-loop',
+                          isActive: isLooping,
+                          isDisabled: isDisabled,
+                          onTap: context.read<PlayerCubit>().loop,
+                        ),
+                        _Button(
+                          theme: theme,
+                          isActive: isPaused,
+                          icon: 'player-pause',
+                          isDisabled: isDisabled,
+                          onTap: context.read<PlayerCubit>().pause,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              duration: const .new(milliseconds: 300),
-              width: constraints.maxWidth * position.position,
-            ),
+              LayoutBuilder(
+                builder: (context, constraints) => AnimatedContainer(
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: brandPrimary(theme),
+                    borderRadius: .circular(2),
+                  ),
+                  duration: const .new(milliseconds: 300),
+                  width: constraints.maxWidth * position.position,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
