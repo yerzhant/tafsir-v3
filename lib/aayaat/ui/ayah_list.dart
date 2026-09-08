@@ -43,8 +43,6 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
   final _listener = ItemPositionsListener.create();
   final _offsetListener = ScrollOffsetListener.create();
 
-  late final Stream<double> _stream;
-
   StreamSubscription<double>? _offsetSubscription;
 
   late AyahPosition _position;
@@ -63,9 +61,7 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
 
     _listener.itemPositions.addListener(_updatePosition);
 
-    _stream = _offsetListener.changes.asBroadcastStream();
-
-    _offsetSubscription = _stream.listen(_updateOffset);
+    _offsetSubscription = _offsetListener.changes.listen(_updateOffset);
 
     WidgetsBinding.instance.addPostFrameCallback((_) => _updateHeaderHeight());
   }
@@ -124,9 +120,6 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
       alignment: position.alignment,
       duration: const .new(milliseconds: 500),
     );
-
-    await _offsetSubscription?.cancel();
-    _offsetSubscription = _stream.listen(_updateOffset);
   }
 
   @override
