@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/cubit/player_cubit.dart';
@@ -59,7 +60,14 @@ class _SurahPageState extends State<SurahPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(.immersiveSticky);
+  }
+
+  @override
   void dispose() {
+    SystemChrome.setEnabledSystemUIMode(.edgeToEdge);
     WakelockPlus.disable();
     super.dispose();
   }

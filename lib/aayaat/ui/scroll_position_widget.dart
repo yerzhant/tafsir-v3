@@ -6,6 +6,8 @@ import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 class ScrollPositionWidget extends StatelessWidget {
+  static const height = 17.0;
+
   const ScrollPositionWidget({
     super.key,
     required this.quantity,
@@ -22,7 +24,7 @@ class ScrollPositionWidget extends StatelessWidget {
             : typographyPrimary(themeState.theme);
 
         return Container(
-          height: 17,
+          height: height,
           clipBehavior: .hardEdge,
           decoration: BoxDecoration(
             borderRadius: .circular(100),
