@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
@@ -12,14 +13,18 @@ class SettingsHeader extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return Container(
-          padding: const .symmetric(horizontal: 20, vertical: 8),
+          padding: const .only(right: 20, left: 20, bottom: 8),
           decoration: BoxDecoration(
             color: bgSecondary(state.theme),
             borderRadius: const .vertical(bottom: .circular(20)),
           ),
           child: Column(
             children: [
-              SizedBox(height: MediaQuery.paddingOf(context).top),
+              SizedBox(
+                height:
+                    MediaQuery.paddingOf(context).top.takeIf((it) => it != 0) ??
+                    8,
+              ),
               Row(
                 spacing: 12,
                 children: [

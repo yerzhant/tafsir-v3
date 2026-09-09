@@ -11,32 +11,29 @@ class AyahFontsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: BlocBuilder<SettingsCubit, SettingsState>(
-        builder: (context, settings) {
-          return RadioGroup<AyahFontType>(
-            groupValue: settings.ayahFontType,
-            onChanged: (value) => _onSelected(value!, context),
+    return BlocBuilder<SettingsCubit, SettingsState>(
+      builder: (context, settings) {
+        return RadioGroup<AyahFontType>(
+          groupValue: settings.ayahFontType,
+          onChanged: (value) => _onSelected(value!, context),
 
-            child: ListView.separated(
-              shrinkWrap: true,
-              itemCount: AyahFontType.values.length,
-              itemBuilder: (context, index) => _Font(
-                fontSize: settings.ayahFontSize,
-                type: AyahFontType.values[index],
-                onSelected: (type) => _onSelected(type, context),
-              ),
-              padding: .only(
-                right: 20,
-                left: 20,
-                bottom: MediaQuery.paddingOf(context).bottom,
-              ),
-              separatorBuilder: (context, index) => const SizedBox(height: 8),
+          child: ListView.separated(
+            shrinkWrap: true,
+            itemCount: AyahFontType.values.length,
+            itemBuilder: (context, index) => _Font(
+              fontSize: settings.ayahFontSize,
+              type: AyahFontType.values[index],
+              onSelected: (type) => _onSelected(type, context),
             ),
-          );
-        },
-      ),
+            padding: const .only(
+              bottom: 20,
+              right: 20,
+              left: 20,
+            ),
+            separatorBuilder: (context, index) => const SizedBox(height: 8),
+          ),
+        );
+      },
     );
   }
 

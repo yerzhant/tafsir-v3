@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/aayaat/ui/short_surah_item.dart';
 import 'package:tafsir/aayaat/ui/surah_page.dart';
+import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
 import 'package:tafsir/main/domain/surah.dart';
@@ -21,18 +22,18 @@ class ShortSuwarList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final padding = MediaQuery.paddingOf(context);
-
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return Container(
           color: bgPrimary(state.theme),
           child: ListView.separated(
             padding: .only(
+              bottom: 20,
               right: 20,
               left: 20,
-              top: padding.top,
-              bottom: padding.bottom,
+              top:
+                  MediaQuery.paddingOf(context).top.takeIf((it) => it != 0) ??
+                  20,
             ),
             itemCount: suwar.length,
             itemBuilder: (context, index) {

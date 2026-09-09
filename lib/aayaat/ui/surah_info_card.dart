@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/surah.dart';
 import 'package:tafsir/aayaat/ui/html_styles.dart';
@@ -18,10 +19,12 @@ class SurahInfoCard extends StatelessWidget {
       bottom: false,
       child: SingleChildScrollView(
         padding: .only(
-          bottom: MediaQuery.paddingOf(context).bottom,
           right: 20,
           left: 20,
           top: 0,
+          bottom:
+              MediaQuery.paddingOf(context).bottom.takeIf((it) => it != 0) ??
+              20,
         ),
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, themeState) {

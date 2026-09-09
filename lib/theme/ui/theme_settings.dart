@@ -11,102 +11,99 @@ class ThemeSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: Padding(
-        padding: .only(
-          right: 20,
-          left: 20,
-          bottom: MediaQuery.paddingOf(context).bottom,
-        ),
-        child: BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (context, state) {
-            return Column(
-              crossAxisAlignment: .start,
-              mainAxisSize: .min,
-              spacing: 12,
-              children: [
-                Column(
-                  crossAxisAlignment: .start,
-                  spacing: 8,
-                  children: [
-                    Text(
-                      'Настройки темы',
-                      style: textHeadline.copyWith(
-                        color: typographyPrimary(state.theme),
+    return Padding(
+      padding: const .only(
+        bottom: 20,
+        right: 20,
+        left: 20,
+      ),
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          return Column(
+            crossAxisAlignment: .start,
+            mainAxisSize: .min,
+            spacing: 12,
+            children: [
+              Column(
+                crossAxisAlignment: .start,
+                spacing: 8,
+                children: [
+                  Text(
+                    'Настройки темы',
+                    style: textHeadline.copyWith(
+                      color: typographyPrimary(state.theme),
+                    ),
+                  ),
+                  _Switch(
+                    theme: state.theme,
+                    title: 'Как в системе',
+                    value: state.sameAsInSystem,
+                    onChanged: context.read<ThemeCubit>().setSameAsInSystem,
+                  ),
+                  _Switch(
+                    theme: state.theme,
+                    title: 'Не выключать экран',
+                    value: state.doNotSwitchOffScreen,
+                    onChanged: context
+                        .read<ThemeCubit>()
+                        .setDoNotSwitchOffScreen,
+                  ),
+                ],
+              ),
+              Column(
+                spacing: 8,
+                children: [
+                  Row(
+                    spacing: 8,
+                    children: [
+                      _Theme(
+                        icon: 'light',
+                        theme: state.theme,
+                        title: 'Светлая синяя',
+                        active: state.savedTheme == .light,
+                        onTap: () => context.read<ThemeCubit>().setTheme(
+                          .light,
+                        ),
                       ),
-                    ),
-                    _Switch(
-                      theme: state.theme,
-                      title: 'Как в системе',
-                      value: state.sameAsInSystem,
-                      onChanged: context.read<ThemeCubit>().setSameAsInSystem,
-                    ),
-                    _Switch(
-                      theme: state.theme,
-                      title: 'Не выключать экран',
-                      value: state.doNotSwitchOffScreen,
-                      onChanged: context
-                          .read<ThemeCubit>()
-                          .setDoNotSwitchOffScreen,
-                    ),
-                  ],
-                ),
-                Column(
-                  spacing: 8,
-                  children: [
-                    Row(
-                      spacing: 8,
-                      children: [
-                        _Theme(
-                          icon: 'light',
-                          theme: state.theme,
-                          title: 'Светлая синяя',
-                          active: state.savedTheme == .light,
-                          onTap: () => context.read<ThemeCubit>().setTheme(
-                            .light,
-                          ),
+                      _Theme(
+                        icon: 'dark',
+                        theme: state.theme,
+                        title: 'Темная синяя',
+                        active: state.savedTheme == .dark,
+                        onTap: () => context.read<ThemeCubit>().setTheme(
+                          .dark,
                         ),
-                        _Theme(
-                          icon: 'dark',
-                          theme: state.theme,
-                          title: 'Темная синяя',
-                          active: state.savedTheme == .dark,
-                          onTap: () => context.read<ThemeCubit>().setTheme(
-                            .dark,
-                          ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    spacing: 8,
+                    children: [
+                      _Theme(
+                        theme: state.theme,
+                        icon: 'brown-light',
+                        title: 'Светлая коричневая',
+                        active: state.savedTheme == .brownLight,
+                        onTap: () => context.read<ThemeCubit>().setTheme(
+                          .brownLight,
                         ),
-                      ],
-                    ),
-                    Row(
-                      spacing: 8,
-                      children: [
-                        _Theme(
-                          theme: state.theme,
-                          icon: 'brown-light',
-                          title: 'Светлая коричневая',
-                          active: state.savedTheme == .brownLight,
-                          onTap: () => context.read<ThemeCubit>().setTheme(
-                            .brownLight,
-                          ),
+                      ),
+                      _Theme(
+                        theme: state.theme,
+                        icon: 'brown-dark',
+                        title: 'Темная коричневая',
+                        active: state.savedTheme == .brownDark,
+                        onTap: () => context.read<ThemeCubit>().setTheme(
+                          .brownDark,
                         ),
-                        _Theme(
-                          theme: state.theme,
-                          icon: 'brown-dark',
-                          title: 'Темная коричневая',
-                          active: state.savedTheme == .brownDark,
-                          onTap: () => context.read<ThemeCubit>().setTheme(
-                            .brownDark,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
-        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }
