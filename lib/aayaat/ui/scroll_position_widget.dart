@@ -4,6 +4,7 @@ import 'package:tafsir/aayaat/cubit/player_cubit.dart';
 import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/ui/player_widget.dart';
 import 'package:tafsir/common/domain/error.dart';
+import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
 import 'package:tafsir/main/domain/surah.dart';
@@ -21,14 +22,20 @@ class ScrollPositionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const .symmetric(horizontal: 20, vertical: 8),
-          child: _PositionBar(quantity: quantity),
-        ),
-        const _Player(),
-      ],
+    return Padding(
+      padding: .only(
+        top: MediaQuery.paddingOf(context).top.takeIf((it) => it != 0) ?? 8,
+      ),
+      child: Column(
+        spacing: 8,
+        children: [
+          Padding(
+            padding: const .symmetric(horizontal: 20),
+            child: _PositionBar(quantity: quantity),
+          ),
+          const _Player(),
+        ],
+      ),
     );
   }
 }
@@ -68,7 +75,7 @@ class _PositionBar extends StatelessWidget {
                   return BlocBuilder<ScrollPositionCubit, ScrollPositionState>(
                     builder: (context, state) {
                       return AnimatedContainer(
-                        curve: Curves.easeInOut,
+                        curve: Curves.fastOutSlowIn,
                         color: brandPrimary(themeState.theme),
                         duration: const .new(milliseconds: 500),
                         width: constraints.maxWidth * state.progress,

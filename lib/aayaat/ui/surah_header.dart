@@ -33,24 +33,36 @@ class SurahHeader extends StatelessWidget {
       builder: (context, themeState) {
         return Container(
           decoration: BoxDecoration(
-            color: bgSecondary(themeState.theme),
+            color: bgPrimary(themeState.theme),
             borderRadius: const .vertical(bottom: .circular(20)),
           ),
-          child: Padding(
-            padding: const .only(
-              right: 20,
-              left: 20,
-              bottom: 8,
-              top: 16 + ScrollPositionWidget.height,
+          child: Container(
+            decoration: BoxDecoration(
+              color: bgSecondary(themeState.theme),
+              borderRadius: const .vertical(bottom: .circular(20)),
             ),
-            child: _Main(
-              surah: surah,
-              onInfo: onInfo,
-              onSuwar: onSuwar,
-              onTheme: onTheme,
-              onGoToAyah: onGoToAyah,
-              onSettings: onSettings,
-              theme: themeState.theme,
+            child: Padding(
+              padding: .only(
+                right: 20,
+                left: 20,
+                bottom: 8,
+                top:
+                    (MediaQuery.paddingOf(
+                          context,
+                        ).top.takeIf((it) => it != 0) ??
+                        8) +
+                    ScrollPositionWidget.height +
+                    8,
+              ),
+              child: _Main(
+                surah: surah,
+                onInfo: onInfo,
+                onSuwar: onSuwar,
+                onTheme: onTheme,
+                onGoToAyah: onGoToAyah,
+                onSettings: onSettings,
+                theme: themeState.theme,
+              ),
             ),
           ),
         );

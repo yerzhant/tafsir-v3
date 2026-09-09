@@ -11,6 +11,7 @@ import 'package:tafsir/aayaat/ui/scroll_position_widget.dart';
 import 'package:tafsir/aayaat/ui/short_suwar_list.dart';
 import 'package:tafsir/aayaat/ui/surah_header.dart';
 import 'package:tafsir/aayaat/ui/surah_info_card.dart';
+import 'package:tafsir/aayaat/ui/surah_navigator.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
 import 'package:tafsir/init/ui/progress_widget.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
@@ -41,15 +42,22 @@ class SurahPage extends StatefulWidget {
           RepositoryProvider(create: (context) => MainDb(context.read())),
           RepositoryProvider(create: (context) => AayaatDb(context.read())),
         ],
-        child: BlocProvider(
-          create: (context) => AayaatCubit(
-            context,
-            context.read(),
-            context.read(),
-            mainCubit,
-            surahNumber,
-            ayahPosition,
-          )..init(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => AayaatCubit(
+                context,
+                context.read(),
+                context.read(),
+                suwar,
+                mainCubit,
+                surahNumber,
+                ayahPosition,
+              )..init(),
+            ),
+            BlocProvider(create: (context) => ScrollPositionCubit()),
+            BlocProvider(create: (context) => PlayerCubit(context.read())),
+          ],
           child: SurahPage._(suwar, mainCubit),
         ),
       ),
@@ -89,19 +97,25 @@ class _SurahPageState extends State<SurahPage> {
     context.read<AayaatCubit>().measureHeights();
   }
 
-  void _onScroll() => context.read<AayaatCubit>().onScroll(_controller);
+  void _onScroll() {
+    // if (!_controller.hasClients || _controller.position.maxScrollExtent == 0) {
+    //   return;
+    // }
 
-  void _navigateTo({required double offset, bool animate = true}) {
-    if (animate) {
-      _controller.animateTo(
-        offset,
-        curve: Curves.fastOutSlowIn,
-        duration: const .new(milliseconds: 400),
-      );
-    } else {
-      _controller.jumpTo(offset);
-    }
+    context.read<ScrollPositionCubit>().update(.new(_controller.offset));
   }
+
+  // void _navigateTo({required double offset, bool animate = true}) {
+  //   if (animate) {
+  //     _controller.animateTo(
+  //       offset,
+  //       curve: Curves.fastOutSlowIn,
+  //       duration: const .new(milliseconds: 400),
+  //     );
+  //   } else {
+  //     _controller.jumpTo(offset);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -113,13 +127,18 @@ class _SurahPageState extends State<SurahPage> {
 
     return Scaffold(
       key: _scaffoldKey,
-      body: BlocBuilder<AayaatCubit, AayaatState>(
+      body: BlocConsumer<AayaatCubit, AayaatState>(
+        listener: (context, state) {
+          if (state case AayaatStateSuccess(:final scrollProgressMax)) {
+            context.read<ScrollPositionCubit>().updateMax(scrollProgressMax);
+          }
+        },
         builder: (context, state) {
           return switch (state) {
             AayaatStateInProgress() => const ProgressWidget(),
-      
+
             AayaatStateSuccess() => _success(context, state),
-      
+
             AayaatStateFailure(:final error) => AppErrorWidget(
               error: error,
               onPressed: context.read<AayaatCubit>().init,
@@ -139,63 +158,60 @@ class _SurahPageState extends State<SurahPage> {
   Widget _success(BuildContext context, AayaatStateSuccess state) {
     if (state.inProgerss) return const ProgressWidget();
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => PlayerCubit(context.read())),
-        BlocProvider(create: (context) => ScrollPositionCubit()),
-      ],
-      child: BlocListener<ThemeCubit, ThemeState>(
-        listener: (context, state) {
-          WakelockPlus.toggle(enable: state.doNotSwitchOffScreen);
-        },
-        child: Builder(
-          builder: (context) {
-            return Stack(
-              children: [
-                CustomScrollView(
-                  controller: _controller,
-                  slivers: [
-                    SliverFloatingHeader(
-                      child: SurahHeader(
-                        surah: state.surah,
-                        onTheme: () => _showTheme(context),
-                        onGoToAyah: () => _goToAayah(context),
-                        onSettings: () async {
-                          WakelockPlus.disable();
-                          await SettingsPage.open(context);
-                          if (_doNotSwitchOffScreen) WakelockPlus.enable();
-                        },
-                        onInfo: () => _showInfo(context, state.surah.info),
-                        onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
-                      ),
+    return BlocListener<ThemeCubit, ThemeState>(
+      listener: (context, state) {
+        WakelockPlus.toggle(enable: state.doNotSwitchOffScreen);
+      },
+      child: Builder(
+        builder: (context) {
+          return Stack(
+            children: [
+              CustomScrollView(
+                controller: _controller,
+                slivers: [
+                  SliverFloatingHeader(
+                    child: SurahHeader(
+                      surah: state.surah,
+                      onTheme: () => _showTheme(context),
+                      onGoToAyah: () => _goToAayah(context),
+                      onSettings: () async {
+                        WakelockPlus.disable();
+                        await SettingsPage.open(context);
+                        if (_doNotSwitchOffScreen) WakelockPlus.enable();
+                      },
+                      onInfo: () => _showInfo(context, state.surah.info),
+                      onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
                     ),
+                  ),
 
-                    SliverPadding(
-                      padding: .only(
-                        right: 20,
-                        left: 20,
-                        top: 12,
-                        bottom: MediaQuery.paddingOf(context).bottom,
-                      ),
+                  SliverPadding(
+                    padding: const .symmetric(horizontal: 20, vertical: 12),
+                    sliver: AyahList(
+                      state: state,
+                      cubit: context.read(),
+                    ),
+                  ),
 
-                      sliver: AyahList(
-                        state: state,
+                  SliverPadding(
+                    padding: const .only(right: 20, left: 20, bottom: 20),
+                    sliver: SliverToBoxAdapter(
+                      child: SurahNavigator(
                         suwar: widget._suwar,
-                        cubit: context.read(),
+                        number: state.surah.number,
                         mainCubit: widget._mainCubit,
                         onShowSuwar: () {
                           _scaffoldKey.currentState!.openDrawer();
                         },
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
 
-                ScrollPositionWidget(quantity: state.surah.quantity),
-              ],
-            );
-          },
-        ),
+              ScrollPositionWidget(quantity: state.surah.quantity),
+            ],
+          );
+        },
       ),
     );
   }

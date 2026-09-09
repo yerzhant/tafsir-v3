@@ -3,25 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
-import 'package:tafsir/aayaat/ui/surah_navigator.dart';
-import 'package:tafsir/main/cubit/main_cubit.dart';
-import 'package:tafsir/main/domain/surah.dart';
 
 class AyahList extends StatefulWidget {
   const AyahList({
     super.key,
     required this.cubit,
     required this.state,
-    required this.suwar,
-    required this.mainCubit,
-    required this.onShowSuwar,
-
   });
 
   final AayaatCubit cubit;
-  final List<Surah> suwar;
-  final MainCubit mainCubit;
-  final VoidCallback onShowSuwar;
   final AayaatStateSuccess state;
 
   @override
@@ -93,27 +83,16 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
 
           // initialAlignment: _position.alignment,
           // initialScrollIndex: _position.number - 1,
-          itemCount: widget.state.aayaat.length + 1,
+          itemCount: widget.state.aayaat.length,
 
           // itemScrollController: _controller,
           // itemPositionsListener: _listener,
-          itemBuilder: (context, index) {
-            if (index == widget.state.aayaat.length) {
-              return SurahNavigator(
-                suwar: widget.suwar,
-                mainCubit: widget.mainCubit,
-                onShowSuwar: widget.onShowSuwar,
-                number: widget.state.surah.number,
-              );
-            }
-
-            return AyahCard(
-              surah: widget.state.surah,
-              key: .new(index.toString()),
-              ayah: widget.state.aayaat[index],
-              isBookmarked: widget.state.bookmarks.contains(index + 1),
-            );
-          },
+          itemBuilder: (context, index) => AyahCard(
+            surah: widget.state.surah,
+            key: .new(index.toString()),
+            ayah: widget.state.aayaat[index],
+            isBookmarked: widget.state.bookmarks.contains(index + 1),
+          ),
         ),
       ),
     );

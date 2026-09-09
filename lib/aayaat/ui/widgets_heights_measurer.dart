@@ -76,7 +76,7 @@ class WidgetsHeightsMeasurer {
 
     view.visitChildren((object) => fillHeight(object, heights));
 
-    debugPrint('==== heights: $heights');
+    print('==== heights: $heights');
 
     build.buildScope(
       root,
