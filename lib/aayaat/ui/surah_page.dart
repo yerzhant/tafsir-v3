@@ -60,6 +60,10 @@ class SurahPage extends StatefulWidget {
 class _SurahPageState extends State<SurahPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final _controller = ScrollController();
+
+  var _doNotSwitchOffScreen = false;
+
   @override
   void initState() {
     super.initState();
@@ -70,10 +74,21 @@ class _SurahPageState extends State<SurahPage> {
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(.edgeToEdge);
     WakelockPlus.disable();
+    _controller.dispose();
     super.dispose();
   }
 
-  var _doNotSwitchOffScreen = false;
+  void _navigateTo({required double offset, bool animate = true}) {
+    if (animate) {
+      _controller.animateTo(
+        offset,
+        curve: Curves.fastOutSlowIn,
+        duration: const .new(milliseconds: 400),
+      );
+    } else {
+      _controller.jumpTo(offset);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,29 +156,41 @@ class _SurahPageState extends State<SurahPage> {
           builder: (context) {
             return Stack(
               children: [
-                Column(
-                  children: [
-                    SurahHeader(
-                      surah: state.surah,
-                      onTheme: () => _showTheme(context),
-                      onGoToAyah: () => _goToAayah(context),
-                      onSettings: () async {
-                        WakelockPlus.disable();
-                        await SettingsPage.open(context);
-                        if (_doNotSwitchOffScreen) WakelockPlus.enable();
-                      },
-                      onInfo: () => _showInfo(context, state.surah.info),
-                      onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
+                CustomScrollView(
+                  controller: _controller,
+                  slivers: [
+                    SliverFloatingHeader(
+                      child: SurahHeader(
+                        surah: state.surah,
+                        onTheme: () => _showTheme(context),
+                        onGoToAyah: () => _goToAayah(context),
+                        onSettings: () async {
+                          WakelockPlus.disable();
+                          await SettingsPage.open(context);
+                          if (_doNotSwitchOffScreen) WakelockPlus.enable();
+                        },
+                        onInfo: () => _showInfo(context, state.surah.info),
+                        onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
+                      ),
                     ),
-                    Expanded(
-                      child: AyahList(
+
+                    SliverPadding(
+                      padding: .only(
+                        right: 20,
+                        left: 20,
+                        top: 12,
+                        bottom: MediaQuery.paddingOf(context).bottom,
+                      ),
+
+                      sliver: AyahList(
                         state: state,
                         suwar: widget._suwar,
                         cubit: context.read(),
                         mainCubit: widget._mainCubit,
                         positionCubit: context.read(),
-                        onShowSuwar: () =>
-                            _scaffoldKey.currentState!.openDrawer(),
+                        onShowSuwar: () {
+                          _scaffoldKey.currentState!.openDrawer();
+                        },
                       ),
                     ),
                   ],

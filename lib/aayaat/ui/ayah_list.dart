@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
@@ -32,9 +31,6 @@ class AyahList extends StatefulWidget {
 }
 
 class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
-  final _controller = ItemScrollController();
-  final _listener = ItemPositionsListener.create();
-
   late AyahPosition _position;
 
   @override
@@ -44,14 +40,10 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
     _position = widget.state.scrollToPosition;
 
     WidgetsBinding.instance.addObserver(this);
-
-    _listener.itemPositions.addListener(_updatePosition);
   }
 
   @override
   void dispose() {
-    _listener.itemPositions.removeListener(_updatePosition);
-
     WidgetsBinding.instance.removeObserver(this);
 
     super.dispose();
@@ -66,20 +58,26 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
     }
   }
 
-  void _updatePosition() {
-    final position = _listener.itemPositions.value.first;
-    _position = .new(.new(position.index + 1), position.itemLeadingEdge);
-    widget.positionCubit.updateAayahNumber(_position.number);
+  @override
+  void didChangeDependencies() { //TODO: move to surah page
+    super.didChangeDependencies();
+    widget.cubit.measureHeights(context);
   }
 
-  void _scrollTo(AyahPosition position) async {
-    await _controller.scrollTo(
-      index: position.number - 1,
-      curve: Curves.easeInOutCubic,
-      alignment: position.alignment,
-      duration: const .new(milliseconds: 500),
-    );
-  }
+  // void _updatePosition() {
+  //   final position = _listener.itemPositions.value.first;
+  //   _position = .new(.new(position.index + 1), position.itemLeadingEdge);
+  //   widget.positionCubit.updateAayahNumber(_position.number);
+  // }
+
+  // void _scrollTo(AyahPosition position) async {
+  //   await _controller.scrollTo(
+  //     index: position.number - 1,
+  //     curve: Curves.easeInOutCubic,
+  //     alignment: position.alignment,
+  //     duration: const .new(milliseconds: 500),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -90,31 +88,23 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
 
       child: BlocListener<AayaatCubit, AayaatState>(
         listener: (context, state) {
-          if (state case AayaatStateSuccess(
-            :final scrollToPosition,
-            :final scrollToNewPosition,
-          ) when scrollToNewPosition) {
-            _scrollTo(scrollToPosition);
-          }
+          // if (state case AayaatStateSuccess(
+          //   :final scrollToPosition,
+          //   :final scrollToNewPosition,
+          // ) when scrollToNewPosition) {
+          //   _scrollTo(scrollToPosition);
+          // }
         },
 
-        child: ScrollablePositionedList.separated(
+        child: SliverList.separated(
           separatorBuilder: (context, index) => const SizedBox(height: 8),
 
-          padding: .only(
-            right: 20,
-            left: 20,
-            top: 12,
-            bottom: MediaQuery.paddingOf(context).bottom,
-          ),
-
-          initialAlignment: _position.alignment,
-          initialScrollIndex: _position.number - 1,
+          // initialAlignment: _position.alignment,
+          // initialScrollIndex: _position.number - 1,
           itemCount: widget.state.aayaat.length + 1,
 
-          itemScrollController: _controller,
-          itemPositionsListener: _listener,
-
+          // itemScrollController: _controller,
+          // itemPositionsListener: _listener,
           itemBuilder: (context, index) {
             if (index == widget.state.aayaat.length) {
               return SurahNavigator(

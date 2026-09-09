@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:tafsir/common/domain/error.dart';
 
 extension type const WidgetHeight(double value) implements double {}
 
 class WidgetsHeightsMeasurer {
-  static List<WidgetHeight> process(
+  static TaskEither<AppError, List<WidgetHeight>> process(
     BuildContext context,
     List<Widget> widgets,
     double maxWidth,
-  ) {
+  ) => .tryCatch(() async {
     final pipe = PipelineOwner();
 
     final view = RenderView(
@@ -77,5 +79,5 @@ class WidgetsHeightsMeasurer {
     build.finalizeTree();
 
     return heights;
-  }
+  }, ExceptionError.new);
 }
