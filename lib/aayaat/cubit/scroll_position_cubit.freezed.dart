@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ScrollPositionState {
 
- AayahNumber get number;
+ ScrollPositionProgress get progress;
 /// Create a copy of ScrollPositionState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ScrollPositionStateCopyWith<ScrollPositionState> get copyWith => _$ScrollPositi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScrollPositionState&&(identical(other.number, number) || other.number == number));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScrollPositionState&&(identical(other.progress, progress) || other.progress == progress));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,number);
+int get hashCode => Object.hash(runtimeType,progress);
 
 @override
 String toString() {
-  return 'ScrollPositionState(number: $number)';
+  return 'ScrollPositionState(progress: $progress)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ScrollPositionStateCopyWith<$Res>  {
   factory $ScrollPositionStateCopyWith(ScrollPositionState value, $Res Function(ScrollPositionState) _then) = _$ScrollPositionStateCopyWithImpl;
 @useResult
 $Res call({
- AayahNumber number
+ ScrollPositionProgress progress
 });
 
 
@@ -62,10 +62,10 @@ class _$ScrollPositionStateCopyWithImpl<$Res>
 
 /// Create a copy of ScrollPositionState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? number = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? progress = null,}) {
   return _then(_self.copyWith(
-number: null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
-as AayahNumber,
+progress: null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
+as ScrollPositionProgress,
   ));
 }
 
@@ -86,11 +86,11 @@ extension ScrollPositionStatePatterns on ScrollPositionState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Current value)?  current,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _:
+case _Current() when current != null:
+return current(_that);case _:
   return orElse();
 
 }
@@ -108,11 +108,11 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Current value)  current,}){
 final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that);case _:
+case _Current():
+return current(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -129,11 +129,11 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Current value)?  current,}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _:
+case _Current() when current != null:
+return current(_that);case _:
   return null;
 
 }
@@ -150,10 +150,10 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( AayahNumber number)?  initial,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( ScrollPositionProgress progress)?  current,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that.number);case _:
+case _Current() when current != null:
+return current(_that.progress);case _:
   return orElse();
 
 }
@@ -171,10 +171,10 @@ return initial(_that.number);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( AayahNumber number)  initial,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( ScrollPositionProgress progress)  current,}) {final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that.number);case _:
+case _Current():
+return current(_that.progress);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -191,10 +191,10 @@ return initial(_that.number);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( AayahNumber number)?  initial,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( ScrollPositionProgress progress)?  current,}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that.number);case _:
+case _Current() when current != null:
+return current(_that.progress);case _:
   return null;
 
 }
@@ -205,43 +205,43 @@ return initial(_that.number);case _:
 /// @nodoc
 
 
-class _Initial implements ScrollPositionState {
-  const _Initial(this.number);
+class _Current implements ScrollPositionState {
+  const _Current(this.progress);
   
 
-@override final  AayahNumber number;
+@override final  ScrollPositionProgress progress;
 
 /// Create a copy of ScrollPositionState
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$InitialCopyWith<_Initial> get copyWith => __$InitialCopyWithImpl<_Initial>(this, _$identity);
+_$CurrentCopyWith<_Current> get copyWith => __$CurrentCopyWithImpl<_Current>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial&&(identical(other.number, number) || other.number == number));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Current&&(identical(other.progress, progress) || other.progress == progress));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,number);
+int get hashCode => Object.hash(runtimeType,progress);
 
 @override
 String toString() {
-  return 'ScrollPositionState.initial(number: $number)';
+  return 'ScrollPositionState.current(progress: $progress)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$InitialCopyWith<$Res> implements $ScrollPositionStateCopyWith<$Res> {
-  factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) _then) = __$InitialCopyWithImpl;
+abstract mixin class _$CurrentCopyWith<$Res> implements $ScrollPositionStateCopyWith<$Res> {
+  factory _$CurrentCopyWith(_Current value, $Res Function(_Current) _then) = __$CurrentCopyWithImpl;
 @override @useResult
 $Res call({
- AayahNumber number
+ ScrollPositionProgress progress
 });
 
 
@@ -249,19 +249,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$InitialCopyWithImpl<$Res>
-    implements _$InitialCopyWith<$Res> {
-  __$InitialCopyWithImpl(this._self, this._then);
+class __$CurrentCopyWithImpl<$Res>
+    implements _$CurrentCopyWith<$Res> {
+  __$CurrentCopyWithImpl(this._self, this._then);
 
-  final _Initial _self;
-  final $Res Function(_Initial) _then;
+  final _Current _self;
+  final $Res Function(_Current) _then;
 
 /// Create a copy of ScrollPositionState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? number = null,}) {
-  return _then(_Initial(
-null == number ? _self.number : number // ignore: cast_nullable_to_non_nullable
-as AayahNumber,
+@override @pragma('vm:prefer-inline') $Res call({Object? progress = null,}) {
+  return _then(_Current(
+null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
+as ScrollPositionProgress,
   ));
 }
 

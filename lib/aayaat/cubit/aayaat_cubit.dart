@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
@@ -51,7 +52,16 @@ class AayaatCubit extends Cubit<AayaatState> {
         _mainDb.getBookmarkAayahNumbersForSurah(_surah),
       );
 
-      emit(.success(_surah, _aayaat, bookmarks, _position, false));
+      emit(
+        .success(
+          _surah,
+          _aayaat,
+          bookmarks,
+          _position,
+          const .new(0),
+          false,
+        ),
+      );
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
@@ -92,6 +102,54 @@ class AayaatCubit extends Cubit<AayaatState> {
           }
         },
       ).mapLeft((l) => emit(.failure(l))).run();
+
+  void onScroll(ScrollController controller) {
+    if (!controller.hasClients || controller.position.maxScrollExtent == 0) {
+      return;
+    }
+
+    final double maxScroll = controller.position.maxScrollExtent;
+    final double currentScroll = controller.offset.clamp(0.0, maxScroll);
+
+    emit(
+      (state as AayaatStateSuccess).copyWith(
+        scrollProgress: .new(currentScroll / maxScroll),
+      ),
+    );
+  }
+
+  int _findCurrentIndex(double offset) {
+    if (_cardOffsets.isEmpty) return 0;
+
+    if (offset <= _cardOffsets.first) return 0;
+    if (offset >= _cardOffsets.last) return _cardOffsets.length - 1;
+
+    int low = 0;
+    int high = _cardOffsets.length - 1;
+
+    while (low <= high) {
+      int mid = (low + high) ~/ 2;
+      double midOffset = _cardOffsets[mid];
+
+      if (midOffset == offset) {
+        return mid;
+      } else if (midOffset < offset) {
+        if (mid + 1 < _cardOffsets.length && offset < _cardOffsets[mid + 1]) {
+          return mid;
+        }
+
+        low = mid + 1;
+      } else {
+        if (mid - 1 >= 0 && offset >= _cardOffsets[mid - 1]) {
+          return mid - 1;
+        }
+
+        high = mid - 1;
+      }
+    }
+
+    return 0;
+  }
 
   Future<void> savePosition(AyahPosition position) =>
       TaskEither<AppError, void>.Do(

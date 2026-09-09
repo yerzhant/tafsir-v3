@@ -25,7 +25,7 @@ class ScrollPositionWidget extends StatelessWidget {
       children: [
         Padding(
           padding: const .symmetric(horizontal: 20, vertical: 8),
-          child: _PositionBar(height: height, quantity: quantity),
+          child: _PositionBar(quantity: quantity),
         ),
         const _Player(),
       ],
@@ -34,12 +34,8 @@ class ScrollPositionWidget extends StatelessWidget {
 }
 
 class _PositionBar extends StatelessWidget {
-  const _PositionBar({
-    required this.height,
-    required this.quantity,
-  });
+  const _PositionBar({required this.quantity});
 
-  final double height;
   final AayahQuantity quantity;
 
   @override
@@ -51,7 +47,7 @@ class _PositionBar extends StatelessWidget {
             : typographyPrimary(themeState.theme);
 
         return Container(
-          height: height,
+          height: ScrollPositionWidget.height,
           clipBehavior: .hardEdge,
           decoration: BoxDecoration(
             borderRadius: .circular(100),
@@ -75,7 +71,7 @@ class _PositionBar extends StatelessWidget {
                         curve: Curves.easeInOut,
                         color: brandPrimary(themeState.theme),
                         duration: const .new(milliseconds: 500),
-                        width: constraints.maxWidth / quantity * state.number,
+                        width: constraints.maxWidth * state.progress,
                       );
                     },
                   );

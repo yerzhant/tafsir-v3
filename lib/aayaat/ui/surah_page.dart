@@ -64,19 +64,25 @@ class _SurahPageState extends State<SurahPage> {
 
   var _doNotSwitchOffScreen = false;
 
+  AayaatCubit? _aayaatCubit;
+
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(.immersiveSticky);
+    _controller.addListener(_onScroll);
   }
 
   @override
   void dispose() {
+    _controller.removeListener(_onScroll);
     SystemChrome.setEnabledSystemUIMode(.edgeToEdge);
     WakelockPlus.disable();
     _controller.dispose();
     super.dispose();
   }
+
+  void _onScroll() => _aayaatCubit?.onScroll(_controller);
 
   void _navigateTo({required double offset, bool animate = true}) {
     if (animate) {
@@ -139,14 +145,12 @@ class _SurahPageState extends State<SurahPage> {
   }
 
   Widget _success(BuildContext context, AayaatStateSuccess state) {
+    _aayaatCubit ??= context.read();
+
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => ScrollPositionCubit(
-            state.scrollToPosition.number,
-          ),
-        ),
         BlocProvider(create: (context) => PlayerCubit(context.read())),
+        BlocProvider(create: (context) => ScrollPositionCubit()),
       ],
       child: BlocListener<ThemeCubit, ThemeState>(
         listener: (context, state) {
@@ -226,30 +230,30 @@ class _SurahPageState extends State<SurahPage> {
   }
 
   void _goToAayah(BuildContext context) {
-    final aayahNumber = context.read<ScrollPositionCubit>().state.number;
+    // final aayahNumber = context.read<ScrollPositionCubit>().state.number;
 
-    showModalBottomSheet(
-      context: context,
-      useSafeArea: true,
-      showDragHandle: true,
-      isScrollControlled: true,
-      builder: (ctx) {
-        final viewBottom = MediaQuery.of(ctx).viewInsets.bottom;
-        final bottom = viewBottom + (viewBottom > 0 ? 20 : 0);
+    // showModalBottomSheet(
+    //   context: context,
+    //   useSafeArea: true,
+    //   showDragHandle: true,
+    //   isScrollControlled: true,
+    //   builder: (ctx) {
+    //     final viewBottom = MediaQuery.of(ctx).viewInsets.bottom;
+    //     final bottom = viewBottom + (viewBottom > 0 ? 20 : 0);
 
-        return SafeArea(
-          child: SingleChildScrollView(
-            padding: .only(right: 20, left: 20, bottom: bottom),
-            child: GoToAayah(
-              suwar: widget._suwar,
-              aayahNumber: aayahNumber,
-              mainCubit: widget._mainCubit,
-              surahNumber: widget._surahNumber,
-              onGoTo: context.read<AayaatCubit>().goToAayah,
-            ),
-          ),
-        );
-      },
-    );
+    //     return SafeArea(
+    //       child: SingleChildScrollView(
+    //         padding: .only(right: 20, left: 20, bottom: bottom),
+    //         child: GoToAayah(
+    //           suwar: widget._suwar,
+    //           aayahNumber: aayahNumber,
+    //           mainCubit: widget._mainCubit,
+    //           surahNumber: widget._surahNumber,
+    //           onGoTo: context.read<AayaatCubit>().goToAayah,
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 }

@@ -11,6 +11,7 @@ sealed class AayaatState with _$AayaatState {
     List<Aayah> aayaat,
     Set<AayahNumber> bookmarks,
     AyahPosition scrollToPosition,
+    ScrollPositionProgress scrollProgress,
     bool scrollToNewPosition,
   ) = AayaatStateSuccess;
 }
