@@ -68,6 +68,8 @@ class AayaatCubit extends Cubit<AayaatState> {
   Future<void> measureHeights(BuildContext context) =>
       TaskEither<AppError, void>.Do(
         ($) async {
+          print('================== measure started');
+
           final screenWidth = MediaQuery.of(context).size.width;
           final cardWidth = screenWidth - 40;
 
@@ -93,6 +95,7 @@ class AayaatCubit extends Cubit<AayaatState> {
             WidgetsHeightsMeasurer.process(context, widgets, cardWidth),
           );
 
+          _cardOffsets.clear();
           _cardOffsets.add(headerHeight);
           var offset = headerHeight.value;
 
@@ -100,6 +103,8 @@ class AayaatCubit extends Cubit<AayaatState> {
             offset += height + 8;
             _cardOffsets.add(offset);
           }
+
+          print('================== offsets: $_cardOffsets');
         },
       ).mapLeft((l) => emit(.failure(l))).run();
 

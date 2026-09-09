@@ -21,6 +21,7 @@ class AppErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // debugPrint('error: $error');
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return Container(

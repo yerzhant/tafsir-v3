@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tafsir/common/domain/error.dart';
+import 'package:tafsir/settings/cubit/settings_cubit.dart';
+import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 extension type const WidgetHeight(double value) implements double {}
 
@@ -31,11 +34,22 @@ class WidgetsHeightsMeasurer {
       container: view,
       child: Directionality(
         textDirection: .ltr,
-        child: Material(
-          type: .transparency,
-          child: Column(
-            mainAxisSize: .min,
-            children: widgets,
+        child: MediaQuery(
+          data: MediaQuery.of(
+            context,
+          ).copyWith(size: .new(maxWidth, double.infinity)),
+          child: Material(
+            type: .transparency,
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: context.read<ThemeCubit>()),
+                BlocProvider.value(value: context.read<SettingsCubit>()),
+              ],
+              child: Column(
+                mainAxisSize: .min,
+                children: widgets,
+              ),
+            ),
           ),
         ),
       ),
@@ -46,23 +60,23 @@ class WidgetsHeightsMeasurer {
 
     final List<WidgetHeight> heights = [];
 
-    view.visitChildren((child) {
-      if (child is RenderBox) {
-        RenderBox? column = child.firstChild;
-
-        while (column != null) {
-          heights.add(.new(column.size.height));
-          final parentData = column.parentData;
-
-          // if (parentData is ContainerBoxParentDataMixin<RenderBox>) {
-          if (parentData is ContainerParentDataMixin<RenderBox>) {
-            column = parentData.nextSibling;
-          } else {
-            column = null;
+    void fillHeight(RenderObject object, List<WidgetHeight> heights) {
+      if (object is RenderFlex) {
+        object.visitChildren((child) {
+          if (child is RenderBox) {
+            heights.add(.new(child.size.height));
           }
-        }
+        });
+
+        return;
       }
-    });
+
+      object.visitChildren((child) => fillHeight(child, heights));
+    }
+
+    view.visitChildren((object) => fillHeight(object, heights));
+
+    debugPrint('==== heights: $heights');
 
     build.buildScope(
       root,
