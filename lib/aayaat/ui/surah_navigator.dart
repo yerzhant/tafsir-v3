@@ -14,12 +14,14 @@ class SurahNavigator extends StatelessWidget {
     required this.suwar,
     required this.number,
     required this.mainCubit,
+    required this.onOpenSurah,
     required this.onShowSuwar,
   });
 
   final List<Surah> suwar;
   final SurahNumber number;
   final MainCubit mainCubit;
+  final VoidCallback onOpenSurah;
   final VoidCallback onShowSuwar;
 
   @override
@@ -76,6 +78,8 @@ class SurahNavigator extends StatelessWidget {
   }
 
   void _openSurah(BuildContext context, Surah surah) {
+    onOpenSurah();
+
     Navigator.pop(context);
 
     SurahPage.open(

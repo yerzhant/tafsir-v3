@@ -75,19 +75,26 @@ class _SurahPageState extends State<SurahPage> {
 
   var _doNotSwitchOffScreen = false;
 
+  var _enableUI = true;
+
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIMode(.immersiveSticky);
+
     _controller.addListener(_onScroll);
+
+    SystemChrome.setEnabledSystemUIMode(.immersiveSticky);
   }
 
   @override
   void dispose() {
-    _controller.removeListener(_onScroll);
-    SystemChrome.setEnabledSystemUIMode(.edgeToEdge);
+    if (_enableUI) SystemChrome.setEnabledSystemUIMode(.edgeToEdge);
+
     WakelockPlus.disable();
+
+    _controller.removeListener(_onScroll);
     _controller.dispose();
+
     super.dispose();
   }
 
@@ -150,6 +157,7 @@ class _SurahPageState extends State<SurahPage> {
         child: ShortSuwarList(
           suwar: widget._suwar,
           mainCubit: widget._mainCubit,
+          onOpenSurah: () => _enableUI = false,
         ),
       ),
     );
@@ -199,6 +207,7 @@ class _SurahPageState extends State<SurahPage> {
                         suwar: widget._suwar,
                         number: state.surah.number,
                         mainCubit: widget._mainCubit,
+                        onOpenSurah: () => _enableUI = false,
                         onShowSuwar: () {
                           _scaffoldKey.currentState!.openDrawer();
                         },

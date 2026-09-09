@@ -100,6 +100,7 @@ class AayaatCubit extends Cubit<AayaatState> {
           suwar: _suwar,
           number: _surahNumber,
           mainCubit: _mainCubit,
+          onOpenSurah: () {},
           onShowSuwar: () {},
         ),
       ], contentWidth),

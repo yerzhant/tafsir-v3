@@ -12,10 +12,12 @@ class ShortSuwarList extends StatelessWidget {
     super.key,
     required this.suwar,
     required this.mainCubit,
+    required this.onOpenSurah,
   });
 
   final List<Surah> suwar;
   final MainCubit mainCubit;
+  final VoidCallback onOpenSurah;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +42,11 @@ class ShortSuwarList extends StatelessWidget {
                 theme: state.theme,
                 surah: surah,
                 onTap: () {
+                  onOpenSurah();
+
                   Navigator.pop(context);
                   Navigator.pop(context);
+
                   SurahPage.open(
                     context,
                     mainCubit,
