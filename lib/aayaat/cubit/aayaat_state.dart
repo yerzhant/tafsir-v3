@@ -13,5 +13,6 @@ sealed class AayaatState with _$AayaatState {
     AyahPosition scrollToPosition,
     ScrollPositionProgress scrollProgress,
     bool scrollToNewPosition,
+    bool inProgerss,
   ) = AayaatStateSuccess;
 }

@@ -122,12 +122,12 @@ return success(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  inProgress,TResult Function( AppError error)?  failure,TResult Function( Surah surah,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks,  AyahPosition scrollToPosition,  ScrollPositionProgress scrollProgress,  bool scrollToNewPosition)?  success,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  inProgress,TResult Function( AppError error)?  failure,TResult Function( Surah surah,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks,  AyahPosition scrollToPosition,  ScrollPositionProgress scrollProgress,  bool scrollToNewPosition,  bool inProgerss)?  success,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case AayaatStateInProgress() when inProgress != null:
 return inProgress();case AayaatStateFailure() when failure != null:
 return failure(_that.error);case AayaatStateSuccess() when success != null:
-return success(_that.surah,_that.aayaat,_that.bookmarks,_that.scrollToPosition,_that.scrollProgress,_that.scrollToNewPosition);case _:
+return success(_that.surah,_that.aayaat,_that.bookmarks,_that.scrollToPosition,_that.scrollProgress,_that.scrollToNewPosition,_that.inProgerss);case _:
   return orElse();
 
 }
@@ -145,12 +145,12 @@ return success(_that.surah,_that.aayaat,_that.bookmarks,_that.scrollToPosition,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  inProgress,required TResult Function( AppError error)  failure,required TResult Function( Surah surah,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks,  AyahPosition scrollToPosition,  ScrollPositionProgress scrollProgress,  bool scrollToNewPosition)  success,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  inProgress,required TResult Function( AppError error)  failure,required TResult Function( Surah surah,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks,  AyahPosition scrollToPosition,  ScrollPositionProgress scrollProgress,  bool scrollToNewPosition,  bool inProgerss)  success,}) {final _that = this;
 switch (_that) {
 case AayaatStateInProgress():
 return inProgress();case AayaatStateFailure():
 return failure(_that.error);case AayaatStateSuccess():
-return success(_that.surah,_that.aayaat,_that.bookmarks,_that.scrollToPosition,_that.scrollProgress,_that.scrollToNewPosition);}
+return success(_that.surah,_that.aayaat,_that.bookmarks,_that.scrollToPosition,_that.scrollProgress,_that.scrollToNewPosition,_that.inProgerss);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -164,12 +164,12 @@ return success(_that.surah,_that.aayaat,_that.bookmarks,_that.scrollToPosition,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  inProgress,TResult? Function( AppError error)?  failure,TResult? Function( Surah surah,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks,  AyahPosition scrollToPosition,  ScrollPositionProgress scrollProgress,  bool scrollToNewPosition)?  success,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  inProgress,TResult? Function( AppError error)?  failure,TResult? Function( Surah surah,  List<Aayah> aayaat,  Set<AayahNumber> bookmarks,  AyahPosition scrollToPosition,  ScrollPositionProgress scrollProgress,  bool scrollToNewPosition,  bool inProgerss)?  success,}) {final _that = this;
 switch (_that) {
 case AayaatStateInProgress() when inProgress != null:
 return inProgress();case AayaatStateFailure() when failure != null:
 return failure(_that.error);case AayaatStateSuccess() when success != null:
-return success(_that.surah,_that.aayaat,_that.bookmarks,_that.scrollToPosition,_that.scrollProgress,_that.scrollToNewPosition);case _:
+return success(_that.surah,_that.aayaat,_that.bookmarks,_that.scrollToPosition,_that.scrollProgress,_that.scrollToNewPosition,_that.inProgerss);case _:
   return null;
 
 }
@@ -288,7 +288,7 @@ $AppErrorCopyWith<$Res> get error {
 
 
 class AayaatStateSuccess implements AayaatState {
-  const AayaatStateSuccess(this.surah, final  List<Aayah> aayaat, final  Set<AayahNumber> bookmarks, this.scrollToPosition, this.scrollProgress, this.scrollToNewPosition): _aayaat = aayaat,_bookmarks = bookmarks;
+  const AayaatStateSuccess(this.surah, final  List<Aayah> aayaat, final  Set<AayahNumber> bookmarks, this.scrollToPosition, this.scrollProgress, this.scrollToNewPosition, this.inProgerss): _aayaat = aayaat,_bookmarks = bookmarks;
   
 
  final  Surah surah;
@@ -309,6 +309,7 @@ class AayaatStateSuccess implements AayaatState {
  final  AyahPosition scrollToPosition;
  final  ScrollPositionProgress scrollProgress;
  final  bool scrollToNewPosition;
+ final  bool inProgerss;
 
 /// Create a copy of AayaatState
 /// with the given fields replaced by the non-null parameter values.
@@ -320,16 +321,16 @@ $AayaatStateSuccessCopyWith<AayaatStateSuccess> get copyWith => _$AayaatStateSuc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AayaatStateSuccess&&(identical(other.surah, surah) || other.surah == surah)&&const DeepCollectionEquality().equals(other._aayaat, _aayaat)&&const DeepCollectionEquality().equals(other._bookmarks, _bookmarks)&&(identical(other.scrollToPosition, scrollToPosition) || other.scrollToPosition == scrollToPosition)&&(identical(other.scrollProgress, scrollProgress) || other.scrollProgress == scrollProgress)&&(identical(other.scrollToNewPosition, scrollToNewPosition) || other.scrollToNewPosition == scrollToNewPosition));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AayaatStateSuccess&&(identical(other.surah, surah) || other.surah == surah)&&const DeepCollectionEquality().equals(other._aayaat, _aayaat)&&const DeepCollectionEquality().equals(other._bookmarks, _bookmarks)&&(identical(other.scrollToPosition, scrollToPosition) || other.scrollToPosition == scrollToPosition)&&(identical(other.scrollProgress, scrollProgress) || other.scrollProgress == scrollProgress)&&(identical(other.scrollToNewPosition, scrollToNewPosition) || other.scrollToNewPosition == scrollToNewPosition)&&(identical(other.inProgerss, inProgerss) || other.inProgerss == inProgerss));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,surah,const DeepCollectionEquality().hash(_aayaat),const DeepCollectionEquality().hash(_bookmarks),scrollToPosition,scrollProgress,scrollToNewPosition);
+int get hashCode => Object.hash(runtimeType,surah,const DeepCollectionEquality().hash(_aayaat),const DeepCollectionEquality().hash(_bookmarks),scrollToPosition,scrollProgress,scrollToNewPosition,inProgerss);
 
 @override
 String toString() {
-  return 'AayaatState.success(surah: $surah, aayaat: $aayaat, bookmarks: $bookmarks, scrollToPosition: $scrollToPosition, scrollProgress: $scrollProgress, scrollToNewPosition: $scrollToNewPosition)';
+  return 'AayaatState.success(surah: $surah, aayaat: $aayaat, bookmarks: $bookmarks, scrollToPosition: $scrollToPosition, scrollProgress: $scrollProgress, scrollToNewPosition: $scrollToNewPosition, inProgerss: $inProgerss)';
 }
 
 
@@ -340,7 +341,7 @@ abstract mixin class $AayaatStateSuccessCopyWith<$Res> implements $AayaatStateCo
   factory $AayaatStateSuccessCopyWith(AayaatStateSuccess value, $Res Function(AayaatStateSuccess) _then) = _$AayaatStateSuccessCopyWithImpl;
 @useResult
 $Res call({
- Surah surah, List<Aayah> aayaat, Set<AayahNumber> bookmarks, AyahPosition scrollToPosition, ScrollPositionProgress scrollProgress, bool scrollToNewPosition
+ Surah surah, List<Aayah> aayaat, Set<AayahNumber> bookmarks, AyahPosition scrollToPosition, ScrollPositionProgress scrollProgress, bool scrollToNewPosition, bool inProgerss
 });
 
 
@@ -357,7 +358,7 @@ class _$AayaatStateSuccessCopyWithImpl<$Res>
 
 /// Create a copy of AayaatState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? surah = null,Object? aayaat = null,Object? bookmarks = null,Object? scrollToPosition = null,Object? scrollProgress = null,Object? scrollToNewPosition = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? surah = null,Object? aayaat = null,Object? bookmarks = null,Object? scrollToPosition = null,Object? scrollProgress = null,Object? scrollToNewPosition = null,Object? inProgerss = null,}) {
   return _then(AayaatStateSuccess(
 null == surah ? _self.surah : surah // ignore: cast_nullable_to_non_nullable
 as Surah,null == aayaat ? _self._aayaat : aayaat // ignore: cast_nullable_to_non_nullable
@@ -365,6 +366,7 @@ as List<Aayah>,null == bookmarks ? _self._bookmarks : bookmarks // ignore: cast_
 as Set<AayahNumber>,null == scrollToPosition ? _self.scrollToPosition : scrollToPosition // ignore: cast_nullable_to_non_nullable
 as AyahPosition,null == scrollProgress ? _self.scrollProgress : scrollProgress // ignore: cast_nullable_to_non_nullable
 as ScrollPositionProgress,null == scrollToNewPosition ? _self.scrollToNewPosition : scrollToNewPosition // ignore: cast_nullable_to_non_nullable
+as bool,null == inProgerss ? _self.inProgerss : inProgerss // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

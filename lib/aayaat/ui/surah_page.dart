@@ -7,7 +7,6 @@ import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_list.dart';
-import 'package:tafsir/aayaat/ui/go_to_aayah.dart';
 import 'package:tafsir/aayaat/ui/scroll_position_widget.dart';
 import 'package:tafsir/aayaat/ui/short_suwar_list.dart';
 import 'package:tafsir/aayaat/ui/surah_header.dart';
@@ -23,17 +22,10 @@ import 'package:tafsir/theme/ui/theme_settings.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class SurahPage extends StatefulWidget {
-  const SurahPage._(
-    this._suwar,
-    this._mainCubit,
-    this._surahNumber,
-    this._ayahPosition,
-  );
+  const SurahPage._(this._suwar, this._mainCubit);
 
-  final List<Surah> _suwar;
   final MainCubit _mainCubit;
-  final SurahNumber _surahNumber;
-  final AyahPosition _ayahPosition;
+  final List<Surah> _suwar;
 
   static void open(
     BuildContext context,
@@ -44,11 +36,22 @@ class SurahPage extends StatefulWidget {
   ) => Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => SurahPage._(
-        suwar,
-        mainCubit,
-        surahNumber,
-        ayahPosition,
+      builder: (context) => MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider(create: (context) => MainDb(context.read())),
+          RepositoryProvider(create: (context) => AayaatDb(context.read())),
+        ],
+        child: BlocProvider(
+          create: (context) => AayaatCubit(
+            context,
+            context.read(),
+            context.read(),
+            mainCubit,
+            surahNumber,
+            ayahPosition,
+          )..init(),
+          child: SurahPage._(suwar, mainCubit),
+        ),
       ),
     ),
   );
@@ -63,8 +66,6 @@ class _SurahPageState extends State<SurahPage> {
   final _controller = ScrollController();
 
   var _doNotSwitchOffScreen = false;
-
-  AayaatCubit? _aayaatCubit;
 
   @override
   void initState() {
@@ -82,7 +83,13 @@ class _SurahPageState extends State<SurahPage> {
     super.dispose();
   }
 
-  void _onScroll() => _aayaatCubit?.onScroll(_controller);
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<AayaatCubit>().measureHeights();
+  }
+
+  void _onScroll() => context.read<AayaatCubit>().onScroll(_controller);
 
   void _navigateTo({required double offset, bool animate = true}) {
     if (animate) {
@@ -106,34 +113,19 @@ class _SurahPageState extends State<SurahPage> {
 
     return Scaffold(
       key: _scaffoldKey,
-      body: MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider(create: (context) => MainDb(context.read())),
-          RepositoryProvider(create: (context) => AayaatDb(context.read())),
-        ],
-        child: BlocProvider(
-          create: (context) => AayaatCubit(
-            context.read(),
-            context.read(),
-            widget._mainCubit,
-            widget._surahNumber,
-            widget._ayahPosition,
-          )..init(),
-          child: BlocBuilder<AayaatCubit, AayaatState>(
-            builder: (context, state) {
-              return switch (state) {
-                AayaatStateInProgress() => const ProgressWidget(),
-
-                AayaatStateSuccess() => _success(context, state),
-
-                AayaatStateFailure(:final error) => AppErrorWidget(
-                  error: error,
-                  onPressed: context.read<AayaatCubit>().init,
-                ),
-              };
-            },
-          ),
-        ),
+      body: BlocBuilder<AayaatCubit, AayaatState>(
+        builder: (context, state) {
+          return switch (state) {
+            AayaatStateInProgress() => const ProgressWidget(),
+      
+            AayaatStateSuccess() => _success(context, state),
+      
+            AayaatStateFailure(:final error) => AppErrorWidget(
+              error: error,
+              onPressed: context.read<AayaatCubit>().init,
+            ),
+          };
+        },
       ),
       drawer: Drawer(
         child: ShortSuwarList(
@@ -145,7 +137,7 @@ class _SurahPageState extends State<SurahPage> {
   }
 
   Widget _success(BuildContext context, AayaatStateSuccess state) {
-    _aayaatCubit ??= context.read();
+    if (state.inProgerss) return const ProgressWidget();
 
     return MultiBlocProvider(
       providers: [
@@ -191,7 +183,6 @@ class _SurahPageState extends State<SurahPage> {
                         suwar: widget._suwar,
                         cubit: context.read(),
                         mainCubit: widget._mainCubit,
-                        positionCubit: context.read(),
                         onShowSuwar: () {
                           _scaffoldKey.currentState!.openDrawer();
                         },

@@ -22,6 +22,7 @@ const _maxLastReads = 30;
 
 class AayaatCubit extends Cubit<AayaatState> {
   AayaatCubit(
+    this._context,
     this._mainDb,
     this._aayaatDb,
     this._mainCubit,
@@ -32,8 +33,9 @@ class AayaatCubit extends Cubit<AayaatState> {
   final MainDb _mainDb;
   final AayaatDb _aayaatDb;
   final MainCubit _mainCubit;
-  final SurahNumber _surahNumber;
+  final BuildContext _context;
   final AyahPosition _position;
+  final SurahNumber _surahNumber;
 
   late final Surah _surah;
   late final List<Aayah> _aayaat;
@@ -52,6 +54,8 @@ class AayaatCubit extends Cubit<AayaatState> {
         _mainDb.getBookmarkAayahNumbersForSurah(_surah),
       );
 
+      await $(_measureHeights());
+
       emit(
         .success(
           _surah,
@@ -60,53 +64,63 @@ class AayaatCubit extends Cubit<AayaatState> {
           _position,
           const .new(0),
           false,
+          false,
         ),
       );
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
-  Future<void> measureHeights(BuildContext context) =>
-      TaskEither<AppError, void>.Do(
-        ($) async {
-          print('================== measure started');
+  TaskEither<AppError, void> _measureHeights() => .Do(($) async {
+    print('================== measure started');
 
-          final screenWidth = MediaQuery.of(context).size.width;
-          final cardWidth = screenWidth - 40;
+    final screenWidth = MediaQuery.of(_context).size.width;
+    final cardWidth = screenWidth - 40;
 
-          final headerHeight = (await $(
-            WidgetsHeightsMeasurer.process(context, [
-              SurahHeader(
-                surah: _surah,
-                onInfo: () {},
-                onSuwar: () {},
-                onTheme: () {},
-                onSettings: () {},
-                onGoToAyah: () {},
-              ),
-            ], screenWidth),
-          )).first;
+    final headerHeight = (await $(
+      WidgetsHeightsMeasurer.process(_context, [
+        SurahHeader(
+          surah: _surah,
+          onInfo: () {},
+          onSuwar: () {},
+          onTheme: () {},
+          onSettings: () {},
+          onGoToAyah: () {},
+        ),
+      ], screenWidth),
+    )).first;
 
-          final widgets = _aayaat
-              .map((e) => AyahCard(ayah: e, surah: _surah, isBookmarked: false))
-              .toList();
+    final widgets = _aayaat
+        .map((e) => AyahCard(ayah: e, surah: _surah, isBookmarked: false))
+        .toList();
 
-          final heights = await $(
-            // ignore: use_build_context_synchronously
-            WidgetsHeightsMeasurer.process(context, widgets, cardWidth),
-          );
+    final heights = await $(
+      // ignore: use_build_context_synchronously
+      WidgetsHeightsMeasurer.process(_context, widgets, cardWidth),
+    );
 
-          _cardOffsets.clear();
-          _cardOffsets.add(headerHeight);
-          var offset = headerHeight.value;
+    _cardOffsets.clear();
+    _cardOffsets.add(headerHeight);
+    var offset = headerHeight.value;
 
-          for (final height in heights) {
-            offset += height + 8;
-            _cardOffsets.add(offset);
-          }
+    for (final height in heights) {
+      offset += height + 8;
+      _cardOffsets.add(offset);
+    }
 
-          print('================== offsets: $_cardOffsets');
-        },
-      ).mapLeft((l) => emit(.failure(l))).run();
+    print('================== offsets: $_cardOffsets');
+  });
+
+  Future<void> measureHeights() => TaskEither<AppError, void>.Do(
+    ($) async {
+      if (state is! AayaatStateSuccess) return;
+
+      emit((state as AayaatStateSuccess).copyWith(inProgerss: true));
+
+      await $(_measureHeights());
+
+      emit((state as AayaatStateSuccess).copyWith(inProgerss: false));
+    },
+  ).mapLeft((l) => emit(.failure(l))).run();
 
   void onScroll(ScrollController controller) {
     if (!controller.hasClients || controller.position.maxScrollExtent == 0) {

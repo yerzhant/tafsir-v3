@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
-import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
 import 'package:tafsir/aayaat/ui/surah_navigator.dart';
@@ -16,7 +15,7 @@ class AyahList extends StatefulWidget {
     required this.suwar,
     required this.mainCubit,
     required this.onShowSuwar,
-    required this.positionCubit,
+
   });
 
   final AayaatCubit cubit;
@@ -24,7 +23,6 @@ class AyahList extends StatefulWidget {
   final MainCubit mainCubit;
   final VoidCallback onShowSuwar;
   final AayaatStateSuccess state;
-  final ScrollPositionCubit positionCubit;
 
   @override
   State<AyahList> createState() => _AyahListState();
@@ -56,12 +54,6 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
     if (state == .paused || state == .detached) {
       widget.cubit.savePosition(_position);
     }
-  }
-
-  @override
-  void didChangeDependencies() { //TODO: move to surah page
-    super.didChangeDependencies();
-    widget.cubit.measureHeights(context);
   }
 
   // void _updatePosition() {
