@@ -303,6 +303,7 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
             aayahNumber: aayahNumber,
             mainCubit: widget._mainCubit,
             surahNumber: widget._surahNumber,
+            onGoingToSurah: () => _enableUI = false,
             onGoTo: context.read<AayaatCubit>().goToAayah,
           ),
         );

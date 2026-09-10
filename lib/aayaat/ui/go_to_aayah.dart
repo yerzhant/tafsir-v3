@@ -20,12 +20,14 @@ class GoToAayah extends StatefulWidget {
     required this.mainCubit,
     required this.surahNumber,
     required this.aayahNumber,
+    required this.onGoingToSurah,
   });
 
   final List<Surah> suwar;
   final MainCubit mainCubit;
   final SurahNumber surahNumber;
   final AayahNumber aayahNumber;
+  final VoidCallback onGoingToSurah;
   final ValueSetter<AayahNumber> onGoTo;
 
   @override
@@ -106,6 +108,8 @@ class _GoToAayahState extends State<GoToAayah> {
                       .aayahNumber;
 
                   if (widget.surahNumber != surahNumber) {
+                    widget.onGoingToSurah();
+
                     Navigator.pop(context);
 
                     SurahPage.open(
