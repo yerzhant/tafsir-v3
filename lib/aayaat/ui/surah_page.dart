@@ -6,7 +6,7 @@ import 'package:tafsir/aayaat/cubit/player_cubit.dart';
 import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
-import 'package:tafsir/aayaat/ui/ayah_list.dart';
+import 'package:tafsir/aayaat/ui/ayah_card.dart';
 import 'package:tafsir/aayaat/ui/go_to_aayah.dart';
 import 'package:tafsir/aayaat/ui/scroll_position_widget.dart';
 import 'package:tafsir/aayaat/ui/short_suwar_list.dart';
@@ -222,7 +222,18 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
 
                     SliverPadding(
                       padding: const .symmetric(horizontal: 20, vertical: 12),
-                      sliver: AyahList(state: state),
+                      sliver: SliverList.separated(
+                        itemCount: state.aayaat.length,
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(height: 8);
+                        },
+                        itemBuilder: (context, index) => AyahCard(
+                          surah: state.surah,
+                          ayah: state.aayaat[index],
+                          key: .new(index.toString()),
+                          isBookmarked: state.bookmarks.contains(index + 1),
+                        ),
+                      ),
                     ),
 
                     SliverPadding(
