@@ -7,6 +7,7 @@ import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_list.dart';
+import 'package:tafsir/aayaat/ui/go_to_aayah.dart';
 import 'package:tafsir/aayaat/ui/scroll_position_widget.dart';
 import 'package:tafsir/aayaat/ui/short_suwar_list.dart';
 import 'package:tafsir/aayaat/ui/surah_header.dart';
@@ -23,8 +24,13 @@ import 'package:tafsir/theme/ui/theme_settings.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class SurahPage extends StatefulWidget {
-  const SurahPage._(this._suwar, this._mainCubit);
+  const SurahPage._(
+    this._surahNumber,
+    this._mainCubit,
+    this._suwar,
+  );
 
+  final SurahNumber _surahNumber;
   final MainCubit _mainCubit;
   final List<Surah> _suwar;
 
@@ -58,7 +64,7 @@ class SurahPage extends StatefulWidget {
             BlocProvider(create: (context) => ScrollPositionCubit()),
             BlocProvider(create: (context) => PlayerCubit(context.read())),
           ],
-          child: SurahPage._(suwar, mainCubit),
+          child: SurahPage._(surahNumber, mainCubit, suwar),
         ),
       ),
     ),
@@ -126,7 +132,7 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
       _controller.animateTo(
         offset,
         curve: Curves.fastOutSlowIn,
-        duration: const .new(milliseconds: 400),
+        duration: const .new(milliseconds: 500),
       );
     } else {
       _controller.jumpTo(offset);
@@ -266,30 +272,30 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
   }
 
   void _goToAayah(BuildContext context) {
-    // final aayahNumber = context.read<ScrollPositionCubit>().state.number;
+    final aayahNumber = context.read<AayaatCubit>().getCurrentAaayahNumber(
+      .new(_controller.offset),
+    );
 
-    // showModalBottomSheet(
-    //   context: context,
-    //   useSafeArea: true,
-    //   showDragHandle: true,
-    //   isScrollControlled: true,
-    //   builder: (ctx) {
-    //     final viewBottom = MediaQuery.of(ctx).viewInsets.bottom;
-    //     final bottom = viewBottom + (viewBottom > 0 ? 20 : 0);
-
-    //     return SafeArea(
-    //       child: SingleChildScrollView(
-    //         padding: .only(right: 20, left: 20, bottom: bottom),
-    //         child: GoToAayah(
-    //           suwar: widget._suwar,
-    //           aayahNumber: aayahNumber,
-    //           mainCubit: widget._mainCubit,
-    //           surahNumber: widget._surahNumber,
-    //           onGoTo: context.read<AayaatCubit>().goToAayah,
-    //         ),
-    //       ),
-    //     );
-    //   },
-    // );
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (ctx) {
+        return SingleChildScrollView(
+          padding: .only(
+            right: 20,
+            left: 20,
+            bottom: MediaQuery.of(ctx).viewInsets.bottom + 20,
+          ),
+          child: GoToAayah(
+            suwar: widget._suwar,
+            aayahNumber: aayahNumber,
+            mainCubit: widget._mainCubit,
+            surahNumber: widget._surahNumber,
+            onGoTo: context.read<AayaatCubit>().goToAayah,
+          ),
+        );
+      },
+    );
   }
 }

@@ -171,15 +171,15 @@ class AayaatCubit extends Cubit<AayaatState> {
   Future<void> savePosition(ScrollPositionCurrent offset) =>
       TaskEither<AppError, void>.Do(
         ($) async {
-          final index = await $(_findCurrentIndex(offset));
+          final aayahNumber = getCurrentAaayahNumber(offset);
           print('----------- index: $offset');
-          print('----------- index: $index');
+          print('----------- index: $aayahNumber');
 
           final lastRead = LastRead(
             .now(),
             _surah.name,
             _surahNumber,
-            .new(.new(index + 1), 0),
+            .new(aayahNumber, 0),
           );
 
           final lastReads = await $(_mainDb.getLastReads());
@@ -200,9 +200,10 @@ class AayaatCubit extends Cubit<AayaatState> {
         },
       ).mapLeft((l) => emit(.failure(l))).run();
 
-  TaskEither<AppError, int> _findCurrentIndex(
-    ScrollPositionCurrent offset,
-  ) => .tryCatch(() async {
+  AayahNumber getCurrentAaayahNumber(ScrollPositionCurrent offset) =>
+      _findCurrentAayahIndex(offset).let((it) => .new(it + 1));
+
+  int _findCurrentAayahIndex(ScrollPositionCurrent offset) {
     if (offset <= _cardOffsets.first) return 0;
     if (offset >= _cardOffsets.last) return _cardOffsets.length - 1;
 
@@ -231,7 +232,7 @@ class AayaatCubit extends Cubit<AayaatState> {
     }
 
     return 0;
-  }, ExceptionError.new);
+  }
 
   Future<void> toggleBookmark(AayahNumber aayahNumber) =>
       TaskEither<AppError, void>.Do(
@@ -256,16 +257,9 @@ class AayaatCubit extends Cubit<AayaatState> {
         },
       ).mapLeft((l) => emit(.failure(l))).run();
 
-  // void goToAayah(AayahNumber number) {
-  //   final s = state as AayaatStateSuccess;
-
-  //   emit(
-  //     s.copyWith(
-  //       scrollToPosition: .new(number, 0),
-  //       scrollToNewPosition: true,
-  //     ),
-  //   );
-
-  //   emit(s.copyWith(scrollToNewPosition: false));
-  // }
+  void goToAayah(AayahNumber number) {
+    final s = state as AayaatStateSuccess;
+    emit(s.copyWith(scrollTo: .new(_cardOffsets[number - 1])));
+    emit(s.copyWith(scrollTo: null));
+  }
 }
