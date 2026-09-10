@@ -67,9 +67,12 @@ class AayaatCubit extends Cubit<AayaatState> {
           aayaat: _aayaat,
           bookmarks: bookmarks,
           scrollProgressMax: maxOffset,
-
           inProgerss: false,
+        ),
+      );
 
+      emit(
+        (state as AayaatStateSuccess).copyWith(
           jumpTo: _position.number
               .takeIf((it) => it > 1)
               ?.let((it) => .new(_cardOffsets[it])),
