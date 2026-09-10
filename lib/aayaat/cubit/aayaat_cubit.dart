@@ -71,15 +71,19 @@ class AayaatCubit extends Cubit<AayaatState> {
         ),
       );
 
-      emit(
-        (state as AayaatStateSuccess).copyWith(
-          jumpTo: _position.number
-              .takeIf((it) => it > 1)
-              ?.let((it) => .new(_cardOffsets[it])),
-        ),
-      );
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) {
+          emit(
+            (state as AayaatStateSuccess).copyWith(
+              jumpTo: _position.number
+                  .takeIf((it) => it > 1)
+                  ?.let((it) => .new(_cardOffsets[it - 1])),
+            ),
+          );
 
-      emit((state as AayaatStateSuccess).copyWith(jumpTo: null));
+          emit((state as AayaatStateSuccess).copyWith(jumpTo: null));
+        },
+      );
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
