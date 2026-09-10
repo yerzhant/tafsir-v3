@@ -123,8 +123,8 @@ class AayaatCubit extends Cubit<AayaatState> {
     );
 
     _cardOffsets.clear();
-    _cardOffsets.add(headerHeight);
-    var offset = headerHeight.value;
+    _cardOffsets.add(headerHeight + 12);
+    var offset = headerHeight.value + 12;
 
     for (final height in heights) {
       offset += height + 8;
@@ -164,47 +164,18 @@ class AayaatCubit extends Cubit<AayaatState> {
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
-  // int _findCurrentIndex(double offset) {
-  //   if (_cardOffsets.isEmpty) return 0;
-
-  //   if (offset <= _cardOffsets.first) return 0;
-  //   if (offset >= _cardOffsets.last) return _cardOffsets.length - 1;
-
-  //   int low = 0;
-  //   int high = _cardOffsets.length - 1;
-
-  //   while (low <= high) {
-  //     int mid = (low + high) ~/ 2;
-  //     double midOffset = _cardOffsets[mid];
-
-  //     if (midOffset == offset) {
-  //       return mid;
-  //     } else if (midOffset < offset) {
-  //       if (mid + 1 < _cardOffsets.length && offset < _cardOffsets[mid + 1]) {
-  //         return mid;
-  //       }
-
-  //       low = mid + 1;
-  //     } else {
-  //       if (mid - 1 >= 0 && offset >= _cardOffsets[mid - 1]) {
-  //         return mid - 1;
-  //       }
-
-  //       high = mid - 1;
-  //     }
-  //   }
-
-  //   return 0;
-  // }
-
-  Future<void> savePosition(AyahPosition position) =>
+  Future<void> savePosition(ScrollPositionCurrent offset) =>
       TaskEither<AppError, void>.Do(
         ($) async {
+          final index = await $(_findCurrentIndex(offset));
+          print('----------- index: $offset');
+          print('----------- index: $index');
+
           final lastRead = LastRead(
             .now(),
             _surah.name,
             _surahNumber,
-            position,
+            .new(.new(index + 1), 0),
           );
 
           final lastReads = await $(_mainDb.getLastReads());
@@ -224,6 +195,39 @@ class AayaatCubit extends Cubit<AayaatState> {
           await _mainCubit.refresh();
         },
       ).mapLeft((l) => emit(.failure(l))).run();
+
+  TaskEither<AppError, int> _findCurrentIndex(
+    ScrollPositionCurrent offset,
+  ) => .tryCatch(() async {
+    if (offset <= _cardOffsets.first) return 0;
+    if (offset >= _cardOffsets.last) return _cardOffsets.length - 1;
+
+    int low = 0;
+    int high = _cardOffsets.length - 1;
+
+    while (low <= high) {
+      int mid = (low + high) ~/ 2;
+      double midOffset = _cardOffsets[mid];
+
+      if (midOffset == offset) {
+        return mid;
+      } else if (midOffset < offset) {
+        if (mid + 1 < _cardOffsets.length && offset < _cardOffsets[mid + 1]) {
+          return mid;
+        }
+
+        low = mid + 1;
+      } else {
+        if (mid - 1 >= 0 && offset >= _cardOffsets[mid - 1]) {
+          return mid - 1;
+        }
+
+        high = mid - 1;
+      }
+    }
+
+    return 0;
+  }, ExceptionError.new);
 
   Future<void> toggleBookmark(AayahNumber aayahNumber) =>
       TaskEither<AppError, void>.Do(

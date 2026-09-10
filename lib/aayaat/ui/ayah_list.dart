@@ -3,43 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
 
-class AyahList extends StatefulWidget {
-  const AyahList({
-    super.key,
-    required this.cubit,
-    required this.state,
-  });
+class AyahList extends StatelessWidget {
+  const AyahList({super.key, required this.state});
 
-  final AayaatCubit cubit;
   final AayaatStateSuccess state;
-
-  @override
-  State<AyahList> createState() => _AyahListState();
-}
-
-class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    if (state == .paused || state == .detached) {
-      // widget.cubit.savePosition(_position);
-    }
-  }
 
   // void _updatePosition() {
   //   final position = _listener.itemPositions.value.first;
@@ -58,30 +25,25 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      // onPopInvokedWithResult: (didPop, result) => widget.cubit.savePosition(
-      //   _position,
-      // ),
-      child: BlocListener<AayaatCubit, AayaatState>(
-        listener: (context, state) {
-          // if (state case AayaatStateSuccess(
-          //   :final scrollToPosition,
-          //   :final scrollToNewPosition,
-          // ) when scrollToNewPosition) {
-          //   _scrollTo(scrollToPosition);
-          // }
-        },
+    return BlocListener<AayaatCubit, AayaatState>(
+      listener: (context, state) {
+        // if (state case AayaatStateSuccess(
+        //   :final scrollToPosition,
+        //   :final scrollToNewPosition,
+        // ) when scrollToNewPosition) {
+        //   _scrollTo(scrollToPosition);
+        // }
+      },
 
-        child: SliverList.separated(
-          itemCount: widget.state.aayaat.length,
-          itemBuilder: (context, index) => AyahCard(
-            surah: widget.state.surah,
-            key: .new(index.toString()),
-            ayah: widget.state.aayaat[index],
-            isBookmarked: widget.state.bookmarks.contains(index + 1),
-          ),
-          separatorBuilder: (context, index) => const SizedBox(height: 8),
+      child: SliverList.separated(
+        itemCount: state.aayaat.length,
+        itemBuilder: (context, index) => AyahCard(
+          surah: state.surah,
+          key: .new(index.toString()),
+          ayah: state.aayaat[index],
+          isBookmarked: state.bookmarks.contains(index + 1),
         ),
+        separatorBuilder: (context, index) => const SizedBox(height: 8),
       ),
     );
   }

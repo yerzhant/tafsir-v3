@@ -68,7 +68,7 @@ class SurahPage extends StatefulWidget {
   State<SurahPage> createState() => _SurahPageState();
 }
 
-class _SurahPageState extends State<SurahPage> {
+class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final _controller = ScrollController();
@@ -83,12 +83,16 @@ class _SurahPageState extends State<SurahPage> {
 
     _controller.addListener(_onScroll);
 
+    WidgetsBinding.instance.addObserver(this);
+
     SystemChrome.setEnabledSystemUIMode(.immersiveSticky);
   }
 
   @override
   void dispose() {
     if (_enableUI) SystemChrome.setEnabledSystemUIMode(.edgeToEdge);
+
+    WidgetsBinding.instance.removeObserver(this);
 
     WakelockPlus.disable();
 
@@ -102,6 +106,15 @@ class _SurahPageState extends State<SurahPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     context.read<AayaatCubit>().measureHeights();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == .paused || state == .detached) {
+      context.read<AayaatCubit>().savePosition(.new(_controller.offset));
+    }
   }
 
   void _onScroll() {
@@ -174,57 +187,60 @@ class _SurahPageState extends State<SurahPage> {
       listener: (context, state) {
         WakelockPlus.toggle(enable: state.doNotSwitchOffScreen);
       },
-      child: Builder(
-        builder: (context) {
-          return Stack(
-            children: [
-              CustomScrollView(
-                controller: _controller,
-                slivers: [
-                  SliverFloatingHeader(
-                    child: SurahHeader(
-                      surah: state.surah,
-                      onTheme: () => _showTheme(context),
-                      onGoToAyah: () => _goToAayah(context),
-                      onSettings: () async {
-                        WakelockPlus.disable();
-                        await SettingsPage.open(context);
-                        if (_doNotSwitchOffScreen) WakelockPlus.enable();
-                      },
-                      onInfo: () => _showInfo(context, state.surah.info),
-                      onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
-                    ),
-                  ),
+      child: PopScope(
+        onPopInvokedWithResult: (didPop, result) {
+          context.read<AayaatCubit>().savePosition(.new(_controller.offset));
+        },
 
-                  SliverPadding(
-                    padding: const .symmetric(horizontal: 20, vertical: 12),
-                    sliver: AyahList(
-                      state: state,
-                      cubit: context.read(),
-                    ),
-                  ),
-
-                  SliverPadding(
-                    padding: const .only(right: 20, left: 20, bottom: 20),
-                    sliver: SliverToBoxAdapter(
-                      child: SurahNavigator(
-                        suwar: widget._suwar,
-                        number: state.surah.number,
-                        mainCubit: widget._mainCubit,
-                        onOpenSurah: () => _enableUI = false,
-                        onShowSuwar: () {
-                          _scaffoldKey.currentState!.openDrawer();
+        child: Builder(
+          builder: (context) {
+            return Stack(
+              children: [
+                CustomScrollView(
+                  controller: _controller,
+                  slivers: [
+                    SliverFloatingHeader(
+                      child: SurahHeader(
+                        surah: state.surah,
+                        onTheme: () => _showTheme(context),
+                        onGoToAyah: () => _goToAayah(context),
+                        onSettings: () async {
+                          WakelockPlus.disable();
+                          await SettingsPage.open(context);
+                          if (_doNotSwitchOffScreen) WakelockPlus.enable();
                         },
+                        onInfo: () => _showInfo(context, state.surah.info),
+                        onSuwar: () => _scaffoldKey.currentState!.openDrawer(),
                       ),
                     ),
-                  ),
-                ],
-              ),
 
-              ScrollPositionWidget(quantity: state.surah.quantity),
-            ],
-          );
-        },
+                    SliverPadding(
+                      padding: const .symmetric(horizontal: 20, vertical: 12),
+                      sliver: AyahList(state: state),
+                    ),
+
+                    SliverPadding(
+                      padding: const .only(right: 20, left: 20, bottom: 20),
+                      sliver: SliverToBoxAdapter(
+                        child: SurahNavigator(
+                          suwar: widget._suwar,
+                          number: state.surah.number,
+                          mainCubit: widget._mainCubit,
+                          onOpenSurah: () => _enableUI = false,
+                          onShowSuwar: () {
+                            _scaffoldKey.currentState!.openDrawer();
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                ScrollPositionWidget(quantity: state.surah.quantity),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
