@@ -15,12 +15,16 @@ class WidgetsHeightsMeasurer {
     double maxWidth,
   ) => .tryCatch(() async {
     final pipe = PipelineOwner();
+    final pixelRatio = MediaQuery.of(context).devicePixelRatio;
 
     final view = RenderView(
       configuration: .new(
-        physicalConstraints: BoxConstraints(maxWidth: maxWidth),
-        logicalConstraints: BoxConstraints(maxWidth: maxWidth),
-        devicePixelRatio: MediaQuery.of(context).devicePixelRatio,
+        physicalConstraints: .new(
+          minWidth: maxWidth * pixelRatio,
+          maxWidth: maxWidth * pixelRatio,
+        ),
+        logicalConstraints: .new(minWidth: maxWidth, maxWidth: maxWidth),
+        devicePixelRatio: pixelRatio,
       ),
       view: View.of(context),
     );
@@ -35,9 +39,9 @@ class WidgetsHeightsMeasurer {
       child: Directionality(
         textDirection: .ltr,
         child: MediaQuery(
-          data: MediaQuery.of(
-            context,
-          ).copyWith(size: .new(maxWidth, double.infinity)),
+          data: MediaQuery.of(context).copyWith(
+            size: .new(maxWidth, double.infinity),
+          ),
           child: Material(
             type: .transparency,
             child: MultiBlocProvider(
@@ -46,6 +50,7 @@ class WidgetsHeightsMeasurer {
                 BlocProvider.value(value: context.read<SettingsCubit>()),
               ],
               child: Column(
+                key: const ValueKey('measurement_column'),
                 mainAxisSize: .min,
                 children: widgets,
               ),
@@ -57,10 +62,11 @@ class WidgetsHeightsMeasurer {
 
     build.buildScope(root);
     pipe.flushLayout();
+    pipe.flushCompositingBits();
 
     final List<WidgetHeight> heights = [];
 
-    void fillHeight(RenderObject object, List<WidgetHeight> heights) {
+    void fillHeight(RenderObject object) {
       if (object is RenderFlex) {
         object.visitChildren((child) {
           if (child is RenderBox) {
@@ -71,10 +77,10 @@ class WidgetsHeightsMeasurer {
         return;
       }
 
-      object.visitChildren((child) => fillHeight(child, heights));
+      object.visitChildren(fillHeight);
     }
 
-    view.visitChildren((object) => fillHeight(object, heights));
+    view.visitChildren(fillHeight);
 
     print('==== heights: $heights');
 
