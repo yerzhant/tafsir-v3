@@ -6,13 +6,16 @@ sealed class AayaatState with _$AayaatState {
 
   const factory AayaatState.failure(AppError error) = AayaatStateFailure;
 
-  const factory AayaatState.success(
-    Surah surah,
-    List<Aayah> aayaat,
-    Set<AayahNumber> bookmarks,
-    AyahPosition scrollToPosition,
-    ScrollPositionMax scrollProgressMax,
-    bool scrollToNewPosition,
-    bool inProgerss,
-  ) = AayaatStateSuccess;
+  const factory AayaatState.success({
+    required Surah surah,
+    required List<Aayah> aayaat,
+    required Set<AayahNumber> bookmarks,
+
+    required bool inProgerss,
+
+    ScrollPositionMax? scrollProgressMax,
+
+    ScrollPositionCurrent? scrollTo,
+    ScrollPositionCurrent? jumpTo,
+  }) = AayaatStateSuccess;
 }

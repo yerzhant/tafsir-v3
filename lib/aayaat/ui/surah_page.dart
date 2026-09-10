@@ -105,24 +105,20 @@ class _SurahPageState extends State<SurahPage> {
   }
 
   void _onScroll() {
-    // if (!_controller.hasClients || _controller.position.maxScrollExtent == 0) {
-    //   return;
-    // }
-
     context.read<ScrollPositionCubit>().update(.new(_controller.offset));
   }
 
-  // void _navigateTo({required double offset, bool animate = true}) {
-  //   if (animate) {
-  //     _controller.animateTo(
-  //       offset,
-  //       curve: Curves.fastOutSlowIn,
-  //       duration: const .new(milliseconds: 400),
-  //     );
-  //   } else {
-  //     _controller.jumpTo(offset);
-  //   }
-  // }
+  void _navigateTo({required double offset, bool animate = true}) {
+    if (animate) {
+      _controller.animateTo(
+        offset,
+        curve: Curves.fastOutSlowIn,
+        duration: const .new(milliseconds: 400),
+      );
+    } else {
+      _controller.jumpTo(offset);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,19 +132,27 @@ class _SurahPageState extends State<SurahPage> {
       key: _scaffoldKey,
       body: BlocConsumer<AayaatCubit, AayaatState>(
         listener: (context, state) {
-          if (state case AayaatStateSuccess(:final scrollProgressMax)) {
-            context.read<ScrollPositionCubit>().updateMax(scrollProgressMax);
+          if (state case AayaatStateSuccess(
+            :final scrollProgressMax,
+            :final scrollTo,
+            :final jumpTo,
+          )) {
+            if (scrollProgressMax != null) {
+              context.read<ScrollPositionCubit>().updateMax(scrollProgressMax);
+            }
+
+            if (jumpTo != null) _navigateTo(offset: jumpTo, animate: false);
+
+            if (scrollTo != null) _navigateTo(offset: scrollTo);
           }
         },
         builder: (context, state) {
           return switch (state) {
-            AayaatStateInProgress() => const ProgressWidget(),
-
             AayaatStateSuccess() => _success(context, state),
-
+            AayaatStateInProgress() => const ProgressWidget(),
             AayaatStateFailure(:final error) => AppErrorWidget(
-              error: error,
               onPressed: context.read<AayaatCubit>().init,
+              error: error,
             ),
           };
         },

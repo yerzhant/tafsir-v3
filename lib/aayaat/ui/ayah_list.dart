@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
-import 'package:tafsir/aayaat/domain/ayah_position.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
 
 class AyahList extends StatefulWidget {
@@ -19,13 +18,9 @@ class AyahList extends StatefulWidget {
 }
 
 class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
-  late AyahPosition _position;
-
   @override
   void initState() {
     super.initState();
-
-    _position = widget.state.scrollToPosition;
 
     WidgetsBinding.instance.addObserver(this);
   }
@@ -42,7 +37,7 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
     super.didChangeAppLifecycleState(state);
 
     if (state == .paused || state == .detached) {
-      widget.cubit.savePosition(_position);
+      // widget.cubit.savePosition(_position);
     }
   }
 
@@ -64,10 +59,9 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvokedWithResult: (didPop, result) => widget.cubit.savePosition(
-        _position,
-      ),
-
+      // onPopInvokedWithResult: (didPop, result) => widget.cubit.savePosition(
+      //   _position,
+      // ),
       child: BlocListener<AayaatCubit, AayaatState>(
         listener: (context, state) {
           // if (state case AayaatStateSuccess(
@@ -79,20 +73,14 @@ class _AyahListState extends State<AyahList> with WidgetsBindingObserver {
         },
 
         child: SliverList.separated(
-          separatorBuilder: (context, index) => const SizedBox(height: 8),
-
-          // initialAlignment: _position.alignment,
-          // initialScrollIndex: _position.number - 1,
           itemCount: widget.state.aayaat.length,
-
-          // itemScrollController: _controller,
-          // itemPositionsListener: _listener,
           itemBuilder: (context, index) => AyahCard(
             surah: widget.state.surah,
             key: .new(index.toString()),
             ayah: widget.state.aayaat[index],
             isBookmarked: widget.state.bookmarks.contains(index + 1),
           ),
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
         ),
       ),
     );

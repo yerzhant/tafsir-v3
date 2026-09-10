@@ -12,6 +12,7 @@ import 'package:tafsir/aayaat/ui/surah_header.dart';
 import 'package:tafsir/aayaat/ui/surah_navigator.dart';
 import 'package:tafsir/aayaat/ui/widgets_heights_measurer.dart';
 import 'package:tafsir/common/domain/error.dart';
+import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
 import 'package:tafsir/main/db/main_db.dart';
 import 'package:tafsir/main/domain/last_read.dart';
@@ -62,21 +63,24 @@ class AayaatCubit extends Cubit<AayaatState> {
 
       emit(
         .success(
-          _surah,
-          _aayaat,
-          bookmarks,
-          _position,
-          maxOffset,
-          false,
-          false,
+          surah: _surah,
+          aayaat: _aayaat,
+          bookmarks: bookmarks,
+          scrollProgressMax: maxOffset,
+
+          inProgerss: false,
+
+          jumpTo: _position.number
+              .takeIf((it) => it > 1)
+              ?.let((it) => .new(_cardOffsets[it])),
         ),
       );
+
+      emit((state as AayaatStateSuccess).copyWith(jumpTo: null));
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
   TaskEither<AppError, ScrollPositionMax> _measureHeights() => .Do(($) async {
-    print('================== measure started');
-
     final screenWidth = MediaQuery.widthOf(_context);
     final contentWidth = screenWidth - 40;
 
@@ -241,16 +245,16 @@ class AayaatCubit extends Cubit<AayaatState> {
         },
       ).mapLeft((l) => emit(.failure(l))).run();
 
-  void goToAayah(AayahNumber number) {
-    final s = state as AayaatStateSuccess;
+  // void goToAayah(AayahNumber number) {
+  //   final s = state as AayaatStateSuccess;
 
-    emit(
-      s.copyWith(
-        scrollToPosition: .new(number, 0),
-        scrollToNewPosition: true,
-      ),
-    );
+  //   emit(
+  //     s.copyWith(
+  //       scrollToPosition: .new(number, 0),
+  //       scrollToNewPosition: true,
+  //     ),
+  //   );
 
-    emit(s.copyWith(scrollToNewPosition: false));
-  }
+  //   emit(s.copyWith(scrollToNewPosition: false));
+  // }
 }
