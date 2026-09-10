@@ -96,11 +96,11 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    WakelockPlus.disable();
+
     if (_enableUI) SystemChrome.setEnabledSystemUIMode(.edgeToEdge);
 
     WidgetsBinding.instance.removeObserver(this);
-
-    WakelockPlus.disable();
 
     _controller.removeListener(_onScroll);
     _controller.dispose();

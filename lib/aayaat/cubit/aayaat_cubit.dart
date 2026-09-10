@@ -31,16 +31,18 @@ class AayaatCubit extends Cubit<AayaatState> {
     this._suwar,
     this._mainCubit,
     this._surahNumber,
-    this._position,
+    this._aayahPosition,
   ) : super(const .inProgress());
 
   final MainDb _mainDb;
   final AayaatDb _aayaatDb;
   final MainCubit _mainCubit;
+
   final BuildContext _context;
-  final AyahPosition _position;
-  final SurahNumber _surahNumber;
+
   final List<Surah> _suwar;
+  final SurahNumber _surahNumber;
+  final AyahPosition _aayahPosition;
 
   late final Surah _surah;
   late final List<Aayah> _aayaat;
@@ -75,7 +77,7 @@ class AayaatCubit extends Cubit<AayaatState> {
         (_) {
           emit(
             (state as AayaatStateSuccess).copyWith(
-              jumpTo: _position.number
+              jumpTo: _aayahPosition.number
                   .takeIf((it) => it > 1)
                   ?.let((it) => .new(_cardOffsets[it - 1])),
             ),
@@ -153,18 +155,16 @@ class AayaatCubit extends Cubit<AayaatState> {
 
   Future<void> measureHeights() => TaskEither<AppError, void>.Do(
     ($) async {
-      if (state is! AayaatStateSuccess) return;
+      final s = state;
 
-      emit((state as AayaatStateSuccess).copyWith(inProgerss: true));
+      if (s is! AayaatStateSuccess) return;
+
+      emit(s.copyWith(inProgerss: true));
 
       final maxOffset = await $(_measureHeights());
 
-      emit(
-        (state as AayaatStateSuccess).copyWith(
-          scrollProgressMax: maxOffset,
-          inProgerss: false,
-        ),
-      );
+      emit(s.copyWith(scrollProgressMax: maxOffset, inProgerss: false));
+      emit(s.copyWith(scrollProgressMax: null));
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
@@ -172,8 +172,6 @@ class AayaatCubit extends Cubit<AayaatState> {
       TaskEither<AppError, void>.Do(
         ($) async {
           final aayahNumber = getCurrentAaayahNumber(offset);
-          print('----------- index: $offset');
-          print('----------- index: $aayahNumber');
 
           final lastRead = LastRead(
             .now(),
@@ -200,8 +198,9 @@ class AayaatCubit extends Cubit<AayaatState> {
         },
       ).mapLeft((l) => emit(.failure(l))).run();
 
-  AayahNumber getCurrentAaayahNumber(ScrollPositionCurrent offset) =>
-      _findCurrentAayahIndex(offset).let((it) => .new(it + 1));
+  AayahNumber getCurrentAaayahNumber(ScrollPositionCurrent offset) {
+    return _findCurrentAayahIndex(offset).let((it) => .new(it + 1));
+  }
 
   int _findCurrentAayahIndex(ScrollPositionCurrent offset) {
     if (offset <= _cardOffsets.first) return 0;

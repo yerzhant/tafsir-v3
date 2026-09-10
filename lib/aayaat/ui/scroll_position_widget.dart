@@ -14,8 +14,8 @@ class ScrollPositionWidget extends StatelessWidget {
   static const height = 17.0;
 
   const ScrollPositionWidget({
-    super.key,
     required this.quantity,
+    super.key,
   });
 
   final AayahQuantity quantity;
