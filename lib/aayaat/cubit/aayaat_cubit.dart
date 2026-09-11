@@ -95,7 +95,7 @@ class AayaatCubit extends Cubit<AayaatState> {
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 
-  Future<void> measureHeights() => TaskEither<AppError, void>.Do(
+  Future<void> onOrientationChanged() => TaskEither<AppError, void>.Do(
     ($) async {
       final s = state;
 
@@ -107,14 +107,8 @@ class AayaatCubit extends Cubit<AayaatState> {
 
       _cardOffsets = heightsResult.offsets;
 
-      emit(
-        s.copyWith(
-          inProgerss: false,
-          scrollProgressMax: heightsResult.maxOffset,
-        ),
-      );
-
-      emit(s.copyWith(scrollProgressMax: null));
+      emit(s.copyWith(scrollProgressMax: heightsResult.maxOffset));
+      emit(s.copyWith(scrollProgressMax: null, inProgerss: false));
     },
   ).mapLeft((l) => emit(.failure(l))).run();
 

@@ -13,7 +13,10 @@ class ScrollPositionCubit extends Cubit<ScrollPositionState> {
 
   late ScrollPositionMax _max;
 
-  void updateMax(ScrollPositionMax max) => _max = max;
+  void updateMax(ScrollPositionMax max) {
+    emit(const .current(.new(0)));
+    _max = max;
+  }
 
   void update(ScrollPositionCurrent current) {
     emit(.current(.new(current / _max)));

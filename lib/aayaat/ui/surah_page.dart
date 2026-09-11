@@ -84,6 +84,8 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
 
   var _enableUI = true;
 
+  Orientation? _lastOrientation;
+
   @override
   void initState() {
     super.initState();
@@ -112,7 +114,16 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    context.read<AayaatCubit>().measureHeights();
+
+    final currentOrientation = MediaQuery.of(context).orientation;
+
+    if (_lastOrientation != currentOrientation) {
+      _lastOrientation = currentOrientation;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) context.read<AayaatCubit>().onOrientationChanged();
+      });
+    }
   }
 
   @override
