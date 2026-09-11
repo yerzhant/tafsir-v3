@@ -55,6 +55,7 @@ class SurahPage extends StatefulWidget {
                 context,
                 context.read(),
                 context.read(),
+                context.read(),
                 suwar,
                 mainCubit,
                 surahNumber,

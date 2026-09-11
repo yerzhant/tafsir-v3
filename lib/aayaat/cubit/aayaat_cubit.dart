@@ -7,10 +7,10 @@ import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
+import 'package:tafsir/aayaat/domain/widgets_heights_service.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
 import 'package:tafsir/aayaat/ui/surah_header.dart';
 import 'package:tafsir/aayaat/ui/surah_navigator.dart';
-import 'package:tafsir/aayaat/ui/widgets_heights_measurer.dart';
 import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/common/domain/scope_functions.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
@@ -26,8 +26,11 @@ const _maxLastReads = 30;
 class AayaatCubit extends Cubit<AayaatState> {
   AayaatCubit(
     this._context,
+
     this._mainDb,
     this._aayaatDb,
+    this._heightsService,
+
     this._suwar,
     this._mainCubit,
     this._surahNumber,
@@ -43,6 +46,8 @@ class AayaatCubit extends Cubit<AayaatState> {
   final List<Surah> _suwar;
   final SurahNumber _surahNumber;
   final AyahPosition _aayahPosition;
+
+  final WidgetsHeightsService _heightsService;
 
   late final Surah _surah;
   late final List<Aayah> _aayaat;
@@ -94,7 +99,7 @@ class AayaatCubit extends Cubit<AayaatState> {
     final contentWidth = screenWidth - 40;
 
     final headerHeight = (await $(
-      WidgetsHeightsMeasurer.process(_context, [
+      _heightsService.getFor(_context, [
         SurahHeader(
           surah: _surah,
           onInfo: () {},
@@ -108,7 +113,7 @@ class AayaatCubit extends Cubit<AayaatState> {
 
     final navHeight = (await $(
       // ignore: use_build_context_synchronously
-      WidgetsHeightsMeasurer.process(_context, [
+      _heightsService.getFor(_context, [
         SurahNavigator(
           suwar: _suwar,
           number: _surahNumber,
@@ -125,7 +130,7 @@ class AayaatCubit extends Cubit<AayaatState> {
 
     final heights = await $(
       // ignore: use_build_context_synchronously
-      WidgetsHeightsMeasurer.process(_context, widgets, contentWidth),
+      _heightsService.getFor(_context, widgets, contentWidth),
     );
 
     _cardOffsets.clear();
