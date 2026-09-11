@@ -19,20 +19,18 @@ import 'package:tafsir/theme/cubit/theme_cubit.dart';
 const _batchSize = 10;
 
 class WidgetsHeightsService {
-  var _initialized = false;
+  late BuildContext _context;
+  late MainCubit _mainCubit;
+  late List<Surah> _suwar;
 
-  late final BuildContext _context;
-  late final MainCubit _mainCubit;
-  late final List<Surah> _suwar;
+  var _screenWidth = 0.0;
+  var _headerHeight = 0.0;
+  var _navHeight = 0.0;
 
   void init(BuildContext context, MainCubit mainCubit, List<Surah> suwar) {
-    if (!_initialized) {
-      _suwar = suwar;
-      _context = context;
-      _mainCubit = mainCubit;
-
-      _initialized = true;
-    }
+    _suwar = suwar;
+    _context = context;
+    _mainCubit = mainCubit;
   }
 
   TaskEither<AppError, WidgetsHeightsResult> getFor(
@@ -42,30 +40,34 @@ class WidgetsHeightsService {
     final screenWidth = MediaQuery.widthOf(_context);
     final contentWidth = screenWidth - 40;
 
-    final headerHeight = (await $(
-      _getHeights([
-        SurahHeader(
-          surah: surah,
-          onInfo: () {},
-          onSuwar: () {},
-          onTheme: () {},
-          onSettings: () {},
-          onGoToAyah: () {},
-        ),
-      ], screenWidth),
-    )).first;
+    if (screenWidth != _screenWidth) {
+      _headerHeight = (await $(
+        _getHeights([
+          SurahHeader(
+            surah: surah,
+            onInfo: () {},
+            onSuwar: () {},
+            onTheme: () {},
+            onSettings: () {},
+            onGoToAyah: () {},
+          ),
+        ], screenWidth),
+      )).first;
 
-    final navHeight = (await $(
-      _getHeights([
-        SurahNavigator(
-          suwar: _suwar,
-          number: surah.number,
-          mainCubit: _mainCubit,
-          onOpenSurah: () {},
-          onShowSuwar: () {},
-        ),
-      ], contentWidth),
-    )).first;
+      _navHeight = (await $(
+        _getHeights([
+          SurahNavigator(
+            suwar: _suwar,
+            number: surah.number,
+            mainCubit: _mainCubit,
+            onOpenSurah: () {},
+            onShowSuwar: () {},
+          ),
+        ], contentWidth),
+      )).first;
+
+      _screenWidth = screenWidth;
+    }
 
     final widgets = aayaat
         .map((e) => AyahCard(ayah: e, surah: surah, isBookmarked: false))
@@ -74,8 +76,8 @@ class WidgetsHeightsService {
     final heights = await $(_getHeights(widgets, contentWidth));
 
     final offsets = <double>[];
-    offsets.add(headerHeight + 12);
-    var offset = headerHeight.value + 12;
+    offsets.add(_headerHeight + 12);
+    var offset = _headerHeight + 12;
 
     for (final height in heights) {
       offset += height + 8;
@@ -87,8 +89,8 @@ class WidgetsHeightsService {
 
     return .new(
       .new(
-        headerHeight +
-            navHeight +
+        _headerHeight +
+            _navHeight +
             heights.reduce((value, element) => .new(value + element + 8)) +
             12 +
             12 +
@@ -204,6 +206,8 @@ class WidgetsHeightsService {
       await WidgetsBinding.instance.endOfFrame;
       await Future.delayed(.zero);
     }
+
+    print('------------- hs: $heights');
 
     return heights;
   }, ExceptionError.new);
