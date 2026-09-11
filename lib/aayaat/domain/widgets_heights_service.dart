@@ -27,6 +27,8 @@ class WidgetsHeightsService {
   var _headerHeight = 0.0;
   var _navHeight = 0.0;
 
+  final _heights = <SurahNumber, List<WidgetHeight>>{};
+
   void init(BuildContext context, MainCubit mainCubit, List<Surah> suwar) {
     _suwar = suwar;
     _context = context;
@@ -41,6 +43,8 @@ class WidgetsHeightsService {
     final contentWidth = screenWidth - 40;
 
     if (screenWidth != _screenWidth) {
+      _heights.clear();
+
       _headerHeight = (await $(
         _getHeights([
           SurahHeader(
@@ -69,15 +73,19 @@ class WidgetsHeightsService {
       _screenWidth = screenWidth;
     }
 
-    final widgets = aayaat
-        .map((e) => AyahCard(ayah: e, surah: surah, isBookmarked: false))
-        .toList();
+    if (!_heights.containsKey(surah.number)) {
+      final widgets = aayaat
+          .map((e) => AyahCard(ayah: e, surah: surah, isBookmarked: false))
+          .toList();
 
-    final heights = await $(_getHeights(widgets, contentWidth));
+      _heights[surah.number] = await $(_getHeights(widgets, contentWidth));
+    }
 
     final offsets = <double>[];
     offsets.add(_headerHeight + 12);
     var offset = _headerHeight + 12;
+
+    final heights = _heights[surah.number]!;
 
     for (final height in heights) {
       offset += height + 8;
