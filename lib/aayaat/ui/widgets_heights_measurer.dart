@@ -39,9 +39,9 @@ class WidgetsHeightsMeasurer {
       child: Directionality(
         textDirection: .ltr,
         child: MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            size: .new(maxWidth, double.infinity),
-          ),
+          data: MediaQuery.of(
+            context,
+          ).copyWith(size: .new(maxWidth, .infinity)),
           child: Material(
             type: .transparency,
             child: MultiBlocProvider(
@@ -50,7 +50,6 @@ class WidgetsHeightsMeasurer {
                 BlocProvider.value(value: context.read<SettingsCubit>()),
               ],
               child: Column(
-                key: const ValueKey('measurement_column'),
                 mainAxisSize: .min,
                 children: widgets,
               ),
@@ -66,35 +65,36 @@ class WidgetsHeightsMeasurer {
 
     final List<WidgetHeight> heights = [];
 
-    void fillHeight(RenderObject object) {
-      if (object is RenderFlex) {
-        object.visitChildren((child) {
-          if (child is RenderBox) {
-            heights.add(.new(child.size.height));
-          }
-        });
+    RenderObject? columnRenderObject;
 
+    void findColumnRenderObject(RenderObject object) {
+      if (object is RenderFlex) {
+        columnRenderObject = object;
         return;
       }
-
-      object.visitChildren(fillHeight);
+      object.visitChildren(findColumnRenderObject);
     }
 
-    view.visitChildren(fillHeight);
+    view.visitChildren(findColumnRenderObject);
 
-    print('==== heights: $heights');
+    if (columnRenderObject is RenderFlex) {
+      columnRenderObject!.visitChildren((child) {
+        if (child is RenderBox) {
+          heights.add(.new(child.size.height));
+        }
+      });
+    }
 
-    build.buildScope(
-      root,
-      () {
-        root.update(
-          RenderObjectToWidgetAdapter(
-            container: view,
-            child: const SizedBox.shrink(),
-          ),
-        );
-      },
-    );
+    print('==== heights count: ${heights.length}');
+
+    build.buildScope(root, () {
+      root.update(
+        RenderObjectToWidgetAdapter(
+          container: view,
+          child: const SizedBox.shrink(),
+        ),
+      );
+    });
 
     build.finalizeTree();
 
