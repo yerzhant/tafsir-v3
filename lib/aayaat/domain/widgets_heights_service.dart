@@ -9,7 +9,6 @@ import 'package:tafsir/aayaat/domain/widgets_heights_result.dart';
 import 'package:tafsir/aayaat/ui/ayah_card.dart';
 import 'package:tafsir/aayaat/ui/surah_header.dart';
 import 'package:tafsir/aayaat/ui/surah_navigator.dart';
-import 'package:tafsir/aayaat/ui/widgets_heights_measurer.dart';
 import 'package:tafsir/common/domain/error.dart';
 import 'package:tafsir/main/cubit/main_cubit.dart';
 import 'package:tafsir/main/domain/surah.dart';
@@ -17,6 +16,8 @@ import 'package:tafsir/settings/cubit/settings_cubit.dart';
 import 'package:tafsir/theme/cubit/theme_cubit.dart';
 
 const _batchSize = 10;
+
+extension type const WidgetHeight(double value) implements double {}
 
 class WidgetsHeightsService {
   late BuildContext _context;
@@ -214,8 +215,6 @@ class WidgetsHeightsService {
       await WidgetsBinding.instance.endOfFrame;
       await Future.delayed(.zero);
     }
-
-    print('------------- hs: $heights');
 
     return heights;
   }, ExceptionError.new);
