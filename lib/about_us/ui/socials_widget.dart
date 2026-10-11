@@ -33,7 +33,7 @@ class SocialsWidget extends StatelessWidget {
                 theme: theme,
                 icon: 'globe',
                 padding: 6.08,
-                onTap: () => launchUrlString('https://azan.ru'),
+                onTap: () => launchUrlString('https://azan.info'),
               ),
               IconPanel(
                 theme: theme,

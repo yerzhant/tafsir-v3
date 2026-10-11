@@ -84,7 +84,7 @@ class AboutPage extends StatelessWidget {
                                   icon: 'note-pencil',
                                   title: 'Предложения и замечания',
                                   onTap: () => launchUrlString(
-                                    'https://azan.ru/site/write-to-admin',
+                                    'https://azan.info/site/write-to-admin',
                                   ),
                                 ),
                                 SocialsWidget(theme: theme),

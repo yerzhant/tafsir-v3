@@ -33,7 +33,7 @@ class Player {
     final aayah = aayahNumber.toString().padLeft(3, '0');
 
     final source = await _player.loadUrl(
-      'https://azan.ru/upload/Quran/abu-bakr-al-shatri/$surah/$surah$aayah.mp3',
+      'https://azan.info/upload/Quran/abu-bakr-al-shatri/$surah/$surah$aayah.mp3',
       autoDispose: true,
     );
 
