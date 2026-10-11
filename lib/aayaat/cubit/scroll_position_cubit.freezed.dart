@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ScrollPositionState {
 
- ScrollPositionProgress get progress;
+ ScrollPositionProgress get progress; AayahNumber get minVisible;
 /// Create a copy of ScrollPositionState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ScrollPositionStateCopyWith<ScrollPositionState> get copyWith => _$ScrollPositi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScrollPositionState&&(identical(other.progress, progress) || other.progress == progress));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScrollPositionState&&(identical(other.progress, progress) || other.progress == progress)&&(identical(other.minVisible, minVisible) || other.minVisible == minVisible));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,progress);
+int get hashCode => Object.hash(runtimeType,progress,minVisible);
 
 @override
 String toString() {
-  return 'ScrollPositionState(progress: $progress)';
+  return 'ScrollPositionState(progress: $progress, minVisible: $minVisible)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ScrollPositionStateCopyWith<$Res>  {
   factory $ScrollPositionStateCopyWith(ScrollPositionState value, $Res Function(ScrollPositionState) _then) = _$ScrollPositionStateCopyWithImpl;
 @useResult
 $Res call({
- ScrollPositionProgress progress
+ ScrollPositionProgress progress, AayahNumber minVisible
 });
 
 
@@ -62,10 +62,11 @@ class _$ScrollPositionStateCopyWithImpl<$Res>
 
 /// Create a copy of ScrollPositionState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? progress = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? progress = null,Object? minVisible = null,}) {
   return _then(_self.copyWith(
 progress: null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
-as ScrollPositionProgress,
+as ScrollPositionProgress,minVisible: null == minVisible ? _self.minVisible : minVisible // ignore: cast_nullable_to_non_nullable
+as AayahNumber,
   ));
 }
 
@@ -150,10 +151,10 @@ return current(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( ScrollPositionProgress progress)?  current,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( ScrollPositionProgress progress,  AayahNumber minVisible)?  current,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Current() when current != null:
-return current(_that.progress);case _:
+return current(_that.progress,_that.minVisible);case _:
   return orElse();
 
 }
@@ -171,10 +172,10 @@ return current(_that.progress);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( ScrollPositionProgress progress)  current,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( ScrollPositionProgress progress,  AayahNumber minVisible)  current,}) {final _that = this;
 switch (_that) {
 case _Current():
-return current(_that.progress);case _:
+return current(_that.progress,_that.minVisible);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -191,10 +192,10 @@ return current(_that.progress);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( ScrollPositionProgress progress)?  current,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( ScrollPositionProgress progress,  AayahNumber minVisible)?  current,}) {final _that = this;
 switch (_that) {
 case _Current() when current != null:
-return current(_that.progress);case _:
+return current(_that.progress,_that.minVisible);case _:
   return null;
 
 }
@@ -206,10 +207,11 @@ return current(_that.progress);case _:
 
 
 class _Current implements ScrollPositionState {
-  const _Current(this.progress);
+  const _Current(this.progress, this.minVisible);
   
 
 @override final  ScrollPositionProgress progress;
+@override final  AayahNumber minVisible;
 
 /// Create a copy of ScrollPositionState
 /// with the given fields replaced by the non-null parameter values.
@@ -221,16 +223,16 @@ _$CurrentCopyWith<_Current> get copyWith => __$CurrentCopyWithImpl<_Current>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Current&&(identical(other.progress, progress) || other.progress == progress));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Current&&(identical(other.progress, progress) || other.progress == progress)&&(identical(other.minVisible, minVisible) || other.minVisible == minVisible));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,progress);
+int get hashCode => Object.hash(runtimeType,progress,minVisible);
 
 @override
 String toString() {
-  return 'ScrollPositionState.current(progress: $progress)';
+  return 'ScrollPositionState.current(progress: $progress, minVisible: $minVisible)';
 }
 
 
@@ -241,7 +243,7 @@ abstract mixin class _$CurrentCopyWith<$Res> implements $ScrollPositionStateCopy
   factory _$CurrentCopyWith(_Current value, $Res Function(_Current) _then) = __$CurrentCopyWithImpl;
 @override @useResult
 $Res call({
- ScrollPositionProgress progress
+ ScrollPositionProgress progress, AayahNumber minVisible
 });
 
 
@@ -258,10 +260,11 @@ class __$CurrentCopyWithImpl<$Res>
 
 /// Create a copy of ScrollPositionState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? progress = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? progress = null,Object? minVisible = null,}) {
   return _then(_Current(
 null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
-as ScrollPositionProgress,
+as ScrollPositionProgress,null == minVisible ? _self.minVisible : minVisible // ignore: cast_nullable_to_non_nullable
+as AayahNumber,
   ));
 }
 

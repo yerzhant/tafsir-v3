@@ -9,11 +9,12 @@ part 'scroll_position_state.dart';
 extension type const ScrollPositionProgress(double value) implements double {}
 
 class ScrollPositionCubit extends Cubit<ScrollPositionState> {
-  ScrollPositionCubit(this._max) : super(const .current(.new(0)));
+  ScrollPositionCubit(this._max, AayahNumber aayahNumber)
+    : super(.current(const .new(0), aayahNumber));
 
   final AayahQuantity _max;
 
-  void update(AayahNumber current) {
-    emit(.current(.new(current / _max)));
+  void update(AayahNumber minVisible, AayahNumber maxVisible) {
+    emit(.current(.new(maxVisible / _max), minVisible));
   }
 }

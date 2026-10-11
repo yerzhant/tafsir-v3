@@ -11,11 +11,6 @@ sealed class AayaatState with _$AayaatState {
     required List<Aayah> aayaat,
     required Set<AayahNumber> bookmarks,
 
-    required bool inProgerss,
-
-    ScrollPositionMax? scrollProgressMax,
-
-    ScrollPositionCurrent? scrollTo,
-    ScrollPositionCurrent? jumpTo,
+    AayahNumber? goToAayah,
   }) = AayaatStateSuccess;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
+import 'package:tafsir/aayaat/cubit/aayaat_cubit.dart';
 import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/domain/aayah.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
@@ -57,24 +58,46 @@ class _AayaahListState extends State<AayaatList> {
   }
 
   void _onScroll() {
-    _listController.visibleRange?.$2.let(
-      (it) => context.read<ScrollPositionCubit>().update(.new(it ~/ 2 + 1)),
+    _listController.visibleRange?.let(
+      (it) => context.read<ScrollPositionCubit>().update(
+        .new(it.$1 ~/ 2 + 1),
+        .new(it.$2 ~/ 2 + 1),
+      ),
+    );
+  }
+
+  void _goTo(AayahNumber aayahNumber) {
+    _listController.animateToItem(
+      alignment: 0,
+      index: (aayahNumber - 1) * 2,
+      curve: (_) => Curves.fastOutSlowIn,
+      scrollController: widget.scrollController,
+      duration: (_) => const .new(milliseconds: 500),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SuperSliverList.separated(
-      listController: _listController,
-      itemCount: widget.aayaat.length,
-      separatorBuilder: (context, index) {
-        return const SizedBox(height: 8);
+    return BlocListener<AayaatCubit, AayaatState>(
+      listener: (context, state) {
+        if (state case AayaatStateSuccess(
+          :final goToAayah,
+        ) when goToAayah != null) {
+          _goTo(goToAayah);
+        }
       },
-      itemBuilder: (context, index) => AyahCard(
-        surah: widget.surah,
-        ayah: widget.aayaat[index],
-        key: .new(index.toString()),
-        isBookmarked: widget.bookmarks.contains(index + 1),
+      child: SuperSliverList.separated(
+        listController: _listController,
+        itemCount: widget.aayaat.length,
+        separatorBuilder: (context, index) {
+          return const SizedBox(height: 8);
+        },
+        itemBuilder: (context, index) => AyahCard(
+          surah: widget.surah,
+          ayah: widget.aayaat[index],
+          key: .new(index.toString()),
+          isBookmarked: widget.bookmarks.contains(index + 1),
+        ),
       ),
     );
   }
