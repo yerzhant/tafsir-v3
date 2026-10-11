@@ -26,6 +26,7 @@ dependencies:
   wakelock_plus: ^1.7.0
   flutter_soloud: ^4.1.7
   collection: ^1.19.1
+  super_sliver_list: ^0.4.1
 
 dev_dependencies:
   flutter_test:
