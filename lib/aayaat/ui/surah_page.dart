@@ -6,7 +6,7 @@ import 'package:tafsir/aayaat/cubit/player_cubit.dart';
 import 'package:tafsir/aayaat/cubit/scroll_position_cubit.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/ayah_position.dart';
-import 'package:tafsir/aayaat/ui/ayah_card.dart';
+import 'package:tafsir/aayaat/ui/aayaat_list.dart';
 import 'package:tafsir/aayaat/ui/go_to_aayah.dart';
 import 'package:tafsir/aayaat/ui/scroll_position_widget.dart';
 import 'package:tafsir/aayaat/ui/short_suwar_list.dart';
@@ -25,11 +25,13 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 
 class SurahPage extends StatefulWidget {
   const SurahPage._(
+    this._ayahPosition,
     this._surahNumber,
     this._mainCubit,
     this._suwar,
   );
 
+  final AyahPosition _ayahPosition;
   final SurahNumber _surahNumber;
   final MainCubit _mainCubit;
   final List<Surah> _suwar;
@@ -52,20 +54,21 @@ class SurahPage extends StatefulWidget {
           providers: [
             BlocProvider(
               create: (context) => AayaatCubit(
-                context,
                 context.read(),
                 context.read(),
-                context.read(),
-                suwar,
                 mainCubit,
                 surahNumber,
-                ayahPosition,
               )..init(),
             ),
-            BlocProvider(create: (context) => ScrollPositionCubit()),
             BlocProvider(create: (context) => PlayerCubit(context.read())),
+            BlocProvider(
+              create: (context) => ScrollPositionCubit(
+                suwar[surahNumber - 1].quantity,
+                ayahPosition.number,
+              ),
+            ),
           ],
-          child: SurahPage._(surahNumber, mainCubit, suwar),
+          child: SurahPage._(ayahPosition, surahNumber, mainCubit, suwar),
         ),
       ),
     ),
@@ -84,13 +87,9 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
 
   var _enableUI = true;
 
-  Orientation? _lastOrientation;
-
   @override
   void initState() {
     super.initState();
-
-    _controller.addListener(_onScroll);
 
     WidgetsBinding.instance.addObserver(this);
 
@@ -105,25 +104,9 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
 
     WidgetsBinding.instance.removeObserver(this);
 
-    _controller.removeListener(_onScroll);
     _controller.dispose();
 
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    final currentOrientation = MediaQuery.of(context).orientation;
-
-    if (_lastOrientation != currentOrientation) {
-      _lastOrientation = currentOrientation;
-
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) context.read<AayaatCubit>().onOrientationChanged();
-      });
-    }
   }
 
   @override
@@ -131,23 +114,9 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
     super.didChangeAppLifecycleState(state);
 
     if (state == .paused || state == .detached) {
-      context.read<AayaatCubit>().savePosition(.new(_controller.offset));
-    }
-  }
-
-  void _onScroll() {
-    context.read<ScrollPositionCubit>().update(.new(_controller.offset));
-  }
-
-  void _navigateTo({required double offset, bool animate = true}) {
-    if (animate) {
-      _controller.animateTo(
-        offset,
-        curve: Curves.fastOutSlowIn,
-        duration: const .new(milliseconds: 500),
+      context.read<AayaatCubit>().savePosition(
+        context.read<ScrollPositionCubit>().state.minVisible,
       );
-    } else {
-      _controller.jumpTo(offset);
     }
   }
 
@@ -161,22 +130,7 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
 
     return Scaffold(
       key: _scaffoldKey,
-      body: BlocConsumer<AayaatCubit, AayaatState>(
-        listener: (context, state) {
-          if (state case AayaatStateSuccess(
-            :final scrollProgressMax,
-            :final scrollTo,
-            :final jumpTo,
-          )) {
-            if (scrollProgressMax != null) {
-              context.read<ScrollPositionCubit>().updateMax(scrollProgressMax);
-            }
-
-            if (jumpTo != null) _navigateTo(offset: jumpTo, animate: false);
-
-            if (scrollTo != null) _navigateTo(offset: scrollTo);
-          }
-        },
+      body: BlocBuilder<AayaatCubit, AayaatState>(
         builder: (context, state) {
           return switch (state) {
             AayaatStateSuccess() => _success(context, state),
@@ -199,15 +153,15 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
   }
 
   Widget _success(BuildContext context, AayaatStateSuccess state) {
-    if (state.inProgerss) return const ProgressWidget();
-
     return BlocListener<ThemeCubit, ThemeState>(
       listener: (context, state) {
         WakelockPlus.toggle(enable: state.doNotSwitchOffScreen);
       },
       child: PopScope(
         onPopInvokedWithResult: (didPop, result) {
-          context.read<AayaatCubit>().savePosition(.new(_controller.offset));
+          context.read<AayaatCubit>().savePosition(
+            context.read<ScrollPositionCubit>().state.minVisible,
+          );
         },
 
         child: Builder(
@@ -233,23 +187,17 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
                     ),
 
                     SliverPadding(
-                      padding: const .symmetric(horizontal: 20, vertical: 12),
-                      sliver: SliverList.separated(
-                        itemCount: state.aayaat.length,
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(height: 8);
-                        },
-                        itemBuilder: (context, index) => AyahCard(
-                          surah: state.surah,
-                          ayah: state.aayaat[index],
-                          key: .new(index.toString()),
-                          isBookmarked: state.bookmarks.contains(index + 1),
-                        ),
+                      sliver: AayaatList(
+                        surah: state.surah,
+                        aayaat: state.aayaat,
+                        bookmarks: state.bookmarks,
+                        scrollController: _controller,
+                        ayahPosition: widget._ayahPosition,
                       ),
+                      padding: const .symmetric(horizontal: 20, vertical: 12),
                     ),
 
                     SliverPadding(
-                      padding: const .only(right: 20, left: 20, bottom: 20),
                       sliver: SliverToBoxAdapter(
                         child: SurahNavigator(
                           suwar: widget._suwar,
@@ -261,6 +209,7 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
                           },
                         ),
                       ),
+                      padding: const .only(right: 20, left: 20, bottom: 20),
                     ),
                   ],
                 ),
@@ -295,10 +244,6 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
   }
 
   void _goToAayah(BuildContext context) {
-    final aayahNumber = context.read<AayaatCubit>().getCurrentAaayahNumber(
-      .new(_controller.offset),
-    );
-
     showModalBottomSheet(
       context: context,
       showDragHandle: true,
@@ -312,11 +257,11 @@ class _SurahPageState extends State<SurahPage> with WidgetsBindingObserver {
           ),
           child: GoToAayah(
             suwar: widget._suwar,
-            aayahNumber: aayahNumber,
             mainCubit: widget._mainCubit,
             surahNumber: widget._surahNumber,
             onGoingToSurah: () => _enableUI = false,
             onGoTo: context.read<AayaatCubit>().goToAayah,
+            aayahNumber: context.read<ScrollPositionCubit>().state.minVisible,
           ),
         );
       },
