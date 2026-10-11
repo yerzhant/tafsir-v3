@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/player.dart';
-import 'package:tafsir/aayaat/domain/widgets_heights_service.dart';
 import 'package:tafsir/common/db/db_service.dart';
 import 'package:tafsir/common/ui/app_error_widget.dart';
 import 'package:tafsir/common/ui/app_theme.dart';
@@ -39,8 +38,6 @@ class App extends StatelessWidget {
         RepositoryProvider(create: (context) => ThemeDb(context.read())),
         RepositoryProvider(create: (context) => SearchDb(context.read())),
         RepositoryProvider(create: (context) => SettingsDb(context.read())),
-
-        RepositoryProvider(create: (context) => WidgetsHeightsService()),
       ],
       child: MultiBlocProvider(
         providers: [
