@@ -74,6 +74,15 @@ class _AayaahListState extends State<AayaatList> {
       scrollController: widget.scrollController,
       duration: (_) => const .new(milliseconds: 500),
     );
+
+    Future.delayed(
+      const .new(milliseconds: 501),
+      () => widget.scrollController.animateTo(
+        duration: const .new(microseconds: 1),
+        widget.scrollController.offset + 1,
+        curve: Curves.linear,
+      ),
+    );
   }
 
   @override
