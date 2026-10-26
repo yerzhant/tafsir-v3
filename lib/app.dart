@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tafsir/aayaat/db/aayaat_db.dart';
 import 'package:tafsir/aayaat/domain/player.dart';
 import 'package:tafsir/common/db/db_service.dart';
@@ -56,6 +57,7 @@ class App extends StatelessWidget {
                 ),
                 textSelectionTheme: .new(
                   cursorColor: brandPrimary(themeState.theme),
+                  selectionColor: brandPrimary(themeState.theme),
                   selectionHandleColor: brandPrimary(themeState.theme),
                 ),
                 sliderTheme: .new(
@@ -121,6 +123,12 @@ class App extends StatelessWidget {
                   ),
                 ),
               ),
+              supportedLocales: const [Locale('ru')],
+              localizationsDelegates: const [
+                // GlobalWidgetsLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
             );
           },
         ),

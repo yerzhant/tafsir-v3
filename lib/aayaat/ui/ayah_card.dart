@@ -124,7 +124,7 @@ class _AyahCardState extends State<AyahCard> {
                                   Row(
                                     children: [
                                       Expanded(
-                                        child: Text(
+                                        child: SelectableText(
                                           textAlign: .right,
                                           widget.ayah.arabic,
                                           style: textBodyReg.copyWith(
@@ -143,7 +143,7 @@ class _AyahCardState extends State<AyahCard> {
                                   ),
 
                                 if (settings.showTranslation)
-                                  Text(
+                                  SelectableText(
                                     widget.ayah.translation,
                                     style: textCallout.copyWith(
                                       color: typographyPrimary(
@@ -157,19 +157,21 @@ class _AyahCardState extends State<AyahCard> {
                           ),
 
                         if (settings.showTafsir)
-                          Html(
-                            data: widget.ayah.tafsir,
-                            style: {
-                              ...htmlStyles(
-                                themeState.theme,
-                                settings.tafsirFontSize,
-                              ),
-                              'div.snoski': .new(
-                                display: settings.showFootnotes
-                                    ? .block
-                                    : .none,
-                              ),
-                            },
+                          SelectionArea(
+                            child: Html(
+                              data: widget.ayah.tafsir,
+                              style: {
+                                ...htmlStyles(
+                                  themeState.theme,
+                                  settings.tafsirFontSize,
+                                ),
+                                'div.snoski': .new(
+                                  display: settings.showFootnotes
+                                      ? .block
+                                      : .none,
+                                ),
+                              },
+                            ),
                           ),
                       ],
                     );

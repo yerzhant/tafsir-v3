@@ -36,11 +36,13 @@ class SurahInfoCard extends StatelessWidget {
               ),
               child: BlocBuilder<SettingsCubit, SettingsState>(
                 builder: (context, settings) {
-                  return Html(
-                    data: info.value,
-                    style: htmlStyles(
-                      themeState.theme,
-                      settings.tafsirFontSize,
+                  return SelectionArea(
+                    child: Html(
+                      data: info.value,
+                      style: htmlStyles(
+                        themeState.theme,
+                        settings.tafsirFontSize,
+                      ),
                     ),
                   );
                 },
